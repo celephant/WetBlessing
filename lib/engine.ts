@@ -1,3 +1,4 @@
+import { countsTowardChoiceIndex } from "./choice-index";
 import { getNode, route, type CompiledRoute } from "./content";
 import { SKU_STORY_PASS_MONTH } from "./tokens";
 import type {
@@ -254,8 +255,10 @@ export function selectChoice(
 
   const nextState: GameState = {
     ...state,
-    // choiceIndex increments only on player branches, never on advance / advanceByFlag
-    choiceIndex: state.choiceIndex + 1,
+    // ≥2-way branches and the first_sub wall count; continue / advance do not
+    choiceIndex: countsTowardChoiceIndex(node, compiled)
+      ? state.choiceIndex + 1
+      : state.choiceIndex,
     flags: applyFlags(state.flags, choice.setFlags),
     stats: applyDelta(state.stats, choice.delta),
     pendingChoiceId: null,

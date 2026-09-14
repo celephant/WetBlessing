@@ -1,5 +1,10 @@
+import { assertChoiceIndexBudget } from "./choice-index";
 import type { ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
+
+/** Canonical Ch01 on main@398a3dc. Also linked at src/content/chapters/ch01.json. */
+export const DEFAULT_CH01_PATH = "content/CONTENT-ch01-free-to-firstsub.json";
+export const DEFAULT_CH01_VERSION = "0.4.6-midboard";
 
 export const content = raw as ContentFile;
 
@@ -24,7 +29,7 @@ export function compileRoute(file: ContentFile = content): CompiledRoute {
     }
     nodes.set(node.nodeId, node);
   }
-  return {
+  const compiled = {
     content: file,
     nodes,
     entryNodeId: stage.entryNodeId,
@@ -32,9 +37,17 @@ export function compileRoute(file: ContentFile = content): CompiledRoute {
     choiceIndexHardCap: file.meta.choiceIndexHardCap,
     gateField: file.meta.gateField,
   };
+  assertChoiceIndexBudget(compiled);
+  return compiled;
 }
 
 export const route = compileRoute();
+
+if (content.contentVersion !== DEFAULT_CH01_VERSION) {
+  throw new Error(
+    `Default Ch01 must be ${DEFAULT_CH01_VERSION} (${DEFAULT_CH01_PATH})`,
+  );
+}
 
 export function getNode(
   nodeId: string,

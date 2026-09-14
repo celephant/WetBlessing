@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:choice-index": "vitest run tests/choice-index-paths.test.ts"
   },
   "dependencies": {
     "next": "^15.5.3",

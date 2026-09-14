@@ -1,6 +1,6 @@
 "use client";
 
-import { choiceVariant, variantBarClass } from "@/lib/choice-variant";
+import { choiceVariant, showsPassChip, variantBarClass } from "@/lib/choice-variant";
 import { PASS_PRICE } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
 
@@ -17,10 +17,11 @@ export function ChoiceList({ choices, entitled, onSelect }: ChoiceListProps) {
     <div className="relative z-[3] mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2">
       {choices.map((choice, index) => {
         const variant = choiceVariant(choice);
+        const passChip = showsPassChip(choice);
         const locked =
+          passChip &&
           Boolean(choice.requiresEntitlement) &&
-          !entitled &&
-          variant === "pass";
+          !entitled;
         return (
           <button
             key={choice.choiceId}
@@ -38,7 +39,7 @@ export function ChoiceList({ choices, entitled, onSelect }: ChoiceListProps) {
               <span className="font-ui text-[15px] leading-snug text-paper">
                 {choice.text}
               </span>
-              {variant === "pass" ? (
+              {passChip ? (
                 <span className="shrink-0 rounded-full bg-gradient-to-r from-[#E8C56A] via-[#F6F1E8] to-[#E8C56A] bg-[length:200%_100%] px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wide text-ink animate-gold-sweep">
                   {locked ? "锁 · " : ""}月卡 ${PASS_PRICE}
                 </span>

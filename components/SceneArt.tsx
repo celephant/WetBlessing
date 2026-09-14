@@ -10,6 +10,7 @@ type SceneArtProps = {
 };
 
 export function SceneArt({ assetId, artCue, nodeId }: SceneArtProps) {
+  // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   const src = assetUrl(assetId);
   const [failed, setFailed] = useState(false);
 

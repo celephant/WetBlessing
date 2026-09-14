@@ -2,8 +2,16 @@ import type { Choice } from "./types";
 
 export type ChoiceVariant = "jie" | "yuan" | "duo" | "pass" | "ghost" | "plain";
 
+export function showsPassChip(choice: Choice): boolean {
+  return (
+    choice.onLocked === "show_pass_chip" ||
+    choice.cta === "story_pass_month" ||
+    choice.requiresEntitlement === "story_pass_month"
+  );
+}
+
 export function choiceVariant(choice: Choice): ChoiceVariant {
-  if (choice.gateChoice === "subscribe" || choice.cta === "story_pass_month") {
+  if (choice.gateChoice === "subscribe" || showsPassChip(choice)) {
     return "pass";
   }
   if (choice.gateChoice === "defer") return "ghost";
