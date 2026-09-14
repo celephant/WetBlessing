@@ -23,13 +23,13 @@ export function DialogBar({
 
   return (
     <div
-      className="absolute inset-x-0 bottom-0 flex flex-col justify-end"
+      className="absolute inset-x-0 bottom-0 box-border"
       style={{ height: "var(--wb-dialog-h)", zIndex: 2 }}
       data-dialog-bar="night-pass"
     >
-      <div className="flex h-full w-full flex-col justify-end px-3 pb-3 pt-2 sm:px-4">
+      <div className="flex h-full w-full flex-col px-3 sm:px-4">
         <div
-          className="wb-dialog-in flex min-h-0 flex-1 flex-col justify-end rounded-[var(--wb-radius-dialog)] border border-[var(--wb-line)] px-5 py-4"
+          className="wb-dialog-in flex h-full min-h-0 flex-col justify-end rounded-[var(--wb-radius-dialog)] border border-[var(--wb-line)] px-5 py-4"
           style={{ background: "rgba(18,20,28,0.82)", boxShadow: "0 16px 40px rgba(0,0,0,0.35)" }}
           data-testid="dialog-advance"
           role={paywalled ? undefined : "button"}
