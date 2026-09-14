@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Syne:wght@500;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #07080c;
+  --night: #12141c;
+  --paper: #f6f1e8;
+  --font-display: "Syne", sans-serif;
+  --font-ui: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    sans-serif;
+}
+
+html,
+body {
+  background: var(--void);
+  color: var(--paper);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+}
