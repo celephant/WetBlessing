@@ -22,13 +22,16 @@ function walkFiles(dir: string, acc: string[] = []): string[] {
 }
 
 describe("Slice-0 hard locks", () => {
-  it("uses only the 0.4.7-feel content pack on main", () => {
-    expect(content.contentVersion).toBe("0.4.7-feel");
+  it("uses only the 0.4.8-feel-hot content pack on main", () => {
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(content.project).toBe("WetBlessing");
     expect(readdirSync(path.join(root, "content")).sort()).toEqual([
+      "ART-camera-crops-v1.json",
+      "ART-climax-manifest.json",
       "CONTENT-ch01-free-to-firstsub.json",
       "UI-tokens.json",
       "compile-allowlist.json",
+      "copy",
     ]);
   });
 

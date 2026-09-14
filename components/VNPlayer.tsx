@@ -130,11 +130,14 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     commit(withEntitlement(state, SKU_STORY_PASS_MONTH, entitlements.story_pass_month));
   };
 
-  const wallNode = isPaywallWallNode(snapshot.node.nodeId);
+  const wallNode = isPaywallWallNode(
+    snapshot.node.nodeId,
+    snapshot.node.gate,
+  );
   const nightGrade =
     Boolean(locked) ||
     snapshot.isPaywall ||
-    isNightGradeNode(snapshot.node.nodeId);
+    isNightGradeNode(snapshot.node.nodeId, snapshot.node.gate);
 
   return (
     <div
@@ -154,6 +157,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         fx={sceneHooks.fx}
         afterPurchase={afterPurchase}
         forceNightGrade={nightGrade}
+        gate={snapshot.node.gate}
       />
 
       <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
@@ -228,6 +232,8 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
       {locked ? (
         <PaywallOverlay
           choice={locked}
+          gate={snapshot.node.gate}
+          entitled={state.entitlements.story_pass_month}
           onDevUnlock={onDevUnlock}
           onClose={() => setLocked(null)}
         />

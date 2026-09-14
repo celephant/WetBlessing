@@ -5,16 +5,23 @@ export type CompileAllowEntry = {
   path: string;
   contentVersion: string;
   routeId: string;
+  supersedes?: string;
 };
 
 export type CompileAllowlist = {
   patch: string;
+  amendedFor?: string;
   defaultAllow: CompileAllowEntry[];
   denyDefaultGlobs: string[];
   note: string;
 };
 
 export const compileAllowlist = allowlistJson as CompileAllowlist;
+
+export const DEFAULT_LOAD_VERSIONS = new Set([
+  "0.4.8-feel-hot",
+  "0.4.8-feel",
+]);
 
 export function globToRegExp(glob: string): RegExp {
   const escaped = glob.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*");
@@ -32,6 +39,14 @@ export function matchesDenyGlob(
   return all.some((glob) => globToRegExp(glob).test(value) || globToRegExp(glob).test(base));
 }
 
+export function versionsMatch(allowed: string, fileVersion: string): boolean {
+  if (allowed === fileVersion) return true;
+  if (DEFAULT_LOAD_VERSIONS.has(allowed) && DEFAULT_LOAD_VERSIONS.has(fileVersion)) {
+    return true;
+  }
+  return false;
+}
+
 export function isDefaultAllowlisted(
   file: ContentFile,
   sourcePath: string,
@@ -40,7 +55,7 @@ export function isDefaultAllowlisted(
   return allow.defaultAllow.some(
     (entry) =>
       entry.path === sourcePath &&
-      entry.contentVersion === file.contentVersion &&
+      versionsMatch(entry.contentVersion, file.contentVersion) &&
       entry.routeId === file.routeId,
   );
 }
@@ -58,7 +73,7 @@ export function collectDeniedIds(file: ContentFile, sourcePath: string): string[
   return hits;
 }
 
-/** Default player/compile load: allowlisted 0.4.7-feel Kai Ch01 only. */
+/** Default player/compile load: allowlisted 0.4.8-feel-hot Kai Ch01 only. */
 export function assertDefaultLoad(file: ContentFile, sourcePath: string): void {
   const denied = collectDeniedIds(file, sourcePath);
   if (denied.length > 0) {
@@ -68,7 +83,7 @@ export function assertDefaultLoad(file: ContentFile, sourcePath: string): void {
   }
   if (!isDefaultAllowlisted(file, sourcePath)) {
     throw new Error(
-      `P-D2 deny: default load requires contentVersion=0.4.7-feel routeId=route_kai_ch01 (${sourcePath})`,
+      `P-D2 deny: default load requires contentVersion=0.4.8-feel-hot routeId=route_kai_ch01 (${sourcePath})`,
     );
   }
 }

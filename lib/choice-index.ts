@@ -1,7 +1,12 @@
+import { isWallGate } from "./paywall-copy";
 import type { CompiledRoute, ContentNode, FlagValue, Flags } from "./types";
 
 export function isWallNode(node: ContentNode, compiled: CompiledRoute): boolean {
-  return node.gate === compiled.gateField || node.nodeId === compiled.firstSubNodeId;
+  return (
+    isWallGate(node.gate) ||
+    node.gate === compiled.gateField ||
+    node.nodeId === compiled.firstSubNodeId
+  );
 }
 
 /** ≥2-way branches and the first_sub wall count. continue / advance do not. */

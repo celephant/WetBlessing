@@ -8,14 +8,14 @@ import { showsPassChip } from "../lib/choice-variant";
 import type { ContentFile, ContentNode } from "../lib/types";
 
 describe("P-D1 engine surface", () => {
-  it("defaults Ch01 to 0.4.7-feel at the canonical path", () => {
+  it("defaults Ch01 to 0.4.8-feel-hot at the canonical path", () => {
     expect(DEFAULT_CH01_PATH).toBe("content/CONTENT-ch01-free-to-firstsub.json");
-    expect(DEFAULT_CH01_VERSION).toBe("0.4.7-feel");
-    expect(content.contentVersion).toBe("0.4.7-feel");
+    expect(DEFAULT_CH01_VERSION).toBe("0.4.8-feel-hot");
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
     const linked = JSON.parse(
       readFileSync(path.resolve(__dirname, "../src/content/chapters/ch01.json"), "utf8"),
     ) as ContentFile;
-    expect(linked.contentVersion).toBe("0.4.7-feel");
+    expect(linked.contentVersion).toBe("0.4.8-feel-hot");
     expect(linked.routeId).toBe(content.routeId);
   });
 

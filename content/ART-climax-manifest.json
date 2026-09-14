@@ -1,0 +1,12 @@
+{
+  "status": "BLOCKED_BYTES",
+  "reason": "P0 climax webp attachments were not recoverable as original bytes in this agent run (vision-only / no binary payload). Do not invent images.",
+  "paths": [
+    "public/assets/scenes/w2/n_w2_almost_kiss.webp",
+    "public/assets/scenes/w2/n_w2_door_gap.webp",
+    "public/assets/scenes/w3/n_w3_door_lock_hand.webp",
+    "public/assets/scenes/w3/n_w3_sleepover_edge.webp",
+    "public/assets/scenes/w3/n_w3_vanessa_dm.webp",
+    "public/assets/scenes/w4/n_w4_morning_light.webp"
+  ]
+}

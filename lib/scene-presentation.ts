@@ -95,11 +95,13 @@ export const NIGHT_GRADE_NODE_IDS = new Set([
   "n_free_soft_exit",
 ]);
 
-export function isNightGradeNode(nodeId?: string): boolean {
+export function isNightGradeNode(nodeId?: string, gate?: string): boolean {
+  if (gate === "first_sub" || gate === "edge_lock") return true;
   return Boolean(nodeId && NIGHT_GRADE_NODE_IDS.has(nodeId));
 }
 
-export function isPaywallWallNode(nodeId?: string): boolean {
+export function isPaywallWallNode(nodeId?: string, gate?: string): boolean {
+  if (gate === "first_sub" || gate === "edge_lock") return true;
   return nodeId === tokens.paywall.nodeId || nodeId === "n_ch01_first_sub";
 }
 
@@ -267,10 +269,14 @@ export function selectSameAssetMotion(options: {
 export function selectSceneFx(options: {
   explicit?: string;
   nodeId?: string;
+  gate?: string;
   forceNightGrade?: boolean;
 }): SceneFxName {
   // PhoneGlow stays off on SMS + paywall (night vignette only).
-  if (options.forceNightGrade || isNightGradeNode(options.nodeId)) {
+  if (
+    options.forceNightGrade ||
+    isNightGradeNode(options.nodeId, options.gate)
+  ) {
     return "vignette";
   }
   return parseFx(options.explicit) ?? DEFAULT_SCENE_FX;
@@ -278,9 +284,12 @@ export function selectSceneFx(options: {
 
 export function phoneGlowAllowed(options: {
   nodeId?: string;
+  gate?: string;
   forceNightGrade?: boolean;
 }): boolean {
-  return !options.forceNightGrade && !isNightGradeNode(options.nodeId);
+  return (
+    !options.forceNightGrade && !isNightGradeNode(options.nodeId, options.gate)
+  );
 }
 
 /**
@@ -317,7 +326,11 @@ export function resolveScenePresentation(
   fx: SceneFxName;
 } {
   const hooks = presentationHooksForBeat(node, beatIndex);
-  const fx = selectSceneFx({ explicit: hooks.fx, nodeId: node.nodeId });
+  const fx = selectSceneFx({
+    explicit: hooks.fx,
+    nodeId: node.nodeId,
+    gate: node.gate,
+  });
   return {
     transition: selectAssetChangeTransition({
       explicit: hooks.transition,

@@ -12,8 +12,8 @@ import {
 } from "../lib/engine";
 
 describe("content integrity", () => {
-  it("loads 0.4.7-feel Ch01", () => {
-    expect(content.contentVersion).toBe("0.4.7-feel");
+  it("loads 0.4.8-feel-hot Ch01", () => {
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(content.project).toBe("WetBlessing");
     expect(content.meta.gateField).toBe("first_sub");
     expect(content.meta.firstSubNodeId).toBe("n_ch01_first_sub");

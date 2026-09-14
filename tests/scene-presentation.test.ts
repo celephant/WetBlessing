@@ -161,7 +161,7 @@ describe("same-asset motion", () => {
     );
   });
 
-  it("maps 0.4.7-feel camera words onto shipped motion", () => {
+  it("maps 0.4.8-feel-hot camera words onto shipped motion", () => {
     expect(parseCamera("wide")).toBe("kenburns-up");
     expect(parseCamera("close")).toBe("kenburns-right");
     expect(parseCamera("extreme_close")).toBe("breathe");
@@ -243,8 +243,8 @@ describe("fx + optional node/line hooks", () => {
     });
   });
 
-  it("resolves 0.4.7-feel node fx/camera without requiring a fixture rewrite", () => {
-    expect(content.contentVersion).toBe("0.4.7-feel");
+  it("resolves 0.4.8-feel-hot node fx/camera without requiring a fixture rewrite", () => {
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
     const open = content.stages[0]!.nodes.find((node) => node.nodeId === "n_open");
     expect(open?.fx).toBe("warm_dust");
     expect(open?.camera).toBe("wide");

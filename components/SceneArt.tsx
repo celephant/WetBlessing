@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
+  cropRect,
+  cropToTransform,
+  nextCropName,
+  selectCropName,
+} from "@/lib/camera-crops";
+import {
+  MOTION_SPEC,
   phoneGlowAllowed,
   selectAssetChangeTransition,
   selectSameAssetMotion,
@@ -24,6 +31,7 @@ type SceneArtProps = {
   fx?: string;
   afterPurchase?: boolean;
   forceNightGrade?: boolean;
+  gate?: string;
 };
 
 const PLACEHOLDER_BG =
@@ -44,6 +52,7 @@ export function SceneArt({
   fx,
   afterPurchase = false,
   forceNightGrade = false,
+  gate,
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
@@ -59,7 +68,7 @@ export function SceneArt({
     selectSameAssetMotion({ explicitCamera: camera, holdCount: 0 }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
-    selectSceneFx({ explicit: fx, nodeId, forceNightGrade }),
+    selectSceneFx({ explicit: fx, nodeId, gate, forceNightGrade }),
   );
   const [holdCount, setHoldCount] = useState(0);
 
@@ -92,8 +101,8 @@ export function SceneArt({
   };
 
   useEffect(() => {
-    setOverlay(selectSceneFx({ explicit: fx, nodeId, forceNightGrade }));
-  }, [fx, nodeId, forceNightGrade]);
+    setOverlay(selectSceneFx({ explicit: fx, nodeId, gate, forceNightGrade }));
+  }, [fx, nodeId, gate, forceNightGrade]);
 
   useEffect(() => {
     const entrance = window.setTimeout(() => {
@@ -173,8 +182,25 @@ export function SceneArt({
   }, [assetId, beatKey]);
 
   const showImage = !plate.failed;
+  const cropName = selectCropName({
+    explicitCamera: camera,
+    holdCount,
+  });
+  const fromCrop = cropToTransform(cropRect(cropName), 1);
+  const toCrop = cropToTransform(
+    cropRect(nextCropName(cropName)),
+    MOTION_SPEC.kenBurnsScale,
+  );
+  const cropStyle = {
+    "--crop-from-scale": String(fromCrop.scale),
+    "--crop-from-tx": `${fromCrop.tx}%`,
+    "--crop-from-ty": `${fromCrop.ty}%`,
+    "--crop-to-scale": String(toCrop.scale),
+    "--crop-to-tx": `${toCrop.tx}%`,
+    "--crop-to-ty": `${toCrop.ty}%`,
+  } as CSSProperties;
   const motionClass =
-    motion === "hold" ? "scene-motion-hold" : `scene-motion-${motion}`;
+    motion === "hold" ? "scene-crop-hold" : "scene-crop-kenburns";
   const incomingClass = activeTransition ? `scene-in-${activeTransition}` : "";
   const outgoingClass = activeTransition ? `scene-out-${activeTransition}` : "";
 
@@ -187,8 +213,10 @@ export function SceneArt({
       data-scene-motion={motion}
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
+      data-scene-crop={cropName}
       data-phone-glow={
-        overlay === "soft-light" && phoneGlowAllowed({ nodeId, forceNightGrade })
+        overlay === "soft-light" &&
+        phoneGlowAllowed({ nodeId, gate, forceNightGrade })
           ? "on"
           : "off"
       }
@@ -198,7 +226,8 @@ export function SceneArt({
           src={outgoing.src}
           alt=""
           failed={outgoing.failed}
-          motionClass="scene-motion-hold"
+          motionClass="scene-crop-hold"
+          cropStyle={cropStyle}
           layerClass={`scene-plate-out ${outgoingClass}`}
         />
       ) : null}
@@ -208,6 +237,7 @@ export function SceneArt({
         alt={alt}
         failed={plate.failed}
         motionClass={motionClass}
+        cropStyle={cropStyle}
         layerClass={`scene-plate-in ${incomingClass}`}
         onError={() => {
           plateFailedRef.current = true;
@@ -238,6 +268,7 @@ function ScenePlate({
   alt,
   failed,
   motionClass,
+  cropStyle,
   layerClass,
   onError,
 }: {
@@ -245,6 +276,7 @@ function ScenePlate({
   alt: string;
   failed: boolean;
   motionClass: string;
+  cropStyle?: CSSProperties;
   layerClass: string;
   onError?: () => void;
 }) {
@@ -262,12 +294,12 @@ function ScenePlate({
           ) : null}
         </div>
       ) : (
-        <div className={`absolute inset-[-8%] ${motionClass}`}>
+        <div className={`absolute inset-[-8%] ${motionClass}`} style={cropStyle}>
           <div
             className={
-              motionClass.startsWith("scene-motion-kenburns")
-                ? "scene-motion-breathe-layer h-full w-full"
-                : "h-full w-full"
+              motionClass === "scene-crop-hold"
+                ? "h-full w-full"
+                : "scene-motion-breathe-layer h-full w-full"
             }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

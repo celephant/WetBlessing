@@ -1,7 +1,7 @@
 # ART 进仓核对续页 · P-D5 付费段 assetId 别名
 
 **效力：** GATE P-D5 · G2/夹具合并 PR 必带  
-**夹具：** `CONTENT-ch01-free-to-firstsub.json` · `0.4.7-feel`  
+**夹具：** `CONTENT-ch01-free-to-firstsub.json` · `0.4.8-feel-hot`  
 **规则：** 播放器**只认 `assetId` 路径**，不要用 `nodeId` 拼文件名。多节点可指向同一 webp。
 
 ## 1. 付费段别名表（核心）

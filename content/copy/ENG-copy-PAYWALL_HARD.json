@@ -1,0 +1,17 @@
+{
+  "errorCode": "PAYWALL_HARD",
+  "http": 402,
+  "zh-CN": {
+    "title": "体温还没散。未赴的那条短信还亮着。",
+    "body": "刚才那场已经够热——想两边都圆、或把话说完，开通通行证当场续读。",
+    "primary": "开通剧本通行证 · $8.99",
+    "secondary": "只续这一段 · $2.99",
+    "tertiary": "稍后再说"
+  },
+  "behavior": {
+    "primaryAction": "checkout_sku:story_pass_month",
+    "secondaryAction": "checkout_sku:chapter_unlock|scope=w1_continue",
+    "tertiaryAction": "dismiss",
+    "tone": "体温未散续读钩；免费段已兴奋；禁暗示开通后才开始暧昧；禁成人/AI女友"
+  }
+}

@@ -1,17 +1,23 @@
 {
   "patch": "P-D2",
+  "amendedFor": "0.4.8-feel-hot",
   "defaultAllow": [
     {
       "path": "content/CONTENT-ch01-free-to-firstsub.json",
-      "contentVersion": "0.4.7-feel",
-      "routeId": "route_kai_ch01"
+      "contentVersion": "0.4.8-feel-hot",
+      "routeId": "route_kai_ch01",
+      "supersedes": "0.4.7-feel"
     }
   ],
   "denyDefaultGlobs": [
     "CONTENT-route_li_*",
     "CONTENT-stage_0*",
     "persona_li_*",
-    "*黎*"
+    "*黎*",
+    "CONTENT-fourweek-*",
+    "CONTENT-w2-*",
+    "CONTENT-w3-*",
+    "CONTENT-w4-*"
   ],
-  "note": "旧黎包 FROZEN 非MVP；不得进默认编译与演示"
+  "note": "结构同0.4.6；观感文案升0.4.8-feel-hot（supersedes 0.4.7-feel / 0.4.6-midboard）。黎包与 fourweek 草稿仍不得进默认编译与演示。"
 }

@@ -61,8 +61,14 @@ body {
   animation: scene-dip-veil var(--transition-dip-ms, 380ms) ease-in-out forwards;
 }
 
-.scene-motion-hold {
-  transform: scale(1.012);
+.scene-motion-hold,
+.scene-crop-hold {
+  transform: scale(var(--crop-from-scale, 1.012))
+    translate(var(--crop-from-tx, 0%), var(--crop-from-ty, 0%));
+}
+.scene-crop-kenburns {
+  animation: scene-crop-kenburns var(--motion-kenburns-ms, 14000ms) ease-in-out
+    forwards;
 }
 .scene-motion-kenburns-right {
   animation: scene-kenburns-right var(--motion-kenburns-ms, 14000ms) ease-in-out
@@ -197,6 +203,16 @@ body {
     opacity: 0;
   }
 }
+@keyframes scene-crop-kenburns {
+  from {
+    transform: scale(var(--crop-from-scale, 1))
+      translate(var(--crop-from-tx, 0%), var(--crop-from-ty, 0%));
+  }
+  to {
+    transform: scale(var(--crop-to-scale, 1.028))
+      translate(var(--crop-to-tx, 0%), var(--crop-to-ty, 0%));
+  }
+}
 @keyframes scene-kenburns-right {
   from {
     transform: scale(1) translate(0%, 0%);
@@ -281,6 +297,7 @@ body {
   .scene-motion-kenburns-right,
   .scene-motion-kenburns-left,
   .scene-motion-kenburns-up,
+  .scene-crop-kenburns,
   .scene-motion-breathe,
   .scene-motion-breathe-layer,
   .dialog-enter,

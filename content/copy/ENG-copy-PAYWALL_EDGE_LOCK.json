@@ -1,0 +1,19 @@
+{
+  "errorCode": "PAYWALL_EDGE_LOCK",
+  "http": 402,
+  "zh-CN": {
+    "title": "门把在你手心发热。",
+    "body": "再推半寸就是今晚。想看门后——开通通行证，或只解锁这一夜。",
+    "primary": "开通剧本通行证 · $8.99",
+    "primaryOwned": "推门进去",
+    "secondary": "只解锁这一夜 · $2.99",
+    "tertiary": "先离开"
+  },
+  "behavior": {
+    "primaryAction": "checkout_sku:story_pass_month",
+    "primaryOwnedAction": "continue_paid_edge",
+    "secondaryAction": "checkout_sku:chapter_unlock|scope=w3_edge_night",
+    "tertiaryAction": "leave_door",
+    "tone": "擦边饥渴；不提露点/上床/成人"
+  }
+}

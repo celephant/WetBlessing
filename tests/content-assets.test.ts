@@ -17,7 +17,7 @@ function publicFileForUrl(url: string): string {
   return path.join(root, "public", url.slice(1));
 }
 
-describe("wired 0.4.7-feel assets", () => {
+describe("wired 0.4.8-feel-hot assets", () => {
   it("ships ready scene webps under public/", () => {
     const ready = content.meta.artReady ?? [];
     expect(ready.length).toBeGreaterThan(0);

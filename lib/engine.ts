@@ -142,7 +142,11 @@ function assertFirstSubWall(
   choiceIndex: number,
   compiled: CompiledRoute,
 ): void {
-  if (node.gate !== compiled.gateField && node.nodeId !== compiled.firstSubNodeId) {
+  if (
+    node.gate !== compiled.gateField &&
+    node.gate !== "edge_lock" &&
+    node.nodeId !== compiled.firstSubNodeId
+  ) {
     return;
   }
   if (choiceIndex > compiled.choiceIndexHardCap) {
@@ -210,7 +214,7 @@ export function view(
     choices,
     canClickAdvance,
     isSettle: node.type === "settle",
-    isPaywall: node.gate === compiled.gateField,
+    isPaywall: node.gate === compiled.gateField || node.gate === "edge_lock",
   };
 }
 
@@ -334,7 +338,12 @@ export function walkAllPaths(
     const node = getNode(state.nodeId, compiled);
     const here: PathStep = { nodeId: state.nodeId, choiceIndex: state.choiceIndex };
 
-    if (stopAtFirstSub && (node.gate === compiled.gateField || node.nodeId === compiled.firstSubNodeId)) {
+    if (
+      stopAtFirstSub &&
+      (node.gate === compiled.gateField ||
+        node.gate === "edge_lock" ||
+        node.nodeId === compiled.firstSubNodeId)
+    ) {
       paths.push([...path, here]);
       return;
     }

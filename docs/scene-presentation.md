@@ -1,6 +1,6 @@
 # Scene presentation hooks
 
-Optional fields on a dialogue **node** or a **stage line**. Missing fields still get defaults. The 0.4.7-feel Chinese fixture sets `fx` / `camera` (e.g. `warm_dust`, `close`); the player maps those words onto the shipped overlays / Ken Burns primitives below.
+Optional fields on a dialogue **node** or a **stage line**. Missing fields still get defaults. The 0.4.8-feel-hot Chinese fixture sets `fx` / `camera` (e.g. `warm_dust`, `close`); the player maps those words onto the shipped overlays / Ken Burns primitives below.
 
 | Field | Where | Values | Missing default |
 |---|---|---|---|

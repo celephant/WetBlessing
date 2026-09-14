@@ -16,8 +16,8 @@ describe("all-path choiceIndex script", () => {
     expect(Math.max(...paths.map((path) => path.choiceIndex))).toBe(6);
   });
 
-  it("compiles default 0.4.7-feel Ch01", () => {
-    expect(content.contentVersion).toBe("0.4.7-feel");
+  it("compiles default 0.4.8-feel-hot Ch01", () => {
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(() => compileRoute(content)).not.toThrow();
   });
 });
