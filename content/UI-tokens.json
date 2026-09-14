@@ -1,0 +1,106 @@
+{
+  "name": "WetBlessing Night Pass",
+  "version": "1.0.0",
+  "colors": {
+    "void": "#07080C",
+    "night": "#12141C",
+    "glass": "rgba(255,255,255,0.08)",
+    "paper": "#F6F1E8",
+    "ink": "#16141A",
+    "mute": "#8B8794",
+    "hot": "#FF4B6B",
+    "mint": "#5EE0C0",
+    "gold": "#E8C56A",
+    "mia": "#FF8A6B",
+    "jade": "#8FB4FF",
+    "vanessa": "#E8C56A",
+    "line": "rgba(255,255,255,0.12)"
+  },
+  "type": {
+    "display": "Syne",
+    "ui": "Noto Sans SC",
+    "dialogSize": {
+      "sm": 15,
+      "md": 17,
+      "lg": 19
+    },
+    "dialogLineHeight": 28,
+    "nameSize": 13,
+    "choiceSize": 15,
+    "choiceMinHeight": 52
+  },
+  "space": {
+    "screenInset": 12,
+    "dialogPadX": 20,
+    "dialogPadY": 16,
+    "choiceGap": 8,
+    "radiusDialog": 20,
+    "radiusChip": 14
+  },
+  "zIndex": {
+    "cg": 0,
+    "dim": 1,
+    "dialog": 2,
+    "choices": 3,
+    "chrome": 4,
+    "menu": 5
+  },
+  "motion": {
+    "dialogMs": 180,
+    "choiceStaggerMs": 40,
+    "goldSweepMs": 600
+  },
+  "choiceVariants": {
+    "jie": {
+      "bar": "hot",
+      "label": "接招"
+    },
+    "yuan": {
+      "bar": "gold",
+      "label": "圆场"
+    },
+    "duo": {
+      "bar": null,
+      "label": "躲开"
+    }
+  },
+  "paywall": {
+    "nodeId": "n_ch01_first_sub",
+    "gate": "first_sub",
+    "sku": "story_pass_month",
+    "price": 8.99,
+    "headline": "开通，把这句说出口",
+    "footnote": "开通后这一句立刻接上，不跳走。",
+    "softExit": "「忙。」",
+    "ghost": "稍后再说",
+    "goldOnlyOnYuan": true,
+    "forbidAllChipsGold": true
+  },
+  "copySamples": {
+    "s1": {
+      "name": "Mia",
+      "text": "Kai，手别插裤兜—箱子！"
+    },
+    "s2": {
+      "name": "Jade",
+      "text": "哟，新生？登记桌那边缺人手。——哦，你认识她？",
+      "choices": [
+        "接招帮 Mia",
+        "接 Jade 的话",
+        "躲开"
+      ]
+    },
+    "s3": {
+      "text": "未赴的短信还亮着。",
+      "choices": [
+        "「忙。」",
+        "把圆场那句说出口 · 月卡 $8.99",
+        "稍后再说"
+      ]
+    }
+  },
+  "breakpoints": {
+    "mobile": 390,
+    "desktopDialogMax": 720
+  }
+}
