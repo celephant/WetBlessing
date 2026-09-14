@@ -106,6 +106,11 @@ export function isPaywallWallNode(nodeId?: string, gate?: string): boolean {
   return nodeId === tokens.paywall.nodeId || nodeId === "n_ch01_first_sub";
 }
 
+/** Free dialogue before a wall: motion + suggestive grade, never paid-gated. */
+export function isFreePathFeel(nodeId?: string, gate?: string): boolean {
+  return !isNightGradeNode(nodeId, gate) && !isPaywallWallNode(nodeId, gate);
+}
+
 /** Wall rhythm: dip → chips → gold yuan once → unlock softZoom. */
 export const WALL_RHYTHM = {
   arrival: tokenCut(tokens.transitions.defaults.smsOrPaywall),
@@ -248,11 +253,16 @@ export function selectAssetChangeTransition(options: {
 export function selectSameAssetMotion(options: {
   explicitCamera?: string;
   holdCount: number;
+  allowHold?: boolean;
 }): SceneMotion {
   const camera = parseCamera(options.explicitCamera);
   const hold = Math.max(0, options.holdCount);
 
-  if (camera === "hold") return "hold";
+  if (camera === "hold") {
+    return options.allowHold
+      ? "hold"
+      : SAME_ASSET_MOTIONS[hold % SAME_ASSET_MOTIONS.length]!;
+  }
   if (camera === "breathe") return "breathe";
   if (
     camera === "kenburns-right" ||
@@ -280,6 +290,11 @@ export function selectSceneFx(options: {
     isNightGradeNode(options.nodeId, options.gate)
   ) {
     return "vignette";
+  }
+  // Free path (and any non-night beat): warmVeil + magentaMist, not adult red/black.
+  // Authored dual_focus / close_whisper / etc. must not flatten this to a cold plate.
+  if (isFreePathFeel(options.nodeId, options.gate)) {
+    return "warm-tint";
   }
   return parseFx(options.explicit) ?? DEFAULT_SCENE_FX;
 }
@@ -345,6 +360,7 @@ export function resolveScenePresentation(
     motion: selectSameAssetMotion({
       explicitCamera: hooks.camera,
       holdCount: options.holdCount,
+      allowHold: !isFreePathFeel(node.nodeId, node.gate),
     }),
     fx,
   };

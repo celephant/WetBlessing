@@ -22,6 +22,14 @@ describe("ART camera crops", () => {
     expect(selectCropName({ explicitCamera: "close", holdCount: 0 })).toBe(
       "close",
     );
+    expect(selectCropName({ explicitCamera: "wide", holdCount: 0 })).toBe("wide");
+    expect(selectCropName({ explicitCamera: "wide", holdCount: 1 })).toBe("mid");
+    expect(selectCropName({ explicitCamera: "wide", holdCount: 2 })).toBe(
+      "close",
+    );
+    expect(
+      selectCropName({ explicitCamera: "close", holdCount: 3, lockCrop: true }),
+    ).toBe("close");
     expect(cropSafeBottom(cropRect("wide"))).toBe(true);
     expect(cropSafeBottom(cropRect("mid"))).toBe(true);
     expect(cropSafeBottom(cropRect("close"))).toBe(true);

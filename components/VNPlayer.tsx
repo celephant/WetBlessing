@@ -23,6 +23,7 @@ import {
   revokeStoryPassDev,
 } from "@/lib/entitlement";
 import {
+  isFreePathFeel,
   isNightGradeNode,
   isPaywallWallNode,
   presentationHooksForBeat,
@@ -150,6 +151,11 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
       }
       data-phone-glow={nightGrade ? "off" : undefined}
+      data-free-feel={
+        !nightGrade && isFreePathFeel(snapshot.node.nodeId, snapshot.node.gate)
+          ? "on"
+          : "off"
+      }
       data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
       data-unlock-gates="first_sub,edge_lock"
       data-entitle-first-sub={state.entitlements.story_pass_month ? "on" : "off"}

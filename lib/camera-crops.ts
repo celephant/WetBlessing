@@ -40,14 +40,24 @@ export function nextCropName(name: CropName): CropName {
   return CROP_CYCLE[(idx + 1) % CROP_CYCLE.length]!;
 }
 
-/** Same-asset multi-line cycle: wide → mid → close. Explicit camera words stick. */
+/**
+ * Same-asset multi-line cycle: wide → mid → close.
+ * Free path starts on the authored crop (close/mid when the fixture asks)
+ * then walks the cycle on each hold. Night/wall may lock the authored crop.
+ */
 export function selectCropName(options: {
   explicitCamera?: string;
   holdCount: number;
+  lockCrop?: boolean;
 }): CropName {
   const named = parseCropName(options.explicitCamera);
-  if (named && options.explicitCamera !== "kenburns") return named;
-  return CROP_CYCLE[Math.max(0, options.holdCount) % CROP_CYCLE.length]!;
+  const hold = Math.max(0, options.holdCount);
+  if (options.lockCrop && named && options.explicitCamera !== "kenburns") {
+    return named;
+  }
+  const startIdx = named ? CROP_CYCLE.indexOf(named) : 0;
+  const start = startIdx >= 0 ? startIdx : 0;
+  return CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
 }
 
 export function cropToTransform(

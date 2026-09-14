@@ -143,9 +143,16 @@ describe("same-asset motion", () => {
   });
 
   it("honors camera hold / breathe / kenburns", () => {
-    expect(selectSameAssetMotion({ explicitCamera: "hold", holdCount: 3 })).toBe(
-      "hold",
-    );
+    expect(
+      selectSameAssetMotion({
+        explicitCamera: "hold",
+        holdCount: 3,
+        allowHold: true,
+      }),
+    ).toBe("hold");
+    expect(
+      selectSameAssetMotion({ explicitCamera: "hold", holdCount: 3 }),
+    ).not.toBe("hold");
     expect(
       selectSameAssetMotion({ explicitCamera: "breathe", holdCount: 0 }),
     ).toBe("breathe");
@@ -172,9 +179,16 @@ describe("same-asset motion", () => {
     expect(parseCamera("wide")).toBe("kenburns-up");
     expect(parseCamera("close")).toBe("kenburns-right");
     expect(parseCamera("extreme_close")).toBe("breathe");
-    expect(selectSameAssetMotion({ explicitCamera: "insert", holdCount: 2 })).toBe(
-      "hold",
-    );
+    expect(
+      selectSameAssetMotion({
+        explicitCamera: "insert",
+        holdCount: 2,
+        allowHold: true,
+      }),
+    ).toBe("hold");
+    expect(
+      selectSameAssetMotion({ explicitCamera: "insert", holdCount: 2 }),
+    ).not.toBe("hold");
   });
 });
 
@@ -183,8 +197,8 @@ describe("fx + optional node/line hooks", () => {
     expect(selectSceneFx({})).toBe(DEFAULT_SCENE_FX);
     expect(DEFAULT_SCENE_FX).toBe("warm-tint");
     expect(selectSceneFx({ explicit: "warm-tint" })).toBe("warm-tint");
-    expect(selectSceneFx({ explicit: "soft-light" })).toBe("soft-light");
-    expect(selectSceneFx({ explicit: "none" })).toBe("none");
+    expect(selectSceneFx({ explicit: "soft-light" })).toBe("warm-tint");
+    expect(selectSceneFx({ explicit: "none" })).toBe("warm-tint");
     expect(parseFx("bloom")).toBeNull();
     expect(parseFx("warm_dust")).toBe("warm-tint");
     expect(parseFx("phone_glow")).toBe("soft-light");

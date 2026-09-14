@@ -8,6 +8,8 @@ import {
   selectCropName,
 } from "@/lib/camera-crops";
 import {
+  isFreePathFeel,
+  isNightGradeNode,
   MOTION_SPEC,
   phoneGlowAllowed,
   selectAssetChangeTransition,
@@ -64,8 +66,14 @@ export function SceneArt({
   const [outgoing, setOutgoing] = useState<Plate | null>(null);
   const [activeTransition, setActiveTransition] =
     useState<SceneTransitionName | null>("fade");
+  const lockCrop =
+    forceNightGrade || isNightGradeNode(nodeId, gate);
   const [motion, setMotion] = useState<SceneMotion>(() =>
-    selectSameAssetMotion({ explicitCamera: camera, holdCount: 0 }),
+    selectSameAssetMotion({
+      explicitCamera: camera,
+      holdCount: 0,
+      allowHold: lockCrop,
+    }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
     selectSceneFx({ explicit: fx, nodeId, gate, forceNightGrade }),
@@ -162,7 +170,13 @@ export function SceneArt({
       setActiveTransition(nextTransition);
       holdCountRef.current = 0;
       setHoldCount(0);
-      setMotion(selectSameAssetMotion({ explicitCamera: cam, holdCount: 0 }));
+      setMotion(
+        selectSameAssetMotion({
+          explicitCamera: cam,
+          holdCount: 0,
+          allowHold: lockCrop,
+        }),
+      );
       identityRef.current = next;
       if (cutTimerRef.current !== null) {
         clearTimeout(cutTimerRef.current);
@@ -181,6 +195,7 @@ export function SceneArt({
       selectSameAssetMotion({
         explicitCamera: cam,
         holdCount: holdCountRef.current,
+        allowHold: lockCrop,
       }),
     );
   }, [assetId, beatKey]);
@@ -189,6 +204,7 @@ export function SceneArt({
   const cropName = selectCropName({
     explicitCamera: camera,
     holdCount,
+    lockCrop,
   });
   const fromCrop = cropToTransform(cropRect(cropName), 1);
   const toCrop = cropToTransform(
@@ -218,6 +234,9 @@ export function SceneArt({
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
       data-scene-crop={cropName}
+      data-free-feel={
+        !forceNightGrade && isFreePathFeel(nodeId, gate) ? "on" : "off"
+      }
       data-phone-glow={
         overlay === "soft-light" &&
         phoneGlowAllowed({ nodeId, gate, forceNightGrade })
@@ -237,6 +256,7 @@ export function SceneArt({
       ) : null}
 
       <ScenePlate
+        key={`in-${cropName}-${holdCount}`}
         src={plate.src}
         alt={alt}
         failed={plate.failed}
