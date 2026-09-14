@@ -94,6 +94,15 @@ export type ContentFile = {
   stages: Stage[];
 };
 
+export type CompiledRoute = {
+  content: ContentFile;
+  nodes: Map<string, ContentNode>;
+  entryNodeId: string;
+  firstSubNodeId: string;
+  choiceIndexHardCap: number;
+  gateField: string;
+};
+
 export type CharacterStats = {
   affection: number;
   desire: number;

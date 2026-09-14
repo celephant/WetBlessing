@@ -1,5 +1,5 @@
 import { assertChoiceIndexBudget } from "./choice-index";
-import type { ContentFile, ContentNode } from "./types";
+import type { CompiledRoute, ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
 
 /** Canonical Ch01 on main@398a3dc. Also linked at src/content/chapters/ch01.json. */
@@ -8,14 +8,7 @@ export const DEFAULT_CH01_VERSION = "0.4.6-midboard";
 
 export const content = raw as ContentFile;
 
-export type CompiledRoute = {
-  content: ContentFile;
-  nodes: Map<string, ContentNode>;
-  entryNodeId: string;
-  firstSubNodeId: string;
-  choiceIndexHardCap: number;
-  gateField: string;
-};
+export type { CompiledRoute };
 
 export function compileRoute(file: ContentFile = content): CompiledRoute {
   const stage = file.stages[0];
