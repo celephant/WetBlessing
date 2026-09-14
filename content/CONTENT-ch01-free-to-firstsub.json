@@ -1,7 +1,7 @@
 {
   "routeId": "route_kai_ch01",
   "routeTitle": "Kai · 入学周（至首订）",
-  "contentVersion": "0.4.6-midboard",
+  "contentVersion": "0.4.7-feel",
   "project": "WetBlessing",
   "meta": {
     "choiceIndexHardCap": 10,
@@ -31,8 +31,11 @@
       "n_title",
       "n_with_a"
     ],
-    "changelog": "0.4.6: Jade路径冲突前n_mia_tease_auto(0选项擦边旁白); n_pay_02_router仅advanceByFlag、不亮续给玩家",
-    "artPayDefault": "catch_b visual defaults to Jade (poster B); Mia catch variant TBD"
+    "changelog": "0.4.6: Jade路径冲突前n_mia_tease_auto(0选项擦边旁白); n_pay_02_router仅advanceByFlag、不亮续给玩家; 0.4.7-feel: 观感加码暧昧文案（出品）+ CEO stamp",
+    "artPayDefault": "catch_b visual defaults to Jade (poster B); Mia catch variant TBD",
+    "feelPatch": "FEEL-观感加码文案补丁-0.4.7.md",
+    "feelRules": "T-erotic tension only; no nudity; no sex acts; male-campus tease",
+    "ceoStamp": "CEO·WetBlessing 盖版 2026-09-14：contentVersion 0.4.7-feel 批准灌仓；尺度=擦边大胆（半露/湿润/衣着凌乱边缘可；禁露点禁实操）"
   },
   "personas": {
     "persona_kai_v1": {
@@ -59,20 +62,22 @@
           "nodeId": "n_open",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "州立大学报到日。宿舍楼的电梯口堵着纸箱，空气里是纸皮和廉价香水味。",
+          "text": "州立大学报到日。宿舍电梯口堵着纸箱，纸皮味里混着防晒霜和某种更近的体香——有人刚从你身侧挤过去，衣摆擦到你手背。",
           "assetId": "assets/scenes/ch01/n_open.webp",
           "artCue": "宿舍电梯厅全景日光纸箱，大构图；缺图用占位",
           "artStatus": "placeholder",
           "characters": [
             "kai"
           ],
-          "advance": "n_see_both"
+          "advance": "n_see_both",
+          "fx": "warm_dust",
+          "camera": "wide"
         },
         {
           "nodeId": "n_see_both",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "电梯门开。Mia 抱着纸箱看见你；同时 Jade 带着迎新队擦肩而过。两个人都开口了。",
+          "text": "电梯门开。Mia 抱着纸箱看见你，领口被箱子压得歪了一点；同时 Jade 带着迎新队擦肩而过，香水在你鼻尖停半秒。两个人都开口了。",
           "assetId": "assets/scenes/ch01/n_see_both.webp",
           "artCue": "电梯口双人同框：Mia抱箱左近景，Jade迎新队右路过，Kai可被两人叫到；半身大构图日系动漫；脸在上55%；底栏28%留给对话框勿烧UI",
           "artStatus": "ready",
@@ -84,17 +89,17 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「Kai，手别插裤兜——箱子！」"
+              "text": "「Kai，手别插裤兜——箱子！别装不认识。」"
             },
             {
               "speaker": "jade",
-              "text": "「哟，新生？登记桌那边缺人手。——哦，你认识她？」"
+              "text": "「哟，新生？登记桌缺人手。——哦，你认识她？眼神倒挺黏。」"
             }
           ],
           "choices": [
             {
               "choiceId": "c_help_mia",
-              "text": "接招：箱子给我。",
+              "text": "接招：箱子给我——手伸过去。",
               "next": "n_mia_edge_1",
               "delta": {
                 "stats": {
@@ -110,7 +115,7 @@
             },
             {
               "choiceId": "c_talk_jade",
-              "text": "接招：登记桌？我可以去。",
+              "text": "接招：登记桌？我跟你走。",
               "next": "n_jade_desk",
               "delta": {
                 "stats": {
@@ -126,7 +131,7 @@
             },
             {
               "choiceId": "c_dodge_both",
-              "text": "躲开：先刷卡进门。",
+              "text": "躲开：先刷卡，别对上眼。",
               "next": "n_dodge_corridor",
               "delta": {
                 "stats": {
@@ -140,13 +145,15 @@
                 "dodged_see_both": true
               }
             }
-          ]
+          ],
+          "fx": "dual_focus",
+          "camera": "medium"
         },
         {
           "nodeId": "n_jade_desk",
           "type": "dialogue",
           "speaker": "jade",
-          "text": "登记桌边人很多。Jade 把笔拍在表格上：「名字——别写歪。合影的时候可别装不认识我。」",
+          "text": "登记桌边人很多。Jade 把笔拍进你掌心，指尖多停半拍，凑近得能听见她耳环轻响：「名字——别写歪。合影的时候可别装不认识我……站近点好看。」",
           "assetId": "assets/scenes/ch01/n_jade_desk.webp",
           "artCue": "迎新登记桌：Jade半身近景场面感，Kai填表或对话，日系动漫，脸在上55%；占位可先",
           "artStatus": "placeholder",
@@ -157,7 +164,7 @@
           "choices": [
             {
               "choiceId": "c_jade_smirk",
-              "text": "接招：合影我记着。",
+              "text": "接招：合影我记着——站多近都行。",
               "next": "n_mia_tease_auto",
               "delta": {
                 "stats": {
@@ -170,7 +177,7 @@
             },
             {
               "choiceId": "c_jade_ok",
-              "text": "圆场：……好。",
+              "text": "圆场：……好。笔还你。",
               "next": "n_mia_tease_auto",
               "delta": {
                 "stats": {
@@ -182,19 +189,21 @@
             },
             {
               "choiceId": "c_jade_go",
-              "text": "躲开：填完就走。",
+              "text": "躲开：填完就走，别沾上她的香水。",
               "next": "n_mia_tease_auto",
               "delta": {
                 "tension": 1
               }
             }
-          ]
+          ],
+          "fx": "close_whisper",
+          "camera": "close"
         },
         {
           "nodeId": "n_mia_tease_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "离开登记桌时，走廊另一头 Mia 正把纸箱卡住电梯门。她没叫你——只抬眼，旧得过分的熟：像在说「忙完外面那个，还认得箱子吗」。发丝扫过肩，她自己先别开视线，哼一声走进电梯。",
+          "text": "离开登记桌时，走廊另一头 Mia 正把纸箱卡住电梯门。她没叫你——只抬眼，旧得过分的熟：像在说「忙完外面那个，还认得这具温度吗」。发丝扫过肩，领口又歪了一点；她自己先别开视线，哼一声走进电梯，门缝里还留着她的香水尾调。",
           "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
           "artCue": {
             "summary": "0选项发小擦边旁白：远距熟视/发丝，不塞箱亲密操作；可复用edge或占位"
@@ -204,13 +213,15 @@
             "kai",
             "mia"
           ],
-          "advance": "n_conflict"
+          "advance": "n_conflict",
+          "fx": "corridor_heat",
+          "camera": "long_then_cut"
         },
         {
           "nodeId": "n_dodge_corridor",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你刷卡进门。身后 Mia 的箱子落地声，Jade 那边传来一声短笑。谁都没被你接住——但晚上还会再撞上。",
+          "text": "你刷卡进门。身后 Mia 的箱子落地，闷响；Jade 那边传梥一声短笑，像贴在你后颈。谁都没被你接住——皮肤上还留着刚才擦过的温度。",
           "assetId": "assets/scenes/ch01/n_dodge_corridor.webp",
           "artCue": "走廊躲开：两人未接住的余韵，无塞箱亲密；占位",
           "artStatus": "placeholder",
@@ -220,20 +231,22 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "（远处）「……行。」"
+              "text": "（远处）「……行。晚上别装死。」"
             },
             {
               "speaker": "jade",
-              "text": "（更远）「装忙啊。」"
+              "text": "（更远）「装忙啊。合影我照样点名。」"
             }
           ],
-          "advance": "n_conflict"
+          "advance": "n_conflict",
+          "fx": "afterimage",
+          "camera": "over_shoulder"
         },
         {
           "nodeId": "n_mia_edge_1",
           "type": "dialogue",
           "speaker": "mia",
-          "text": "她还是把箱子边沿塞进你掌心，指节撞了一下。「别装不认识。手伸过来。」",
+          "text": "她还是把箱子边沿塞进你掌心，指节撞了一下，热得不像刚搬完。「别装不认识。手伸过梥——旧的那套。」呼吸几乎打在你锁骨。",
           "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
           "artCue": "电梯内近景Mia/Kai半身纸箱距离过近；熟悉感擦边T；发型按设定板；脸在上55%",
           "artStatus": "ready",
@@ -244,7 +257,7 @@
           "choices": [
             {
               "choiceId": "c_mia_hugish",
-              "text": "接招：旧毛病。",
+              "text": "接招：旧毛病。——箱子沉，你贴过梥。",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -258,7 +271,7 @@
             },
             {
               "choiceId": "c_mia_safe",
-              "text": "圆场：……好久不见。",
+              "text": "圆场：……好久不见。距离留半步。",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -270,19 +283,21 @@
             },
             {
               "choiceId": "c_mia_side",
-              "text": "躲开：侧身让她。",
+              "text": "躲开：侧身让她，胸口空一截。",
               "next": "n_mia_edge_2",
               "delta": {
                 "tension": 2
               }
             }
-          ]
+          ],
+          "fx": "breath",
+          "camera": "close"
         },
         {
           "nodeId": "n_mia_edge_2",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "电梯很窄。她偏头时发丝擦过你下巴，自己也顿住，却只哼一声：「你长高了这点，别以为我要仰视你。」",
+          "text": "电梯很窄。她偏头说话时，发丝擦过你下巴，唇几乎擦到你下颌线——自己也顿住，耳尖红了，却只哼一声：「你长高了这点，别以为我要仰视你。」衣料擦过你小臂，热了一下。",
           "assetId": "assets/scenes/ch01/n_mia_edge_2.webp",
           "artCue": "更近：发丝擦下巴；Mia耳尖微红嘴硬；占位直至出图",
           "artStatus": "placeholder",
@@ -293,7 +308,7 @@
           "choices": [
             {
               "choiceId": "c_mia_banter",
-              "text": "接招：那你还撞我。",
+              "text": "接招：那你还撞我。——嗓子有点紧。",
               "next": "n_conflict",
               "delta": {
                 "stats": {
@@ -306,7 +321,7 @@
             },
             {
               "choiceId": "c_mia_box",
-              "text": "圆场：箱子到了。",
+              "text": "圆场：箱子到了。——后退半步。",
               "next": "n_conflict",
               "delta": {
                 "stats": {
@@ -318,19 +333,21 @@
             },
             {
               "choiceId": "c_mia_go",
-              "text": "躲开：……你先。",
+              "text": "躲开：……你先。——侧身贴冷墙。",
               "next": "n_conflict",
               "delta": {
                 "tension": 2
               }
             }
-          ]
+          ],
+          "fx": "hair_brush",
+          "camera": "extreme_close"
         },
         {
           "nodeId": "n_conflict",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "傍晚，迎新边缘的小型派对。音乐从室内漏出来。两个人几乎同时找上你。",
+          "text": "傍晚，迎新边缘的小型派对。音乐从室内漏出梥，热气和酒味贴着皮肤。两个人几乎同时找上你——一个侧门阴影，一个台阶灯光。",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "派对廊道霓虹左右分压：Mia侧门招手，Jade台阶喊合影，Kai居中；大构图；勿烧对话框",
           "artStatus": "ready",
@@ -342,17 +359,17 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「那边太吵，你过来一下。」"
+              "text": "「那边太吵。你过梥一下——就我们。」"
             },
             {
               "speaker": "jade",
-              "text": "「Kai！上来合影——就差你。」"
+              "text": "「Kai！上梥合影——就差你。站我旁边，手别瞎放。」"
             }
           ],
           "choices": [
             {
               "choiceId": "c_go_mia",
-              "text": "赴 Mia（私下）",
+              "text": "赴 Mia（私下侧门）",
               "next": "n_with_mia",
               "delta": {
                 "stats": {
@@ -370,7 +387,7 @@
             },
             {
               "choiceId": "c_go_jade",
-              "text": "赴 Jade（公开合影）",
+              "text": "赴 Jade（公开合影贴肩）",
               "next": "n_with_jade",
               "delta": {
                 "stats": {
@@ -387,7 +404,7 @@
             },
             {
               "choiceId": "c_dodge_party",
-              "text": "躲开两场",
+              "text": "躲开两场——先喘口气",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 3
@@ -398,13 +415,15 @@
                 "stood_up_jade": true
               }
             }
-          ]
+          ],
+          "fx": "party_split",
+          "camera": "wide_split"
         },
         {
           "nodeId": "n_with_mia",
           "type": "dialogue",
           "speaker": "mia",
-          "text": "侧门风有点冷。Mia 看着你：「就一句——别让我在门口像白痴。」手机却先亮了。",
+          "text": "侧门风有点冷，她的体温反而更近。Mia 抬眼看着你，指尖碰了碰你袖口又收回：「就一句——别让我在门口像白痴。」呼吸打在你颈侧。手机却先亮了。",
           "assetId": "assets/scenes/ch01/n_with_a.webp",
           "artCue": "与Mia私下短确认；可复用with图",
           "artStatus": "placeholder",
@@ -415,7 +434,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：再靠近半步。",
+              "text": "接招：再靠近半步，几乎贴上。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -427,7 +446,7 @@
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：先应付场面。",
+              "text": "圆场：先应付场面——手还想伸。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -439,19 +458,21 @@
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：余光看手机。",
+              "text": "躲开：余光看手机，喉结滚一下。",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               }
             }
-          ]
+          ],
+          "fx": "door_shadow",
+          "camera": "close"
         },
         {
           "nodeId": "n_with_jade",
           "type": "dialogue",
           "speaker": "jade",
-          "text": "闪光灯间隙，Jade 压低声音：「站这边——镜头好看。」合影还没散，另一条短信已经杀到。",
+          "text": "闪光灯间隙，Jade 拉你站近，肩撞肩，压低声音贴着你耳廓：「站这边——镜头好看。别僵。」合影还没散，香水混着她发丝扫过你下颌；另一条短信已经杀到。",
           "assetId": "assets/scenes/ch01/n_with_a.webp",
           "artCue": "与Jade公开合影缝隙短确认",
           "artStatus": "placeholder",
@@ -462,7 +483,7 @@
           "choices": [
             {
               "choiceId": "c_wj_close",
-              "text": "接招：再靠近半步。",
+              "text": "接招：再靠近半步，让镜头吃满。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -474,7 +495,7 @@
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：先应付场面。",
+              "text": "圆场：先应付场面——肩还贴着。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -486,33 +507,37 @@
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：余光看手机。",
+              "text": "躲开：余光看手机，故意拉开一寸。",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               }
             }
-          ]
+          ],
+          "fx": "flash_afterglow",
+          "camera": "close"
         },
         {
           "nodeId": "n_sms_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "未赴的那条短信亮着。（两场都没去——两条一起亮。）没有免费的「想回」。",
+          "text": "未赴的那条短信亮着，屏幕光打在你手指上。（两场都没去——两条一起亮，像两个人还贴在你皮肤上。）没有免费的「想回」。",
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "暗廊下手机通知光斑模糊无可读气泡；情绪钩；勿烧聊天气泡字/商城按钮",
           "artStatus": "ready",
           "characters": [
             "kai"
           ],
-          "advance": "n_ch01_first_sub"
+          "advance": "n_ch01_first_sub",
+          "fx": "phone_glow",
+          "camera": "insert"
         },
         {
           "nodeId": "n_ch01_first_sub",
           "type": "dialogue",
           "gate": "first_sub",
           "speaker": "narrator",
-          "text": "短信还在。你的手指停在屏幕上方。",
+          "text": "短信还在。你的手指停在屏幕上方——刚才的体温还没散。说圆场，还是装没事？",
           "assetId": "assets/scenes/ch01/n_ch01_first_sub.webp",
           "artCue": "情绪钩侧脸；手机屏仅光感；无月卡按钮烧进图；选项区由UI叠敷衍vs圆场",
           "artStatus": "ready",
@@ -522,7 +547,7 @@
           "choices": [
             {
               "choiceId": "c_free_read",
-              "text": "（已读不回）",
+              "text": "（已读不回）——指尖发烫也装没事",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 2
@@ -531,7 +556,7 @@
             },
             {
               "choiceId": "c_free_busy",
-              "text": "「忙。」",
+              "text": "「忙。」——短得像躲",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 1
@@ -581,7 +606,9 @@
               "delta": {},
               "gateChoice": "defer"
             }
-          ]
+          ],
+          "fx": "tension_hold",
+          "camera": "close_hands"
         },
         {
           "nodeId": "n_free_soft_exit",
@@ -622,7 +649,7 @@
           "nodeId": "n_pay_01_catch_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Mia 接住。不是敷衍——是接招把话说圆。",
+          "text": "你先把 Mia 接住。不是敷衍——是接招把话说圆，声音压低，近到她能感觉你呼吸。",
           "assetId": "assets/scenes/ch01/n_pay_01_catch_b.webp",
           "artCue": {
             "scene": "campus_night_after_party",
@@ -645,7 +672,7 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「刚才不是故意晾你。现在——就我们。」"
+              "text": "「刚才不是故意晾你。现在——就我们。听我说完。」"
             }
           ],
           "setFlags": {
@@ -657,7 +684,7 @@
           "nodeId": "n_pay_01_catch_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Jade 接住。公开场合欠的面子，私下补一句接招。",
+          "text": "你先把 Jade 接住。公开场合欠的面子，私下补一句接招——她耳环又晃了一下。",
           "assetId": "assets/scenes/ch01/n_pay_01_catch_b.webp",
           "artCue": {
             "scene": "campus_night_after_party",
@@ -680,7 +707,7 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「合影我还欠你一张。别在别人面前翻我牌。」"
+              "text": "「合影我还欠你一张。别在别人面前翻我牌——我在。」"
             }
           ],
           "setFlags": {
@@ -710,7 +737,7 @@
           "nodeId": "n_pay_02_ot_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你把时间补回给刚才赴约的 Mia。加时私下——选的人不会被扔。",
+          "text": "你把时间补回给刚才赴约的 Mia。加时私下——侧门更暗，她衣领还歪着，选的人不会被扔。",
           "assetId": "assets/scenes/ch01/n_pay_02_ot_a.webp",
           "artCue": {
             "scene": "dorm_lounge_late",
@@ -736,7 +763,7 @@
           "nodeId": "n_pay_02_ot_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "合影后的缝隙里，你把时间补回给 Jade。加时私下——选的人不会被扔。",
+          "text": "合影后的缝隙里，你把时间补回给 Jade。加时私下——肩还记得刚才贴着的热，选的人不会被扔。",
           "assetId": "assets/scenes/ch01/n_pay_02_ot_a.webp",
           "artCue": {
             "scene": "dorm_lounge_late",
@@ -762,7 +789,7 @@
           "nodeId": "n_pay_02_double_empty",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "两场都没赴。没有赴约加时——只有两边短信的短账单。你把圆场说完了，空档得自己扛。",
+          "text": "两场都没赴。没有赴约加时——只有两边短信的短账单，和皮肤上两股没散尽的香水与纸箱味。你把圆场说完了，空档得自己扛。",
           "assetId": "assets/scenes/ch01/n_pay_02_ot_a.webp",
           "artCue": "双鸽短账单余韵，不写赴约加时",
           "artStatus": "ready",
@@ -775,7 +802,7 @@
           "nodeId": "n_pay_03_vanessa",
           "type": "dialogue",
           "speaker": "vanessa",
-          "text": "「……你挺会周旋。」她从人缝里看了你一眼，Troy 的影子在她身后。「别让我无聊。」",
+          "text": "「……你挺会周旋。」她从人缝里看了你一眼，目光在你喉结停半秒，Troy 的影子在她身后。「别让我无聊。」",
           "assetId": "assets/scenes/ch01/n_pay_03_vanessa.webp",
           "artCue": {
             "scene": "campus_night_edge",
@@ -795,7 +822,9 @@
             "kai",
             "vanessa"
           ],
-          "advance": "n_pay_settle"
+          "advance": "n_pay_settle",
+          "fx": "danger_glance",
+          "camera": "medium_danger"
         },
         {
           "nodeId": "n_pay_settle",

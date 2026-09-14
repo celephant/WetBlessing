@@ -7,9 +7,15 @@ type DialogBoxProps = {
   beat: Beat;
   showCaret: boolean;
   onAdvance: () => void;
+  entranceKey: string;
 };
 
-export function DialogBox({ beat, showCaret, onAdvance }: DialogBoxProps) {
+export function DialogBox({
+  beat,
+  showCaret,
+  onAdvance,
+  entranceKey,
+}: DialogBoxProps) {
   const name = speakerLabel(beat.speaker);
   const color = speakerColor(beat.speaker);
 
@@ -21,7 +27,11 @@ export function DialogBox({ beat, showCaret, onAdvance }: DialogBoxProps) {
       aria-label="Advance dialogue"
     >
       <div className="flex h-full flex-col justify-end border-t border-white/10 bg-night/88 px-5 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-dialog flex-1 flex-col justify-center">
+        <div
+          key={entranceKey}
+          data-dialog-enter={entranceKey}
+          className="dialog-enter mx-auto flex w-full max-w-dialog flex-1 flex-col justify-center"
+        >
           {name ? (
             <p
               className="mb-1 font-display text-[13px] font-semibold tracking-wide"

@@ -58,7 +58,7 @@ export function collectDeniedIds(file: ContentFile, sourcePath: string): string[
   return hits;
 }
 
-/** Default player/compile load: allowlisted 0.4.6 Kai Ch01 only. */
+/** Default player/compile load: allowlisted 0.4.7-feel Kai Ch01 only. */
 export function assertDefaultLoad(file: ContentFile, sourcePath: string): void {
   const denied = collectDeniedIds(file, sourcePath);
   if (denied.length > 0) {
@@ -68,7 +68,7 @@ export function assertDefaultLoad(file: ContentFile, sourcePath: string): void {
   }
   if (!isDefaultAllowlisted(file, sourcePath)) {
     throw new Error(
-      `P-D2 deny: default load requires contentVersion=0.4.6-midboard routeId=route_kai_ch01 (${sourcePath})`,
+      `P-D2 deny: default load requires contentVersion=0.4.7-feel routeId=route_kai_ch01 (${sourcePath})`,
     );
   }
 }

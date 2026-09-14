@@ -3,9 +3,9 @@ import { assertChoiceIndexBudget } from "./choice-index";
 import type { CompiledRoute, ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
 
-/** Canonical Ch01 on main@398a3dc. Also linked at src/content/chapters/ch01.json. */
+/** Canonical Ch01 (0.4.7-feel). Also linked at src/content/chapters/ch01.json. */
 export const DEFAULT_CH01_PATH = "content/CONTENT-ch01-free-to-firstsub.json";
-export const DEFAULT_CH01_VERSION = "0.4.6-midboard";
+export const DEFAULT_CH01_VERSION = "0.4.7-feel";
 export const DEFAULT_CH01_ROUTE_ID = "route_kai_ch01";
 
 const rawDefault = raw as ContentFile;

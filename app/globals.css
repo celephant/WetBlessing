@@ -22,3 +22,223 @@ body {
 body {
   font-family: var(--font-ui);
 }
+
+/* SceneArt: asset-change cuts + same-asset Ken Burns. Dip veil is night-grade, not #000. */
+.scene-plate-in,
+.scene-plate-out {
+  will-change: opacity, transform;
+}
+
+.scene-in-fade {
+  animation: scene-fade-in 520ms ease-out forwards;
+}
+.scene-out-fade {
+  animation: scene-fade-out 520ms ease-out forwards;
+}
+.scene-in-soft-zoom {
+  animation: scene-soft-zoom-in 640ms ease-out forwards;
+}
+.scene-out-soft-zoom {
+  animation: scene-soft-zoom-out 640ms ease-in forwards;
+}
+.scene-in-dip-to-black {
+  animation: scene-dip-in 780ms ease-in-out forwards;
+}
+.scene-out-dip-to-black {
+  animation: scene-dip-out 780ms ease-in-out forwards;
+}
+
+.scene-dip-veil {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(28, 20, 32, 0.55) 0%,
+    rgba(16, 14, 22, 0.88) 100%
+  );
+  animation: scene-dip-veil 780ms ease-in-out forwards;
+}
+
+.scene-motion-hold {
+  transform: scale(1.04);
+}
+.scene-motion-kenburns-right {
+  animation: scene-kenburns-right 12s ease-in-out forwards;
+}
+.scene-motion-kenburns-left {
+  animation: scene-kenburns-left 12s ease-in-out forwards;
+}
+.scene-motion-kenburns-up {
+  animation: scene-kenburns-up 13s ease-in-out forwards;
+}
+.scene-motion-breathe {
+  animation: scene-breathe 4.2s ease-in-out infinite;
+}
+
+.scene-fx-vignette {
+  box-shadow: inset 0 0 140px 36px rgba(7, 8, 12, 0.42);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 42%,
+    rgba(10, 8, 14, 0.28) 100%
+  );
+}
+.scene-fx-warm-tint {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 138, 107, 0.14) 0%,
+    rgba(232, 197, 106, 0.08) 45%,
+    rgba(255, 75, 107, 0.1) 100%
+  );
+  mix-blend-mode: soft-light;
+}
+.scene-fx-soft-light {
+  background: radial-gradient(
+    ellipse at 30% 18%,
+    rgba(246, 241, 232, 0.22) 0%,
+    transparent 46%
+  );
+  mix-blend-mode: soft-light;
+}
+
+.dialog-enter {
+  animation: dialog-enter 280ms ease-out;
+}
+
+@keyframes scene-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scene-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes scene-soft-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes scene-soft-zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes scene-dip-in {
+  0% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes scene-dip-out {
+  0% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes scene-dip-veil {
+  0% {
+    opacity: 0;
+  }
+  38% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes scene-kenburns-right {
+  from {
+    transform: scale(1.06) translate(0%, 0%);
+  }
+  to {
+    transform: scale(1.14) translate(-2.6%, 1.2%);
+  }
+}
+@keyframes scene-kenburns-left {
+  from {
+    transform: scale(1.07) translate(-1%, 0.4%);
+  }
+  to {
+    transform: scale(1.14) translate(2.6%, -1%);
+  }
+}
+@keyframes scene-kenburns-up {
+  from {
+    transform: scale(1.05) translate(0%, 1.4%);
+  }
+  to {
+    transform: scale(1.13) translate(0%, -2.2%);
+  }
+}
+@keyframes scene-breathe {
+  0%,
+  100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-in-fade,
+  .scene-out-fade,
+  .scene-in-soft-zoom,
+  .scene-out-soft-zoom,
+  .scene-in-dip-to-black,
+  .scene-out-dip-to-black,
+  .scene-dip-veil,
+  .scene-motion-kenburns-right,
+  .scene-motion-kenburns-left,
+  .scene-motion-kenburns-up,
+  .scene-motion-breathe,
+  .dialog-enter {
+    animation: none;
+  }
+  .scene-in-soft-zoom,
+  .scene-out-soft-zoom {
+    transform: none;
+  }
+}

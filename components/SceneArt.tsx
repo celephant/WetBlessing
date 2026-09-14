@@ -1,57 +1,246 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { resolveAssetUrl } from "@/lib/assets";
+import { useEffect, useRef, useState } from "react";
+import {
+  selectAssetChangeTransition,
+  selectSameAssetMotion,
+  selectSceneFx,
+  shouldPlayAssetTransition,
+  sceneIdentity,
+  TRANSITION_MS,
+  type SceneMotion,
+} from "@/lib/scene-presentation";
 import { artAlt } from "@/lib/tokens";
+import type { SceneFxName, SceneTransitionName } from "@/lib/types";
 
 type SceneArtProps = {
   assetId?: string;
   artCue?: string | { summary?: string };
   nodeId: string;
+  beatKey: string;
+  transition?: string;
+  camera?: string;
+  fx?: string;
 };
 
 const PLACEHOLDER_BG =
   "bg-[radial-gradient(ellipse_at_top,_rgba(255,75,107,0.32),_transparent_55%),radial-gradient(ellipse_at_bottom,_rgba(94,224,192,0.22),_transparent_48%),linear-gradient(180deg,#2a1a28_0%,#161820_52%,#122028_100%)]";
 
-export function SceneArt({ assetId, artCue, nodeId }: SceneArtProps) {
+type Plate = {
+  src: string;
+  failed: boolean;
+};
+
+export function SceneArt({
+  assetId,
+  artCue,
+  nodeId,
+  beatKey,
+  transition,
+  camera,
+  fx,
+}: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
-  const src = resolveAssetUrl(assetId);
-  const [failed, setFailed] = useState(false);
+  const identity = sceneIdentity(assetId);
+  const src = identity.url;
+  const alt = artAlt(artCue, nodeId);
+
+  const [plate, setPlate] = useState<Plate>({ src, failed: false });
+  const [outgoing, setOutgoing] = useState<Plate | null>(null);
+  const [activeTransition, setActiveTransition] =
+    useState<SceneTransitionName | null>("fade");
+  const [motion, setMotion] = useState<SceneMotion>(() =>
+    selectSameAssetMotion({ explicitCamera: camera, holdCount: 0 }),
+  );
+  const [overlay, setOverlay] = useState<SceneFxName>(() =>
+    selectSceneFx({ explicit: fx }),
+  );
+  const [holdCount, setHoldCount] = useState(0);
+
+  const identityRef = useRef(identity);
+  const plateRef = useRef(plate);
+  const plateFailedRef = useRef(false);
+  const changeCountRef = useRef(0);
+  const holdCountRef = useRef(0);
+  const hooksRef = useRef({ transition, camera, fx });
+  const didMountRef = useRef(false);
+  const prevBeatRef = useRef(beatKey);
+  const prevAssetRef = useRef(assetId);
+  const cutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  plateRef.current = plate;
+  hooksRef.current = { transition, camera, fx };
 
   useEffect(() => {
-    setFailed(false);
-  }, [src]);
+    setOverlay(selectSceneFx({ explicit: fx }));
+  }, [fx]);
 
-  const alt = artAlt(artCue, nodeId);
-  const showImage = !failed;
+  useEffect(() => {
+    const entrance = window.setTimeout(() => {
+      if (changeCountRef.current === 0) {
+        setActiveTransition(null);
+      }
+    }, TRANSITION_MS.fade);
+    return () => {
+      clearTimeout(entrance);
+      if (cutTimerRef.current !== null) {
+        clearTimeout(cutTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      identityRef.current = sceneIdentity(assetId);
+      prevBeatRef.current = beatKey;
+      prevAssetRef.current = assetId;
+      return;
+    }
+
+    const assetChanged = prevAssetRef.current !== assetId;
+    const beatChanged = prevBeatRef.current !== beatKey;
+    prevBeatRef.current = beatKey;
+    prevAssetRef.current = assetId;
+    if (!assetChanged && !beatChanged) return;
+
+    const next = sceneIdentity(assetId);
+    const { camera: cam, transition: cut } = hooksRef.current;
+
+    if (shouldPlayAssetTransition(identityRef.current, next)) {
+      changeCountRef.current += 1;
+      const nextTransition = selectAssetChangeTransition({
+        explicit: cut,
+        changeCount: changeCountRef.current,
+      });
+      setOutgoing({
+        src: plateRef.current.src,
+        failed: plateFailedRef.current,
+      });
+      setPlate({ src: next.url, failed: false });
+      plateFailedRef.current = false;
+      setActiveTransition(nextTransition);
+      holdCountRef.current = 0;
+      setHoldCount(0);
+      setMotion(selectSameAssetMotion({ explicitCamera: cam, holdCount: 0 }));
+      identityRef.current = next;
+      if (cutTimerRef.current !== null) {
+        clearTimeout(cutTimerRef.current);
+      }
+      cutTimerRef.current = setTimeout(() => {
+        setOutgoing(null);
+        setActiveTransition(null);
+        cutTimerRef.current = null;
+      }, TRANSITION_MS[nextTransition]);
+      return;
+    }
+
+    holdCountRef.current += 1;
+    setHoldCount(holdCountRef.current);
+    setMotion(
+      selectSameAssetMotion({
+        explicitCamera: cam,
+        holdCount: holdCountRef.current,
+      }),
+    );
+  }, [assetId, beatKey]);
+
+  const showImage = !plate.failed;
+  const motionClass =
+    motion === "hold" ? "scene-motion-hold" : `scene-motion-${motion}`;
+  const incomingClass = activeTransition ? `scene-in-${activeTransition}` : "";
+  const outgoingClass = activeTransition ? `scene-out-${activeTransition}` : "";
 
   return (
     <div
       className={`absolute inset-0 z-0 overflow-hidden ${PLACEHOLDER_BG}`}
       data-scene-art={showImage ? "image" : "placeholder"}
+      data-scene-src={plate.src}
+      data-scene-transition={activeTransition ?? "none"}
+      data-scene-motion={motion}
+      data-scene-fx={overlay}
+      data-scene-hold={String(holdCount)}
     >
-      {showImage ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={src}
-          alt={alt}
-          className="h-full w-full object-cover object-top"
-          onError={() => setFailed(true)}
+      {outgoing ? (
+        <ScenePlate
+          src={outgoing.src}
+          alt=""
+          failed={outgoing.failed}
+          motionClass="scene-motion-hold"
+          layerClass={`scene-plate-out ${outgoingClass}`}
         />
-      ) : (
+      ) : null}
+
+      <ScenePlate
+        src={plate.src}
+        alt={alt}
+        failed={plate.failed}
+        motionClass={motionClass}
+        layerClass={`scene-plate-in ${incomingClass}`}
+        onError={() => {
+          plateFailedRef.current = true;
+          setPlate((current) => ({ ...current, failed: true }));
+        }}
+      />
+
+      {overlay !== "none" ? (
+        <div
+          className={`pointer-events-none absolute inset-0 z-[2] scene-fx-${overlay}`}
+          data-scene-overlay={overlay}
+        />
+      ) : null}
+
+      {activeTransition === "dip-to-black" ? (
+        <div className="pointer-events-none absolute inset-0 z-[3] scene-dip-veil" />
+      ) : null}
+
+      {showImage ? (
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-void via-void/25 to-black/20" />
+      ) : null}
+    </div>
+  );
+}
+
+function ScenePlate({
+  src,
+  alt,
+  failed,
+  motionClass,
+  layerClass,
+  onError,
+}: {
+  src: string;
+  alt: string;
+  failed: boolean;
+  motionClass: string;
+  layerClass: string;
+  onError?: () => void;
+}) {
+  return (
+    <div className={`absolute inset-0 ${layerClass}`}>
+      {failed ? (
         <div className="relative z-[1] flex h-full w-full flex-col items-center justify-center">
           <p className="font-display text-xs uppercase tracking-[0.3em] text-mint/80">
             placeholder
           </p>
-          <p className="mt-2 max-w-sm px-6 text-center font-ui text-sm text-paper/80">
-            {alt}
-          </p>
+          {alt ? (
+            <p className="mt-2 max-w-sm px-6 text-center font-ui text-sm text-paper/80">
+              {alt}
+            </p>
+          ) : null}
+        </div>
+      ) : (
+        <div className={`absolute inset-[-8%] ${motionClass}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={alt}
+            className="h-full w-full object-cover object-top"
+            onError={onError}
+          />
         </div>
       )}
-      {showImage ? (
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-void via-void/25 to-black/20" />
-      ) : null}
     </div>
   );
 }

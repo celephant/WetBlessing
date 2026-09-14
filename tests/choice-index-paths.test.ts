@@ -16,8 +16,8 @@ describe("all-path choiceIndex script", () => {
     expect(Math.max(...paths.map((path) => path.choiceIndex))).toBe(6);
   });
 
-  it("compiles default 0.4.6-midboard Ch01", () => {
-    expect(content.contentVersion).toBe("0.4.6-midboard");
+  it("compiles default 0.4.7-feel Ch01", () => {
+    expect(content.contentVersion).toBe("0.4.7-feel");
     expect(() => compileRoute(content)).not.toThrow();
   });
 });

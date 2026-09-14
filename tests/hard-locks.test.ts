@@ -22,8 +22,8 @@ function walkFiles(dir: string, acc: string[] = []): string[] {
 }
 
 describe("Slice-0 hard locks", () => {
-  it("uses only the 0.4.6-midboard content pack on main", () => {
-    expect(content.contentVersion).toBe("0.4.6-midboard");
+  it("uses only the 0.4.7-feel content pack on main", () => {
+    expect(content.contentVersion).toBe("0.4.7-feel");
     expect(content.project).toBe("WetBlessing");
     expect(readdirSync(path.join(root, "content")).sort()).toEqual([
       "CONTENT-ch01-free-to-firstsub.json",

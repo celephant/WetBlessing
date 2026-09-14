@@ -33,7 +33,34 @@ export type Choice = {
   onLocked?: string;
 };
 
-export type Line = {
+/**
+ * Optional player-presentation hooks (0.4.7-feel may set fx/camera).
+ * See docs/scene-presentation.md.
+ *
+ * transition — when the resolved scene URL / assetId changes:
+ *   "fade" | "soft-zoom" | "dip-to-black"
+ * camera — same-asset multi-line motion:
+ *   "hold" | "kenburns" | "breathe" | "kenburns-right" | "kenburns-left" | "kenburns-up"
+ * fx — overlay on the base image:
+ *   "none" | "vignette" | "warm-tint" | "soft-light"
+ */
+export type SceneTransitionName = "fade" | "soft-zoom" | "dip-to-black";
+export type SceneCameraName =
+  | "hold"
+  | "kenburns"
+  | "breathe"
+  | "kenburns-right"
+  | "kenburns-left"
+  | "kenburns-up";
+export type SceneFxName = "none" | "vignette" | "warm-tint" | "soft-light";
+
+export type ScenePresentationHooks = {
+  transition?: SceneTransitionName | string;
+  camera?: SceneCameraName | string;
+  fx?: SceneFxName | string;
+};
+
+export type Line = ScenePresentationHooks & {
   speaker: SpeakerId;
   text: string;
 };
@@ -50,7 +77,7 @@ export type ArtCue =
 
 export type NodeType = "dialogue" | "settle";
 
-export type ContentNode = {
+export type ContentNode = ScenePresentationHooks & {
   nodeId: string;
   type: NodeType;
   speaker?: SpeakerId;

@@ -16,7 +16,7 @@ import type { ContentFile } from "../lib/types";
 const stub: ContentFile = {
   routeId: "route_kai_ch01",
   routeTitle: "t",
-  contentVersion: "0.4.6-midboard",
+  contentVersion: "0.4.7-feel",
   project: "WetBlessing",
   meta: {
     choiceIndexHardCap: 10,
@@ -48,7 +48,7 @@ const stub: ContentFile = {
 };
 
 describe("P-D2 compile allowlist", () => {
-  it("defaults only 0.4.6-midboard route_kai_ch01", () => {
+  it("defaults only 0.4.7-feel route_kai_ch01", () => {
     expect(compileAllowlist.patch).toBe("P-D2");
     expect(compileAllowlist.defaultAllow).toEqual([
       {
@@ -57,7 +57,7 @@ describe("P-D2 compile allowlist", () => {
         routeId: DEFAULT_CH01_ROUTE_ID,
       },
     ]);
-    expect(content.contentVersion).toBe("0.4.6-midboard");
+    expect(content.contentVersion).toBe("0.4.7-feel");
     expect(content.routeId).toBe("route_kai_ch01");
     expect(() => assertDefaultLoad(content, DEFAULT_CH01_PATH)).not.toThrow();
   });
@@ -95,6 +95,9 @@ describe("P-D2 compile allowlist", () => {
     expect(() =>
       compileRoute({ ...stub, contentVersion: "0.1.0-li" }, { asDefault: true }),
     ).toThrow(/P-D2 deny/);
+    expect(() =>
+      compileRoute({ ...stub, contentVersion: "0.4.6-midboard" }, { asDefault: true }),
+    ).toThrow(/0\.4\.7-feel/);
   });
 
   it("still compiles non-default test fixtures", () => {

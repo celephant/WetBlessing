@@ -21,6 +21,7 @@ import {
   loadEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
+import { presentationHooksForBeat } from "@/lib/scene-presentation";
 import { NIGHT_PASS_DIALOG_DOCK_CSS, SKU_STORY_PASS_MONTH } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
 
@@ -68,6 +69,8 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
   }
 
   const snapshot = view(state);
+  const beatKey = `${state.nodeId}:${state.beatIndex}`;
+  const sceneHooks = presentationHooksForBeat(snapshot.node, state.beatIndex);
 
   const commit = (next: GameState) => {
     persistSave(next);
@@ -116,6 +119,10 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         assetId={snapshot.node.assetId}
         artCue={snapshot.node.artCue}
         nodeId={snapshot.node.nodeId}
+        beatKey={beatKey}
+        transition={sceneHooks.transition}
+        camera={sceneHooks.camera}
+        fx={sceneHooks.fx}
       />
 
       <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
@@ -178,6 +185,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
               beat={snapshot.beat}
               showCaret={snapshot.canClickAdvance && snapshot.choices.length === 0}
               onAdvance={onDialogClick}
+              entranceKey={beatKey}
             />
           </div>
         </>
