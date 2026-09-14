@@ -15,7 +15,7 @@ export function PaywallOverlay({
   onClose,
 }: PaywallOverlayProps) {
   return (
-    <div className="absolute inset-0 z-[5] flex items-end justify-center bg-black/55 p-4 backdrop-blur-sm">
+    <div className="absolute inset-0 z-[5] flex items-end justify-center bg-void/70 p-4 backdrop-blur-sm">
       <div className="mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 bg-night/95 p-5 shadow-[0_0_40px_rgba(232,197,106,0.2)]">
         <p className="font-display text-[11px] uppercase tracking-[0.22em] text-gold">
           Night Pass

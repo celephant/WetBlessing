@@ -221,7 +221,7 @@
           "nodeId": "n_dodge_corridor",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你刷卡进门。身后 Mia 的箱子落地，闷响；Jade 那边传梥一声短笑，像贴在你后颈。谁都没被你接住——皮肤上还留着刚才擦过的温度。",
+          "text": "你刷卡进门。身后 Mia 的箱子落地，闷响；Jade 那边传来一声短笑，像贴在你后颈。谁都没被你接住——皮肤上还留着刚才擦过的温度。",
           "assetId": "assets/scenes/ch01/n_dodge_corridor.webp",
           "artCue": "走廊躲开：两人未接住的余韵，无塞箱亲密；占位",
           "artStatus": "placeholder",
@@ -246,7 +246,7 @@
           "nodeId": "n_mia_edge_1",
           "type": "dialogue",
           "speaker": "mia",
-          "text": "她还是把箱子边沿塞进你掌心，指节撞了一下，热得不像刚搬完。「别装不认识。手伸过梥——旧的那套。」呼吸几乎打在你锁骨。",
+          "text": "她还是把箱子边沿塞进你掌心，指节撞了一下，热得不像刚搬完。「别装不认识。手伸过来——旧的那套。」呼吸几乎打在你锁骨。",
           "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
           "artCue": "电梯内近景Mia/Kai半身纸箱距离过近；熟悉感擦边T；发型按设定板；脸在上55%",
           "artStatus": "ready",
@@ -257,7 +257,7 @@
           "choices": [
             {
               "choiceId": "c_mia_hugish",
-              "text": "接招：旧毛病。——箱子沉，你贴过梥。",
+              "text": "接招：旧毛病。——箱子沉，你贴过来。",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -347,7 +347,7 @@
           "nodeId": "n_conflict",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "傍晚，迎新边缘的小型派对。音乐从室内漏出梥，热气和酒味贴着皮肤。两个人几乎同时找上你——一个侧门阴影，一个台阶灯光。",
+          "text": "傍晚，迎新边缘的小型派对。音乐从室内漏出来，热气和酒味贴着皮肤。两个人几乎同时找上你——一个侧门阴影，一个台阶灯光。",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "派对廊道霓虹左右分压：Mia侧门招手，Jade台阶喊合影，Kai居中；大构图；勿烧对话框",
           "artStatus": "ready",
@@ -359,11 +359,11 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「那边太吵。你过梥一下——就我们。」"
+              "text": "「那边太吵。你过来一下——就我们。」"
             },
             {
               "speaker": "jade",
-              "text": "「Kai！上梥合影——就差你。站我旁边，手别瞎放。」"
+              "text": "「Kai！上来合影——就差你。站我旁边，手别瞎放。」"
             }
           ],
           "choices": [

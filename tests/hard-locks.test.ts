@@ -42,6 +42,22 @@ describe("Slice-0 hard locks", () => {
     expect(player).toContain("NIGHT_PASS_DIALOG_DOCK_CSS");
   });
 
+  it("keeps Night Pass grade off adult-site neon", () => {
+    const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
+    expect(css).not.toMatch(/#ff0033|#ff0000|#FF0033/i);
+    expect(css).toContain("#07080c");
+    expect(css).toContain("1.028");
+    expect(css).toContain("rgba(220, 90, 140");
+    const paywall = readFileSync(path.join(root, "components/PaywallOverlay.tsx"), "utf8");
+    expect(paywall).not.toMatch(/bg-black/);
+    expect(paywall).toContain("bg-void/70");
+    const fixture = readFileSync(
+      path.join(root, "content/CONTENT-ch01-free-to-firstsub.json"),
+      "utf8",
+    );
+    expect(fixture).not.toMatch(/梥/);
+  });
+
   it("does not fetch runtime external URLs", () => {
     const files = walkFiles(root).filter((file) => {
       const rel = path.relative(root, file);

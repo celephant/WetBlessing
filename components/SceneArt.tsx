@@ -24,7 +24,7 @@ type SceneArtProps = {
 };
 
 const PLACEHOLDER_BG =
-  "bg-[radial-gradient(ellipse_at_top,_rgba(255,75,107,0.32),_transparent_55%),radial-gradient(ellipse_at_bottom,_rgba(94,224,192,0.22),_transparent_48%),linear-gradient(180deg,#2a1a28_0%,#161820_52%,#122028_100%)]";
+  "bg-[radial-gradient(ellipse_at_top,_rgba(255,140,120,0.22),_transparent_55%),radial-gradient(ellipse_at_center,_rgba(220,90,140,0.10),_transparent_58%),radial-gradient(ellipse_at_bottom,_rgba(94,224,192,0.16),_transparent_48%),linear-gradient(180deg,#2a1a28_0%,#161820_52%,#122028_100%)]";
 
 type Plate = {
   src: string;

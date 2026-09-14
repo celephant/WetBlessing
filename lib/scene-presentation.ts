@@ -35,9 +35,9 @@ export type SceneMotion = (typeof SAME_ASSET_MOTIONS)[number] | "hold";
 export const SCENE_FX = ["none", "vignette", "warm-tint", "soft-light"] as const;
 
 export const TRANSITION_MS: Record<SceneTransitionName, number> = {
-  fade: 520,
-  "soft-zoom": 640,
-  "dip-to-black": 780,
+  fade: 320,
+  "soft-zoom": 420,
+  "dip-to-black": 380,
 };
 
 export const DEFAULT_SCENE_FX: SceneFxName = "vignette";
@@ -93,7 +93,7 @@ const FX_ALIASES: Record<string, SceneFxName> = {
   close_whisper: "vignette",
   corridor_heat: "warm-tint",
   afterimage: "soft-light",
-  breath: "soft-light",
+  breath: "warm-tint",
   hair_brush: "warm-tint",
   party_split: "vignette",
   door_shadow: "vignette",
