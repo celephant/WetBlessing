@@ -1,3 +1,4 @@
+import { assertDefaultLoad } from "./allowlist";
 import { assertChoiceIndexBudget } from "./choice-index";
 import type { CompiledRoute, ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
@@ -5,12 +6,22 @@ import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
 /** Canonical Ch01 on main@398a3dc. Also linked at src/content/chapters/ch01.json. */
 export const DEFAULT_CH01_PATH = "content/CONTENT-ch01-free-to-firstsub.json";
 export const DEFAULT_CH01_VERSION = "0.4.6-midboard";
+export const DEFAULT_CH01_ROUTE_ID = "route_kai_ch01";
 
-export const content = raw as ContentFile;
+const rawDefault = raw as ContentFile;
+assertDefaultLoad(rawDefault, DEFAULT_CH01_PATH);
+
+export const content = rawDefault;
 
 export type { CompiledRoute };
 
-export function compileRoute(file: ContentFile = content): CompiledRoute {
+export function compileRoute(
+  file: ContentFile = content,
+  options: { asDefault?: boolean; sourcePath?: string } = {},
+): CompiledRoute {
+  if (options.asDefault) {
+    assertDefaultLoad(file, options.sourcePath ?? DEFAULT_CH01_PATH);
+  }
   const stage = file.stages[0];
   if (!stage) {
     throw new Error("Content file has no stages");
@@ -34,13 +45,10 @@ export function compileRoute(file: ContentFile = content): CompiledRoute {
   return compiled;
 }
 
-export const route = compileRoute();
-
-if (content.contentVersion !== DEFAULT_CH01_VERSION) {
-  throw new Error(
-    `Default Ch01 must be ${DEFAULT_CH01_VERSION} (${DEFAULT_CH01_PATH})`,
-  );
-}
+export const route = compileRoute(content, {
+  asDefault: true,
+  sourcePath: DEFAULT_CH01_PATH,
+});
 
 export function getNode(
   nodeId: string,

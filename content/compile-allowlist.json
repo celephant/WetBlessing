@@ -1,0 +1,17 @@
+{
+  "patch": "P-D2",
+  "defaultAllow": [
+    {
+      "path": "content/CONTENT-ch01-free-to-firstsub.json",
+      "contentVersion": "0.4.6-midboard",
+      "routeId": "route_kai_ch01"
+    }
+  ],
+  "denyDefaultGlobs": [
+    "CONTENT-route_li_*",
+    "CONTENT-stage_0*",
+    "persona_li_*",
+    "*黎*"
+  ],
+  "note": "旧黎包 FROZEN 非MVP；不得进默认编译与演示"
+}

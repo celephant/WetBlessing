@@ -28,6 +28,7 @@ describe("Slice-0 hard locks", () => {
     expect(readdirSync(path.join(root, "content")).sort()).toEqual([
       "CONTENT-ch01-free-to-firstsub.json",
       "UI-tokens.json",
+      "compile-allowlist.json",
     ]);
   });
 
