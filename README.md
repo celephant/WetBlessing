@@ -12,7 +12,7 @@ Next.js App Router + TypeScript + Tailwind player wired to `content/CONTENT-ch01
 - `choiceIndex`: nodes with ≥2 choices count; continue / `advance` do not; the first_sub wall counts; `>10` with no gate fails compile
 - In-dialogue `story_pass_month`: DEV fake-unlock then `unlockNext` (same line continues). No external store.
 - Night Pass dialog dock is 28% of the viewport
-- Paid CG aliases (do not key art by nodeId): [`docs/ch01-asset-aliases.md`](docs/ch01-asset-aliases.md)
+- Paid CG aliases (do not key art by nodeId): [`docs/ART-assetId-aliases.md`](docs/ART-assetId-aliases.md)
 
 ```bash
 npm install

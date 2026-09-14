@@ -95,7 +95,7 @@ describe("P-D5 asset aliases", () => {
     expect(aliases.n_pay_02_double_empty).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     expect(aliases.n_pay_02_router).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     const doc = readFileSync(
-      path.resolve(__dirname, "../docs/ch01-asset-aliases.md"),
+      path.resolve(__dirname, "../docs/ART-assetId-aliases.md"),
       "utf8",
     );
     expect(doc).toContain("n_pay_01_catch_mia");
