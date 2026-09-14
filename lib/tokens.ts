@@ -4,6 +4,10 @@ export const tokens = uiTokens;
 
 export const SKU_STORY_PASS_MONTH = "story_pass_month";
 
+/** Night Pass reserved dialog dock. Art cue: 底栏28%留给对话框勿烧UI. */
+export const NIGHT_PASS_DIALOG_DOCK = 0.28;
+export const NIGHT_PASS_DIALOG_DOCK_CSS = "28%";
+
 export const PASS_PRICE = tokens.paywall.price;
 export const PASS_HEADLINE = tokens.paywall.headline;
 export const PASS_FOOTNOTE = tokens.paywall.footnote;

@@ -4,7 +4,7 @@ import {
   clickAdvance,
   playChoices,
   selectChoice,
-  unlockAndSelect,
+  unlockNext,
   view,
 } from "../lib/engine";
 
@@ -34,17 +34,23 @@ describe("in-dialogue paywall", () => {
     if (locked.ok) return;
     expect(locked.reason).toBe("locked");
     expect(locked.sku).toBe("story_pass_month");
-    expect(state.nodeId).toBe("n_ch01_first_sub");
+    expect(locked.state.pendingChoiceId).toBe("c_sub_round_mia");
+    expect(locked.state.nodeId).toBe("n_ch01_first_sub");
   });
 
-  it("DEV fake-unlock continues the same line without jumping away", () => {
+  it("unlockNext fake-unlocks and continues the same line", () => {
     const state = playChoices(["c_dodge_both", "c_dodge_party"]);
-    const result = unlockAndSelect(state, "c_sub_round_mia");
+    const locked = selectChoice(state, "c_sub_round_mia");
+    expect(locked.ok).toBe(false);
+    if (locked.ok) return;
+
+    const result = unlockNext(locked.state);
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.state.entitlements.story_pass_month).toBe(true);
     expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
     expect(result.state.flags.catch_target).toBe("mia");
+    expect(result.state.pendingChoiceId).toBeNull();
   });
 
   it("allows free soft-exit without a pass", () => {

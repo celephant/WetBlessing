@@ -11,7 +11,7 @@ import {
   clickAdvance,
   selectChoice,
   startGame,
-  unlockAndSelect,
+  unlockNext,
   view,
   withEntitlement,
 } from "@/lib/engine";
@@ -21,7 +21,7 @@ import {
   loadEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
-import { SKU_STORY_PASS_MONTH } from "@/lib/tokens";
+import { NIGHT_PASS_DIALOG_DOCK_CSS, SKU_STORY_PASS_MONTH } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
 
 function persistSave(state: GameState) {
@@ -55,6 +55,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
             ...saved.entitlements,
             ...entitlements,
           },
+          pendingChoiceId: saved.pendingChoiceId ?? null,
         });
         return;
       }
@@ -63,7 +64,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
   }, [resume]);
 
   if (!state) {
-    return <div className="min-h-dvh bg-void" />;
+    return <div className="h-dvh bg-void" />;
   }
 
   const snapshot = view(state);
@@ -88,13 +89,13 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     }
     if (result.reason === "locked") {
       setLocked(result.choice);
+      commit(result.state);
     }
   };
 
   const onDevUnlock = () => {
-    if (!locked) return;
     grantStoryPassDev(state.entitlements);
-    const result = unlockAndSelect(state, locked.choiceId);
+    const result = unlockNext(state);
     if (result.ok) {
       setLocked(null);
       commit(result.state);
@@ -110,14 +111,14 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
   };
 
   return (
-    <div className="relative min-h-dvh w-full overflow-hidden bg-void text-paper">
+    <div className="relative h-dvh w-full overflow-hidden bg-void text-paper">
       <SceneArt
         assetId={snapshot.node.assetId}
         artCue={snapshot.node.artCue}
         nodeId={snapshot.node.nodeId}
       />
 
-      <header className="relative z-[4] flex items-center justify-between px-3 pt-3">
+      <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
         <Link
           href="/"
           className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
@@ -139,38 +140,48 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         </button>
       </header>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[42%] bg-gradient-to-t from-void via-void/80 to-transparent" />
-
-      <div className="absolute inset-x-0 bottom-0 z-[3] pb-[env(safe-area-inset-bottom)]">
-        {snapshot.isSettle ? (
-          <div className="mx-auto mb-6 w-full max-w-dialog px-3">
-            <div className="rounded-dialog border border-white/10 bg-night/85 p-5 text-center backdrop-blur-xl">
-              <p className="font-ui text-[17px] leading-7 text-paper">
-                {snapshot.node.text}
-              </p>
-              <Link
-                href="/"
-                className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-chip bg-mint px-6 font-ui text-[15px] font-medium text-ink"
-              >
-                回到标题
-              </Link>
-            </div>
+      {snapshot.isSettle ? (
+        <div
+          className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
+          style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
+        >
+          <div className="flex h-full w-full flex-col items-center justify-center border-t border-white/10 bg-night/88 px-5 text-center backdrop-blur-xl">
+            <p className="max-w-dialog font-ui text-[17px] leading-7 text-paper">
+              {snapshot.node.text}
+            </p>
+            <Link
+              href="/"
+              className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-chip bg-mint px-6 font-ui text-[15px] font-medium text-ink"
+            >
+              回到标题
+            </Link>
           </div>
-        ) : (
-          <>
+        </div>
+      ) : (
+        <>
+          <div
+            className="absolute inset-x-0 z-[3] flex flex-col justify-end pb-2"
+            style={{ bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
+          >
             <ChoiceList
               choices={snapshot.choices}
               entitled={state.entitlements.story_pass_month}
               onSelect={onChoice}
             />
+          </div>
+          <div
+            className="absolute inset-x-0 bottom-0 z-[2]"
+            data-night-pass-dock="28"
+            style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
+          >
             <DialogBox
               beat={snapshot.beat}
               showCaret={snapshot.canClickAdvance && snapshot.choices.length === 0}
               onAdvance={onDialogClick}
             />
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
 
       {locked ? (
         <PaywallOverlay

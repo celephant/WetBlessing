@@ -31,6 +31,7 @@ export function createInitialState(
     flags: {},
     stats: emptyStats(),
     entitlements,
+    pendingChoiceId: null,
   };
 }
 
@@ -247,6 +248,7 @@ export function selectChoice(
       reason: "locked",
       sku: choice.requiresEntitlement,
       choice,
+      state: { ...state, pendingChoiceId: choice.choiceId },
     };
   }
 
@@ -256,6 +258,7 @@ export function selectChoice(
     choiceIndex: state.choiceIndex + 1,
     flags: applyFlags(state.flags, choice.setFlags),
     stats: applyDelta(state.stats, choice.delta),
+    pendingChoiceId: null,
   };
 
   return { ok: true, state: enterNode(nextState, choice.next, compiled) };
@@ -274,17 +277,31 @@ export function withEntitlement(
 }
 
 /**
- * After DEV fake-unlock, retry the locked subscribe choice in place
- * (paywall copy: 开通后这一句立刻接上，不跳走).
+ * DEV fake-unlock then continue the locked in-dialogue line in place.
+ * 开通后这一句立刻接上，不跳走.
  */
-export function unlockAndSelect(
+export function unlockNext(
   state: GameState,
-  choiceId: string,
+  choiceId?: string,
   compiled: CompiledRoute = route,
 ): SelectChoiceResult {
-  const unlocked = withEntitlement(state, SKU_STORY_PASS_MONTH, true);
-  return selectChoice(unlocked, choiceId, compiled);
+  const id = choiceId ?? state.pendingChoiceId;
+  if (!id) {
+    return {
+      ok: false,
+      reason: "invalid",
+      message: "unlockNext: no pending story_pass_month choice",
+    };
+  }
+  const unlocked: GameState = {
+    ...withEntitlement(state, SKU_STORY_PASS_MONTH, true),
+    pendingChoiceId: null,
+  };
+  return selectChoice(unlocked, id, compiled);
 }
+
+/** @deprecated use unlockNext */
+export const unlockAndSelect = unlockNext;
 
 export type PathStep = {
   nodeId: string;

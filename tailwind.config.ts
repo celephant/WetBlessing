@@ -18,10 +18,9 @@ const config: Config = {
         vanessa: "#E8C56A",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Syne", "sans-serif"],
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
         ui: [
           "var(--font-ui)",
-          "Noto Sans SC",
           "PingFang SC",
           "Hiragino Sans GB",
           "Microsoft YaHei",

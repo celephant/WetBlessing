@@ -119,6 +119,7 @@ export type GameState = {
   flags: Flags;
   stats: Stats;
   entitlements: Entitlements;
+  pendingChoiceId: string | null;
 };
 
 export type Beat = {
@@ -147,6 +148,7 @@ export type SelectChoiceLocked = {
   reason: "locked";
   sku: string;
   choice: Choice;
+  state: GameState;
 };
 
 export type SelectChoiceInvalid = {
