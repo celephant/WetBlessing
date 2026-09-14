@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  phoneGlowAllowed,
   selectAssetChangeTransition,
   selectSameAssetMotion,
   selectSceneFx,
@@ -21,6 +22,8 @@ type SceneArtProps = {
   transition?: string;
   camera?: string;
   fx?: string;
+  afterPurchase?: boolean;
+  forceNightGrade?: boolean;
 };
 
 const PLACEHOLDER_BG =
@@ -39,6 +42,8 @@ export function SceneArt({
   transition,
   camera,
   fx,
+  afterPurchase = false,
+  forceNightGrade = false,
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
@@ -54,7 +59,7 @@ export function SceneArt({
     selectSameAssetMotion({ explicitCamera: camera, holdCount: 0 }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
-    selectSceneFx({ explicit: fx, nodeId }),
+    selectSceneFx({ explicit: fx, nodeId, forceNightGrade }),
   );
   const [holdCount, setHoldCount] = useState(0);
 
@@ -63,18 +68,32 @@ export function SceneArt({
   const plateFailedRef = useRef(false);
   const changeCountRef = useRef(0);
   const holdCountRef = useRef(0);
-  const hooksRef = useRef({ transition, camera, fx });
+  const hooksRef = useRef({
+    transition,
+    camera,
+    fx,
+    afterPurchase,
+    forceNightGrade,
+    nodeId,
+  });
   const didMountRef = useRef(false);
   const prevBeatRef = useRef(beatKey);
   const prevAssetRef = useRef(assetId);
   const cutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   plateRef.current = plate;
-  hooksRef.current = { transition, camera, fx };
+  hooksRef.current = {
+    transition,
+    camera,
+    fx,
+    afterPurchase,
+    forceNightGrade,
+    nodeId,
+  };
 
   useEffect(() => {
-    setOverlay(selectSceneFx({ explicit: fx, nodeId }));
-  }, [fx, nodeId]);
+    setOverlay(selectSceneFx({ explicit: fx, nodeId, forceNightGrade }));
+  }, [fx, nodeId, forceNightGrade]);
 
   useEffect(() => {
     const entrance = window.setTimeout(() => {
@@ -106,13 +125,20 @@ export function SceneArt({
     if (!assetChanged && !beatChanged) return;
 
     const next = sceneIdentity(assetId);
-    const { camera: cam, transition: cut } = hooksRef.current;
+    const {
+      camera: cam,
+      transition: cut,
+      afterPurchase: purchased,
+      nodeId: arrivingId,
+    } = hooksRef.current;
 
     if (shouldPlayAssetTransition(identityRef.current, next)) {
       changeCountRef.current += 1;
       const nextTransition = selectAssetChangeTransition({
         explicit: cut,
         changeCount: changeCountRef.current,
+        nodeId: arrivingId,
+        afterPurchase: purchased,
       });
       setOutgoing({
         src: plateRef.current.src,
@@ -161,6 +187,11 @@ export function SceneArt({
       data-scene-motion={motion}
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
+      data-phone-glow={
+        overlay === "soft-light" && phoneGlowAllowed({ nodeId, forceNightGrade })
+          ? "on"
+          : "off"
+      }
     >
       {outgoing ? (
         <ScenePlate
@@ -232,13 +263,21 @@ function ScenePlate({
         </div>
       ) : (
         <div className={`absolute inset-[-8%] ${motionClass}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            className="h-full w-full object-cover object-top"
-            onError={onError}
-          />
+          <div
+            className={
+              motionClass.startsWith("scene-motion-kenburns")
+                ? "scene-motion-breathe-layer h-full w-full"
+                : "h-full w-full"
+            }
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt}
+              className="h-full w-full object-cover object-top"
+              onError={onError}
+            />
+          </div>
         </div>
       )}
     </div>

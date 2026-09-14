@@ -1,6 +1,6 @@
 {
   "name": "WetBlessing Night Pass",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "colors": {
     "void": "#07080C",
     "night": "#12141C",
@@ -46,9 +46,24 @@
     "menu": 5
   },
   "motion": {
-    "dialogMs": 180,
-    "choiceStaggerMs": 40,
-    "goldSweepMs": 600
+    "dialogMs": 220,
+    "dialogContinueMs": 140,
+    "dialogEase": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "dialogFromY": 12,
+    "dialogContinueFromY": 6,
+    "nameplateDelayMs": 60,
+    "nameplateMs": 120,
+    "hintDelayMs": 80,
+    "choiceMs": 160,
+    "choiceStaggerMs": 48,
+    "choiceFromY": 8,
+    "choiceFromScale": 0.98,
+    "goldSweepMs": 600,
+    "paywallChipDelayMs": 80,
+    "kenBurnsMs": 14000,
+    "kenBurnsScale": 1.028,
+    "breatheMs": 3200,
+    "breatheScale": 0.004
   },
   "choiceVariants": {
     "jie": {
@@ -102,5 +117,45 @@
   "breakpoints": {
     "mobile": 390,
     "desktopDialogMax": 720
-  }
+  },
+  "transitions": {
+    "fade": {
+      "ms": 320,
+      "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "crossfadeMs": 160
+    },
+    "softZoom": {
+      "ms": 420,
+      "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "oldScaleTo": 1.04,
+      "newScaleFrom": 1.06,
+      "focusY": 0.45
+    },
+    "dip": {
+      "ms": 380,
+      "inMs": 120,
+      "holdMs": 40,
+      "outMs": 220,
+      "overlay": "#07080C"
+    },
+    "defaults": {
+      "normal": "fade",
+      "intimate": "softZoom",
+      "smsOrPaywall": "dip",
+      "afterPurchase": "softZoom"
+    }
+  },
+  "grade": {
+    "warmVeil": "rgba(255, 140, 120, 0.10)",
+    "magentaMist": "rgba(220, 90, 140, 0.07)",
+    "vignette": "rgba(7, 8, 12, 0.35)",
+    "forbid": [
+      "#FF0033 full-bleed",
+      "black-red adult neon",
+      "scanline porn chrome"
+    ],
+    "defaultIntimate": "warm",
+    "defaultSmsWall": "night"
+  },
+  "feelSpec": "UI-观感加码-动效过场-v1.md"
 }

@@ -30,61 +30,73 @@ body {
 }
 
 .scene-in-fade {
-  animation: scene-fade-in 320ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: scene-fade-in var(--transition-fade-ms, 320ms)
+    var(--transition-fade-ease, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
 }
 .scene-out-fade {
-  animation: scene-fade-out 320ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: scene-fade-out var(--transition-fade-ms, 320ms)
+    var(--transition-fade-ease, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
 }
 .scene-in-soft-zoom,
 .scene-out-soft-zoom {
-  transform-origin: 50% 45%;
+  transform-origin: 50% var(--transition-soft-zoom-focus-y, 45%);
 }
 .scene-in-soft-zoom {
-  animation: scene-soft-zoom-in 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: scene-soft-zoom-in var(--transition-soft-zoom-ms, 420ms)
+    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
 }
 .scene-out-soft-zoom {
-  animation: scene-soft-zoom-out 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: scene-soft-zoom-out var(--transition-soft-zoom-ms, 420ms)
+    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
 }
 .scene-in-dip-to-black {
-  animation: scene-dip-in 380ms ease-in-out forwards;
+  animation: scene-dip-in var(--transition-dip-ms, 380ms) ease-in-out forwards;
 }
 .scene-out-dip-to-black {
-  animation: scene-dip-out 380ms ease-in-out forwards;
+  animation: scene-dip-out var(--transition-dip-ms, 380ms) ease-in-out forwards;
 }
 
 .scene-dip-veil {
-  background: #07080c;
-  animation: scene-dip-veil 380ms ease-in-out forwards;
+  background: var(--transition-dip-overlay, #07080c);
+  animation: scene-dip-veil var(--transition-dip-ms, 380ms) ease-in-out forwards;
 }
 
 .scene-motion-hold {
   transform: scale(1.012);
 }
 .scene-motion-kenburns-right {
-  animation: scene-kenburns-right 14s ease-in-out forwards;
+  animation: scene-kenburns-right var(--motion-kenburns-ms, 14000ms) ease-in-out
+    forwards;
 }
 .scene-motion-kenburns-left {
-  animation: scene-kenburns-left 14s ease-in-out forwards;
+  animation: scene-kenburns-left var(--motion-kenburns-ms, 14000ms) ease-in-out
+    forwards;
 }
 .scene-motion-kenburns-up {
-  animation: scene-kenburns-up 14s ease-in-out forwards;
+  animation: scene-kenburns-up var(--motion-kenburns-ms, 14000ms) ease-in-out
+    forwards;
 }
-.scene-motion-breathe {
-  animation: scene-breathe 3.2s ease-in-out infinite;
+.scene-motion-breathe,
+.scene-motion-breathe-layer {
+  animation: scene-breathe var(--motion-breathe-ms, 3200ms) ease-in-out infinite;
 }
 
 .scene-fx-vignette {
-  box-shadow: inset 0 0 140px 36px rgba(7, 8, 12, 0.35);
+  box-shadow: inset 0 0 140px 36px var(--grade-vignette, rgba(7, 8, 12, 0.35));
   background: radial-gradient(
     ellipse at center,
     transparent 42%,
-    rgba(7, 8, 12, 0.35) 100%
+    var(--grade-vignette, rgba(7, 8, 12, 0.35)) 100%
   );
 }
 .scene-fx-warm-tint {
   background:
-    linear-gradient(180deg, rgba(255, 140, 120, 0.1), transparent 70%),
-    radial-gradient(ellipse at 40% 30%, rgba(220, 90, 140, 0.07), transparent 62%);
+    linear-gradient(180deg, var(--grade-warm-veil, rgba(255, 140, 120, 0.1)), transparent 70%),
+    radial-gradient(
+      ellipse at 40% 30%,
+      var(--grade-magenta-mist, rgba(220, 90, 140, 0.07)),
+      transparent 62%
+    );
   mix-blend-mode: soft-light;
 }
 .scene-fx-soft-light {
@@ -97,16 +109,20 @@ body {
 }
 
 .dialog-enter {
-  animation: dialog-enter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: dialog-enter var(--motion-dialog-ms, 220ms)
+    var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1));
 }
 .dialog-continue {
-  animation: dialog-continue 140ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: dialog-continue var(--motion-dialog-continue-ms, 140ms)
+    var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1));
 }
 .dialog-nameplate {
-  animation: dialog-nameplate 120ms ease-out 60ms both;
+  animation: dialog-nameplate var(--motion-nameplate-ms, 120ms) ease-out
+    var(--motion-nameplate-delay-ms, 60ms) both;
 }
 .choice-enter {
-  animation: choice-enter 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: choice-enter var(--motion-choice-ms, 160ms)
+    var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
 }
 
 @keyframes scene-fade-in {
@@ -128,7 +144,7 @@ body {
 @keyframes scene-soft-zoom-in {
   from {
     opacity: 0;
-    transform: scale(1.06);
+    transform: scale(var(--transition-soft-zoom-new, 1.06));
   }
   to {
     opacity: 1;
@@ -142,7 +158,7 @@ body {
   }
   to {
     opacity: 0;
-    transform: scale(1.04);
+    transform: scale(var(--transition-soft-zoom-old, 1.04));
   }
 }
 @keyframes scene-dip-in {
@@ -186,7 +202,7 @@ body {
     transform: scale(1) translate(0%, 0%);
   }
   to {
-    transform: scale(1.028) translate(-1.2%, 0.6%);
+    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(-1.2%, 0.6%);
   }
 }
 @keyframes scene-kenburns-left {
@@ -194,7 +210,7 @@ body {
     transform: scale(1.004) translate(-0.4%, 0.2%);
   }
   to {
-    transform: scale(1.028) translate(1.2%, -0.4%);
+    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(1.2%, -0.4%);
   }
 }
 @keyframes scene-kenburns-up {
@@ -202,22 +218,22 @@ body {
     transform: scale(1) translate(0%, 0.6%);
   }
   to {
-    transform: scale(1.028) translate(0%, -0.8%);
+    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(0%, -0.8%);
   }
 }
 @keyframes scene-breathe {
   0%,
   100% {
-    transform: scale(1.012);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.016);
+    transform: scale(calc(1 + var(--motion-breathe-scale, 0.004)));
   }
 }
 @keyframes dialog-enter {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(var(--motion-dialog-from-y, 12px));
   }
   to {
     opacity: 1;
@@ -227,7 +243,7 @@ body {
 @keyframes dialog-continue {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(var(--motion-dialog-continue-from-y, 6px));
   }
   to {
     opacity: 1;
@@ -245,7 +261,8 @@ body {
 @keyframes choice-enter {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(var(--motion-choice-from-y, 8px))
+      scale(var(--motion-choice-from-scale, 0.98));
   }
   to {
     opacity: 1;
@@ -265,6 +282,7 @@ body {
   .scene-motion-kenburns-left,
   .scene-motion-kenburns-up,
   .scene-motion-breathe,
+  .scene-motion-breathe-layer,
   .dialog-enter,
   .dialog-continue,
   .dialog-nameplate,

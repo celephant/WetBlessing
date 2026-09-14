@@ -1,4 +1,5 @@
 import { resolveAssetUrl } from "./assets";
+import { tokens } from "./tokens";
 import type {
   ContentNode,
   SceneCameraName,
@@ -34,41 +35,58 @@ export type SceneMotion = (typeof SAME_ASSET_MOTIONS)[number] | "hold";
 
 export const SCENE_FX = ["none", "vignette", "warm-tint", "soft-light"] as const;
 
+const TOKEN_CUT: Record<string, SceneTransitionName> = {
+  fade: "fade",
+  softZoom: "soft-zoom",
+  dip: "dip-to-black",
+  "soft-zoom": "soft-zoom",
+  "dip-to-black": "dip-to-black",
+};
+
+export function tokenCut(name: string): SceneTransitionName {
+  return TOKEN_CUT[name] ?? "fade";
+}
+
 export const TRANSITION_MS: Record<SceneTransitionName, number> = {
-  fade: 320,
-  "soft-zoom": 420,
-  "dip-to-black": 380,
+  fade: tokens.transitions.fade.ms,
+  "soft-zoom": tokens.transitions.softZoom.ms,
+  "dip-to-black": tokens.transitions.dip.ms,
 };
 
 /**
- * Design Lead lock (UI-观感加码-动效过场-v1). Hardcoded until
- * `UI-tokens.json` v1.1 (`motion` / `transitions` / `grade`) lands in-repo.
+ * Design Lead lock — sourced from `content/UI-tokens.json` v1.1
+ * (`motion` / `transitions` / `grade`).
  */
 export const MOTION_SPEC = {
-  dialogMs: 220,
-  dialogContinueMs: 140,
-  dialogEase: "cubic-bezier(0.22, 1, 0.36, 1)",
-  dialogFromY: 12,
-  dialogContinueFromY: 6,
-  nameplateDelayMs: 60,
-  nameplateMs: 120,
-  choiceMs: 160,
-  choiceStaggerMs: 48,
-  choiceFromY: 8,
-  choiceFromScale: 0.98,
-  kenBurnsMs: 14_000,
-  kenBurnsScale: 1.028,
-  breatheMs: 3200,
-  dipInMs: 120,
-  dipHoldMs: 40,
-  dipOutMs: 220,
-  dipOverlay: "#07080C",
-  softZoomOldScaleTo: 1.04,
-  softZoomNewScaleFrom: 1.06,
-  softZoomFocusY: 0.45,
+  dialogMs: tokens.motion.dialogMs,
+  dialogContinueMs: tokens.motion.dialogContinueMs,
+  dialogEase: tokens.motion.dialogEase,
+  dialogFromY: tokens.motion.dialogFromY,
+  dialogContinueFromY: tokens.motion.dialogContinueFromY,
+  nameplateDelayMs: tokens.motion.nameplateDelayMs,
+  nameplateMs: tokens.motion.nameplateMs,
+  choiceMs: tokens.motion.choiceMs,
+  choiceStaggerMs: tokens.motion.choiceStaggerMs,
+  choiceFromY: tokens.motion.choiceFromY,
+  choiceFromScale: tokens.motion.choiceFromScale,
+  goldSweepMs: tokens.motion.goldSweepMs,
+  paywallChipDelayMs: tokens.motion.paywallChipDelayMs,
+  kenBurnsMs: tokens.motion.kenBurnsMs,
+  kenBurnsScale: tokens.motion.kenBurnsScale,
+  breatheMs: tokens.motion.breatheMs,
+  breatheScale: tokens.motion.breatheScale,
+  dipMs: tokens.transitions.dip.ms,
+  dipInMs: tokens.transitions.dip.inMs,
+  dipHoldMs: tokens.transitions.dip.holdMs,
+  dipOutMs: tokens.transitions.dip.outMs,
+  dipOverlay: tokens.transitions.dip.overlay,
+  softZoomOldScaleTo: tokens.transitions.softZoom.oldScaleTo,
+  softZoomNewScaleFrom: tokens.transitions.softZoom.newScaleFrom,
+  softZoomFocusY: tokens.transitions.softZoom.focusY,
 } as const;
 
-export const DEFAULT_SCENE_FX: SceneFxName = "vignette";
+export const DEFAULT_SCENE_FX: SceneFxName =
+  tokens.grade.defaultIntimate === "warm" ? "warm-tint" : "vignette";
 
 /** SMS / first-sub wall stay on night vignette, not warm intimate grade. */
 export const NIGHT_GRADE_NODE_IDS = new Set([
@@ -76,6 +94,27 @@ export const NIGHT_GRADE_NODE_IDS = new Set([
   "n_ch01_first_sub",
   "n_free_soft_exit",
 ]);
+
+export function isNightGradeNode(nodeId?: string): boolean {
+  return Boolean(nodeId && NIGHT_GRADE_NODE_IDS.has(nodeId));
+}
+
+export function isPaywallWallNode(nodeId?: string): boolean {
+  return nodeId === tokens.paywall.nodeId || nodeId === "n_ch01_first_sub";
+}
+
+/** Wall rhythm: dip → chips → gold yuan once → unlock softZoom. */
+export const WALL_RHYTHM = {
+  arrival: tokenCut(tokens.transitions.defaults.smsOrPaywall),
+  afterPurchase: tokenCut(tokens.transitions.defaults.afterPurchase),
+  goldOnlyOnYuan: tokens.paywall.goldOnlyOnYuan,
+  forbidAllChipsGold: tokens.paywall.forbidAllChipsGold,
+  chipEnterDelayMs: tokens.transitions.dip.ms,
+  goldSweepDelayMs:
+    tokens.transitions.dip.ms +
+    tokens.motion.choiceMs +
+    tokens.motion.paywallChipDelayMs,
+} as const;
 
 export type SceneIdentity = {
   url: string;
@@ -177,13 +216,24 @@ export function parseFx(raw?: string): SceneFxName | null {
 export function selectAssetChangeTransition(options: {
   explicit?: string;
   changeCount: number;
+  nodeId?: string;
+  afterPurchase?: boolean;
+  intimate?: boolean;
 }): SceneTransitionName {
-  return (
-    parseTransition(options.explicit) ??
-    SCENE_TRANSITIONS[
-      Math.abs(options.changeCount) % SCENE_TRANSITIONS.length
-    ]!
-  );
+  if (options.afterPurchase) {
+    return tokenCut(tokens.transitions.defaults.afterPurchase);
+  }
+  if (isNightGradeNode(options.nodeId)) {
+    return tokenCut(tokens.transitions.defaults.smsOrPaywall);
+  }
+  const parsed = parseTransition(options.explicit);
+  if (parsed) return parsed;
+  if (options.intimate) {
+    return tokenCut(tokens.transitions.defaults.intimate);
+  }
+  return SCENE_TRANSITIONS[
+    Math.abs(options.changeCount) % SCENE_TRANSITIONS.length
+  ]!;
 }
 
 /**
@@ -217,11 +267,20 @@ export function selectSameAssetMotion(options: {
 export function selectSceneFx(options: {
   explicit?: string;
   nodeId?: string;
+  forceNightGrade?: boolean;
 }): SceneFxName {
-  if (options.nodeId && NIGHT_GRADE_NODE_IDS.has(options.nodeId)) {
+  // PhoneGlow stays off on SMS + paywall (night vignette only).
+  if (options.forceNightGrade || isNightGradeNode(options.nodeId)) {
     return "vignette";
   }
   return parseFx(options.explicit) ?? DEFAULT_SCENE_FX;
+}
+
+export function phoneGlowAllowed(options: {
+  nodeId?: string;
+  forceNightGrade?: boolean;
+}): boolean {
+  return !options.forceNightGrade && !isNightGradeNode(options.nodeId);
 }
 
 /**
@@ -251,22 +310,26 @@ export function presentationHooksForBeat(
 export function resolveScenePresentation(
   node: ContentNode,
   beatIndex: number,
-  options: { changeCount: number; holdCount: number },
+  options: { changeCount: number; holdCount: number; afterPurchase?: boolean },
 ): {
   transition: SceneTransitionName;
   motion: SceneMotion;
   fx: SceneFxName;
 } {
   const hooks = presentationHooksForBeat(node, beatIndex);
+  const fx = selectSceneFx({ explicit: hooks.fx, nodeId: node.nodeId });
   return {
     transition: selectAssetChangeTransition({
       explicit: hooks.transition,
       changeCount: options.changeCount,
+      nodeId: node.nodeId,
+      afterPurchase: options.afterPurchase,
+      intimate: fx === "warm-tint",
     }),
     motion: selectSameAssetMotion({
       explicitCamera: hooks.camera,
       holdCount: options.holdCount,
     }),
-    fx: selectSceneFx({ explicit: hooks.fx }),
+    fx,
   };
 }

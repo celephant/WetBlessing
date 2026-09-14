@@ -1,3 +1,4 @@
+import { tokens } from "./tokens";
 import type { Choice } from "./types";
 
 export type ChoiceVariant = "jie" | "yuan" | "duo" | "pass" | "ghost" | "plain";
@@ -27,6 +28,18 @@ export function choiceVariant(choice: Choice): ChoiceVariant {
     return "duo";
   }
   return "plain";
+}
+
+/** Gold sweep once on the yuan / pass CTA only — never every chip. */
+export function showsYuanGoldSweep(choice: Choice): boolean {
+  if (tokens.paywall.forbidAllChipsGold && !tokens.paywall.goldOnlyOnYuan) {
+    return false;
+  }
+  const variant = choiceVariant(choice);
+  if (tokens.paywall.goldOnlyOnYuan) {
+    return variant === "yuan" || variant === "pass";
+  }
+  return showsPassChip(choice);
 }
 
 export function variantBarClass(variant: ChoiceVariant): string {

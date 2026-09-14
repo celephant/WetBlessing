@@ -7,9 +7,11 @@ import {
   SAME_ASSET_MOTIONS,
   SCENE_TRANSITIONS,
   TRANSITION_MS,
+  WALL_RHYTHM,
   parseCamera,
   parseFx,
   parseTransition,
+  phoneGlowAllowed,
   presentationHooksForBeat,
   resolveScenePresentation,
   sceneIdentity,
@@ -18,6 +20,7 @@ import {
   selectSceneFx,
   shouldPlayAssetTransition,
 } from "../lib/scene-presentation";
+import { tokens } from "../lib/tokens";
 import type { ContentNode } from "../lib/types";
 
 describe("asset-change transitions", () => {
@@ -41,6 +44,38 @@ describe("asset-change transitions", () => {
     expect(MOTION_SPEC.dialogMs).toBe(220);
     expect(MOTION_SPEC.dialogContinueMs).toBe(140);
     expect(MOTION_SPEC.choiceStaggerMs).toBe(48);
+    expect(MOTION_SPEC.dialogMs).toBe(tokens.motion.dialogMs);
+    expect(TRANSITION_MS.fade).toBe(tokens.transitions.fade.ms);
+    expect(TRANSITION_MS["soft-zoom"]).toBe(tokens.transitions.softZoom.ms);
+    expect(TRANSITION_MS["dip-to-black"]).toBe(tokens.transitions.dip.ms);
+  });
+
+  it("dips on SMS/wall arrival and soft-zooms after purchase", () => {
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 0,
+        nodeId: "n_ch01_first_sub",
+      }),
+    ).toBe("dip-to-black");
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 1,
+        nodeId: "n_sms_auto",
+        explicit: "fade",
+      }),
+    ).toBe("dip-to-black");
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 0,
+        afterPurchase: true,
+        nodeId: "n_pay_01_catch_mia",
+      }),
+    ).toBe("soft-zoom");
+    expect(WALL_RHYTHM.arrival).toBe("dip-to-black");
+    expect(WALL_RHYTHM.afterPurchase).toBe("soft-zoom");
+    expect(WALL_RHYTHM.goldOnlyOnYuan).toBe(true);
+    expect(WALL_RHYTHM.forbidAllChipsGold).toBe(true);
+    expect(WALL_RHYTHM.chipEnterDelayMs).toBe(380);
   });
 
   it("honors an explicit cut and ignores the cycle index", () => {
@@ -137,9 +172,9 @@ describe("same-asset motion", () => {
 });
 
 describe("fx + optional node/line hooks", () => {
-  it("defaults fx to vignette so plates are never a flat ungraded still", () => {
+  it("defaults fx to intimate warm; PhoneGlow stays off on SMS + wall", () => {
     expect(selectSceneFx({})).toBe(DEFAULT_SCENE_FX);
-    expect(DEFAULT_SCENE_FX).toBe("vignette");
+    expect(DEFAULT_SCENE_FX).toBe("warm-tint");
     expect(selectSceneFx({ explicit: "warm-tint" })).toBe("warm-tint");
     expect(selectSceneFx({ explicit: "soft-light" })).toBe("soft-light");
     expect(selectSceneFx({ explicit: "none" })).toBe("none");
@@ -156,6 +191,13 @@ describe("fx + optional node/line hooks", () => {
     expect(selectSceneFx({ explicit: "warm_dust", nodeId: "n_open" })).toBe(
       "warm-tint",
     );
+    expect(selectSceneFx({ explicit: "phone_glow", forceNightGrade: true })).toBe(
+      "vignette",
+    );
+    expect(phoneGlowAllowed({ nodeId: "n_sms_auto" })).toBe(false);
+    expect(phoneGlowAllowed({ nodeId: "n_ch01_first_sub" })).toBe(false);
+    expect(phoneGlowAllowed({ forceNightGrade: true })).toBe(false);
+    expect(phoneGlowAllowed({ nodeId: "n_open" })).toBe(true);
   });
 
   it("lets a line override node hooks; bare nodes stay defaultable", () => {
@@ -195,9 +237,9 @@ describe("fx + optional node/line hooks", () => {
     expect(
       resolveScenePresentation(bare, 0, { changeCount: 2, holdCount: 0 }),
     ).toEqual({
-      transition: "dip-to-black",
+      transition: "soft-zoom",
       motion: "kenburns-right",
-      fx: "vignette",
+      fx: "warm-tint",
     });
   });
 

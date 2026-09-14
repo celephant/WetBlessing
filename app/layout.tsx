@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { tokenRootCss } from "@/lib/tokens";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body className="min-h-dvh bg-void antialiased">{children}</body>
+      <body className="min-h-dvh bg-void antialiased">
+        <style dangerouslySetInnerHTML={{ __html: tokenRootCss() }} />
+        {children}
+      </body>
     </html>
   );
 }

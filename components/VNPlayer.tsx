@@ -21,7 +21,13 @@ import {
   loadEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
-import { presentationHooksForBeat } from "@/lib/scene-presentation";
+import {
+  isNightGradeNode,
+  isPaywallWallNode,
+  presentationHooksForBeat,
+  TRANSITION_MS,
+  WALL_RHYTHM,
+} from "@/lib/scene-presentation";
 import { NIGHT_PASS_DIALOG_DOCK_CSS, SKU_STORY_PASS_MONTH } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
 
@@ -44,6 +50,7 @@ function readSave(): GameState | null {
 export function VNPlayer({ resume = false }: { resume?: boolean }) {
   const [state, setState] = useState<GameState | null>(null);
   const [locked, setLocked] = useState<Choice | null>(null);
+  const [afterPurchase, setAfterPurchase] = useState(false);
 
   useEffect(() => {
     const entitlements = loadEntitlements();
@@ -63,6 +70,15 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     }
     setState(startGame(entitlements));
   }, [resume]);
+
+  useEffect(() => {
+    if (!afterPurchase) return;
+    const cut = window.setTimeout(
+      () => setAfterPurchase(false),
+      TRANSITION_MS["soft-zoom"],
+    );
+    return () => window.clearTimeout(cut);
+  }, [afterPurchase]);
 
   if (!state) {
     return <div className="h-dvh bg-void" />;
@@ -101,6 +117,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     const result = unlockNext(state);
     if (result.ok) {
       setLocked(null);
+      setAfterPurchase(true);
       commit(result.state);
     }
   };
@@ -113,8 +130,20 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     commit(withEntitlement(state, SKU_STORY_PASS_MONTH, entitlements.story_pass_month));
   };
 
+  const wallNode = isPaywallWallNode(snapshot.node.nodeId);
+  const nightGrade =
+    Boolean(locked) ||
+    snapshot.isPaywall ||
+    isNightGradeNode(snapshot.node.nodeId);
+
   return (
-    <div className="relative h-dvh w-full overflow-hidden bg-void text-paper">
+    <div
+      className="relative h-dvh w-full overflow-hidden bg-void text-paper"
+      data-wall-rhythm={
+        wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
+      }
+      data-phone-glow={nightGrade ? "off" : undefined}
+    >
       <SceneArt
         assetId={snapshot.node.assetId}
         artCue={snapshot.node.artCue}
@@ -123,6 +152,8 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         transition={sceneHooks.transition}
         camera={sceneHooks.camera}
         fx={sceneHooks.fx}
+        afterPurchase={afterPurchase}
+        forceNightGrade={nightGrade}
       />
 
       <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
@@ -171,9 +202,11 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
             style={{ bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
           >
             <ChoiceList
+              key={snapshot.node.nodeId}
               choices={snapshot.choices}
               entitled={state.entitlements.story_pass_month}
               onSelect={onChoice}
+              enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
             />
           </div>
           <div
