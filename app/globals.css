@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--wb-void, #07080c);
+  color: var(--wb-paper, #f6f1e8);
+}
+
+body {
+  font-family: var(--font-ui), "Noto Sans SC", system-ui, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.wb-kenburns {
+  animation: wb-kenburns 18s ease-in-out infinite alternate;
+}
+
+@keyframes wb-kenburns {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(-1.4%, -1%, 0);
+  }
+}
+
+.wb-dialog-in {
+  animation: wb-dialog-in var(--wb-dialog-ms, 180ms) ease-out;
+}
+
+@keyframes wb-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wb-choice-in {
+  animation: wb-choice-in 220ms ease-out both;
+}
+
+@keyframes wb-choice-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
