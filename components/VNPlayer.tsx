@@ -17,7 +17,8 @@ import {
 } from "@/lib/engine";
 import {
   SAVE_STORAGE_KEY,
-  grantStoryPassDev,
+  grantFullEntitleDev,
+  isFullyEntitled,
   loadEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
@@ -28,7 +29,7 @@ import {
   TRANSITION_MS,
   WALL_RHYTHM,
 } from "@/lib/scene-presentation";
-import { NIGHT_PASS_DIALOG_DOCK_CSS, SKU_STORY_PASS_MONTH } from "@/lib/tokens";
+import { NIGHT_PASS_DIALOG_DOCK_CSS } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
 
 function persistSave(state: GameState) {
@@ -113,7 +114,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
   };
 
   const onDevUnlock = () => {
-    grantStoryPassDev(state.entitlements);
+    grantFullEntitleDev(state.entitlements);
     const result = unlockNext(state);
     if (result.ok) {
       setLocked(null);
@@ -123,12 +124,15 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
   };
 
   const toggleDevPass = () => {
-    const nextGranted = !state.entitlements.story_pass_month;
+    const nextGranted = !isFullyEntitled(state.entitlements);
     const entitlements: Entitlements = nextGranted
-      ? grantStoryPassDev(state.entitlements)
+      ? grantFullEntitleDev(state.entitlements)
       : revokeStoryPassDev(state.entitlements);
-    commit(withEntitlement(state, SKU_STORY_PASS_MONTH, entitlements.story_pass_month));
+    commit(withEntitlement(state, "full_entitle", Boolean(entitlements.story_pass_month)));
   };
+
+  const wallsUnlocked =
+    state.entitlements.story_pass_month || Boolean(state.entitlements.edge_lock);
 
   const wallNode = isPaywallWallNode(
     snapshot.node.nodeId,
@@ -146,6 +150,14 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
       }
       data-phone-glow={nightGrade ? "off" : undefined}
+      data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
+      data-unlock-gates="first_sub,edge_lock"
+      data-entitle-first-sub={state.entitlements.story_pass_month ? "on" : "off"}
+      data-entitle-edge-lock={
+        state.entitlements.edge_lock || state.entitlements.story_pass_month
+          ? "on"
+          : "off"
+      }
     >
       <SceneArt
         assetId={snapshot.node.assetId}
@@ -178,7 +190,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
           onClick={toggleDevPass}
           className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-[10px] uppercase tracking-wide text-gold backdrop-blur"
         >
-          DEV {state.entitlements.story_pass_month ? "PASS ON" : "PASS OFF"}
+          DEV {wallsUnlocked ? "PASS ON" : "PASS OFF"}
         </button>
       </header>
 
@@ -208,7 +220,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
             <ChoiceList
               key={snapshot.node.nodeId}
               choices={snapshot.choices}
-              entitled={state.entitlements.story_pass_month}
+              entitled={wallsUnlocked}
               onSelect={onChoice}
               enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
             />
@@ -233,7 +245,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         <PaywallOverlay
           choice={locked}
           gate={snapshot.node.gate}
-          entitled={state.entitlements.story_pass_month}
+          entitled={wallsUnlocked}
           onDevUnlock={onDevUnlock}
           onClose={() => setLocked(null)}
         />

@@ -76,6 +76,10 @@ describe("edge_lock + paywall copy", () => {
       ],
     };
     expect(() => compileRoute(edgeStub)).not.toThrow();
+    const quoted = structuredClone(edgeStub);
+    quoted.stages[0]!.nodes[0]!.gate = '"edge_lock"';
+    expect(() => compileRoute(quoted)).not.toThrow();
+    expect(isWallGate('"edge_lock"')).toBe(true);
   });
 
   it("keeps wall1 体温未散 and owned edge primary 推门进去", () => {

@@ -84,6 +84,7 @@ export function SceneArt({
     afterPurchase,
     forceNightGrade,
     nodeId,
+    gate,
   });
   const didMountRef = useRef(false);
   const prevBeatRef = useRef(beatKey);
@@ -98,6 +99,7 @@ export function SceneArt({
     afterPurchase,
     forceNightGrade,
     nodeId,
+    gate,
   };
 
   useEffect(() => {
@@ -139,6 +141,7 @@ export function SceneArt({
       transition: cut,
       afterPurchase: purchased,
       nodeId: arrivingId,
+      gate: arrivingGate,
     } = hooksRef.current;
 
     if (shouldPlayAssetTransition(identityRef.current, next)) {
@@ -147,6 +150,7 @@ export function SceneArt({
         explicit: cut,
         changeCount: changeCountRef.current,
         nodeId: arrivingId,
+        gate: arrivingGate,
         afterPurchase: purchased,
       });
       setOutgoing({

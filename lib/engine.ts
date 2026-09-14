@@ -1,5 +1,6 @@
 import { countsTowardChoiceIndex } from "./choice-index";
 import { getNode, route, type CompiledRoute } from "./content";
+import { isWallGate, isWallSku, SKU_CHAPTER_UNLOCK, SKU_EDGE_LOCK } from "./paywall-copy";
 import { SKU_STORY_PASS_MONTH } from "./tokens";
 import type {
   Beat,
@@ -127,8 +128,11 @@ export function isChoiceVisible(choice: Choice, flags: Flags): boolean {
 }
 
 export function hasEntitlement(state: GameState, sku: string): boolean {
-  if (sku === SKU_STORY_PASS_MONTH) {
-    return state.entitlements.story_pass_month;
+  const { story_pass_month, edge_lock, chapter_unlock } = state.entitlements;
+  if (sku === SKU_STORY_PASS_MONTH) return Boolean(story_pass_month);
+  if (sku === SKU_EDGE_LOCK) return Boolean(edge_lock || story_pass_month);
+  if (sku === SKU_CHAPTER_UNLOCK) {
+    return Boolean(chapter_unlock || story_pass_month || edge_lock);
   }
   return false;
 }
@@ -143,8 +147,8 @@ function assertFirstSubWall(
   compiled: CompiledRoute,
 ): void {
   if (
+    !isWallGate(node.gate) &&
     node.gate !== compiled.gateField &&
-    node.gate !== "edge_lock" &&
     node.nodeId !== compiled.firstSubNodeId
   ) {
     return;
@@ -214,7 +218,7 @@ export function view(
     choices,
     canClickAdvance,
     isSettle: node.type === "settle",
-    isPaywall: node.gate === compiled.gateField || node.gate === "edge_lock",
+    isPaywall: isWallGate(node.gate) || node.gate === compiled.gateField,
   };
 }
 
@@ -276,11 +280,31 @@ export function withEntitlement(
   sku: string,
   granted: boolean,
 ): GameState {
-  if (sku !== SKU_STORY_PASS_MONTH) return state;
-  return {
-    ...state,
-    entitlements: { ...state.entitlements, story_pass_month: granted },
-  };
+  if (sku === SKU_STORY_PASS_MONTH || sku === "full_entitle") {
+    return {
+      ...state,
+      entitlements: {
+        ...state.entitlements,
+        story_pass_month: granted,
+        edge_lock: granted,
+        chapter_unlock: granted,
+      },
+    };
+  }
+  if (sku === SKU_EDGE_LOCK) {
+    return {
+      ...state,
+      entitlements: { ...state.entitlements, edge_lock: granted },
+    };
+  }
+  if (sku === SKU_CHAPTER_UNLOCK) {
+    return {
+      ...state,
+      entitlements: { ...state.entitlements, chapter_unlock: granted },
+    };
+  }
+  if (!isWallSku(sku)) return state;
+  return state;
 }
 
 /**
@@ -340,8 +364,8 @@ export function walkAllPaths(
 
     if (
       stopAtFirstSub &&
-      (node.gate === compiled.gateField ||
-        node.gate === "edge_lock" ||
+      (isWallGate(node.gate) ||
+        node.gate === compiled.gateField ||
         node.nodeId === compiled.firstSubNodeId)
     ) {
       paths.push([...path, here]);

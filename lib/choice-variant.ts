@@ -1,3 +1,4 @@
+import { isWallSku } from "./paywall-copy";
 import { tokens } from "./tokens";
 import type { Choice } from "./types";
 
@@ -6,8 +7,8 @@ export type ChoiceVariant = "jie" | "yuan" | "duo" | "pass" | "ghost" | "plain";
 export function showsPassChip(choice: Choice): boolean {
   return (
     choice.onLocked === "show_pass_chip" ||
-    choice.cta === "story_pass_month" ||
-    choice.requiresEntitlement === "story_pass_month"
+    isWallSku(choice.cta) ||
+    isWallSku(choice.requiresEntitlement)
   );
 }
 

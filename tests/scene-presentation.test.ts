@@ -76,6 +76,13 @@ describe("asset-change transitions", () => {
     expect(WALL_RHYTHM.goldOnlyOnYuan).toBe(true);
     expect(WALL_RHYTHM.forbidAllChipsGold).toBe(true);
     expect(WALL_RHYTHM.chipEnterDelayMs).toBe(380);
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 0,
+        nodeId: "n_future_edge",
+        gate: "edge_lock",
+      }),
+    ).toBe("dip-to-black");
   });
 
   it("honors an explicit cut and ignores the cycle index", () => {
@@ -196,6 +203,10 @@ describe("fx + optional node/line hooks", () => {
     );
     expect(phoneGlowAllowed({ nodeId: "n_sms_auto" })).toBe(false);
     expect(phoneGlowAllowed({ nodeId: "n_ch01_first_sub" })).toBe(false);
+    expect(phoneGlowAllowed({ gate: "edge_lock" })).toBe(false);
+    expect(
+      selectSceneFx({ explicit: "phone_glow", gate: "edge_lock" }),
+    ).toBe("vignette");
     expect(phoneGlowAllowed({ forceNightGrade: true })).toBe(false);
     expect(phoneGlowAllowed({ nodeId: "n_open" })).toBe(true);
   });

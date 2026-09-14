@@ -146,6 +146,9 @@ export type Flags = Record<string, FlagValue>;
 
 export type Entitlements = {
   story_pass_month: boolean;
+  /** Sibling of first_sub. Local /play full-entitle grants both walls. */
+  edge_lock?: boolean;
+  chapter_unlock?: boolean;
 };
 
 export type GameState = {

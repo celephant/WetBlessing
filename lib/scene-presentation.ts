@@ -1,4 +1,5 @@
 import { resolveAssetUrl } from "./assets";
+import { isWallGate } from "./paywall-copy";
 import { tokens } from "./tokens";
 import type {
   ContentNode,
@@ -96,12 +97,12 @@ export const NIGHT_GRADE_NODE_IDS = new Set([
 ]);
 
 export function isNightGradeNode(nodeId?: string, gate?: string): boolean {
-  if (gate === "first_sub" || gate === "edge_lock") return true;
+  if (isWallGate(gate)) return true;
   return Boolean(nodeId && NIGHT_GRADE_NODE_IDS.has(nodeId));
 }
 
 export function isPaywallWallNode(nodeId?: string, gate?: string): boolean {
-  if (gate === "first_sub" || gate === "edge_lock") return true;
+  if (isWallGate(gate)) return true;
   return nodeId === tokens.paywall.nodeId || nodeId === "n_ch01_first_sub";
 }
 
@@ -219,13 +220,14 @@ export function selectAssetChangeTransition(options: {
   explicit?: string;
   changeCount: number;
   nodeId?: string;
+  gate?: string;
   afterPurchase?: boolean;
   intimate?: boolean;
 }): SceneTransitionName {
   if (options.afterPurchase) {
     return tokenCut(tokens.transitions.defaults.afterPurchase);
   }
-  if (isNightGradeNode(options.nodeId)) {
+  if (isNightGradeNode(options.nodeId, options.gate)) {
     return tokenCut(tokens.transitions.defaults.smsOrPaywall);
   }
   const parsed = parseTransition(options.explicit);
@@ -336,6 +338,7 @@ export function resolveScenePresentation(
       explicit: hooks.transition,
       changeCount: options.changeCount,
       nodeId: node.nodeId,
+      gate: node.gate,
       afterPurchase: options.afterPurchase,
       intimate: fx === "warm-tint",
     }),
