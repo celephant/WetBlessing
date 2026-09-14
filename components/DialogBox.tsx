@@ -8,6 +8,7 @@ type DialogBoxProps = {
   showCaret: boolean;
   onAdvance: () => void;
   entranceKey: string;
+  continueBeat?: boolean;
 };
 
 export function DialogBox({
@@ -15,9 +16,11 @@ export function DialogBox({
   showCaret,
   onAdvance,
   entranceKey,
+  continueBeat = false,
 }: DialogBoxProps) {
   const name = speakerLabel(beat.speaker);
   const color = speakerColor(beat.speaker);
+  const enterClass = continueBeat ? "dialog-continue" : "dialog-enter";
 
   return (
     <button
@@ -30,11 +33,12 @@ export function DialogBox({
         <div
           key={entranceKey}
           data-dialog-enter={entranceKey}
-          className="dialog-enter mx-auto flex w-full max-w-dialog flex-1 flex-col justify-center"
+          data-dialog-motion={continueBeat ? "continue" : "enter"}
+          className={`${enterClass} mx-auto flex w-full max-w-dialog flex-1 flex-col justify-center`}
         >
           {name ? (
             <p
-              className="mb-1 font-display text-[13px] font-semibold tracking-wide"
+              className="dialog-nameplate mb-1 font-display text-[13px] font-semibold tracking-wide"
               style={{ color }}
             >
               {name}

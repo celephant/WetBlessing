@@ -40,7 +40,42 @@ export const TRANSITION_MS: Record<SceneTransitionName, number> = {
   "dip-to-black": 380,
 };
 
+/**
+ * Design Lead lock (UI-观感加码-动效过场-v1). Hardcoded until
+ * `UI-tokens.json` v1.1 (`motion` / `transitions` / `grade`) lands in-repo.
+ */
+export const MOTION_SPEC = {
+  dialogMs: 220,
+  dialogContinueMs: 140,
+  dialogEase: "cubic-bezier(0.22, 1, 0.36, 1)",
+  dialogFromY: 12,
+  dialogContinueFromY: 6,
+  nameplateDelayMs: 60,
+  nameplateMs: 120,
+  choiceMs: 160,
+  choiceStaggerMs: 48,
+  choiceFromY: 8,
+  choiceFromScale: 0.98,
+  kenBurnsMs: 14_000,
+  kenBurnsScale: 1.028,
+  breatheMs: 3200,
+  dipInMs: 120,
+  dipHoldMs: 40,
+  dipOutMs: 220,
+  dipOverlay: "#07080C",
+  softZoomOldScaleTo: 1.04,
+  softZoomNewScaleFrom: 1.06,
+  softZoomFocusY: 0.45,
+} as const;
+
 export const DEFAULT_SCENE_FX: SceneFxName = "vignette";
+
+/** SMS / first-sub wall stay on night vignette, not warm intimate grade. */
+export const NIGHT_GRADE_NODE_IDS = new Set([
+  "n_sms_auto",
+  "n_ch01_first_sub",
+  "n_free_soft_exit",
+]);
 
 export type SceneIdentity = {
   url: string;
@@ -179,7 +214,13 @@ export function selectSameAssetMotion(options: {
   return SAME_ASSET_MOTIONS[hold % SAME_ASSET_MOTIONS.length]!;
 }
 
-export function selectSceneFx(options: { explicit?: string }): SceneFxName {
+export function selectSceneFx(options: {
+  explicit?: string;
+  nodeId?: string;
+}): SceneFxName {
+  if (options.nodeId && NIGHT_GRADE_NODE_IDS.has(options.nodeId)) {
+    return "vignette";
+  }
   return parseFx(options.explicit) ?? DEFAULT_SCENE_FX;
 }
 

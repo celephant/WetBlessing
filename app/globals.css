@@ -35,6 +35,10 @@ body {
 .scene-out-fade {
   animation: scene-fade-out 320ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+.scene-in-soft-zoom,
+.scene-out-soft-zoom {
+  transform-origin: 50% 45%;
+}
 .scene-in-soft-zoom {
   animation: scene-soft-zoom-in 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -94,6 +98,15 @@ body {
 
 .dialog-enter {
   animation: dialog-enter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dialog-continue {
+  animation: dialog-continue 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dialog-nameplate {
+  animation: dialog-nameplate 120ms ease-out 60ms both;
+}
+.choice-enter {
+  animation: choice-enter 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes scene-fade-in {
@@ -158,10 +171,10 @@ body {
   0% {
     opacity: 0;
   }
-  32% {
+  31.6% {
     opacity: 0.72;
   }
-  42% {
+  42.1% {
     opacity: 0.72;
   }
   100% {
@@ -211,6 +224,34 @@ body {
     transform: translateY(0);
   }
 }
+@keyframes dialog-continue {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes dialog-nameplate {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes choice-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .scene-in-fade,
@@ -224,7 +265,10 @@ body {
   .scene-motion-kenburns-left,
   .scene-motion-kenburns-up,
   .scene-motion-breathe,
-  .dialog-enter {
+  .dialog-enter,
+  .dialog-continue,
+  .dialog-nameplate,
+  .choice-enter {
     animation: none;
   }
   .scene-in-soft-zoom,

@@ -18,3 +18,19 @@ Player chrome and any UI copy we touch stay **bold suggestive, not adult**:
 - Forbidden: visible nipples/genitals, explicit sex acts or how-to sex prose, adult-site red/black neon (`#FF0033`, black-red chrome). No extra adult art packs.
 
 `warm-tint` is warmVeil + magentaMist. Ken Burns peaks at **1.028 / 14s** with a small breathe. Product marketing remains a browser VN.
+
+## Motion spec (Design Lead lock)
+
+Hardcoded in `lib/scene-presentation.ts` `MOTION_SPEC` until `content/UI-tokens.json` **v1.1** (`motion` / `transitions` / `grade`) is synced from lattice-bizplan `UI-观感加码-动效过场-v1.md`.
+
+| Beat | Timing |
+|---|---|
+| Dialog first enter | 220ms · `cubic-bezier(0.22, 1, 0.36, 1)` · `translateY(12px)` |
+| Same-node continue | 140ms · `translateY(6px)` |
+| Nameplate | delay 60ms · fade 120ms |
+| Choice chips | 160ms · stagger 48ms · Y(8) + scale(0.98) |
+| fade / soft-zoom / dip | 320 / 420 / 380ms · dip overlay `#07080C` (in 120 + hold 40 + out 220) |
+| Ken Burns | peak 1.028 · ~14s + breathe |
+| Grade | warm+magenta on intimate nodes; night vignette on SMS / first-sub wall |
+
+Forbidden: bounce springs, confetti, heartbeat bars, shake >2px, flash-white >80ms.

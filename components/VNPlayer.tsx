@@ -186,6 +186,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
               showCaret={snapshot.canClickAdvance && snapshot.choices.length === 0}
               onAdvance={onDialogClick}
               entranceKey={beatKey}
+              continueBeat={state.beatIndex > 0}
             />
           </div>
         </>

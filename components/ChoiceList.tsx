@@ -27,8 +27,8 @@ export function ChoiceList({ choices, entitled, onSelect }: ChoiceListProps) {
             key={choice.choiceId}
             type="button"
             onClick={() => onSelect(choice.choiceId)}
-            style={{ animationDelay: `${index * 40}ms` }}
-            className={`animate-fade-up flex min-h-[52px] items-stretch overflow-hidden rounded-chip border border-white/10 bg-white/[0.08] text-left backdrop-blur-md transition hover:bg-white/[0.12] ${
+            style={{ animationDelay: `${index * 48}ms` }}
+            className={`choice-enter flex min-h-[52px] items-stretch overflow-hidden rounded-chip border border-white/10 bg-white/[0.08] text-left backdrop-blur-md transition hover:bg-white/[0.12] ${
               variant === "pass"
                 ? "shadow-[0_0_24px_rgba(232,197,106,0.18)]"
                 : ""

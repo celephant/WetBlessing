@@ -54,7 +54,7 @@ export function SceneArt({
     selectSameAssetMotion({ explicitCamera: camera, holdCount: 0 }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
-    selectSceneFx({ explicit: fx }),
+    selectSceneFx({ explicit: fx, nodeId }),
   );
   const [holdCount, setHoldCount] = useState(0);
 
@@ -73,8 +73,8 @@ export function SceneArt({
   hooksRef.current = { transition, camera, fx };
 
   useEffect(() => {
-    setOverlay(selectSceneFx({ explicit: fx }));
-  }, [fx]);
+    setOverlay(selectSceneFx({ explicit: fx, nodeId }));
+  }, [fx, nodeId]);
 
   useEffect(() => {
     const entrance = window.setTimeout(() => {

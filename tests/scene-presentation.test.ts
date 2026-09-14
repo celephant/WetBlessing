@@ -3,8 +3,10 @@ import { resolveAssetUrl } from "../lib/assets";
 import { content } from "../lib/content";
 import {
   DEFAULT_SCENE_FX,
+  MOTION_SPEC,
   SAME_ASSET_MOTIONS,
   SCENE_TRANSITIONS,
+  TRANSITION_MS,
   parseCamera,
   parseFx,
   parseTransition,
@@ -25,6 +27,20 @@ describe("asset-change transitions", () => {
       "soft-zoom",
       "dip-to-black",
     ]);
+    expect(TRANSITION_MS).toEqual({
+      fade: 320,
+      "soft-zoom": 420,
+      "dip-to-black": 380,
+    });
+    expect(
+      MOTION_SPEC.dipInMs + MOTION_SPEC.dipHoldMs + MOTION_SPEC.dipOutMs,
+    ).toBe(TRANSITION_MS["dip-to-black"]);
+    expect(MOTION_SPEC.dipOverlay.toLowerCase()).toBe("#07080c");
+    expect(MOTION_SPEC.kenBurnsScale).toBe(1.028);
+    expect(MOTION_SPEC.kenBurnsMs).toBe(14_000);
+    expect(MOTION_SPEC.dialogMs).toBe(220);
+    expect(MOTION_SPEC.dialogContinueMs).toBe(140);
+    expect(MOTION_SPEC.choiceStaggerMs).toBe(48);
   });
 
   it("honors an explicit cut and ignores the cycle index", () => {
@@ -131,6 +147,15 @@ describe("fx + optional node/line hooks", () => {
     expect(parseFx("warm_dust")).toBe("warm-tint");
     expect(parseFx("phone_glow")).toBe("soft-light");
     expect(parseFx("tension_hold")).toBe("vignette");
+    expect(
+      selectSceneFx({ explicit: "phone_glow", nodeId: "n_sms_auto" }),
+    ).toBe("vignette");
+    expect(
+      selectSceneFx({ explicit: "tension_hold", nodeId: "n_ch01_first_sub" }),
+    ).toBe("vignette");
+    expect(selectSceneFx({ explicit: "warm_dust", nodeId: "n_open" })).toBe(
+      "warm-tint",
+    );
   });
 
   it("lets a line override node hooks; bare nodes stay defaultable", () => {

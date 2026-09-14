@@ -48,6 +48,9 @@ describe("Slice-0 hard locks", () => {
     expect(css).toContain("#07080c");
     expect(css).toContain("1.028");
     expect(css).toContain("rgba(220, 90, 140");
+    expect(css).toContain("dialog-continue 140ms");
+    expect(css).toContain("choice-enter 160ms");
+    expect(css).toContain("transform-origin: 50% 45%");
     const paywall = readFileSync(path.join(root, "components/PaywallOverlay.tsx"), "utf8");
     expect(paywall).not.toMatch(/bg-black/);
     expect(paywall).toContain("bg-void/70");
