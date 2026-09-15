@@ -32,6 +32,7 @@ describe("content integrity", () => {
         "persona_vanessa_v1",
         "persona_rae_v1",
         "persona_lina_v1",
+        "persona_reina_v1",
       ]),
     );
   });

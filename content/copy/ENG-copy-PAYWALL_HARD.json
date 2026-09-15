@@ -2,8 +2,8 @@
   "errorCode": "PAYWALL_HARD",
   "http": 402,
   "zh-CN": {
-    "title": "吻上了。腰还热。赤足还湿。未赴的短信还亮着。",
-    "body": "刚才那场已经吻上——胸、腿、脚、抱过的腰都还热。想把话说完，或把吻做完，开通通行证当场续读。",
+    "title": "吻上了。拼贴发出了。周一还在。",
+    "body": "刚才那场已经吻上。群里两张嘴。Reina 要你带着学生证去办公室。想把认领说完，或把吻做完，开通通行证当场续读。",
     "primary": "开通剧本通行证 · $8.99",
     "secondary": "只续这一段 · $2.99",
     "tertiary": "稍后再说"
@@ -12,6 +12,6 @@
     "primaryAction": "checkout_sku:story_pass_month",
     "secondaryAction": "checkout_sku:chapter_unlock|scope=w1_continue",
     "tertiaryAction": "dismiss",
-    "tone": "完成吻被打断的续读钩；免费段已接吻已贴身；禁暗示开通后才开始暧昧；禁成人/AI女友"
+    "tone": "完成吻被打断的续读钩；拼贴+周一办公室已落地；禁暗示开通后才开始暧昧；禁成人/AI女友"
   }
 }

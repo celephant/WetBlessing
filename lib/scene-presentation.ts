@@ -113,6 +113,7 @@ export const DEFAULT_SCENE_FX: SceneFxName =
 /** SMS / first-sub wall stay on night vignette, not warm intimate grade. */
 export const NIGHT_GRADE_NODE_IDS = new Set([
   "n_sms_auto",
+  "n_reina_monday",
   "n_ch01_first_sub",
   "n_free_soft_exit",
 ]);

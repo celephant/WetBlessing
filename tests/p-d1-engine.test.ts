@@ -100,6 +100,9 @@ describe("P-D5 asset aliases", () => {
     expect(aliases.n_pay_02_ot_jade).toBe(
       "assets/scenes/heat/n_heat_straddle_jade.webp",
     );
+    expect(aliases.n_with_mia).toBe("assets/scenes/heat/S06a.webp");
+    expect(aliases.n_reina_monday).toBe("assets/scenes/heat/S14.webp");
+    expect(aliases.n_pay_03_vanessa).toBe("assets/scenes/heat/S11.webp");
     expect(aliases.n_pay_02_double_empty).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     expect(aliases.n_pay_02_router).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     const doc = readFileSync(

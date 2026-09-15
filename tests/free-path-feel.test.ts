@@ -78,6 +78,8 @@ describe("free-path feel (not paid-gated)", () => {
   it("keeps SMS/wall on night grade and wall rhythm, not free warm", () => {
     expect(isFreePathFeel("n_sms_auto")).toBe(false);
     expect(isNightGradeNode("n_sms_auto")).toBe(true);
+    expect(isFreePathFeel("n_reina_monday")).toBe(false);
+    expect(isNightGradeNode("n_reina_monday")).toBe(true);
     expect(isFreePathFeel("n_ch01_first_sub", "first_sub")).toBe(false);
     expect(selectSceneFx({ nodeId: "n_sms_auto", explicit: "phone_glow" })).toBe(
       "vignette",

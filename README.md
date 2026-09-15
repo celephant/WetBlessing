@@ -1,6 +1,6 @@
 # WetBlessing
 
-Campus romance VN web player. Suggestive / not adult. College characters 18+ (Kai, Mia, Jade, Rae, Lina, Vanessa).
+Campus romance VN web player. Suggestive / not adult. College characters 18+ (Kai, Mia, Jade, Rae 18 JK/sailor fashion, Lina, Vanessa, Reina 29 lecturer).
 
 ## Slice-0
 

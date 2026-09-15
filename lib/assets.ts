@@ -63,6 +63,7 @@ function isClimaxScenePath(assetId: string): boolean {
   );
 }
 
+/** Heat stills (old n_heat_* plus bible plates S06a/S06b/S04/S06c/S11/S14) skip Ch01 stem fallback. */
 function isHeatScenePath(assetId: string): boolean {
   return stripLeadingSlash(assetId).includes("/scenes/heat/");
 }
