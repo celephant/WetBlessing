@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import {
   CH02_OFFICE_PATH,
+  CH03_NIGHT_PATH,
+  CH04_ENDINGS_PATH,
   FOURWEEK_MINI_PATH,
   FOURWEEK_WEEK_PATHS,
 } from "./dev-packs";
@@ -21,6 +23,16 @@ export function tryReadFourweekMini(root = process.cwd()): ContentFile | null {
 /** DEV Ch02 office pack. Null when the fixture is not installed. */
 export function tryReadCh02Office(root = process.cwd()): ContentFile | null {
   return tryReadJsonFile<ContentFile>(CH02_OFFICE_PATH, root);
+}
+
+/** DEV Ch03 闭馆夜 pack. Null when the fixture is not installed. */
+export function tryReadCh03Night(root = process.cwd()): ContentFile | null {
+  return tryReadJsonFile<ContentFile>(CH03_NIGHT_PATH, root);
+}
+
+/** DEV Ch04 名分 pack. Null when the fixture is not installed. */
+export function tryReadCh04Endings(root = process.cwd()): ContentFile | null {
+  return tryReadJsonFile<ContentFile>(CH04_ENDINGS_PATH, root);
 }
 
 export function listInstalledFourweekDrafts(root = process.cwd()): string[] {

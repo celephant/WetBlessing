@@ -22,6 +22,16 @@
       "neverDefault": true
     },
     {
+      "path": "content/CONTENT-ch03-night.json",
+      "via": "/play?content=ch03",
+      "neverDefault": true
+    },
+    {
+      "path": "content/CONTENT-ch04-endings.json",
+      "via": "/play?content=ch04",
+      "neverDefault": true
+    },
+    {
       "path": "content/CONTENT-w2-tug-draft.json",
       "via": "/play?content=fourweek",
       "neverDefault": true
@@ -44,9 +54,11 @@
     "*黎*",
     "CONTENT-fourweek-*",
     "CONTENT-ch02-*",
+    "CONTENT-ch03-*",
+    "CONTENT-ch04-*",
     "CONTENT-w2-*",
     "CONTENT-w3-*",
     "CONTENT-w4-*"
   ],
-  "note": "默认演示0.4.8-feel-hot（与0.4.8-feel同档）；hotter-cast 仍此版本；fourweek-mini / ch02-office 联调不升默认"
+  "note": "默认演示0.4.8-feel-hot（与0.4.8-feel同档）；hotter-cast 仍此版本；fourweek-mini / ch02-office / ch03-night / ch04-endings 联调不升默认"
 }
