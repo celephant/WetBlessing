@@ -15,17 +15,23 @@ const FREE_BEFORE_WALL = [
   "n_open",
   "n_see_both",
   "n_jade_desk",
-  "n_mia_tease_auto",
   "n_dodge_corridor",
   "n_mia_edge_1",
   "n_mia_edge_2",
+  "n_dorm_steam",
   "n_conflict",
   "n_with_mia",
   "n_with_jade",
+  "n_with_lina",
+  "n_with_rae",
+  "n_kiss_mia",
+  "n_kiss_jade",
+  "n_kiss_lina",
+  "n_kiss_rae",
 ];
 
 describe("free-path feel (not paid-gated)", () => {
-  it("gives unpaid free nodes Ken Burns/breath, crop cycle, and warm+magenta", () => {
+  it("gives unpaid free nodes warm grade and frozen stills", () => {
     expect(tokens.grade.warmVeil).toContain("255, 140, 120");
     expect(tokens.grade.magentaMist).toContain("220, 90, 140");
     expect(tokens.grade.forbid.join(" ")).toMatch(/FF0033|neon/i);
@@ -34,7 +40,7 @@ describe("free-path feel (not paid-gated)", () => {
       expect(isFreePathFeel(nodeId)).toBe(true);
       expect(isPaywallWallNode(nodeId)).toBe(false);
       expect(selectSceneFx({ nodeId, explicit: "dual_focus" })).toBe("warm-tint");
-      expect(selectSameAssetMotion({ holdCount: 0 })).not.toBe("hold");
+      expect(selectSameAssetMotion({ holdCount: 0 })).toBe("hold");
     }
 
     const open = listNodes().find((node) => node.nodeId === "n_open");
@@ -44,27 +50,16 @@ describe("free-path feel (not paid-gated)", () => {
       holdCount: 0,
     });
     expect(unpaid.fx).toBe("warm-tint");
-    expect(unpaid.motion).not.toBe("hold");
+    expect(unpaid.motion).toBe("hold");
 
     expect(selectCropName({ explicitCamera: open?.camera, holdCount: 0 })).toBe(
       "wide",
     );
-    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 1 })).toBe(
+    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 2 })).toBe(
       "wide",
     );
-    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 2 })).toBe(
-      "mid",
-    );
-
-    const closeNode = listNodes().find((node) => node.nodeId === "n_mia_edge_1");
     expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 0 }),
-    ).toBe("close");
-    expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 1 }),
-    ).toBe("close");
-    expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 2 }),
+      selectCropName({ holdCount: 0, beforeChoices: true }),
     ).toBe("wide");
   });
 

@@ -17,7 +17,7 @@ export function TitleScreen() {
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/scenes/ch01/n_conflict.webp"
+          src="/assets/scenes/ch01/n_open.webp"
           alt="WetBlessing chapter 1"
           className="h-full w-full object-cover object-top opacity-80"
         />
@@ -35,7 +35,7 @@ export function TitleScreen() {
           校园恋爱视觉小说 · {content.routeTitle}
         </p>
         <p className="mt-2 font-ui text-sm text-mute">
-          擦边非成人 · 大学角色 18+ · Kai / Mia / Jade / Vanessa
+          擦边非成人 · 大学角色 18+ · Kai / Mia / Jade / Rae / Lina / Vanessa / Reina
         </p>
 
         <div className="mt-8 flex flex-col gap-2">

@@ -4,7 +4,7 @@ import { intimateBeatGaps } from "./feel-density";
 import type { CompiledRoute, ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
 
-/** Canonical Ch01 (0.4.8-feel-hot). Also linked at src/content/chapters/ch01.json. */
+/** Canonical Ch01 (0.4.8-feel-hot, hotter-cast graph). Also linked at src/content/chapters/ch01.json. */
 export const DEFAULT_CH01_PATH = "content/CONTENT-ch01-free-to-firstsub.json";
 export const DEFAULT_CH01_VERSION = "0.4.8-feel-hot";
 export const DEFAULT_CH01_ROUTE_ID = "route_kai_ch01";

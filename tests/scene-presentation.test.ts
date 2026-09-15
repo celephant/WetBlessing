@@ -138,7 +138,7 @@ describe("asset-change transitions", () => {
     const mia = sceneIdentity("assets/scenes/ch01/n_mia_edge_1.webp");
 
     expect(open.url).toBe(resolveAssetUrl("assets/scenes/ch01/n_open.webp"));
-    expect(open.url).toBe(seeBoth.url);
+    expect(open.url).not.toBe(seeBoth.url);
     expect(shouldPlayAssetTransition(open, seeBoth)).toBe(true);
     expect(shouldPlayAssetTransition(seeBoth, seeBoth)).toBe(false);
     expect(shouldPlayAssetTransition(seeBoth, mia)).toBe(true);
@@ -147,23 +147,15 @@ describe("asset-change transitions", () => {
 });
 
 describe("same-asset motion", () => {
-  it("cycles distinct Ken Burns / breathe across 3+ holds", () => {
-    const motions = [0, 1, 2].map((holdCount) =>
+  it("freezes same-asset motion on every hold", () => {
+    const motions = [0, 1, 2, 4].map((holdCount) =>
       selectSameAssetMotion({ holdCount }),
     );
-    expect(new Set(motions).size).toBe(3);
-    expect(motions[0]).not.toBe(motions[1]);
-    expect(motions.every((motion) => motion !== "hold")).toBe(true);
-    expect(SAME_ASSET_MOTIONS).toContain(motions[0]);
+    expect(new Set(motions)).toEqual(new Set(["hold"]));
+    expect(SAME_ASSET_MOTIONS.length).toBeGreaterThan(0);
   });
 
-  it("returns to the first motion on the 5th hold (4-step cycle)", () => {
-    expect(selectSameAssetMotion({ holdCount: 4 })).toBe(
-      selectSameAssetMotion({ holdCount: 0 }),
-    );
-  });
-
-  it("honors camera hold / breathe / kenburns", () => {
+  it("maps every camera word onto hold", () => {
     expect(
       selectSameAssetMotion({
         explicitCamera: "hold",
@@ -173,35 +165,31 @@ describe("same-asset motion", () => {
     ).toBe("hold");
     expect(
       selectSameAssetMotion({ explicitCamera: "hold", holdCount: 3 }),
-    ).not.toBe("hold");
+    ).toBe("hold");
     expect(
       selectSameAssetMotion({ explicitCamera: "breathe", holdCount: 0 }),
-    ).toBe("breathe");
+    ).toBe("hold");
     expect(
       selectSameAssetMotion({ explicitCamera: "kenburns-left", holdCount: 2 }),
-    ).toBe("kenburns-left");
+    ).toBe("hold");
     expect(
-      new Set(
-        [0, 1, 2].map((holdCount) =>
-          selectSameAssetMotion({ explicitCamera: "kenburns", holdCount }),
-        ),
-      ).size,
-    ).toBe(3);
+      selectSameAssetMotion({ explicitCamera: "kenburns", holdCount: 2 }),
+    ).toBe("hold");
   });
 
-  it("degrades unknown camera strings to breathe", () => {
+  it("degrades unknown camera strings to hold", () => {
     expect(parseCamera("drone")).toBeNull();
     expect(selectSameAssetMotion({ explicitCamera: "drone", holdCount: 0 })).toBe(
-      "breathe",
+      "hold",
     );
   });
 
-  it("maps 0.4.8-feel-hot camera words onto shipped motion", () => {
-    expect(parseCamera("wide")).toBe("kenburns-up");
-    expect(parseCamera("close")).toBe("kenburns-right");
-    expect(parseCamera("close_alt")).toBe("breathe");
-    expect(parseCamera("close_hand")).toBe("breathe");
-    expect(parseCamera("extreme_close")).toBe("breathe");
+  it("maps 0.4.8-feel-hot camera words onto hold", () => {
+    expect(parseCamera("wide")).toBe("hold");
+    expect(parseCamera("close")).toBe("hold");
+    expect(parseCamera("close_alt")).toBe("hold");
+    expect(parseCamera("close_hand")).toBe("hold");
+    expect(parseCamera("extreme_close")).toBe("hold");
     expect(
       selectSameAssetMotion({
         explicitCamera: "insert",
@@ -211,7 +199,7 @@ describe("same-asset motion", () => {
     ).toBe("hold");
     expect(
       selectSameAssetMotion({ explicitCamera: "insert", holdCount: 2 }),
-    ).not.toBe("hold");
+    ).toBe("hold");
   });
 });
 
@@ -288,7 +276,7 @@ describe("fx + optional node/line hooks", () => {
       resolveScenePresentation(bare, 0, { changeCount: 2, holdCount: 0 }),
     ).toEqual({
       transition: "soft-zoom",
-      motion: "kenburns-right",
+      motion: "hold",
       fx: "warm-tint",
       cropName: "wide",
       intimateBeat: null,
@@ -305,7 +293,7 @@ describe("fx + optional node/line hooks", () => {
       holdCount: 0,
     });
     expect(resolved.fx).toBe("warm-tint");
-    expect(resolved.motion).toBe("kenburns-up");
+    expect(resolved.motion).toBe("hold");
     expect(SCENE_TRANSITIONS).toContain(resolved.transition);
   });
 });

@@ -26,7 +26,8 @@ export const INTIMATE_BEAT_IDS: IntimateBeatId[] = [
 ];
 
 const INTIMATE_BEAT_PATTERNS: Record<IntimateBeatId, RegExp> = {
-  near_miss: /almost[_-]?kiss|near[_-]?miss|几乎[^。]{0,16}吻|再近半寸就是吻/i,
+  near_miss:
+    /almost[_-]?kiss|kiss[_-]?meet|near[_-]?miss|几乎[^。]{0,16}吻|再近半寸就是吻|唇碰上|吻上/i,
   door_lock: /door[_-]?lock/i,
   sleepover_edge: /sleepover[_-]?edge/i,
   vanessa_close: /vanessa[_-]?(dm|close)|n_pay_03_vanessa/i,

@@ -30,6 +30,9 @@ describe("content integrity", () => {
         "persona_mia_v1",
         "persona_jade_v1",
         "persona_vanessa_v1",
+        "persona_rae_v1",
+        "persona_lina_v1",
+        "persona_reina_v1",
       ]),
     );
   });
@@ -178,6 +181,8 @@ describe("advanceByFlag", () => {
     expect(router.playerVisible).toBe(false);
     expect(resolveNext(router, { went_with: "mia" })).toBe("n_pay_02_ot_mia");
     expect(resolveNext(router, { went_with: "jade" })).toBe("n_pay_02_ot_jade");
+    expect(resolveNext(router, { went_with: "lina" })).toBe("n_pay_02_ot_lina");
+    expect(resolveNext(router, { went_with: "rae" })).toBe("n_pay_02_ot_rae");
     expect(resolveNext(router, { went_with: "none" })).toBe("n_pay_02_double_empty");
   });
 });

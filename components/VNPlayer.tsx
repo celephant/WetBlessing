@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
+import { PauseOverlay } from "@/components/PauseOverlay";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { SceneArt } from "@/components/SceneArt";
 import { route, type CompiledRoute } from "@/lib/content";
@@ -65,6 +66,7 @@ export function VNPlayer({
   const [state, setState] = useState<GameState | null>(null);
   const [locked, setLocked] = useState<Choice | null>(null);
   const [afterPurchase, setAfterPurchase] = useState(false);
+  const [paused, setPaused] = useState(false);
   const pack = compiled.content;
 
   useEffect(() => {
@@ -109,12 +111,13 @@ export function VNPlayer({
   };
 
   const onDialogClick = () => {
-    if (locked) return;
+    if (paused || locked) return;
     if (snapshot.choices.length > 0 || snapshot.isSettle) return;
     commit(clickAdvance(state, compiled));
   };
 
   const onChoice = (choiceId: string) => {
+    if (paused) return;
     const result = selectChoice(state, choiceId, compiled);
     if (result.ok) {
       setLocked(null);
@@ -156,6 +159,12 @@ export function VNPlayer({
     Boolean(locked) ||
     snapshot.isPaywall ||
     isNightGradeNode(snapshot.node.nodeId, snapshot.node.gate);
+  const freezePlate =
+    paused ||
+    snapshot.isSettle ||
+    snapshot.choices.length > 0 ||
+    Boolean(locked) ||
+    wallNode;
 
   return (
     <div
@@ -169,6 +178,7 @@ export function VNPlayer({
           ? "on"
           : "off"
       }
+      data-paused={paused ? "on" : "off"}
       data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
       data-play-pack={packId}
       data-content-version={pack.contentVersion}
@@ -193,15 +203,26 @@ export function VNPlayer({
         forceNightGrade={nightGrade}
         gate={snapshot.node.gate}
         beforeChoices={snapshot.choices.length > 0}
+        frozen={freezePlate}
       />
 
-      <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
-        <Link
-          href="/"
-          className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
-        >
-          标题
-        </Link>
+      <header className="absolute inset-x-0 top-0 z-[7] flex items-center justify-between px-3 pt-3">
+        <div className="flex items-center gap-2">
+          <Link
+            href="/"
+            className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
+          >
+            标题
+          </Link>
+          <button
+            type="button"
+            onClick={() => setPaused((value) => !value)}
+            className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
+            data-pause-toggle=""
+          >
+            {paused ? "继续" : "暂停"}
+          </button>
+        </div>
         <div className="text-center">
           <p className="font-display text-[11px] uppercase tracking-[0.22em] text-mint">
             Night Pass
@@ -217,7 +238,7 @@ export function VNPlayer({
         </button>
       </header>
 
-      {snapshot.isSettle ? (
+      {paused ? null : snapshot.isSettle ? (
         <div
           className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
           style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
@@ -263,6 +284,8 @@ export function VNPlayer({
           </div>
         </>
       )}
+
+      {paused ? <PauseOverlay onResume={() => setPaused(false)} /> : null}
 
       {locked ? (
         <PaywallOverlay

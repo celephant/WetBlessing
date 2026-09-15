@@ -4,9 +4,12 @@
 
 **付费段别名（P-D5）：** 完整表见 `docs/ART-assetId-aliases.md`。
 
-摘要：
-- `n_pay_01_catch_mia` / `n_pay_01_catch_jade` → 均指向 `scenes/ch01/n_pay_01_catch_b.webp`（Mia 为暂复用）
-- `n_pay_02_ot_mia` / `n_pay_02_ot_jade` / `n_pay_02_router` / `n_pay_02_double_empty` → 均指向 `scenes/ch01/n_pay_02_ot_a.webp`（Jade ot 为暂复用）
+摘要（bible-wire）：
+- 圣经镜头图按 scene ID：`S06a.webp`（Mia 床）· `S06b.webp`（Jade 干楼梯）· `S04.webp`（Rae 水手门）· `S06c.webp`（Lina 氯水）· `S11.webp`（Vanessa 唯一雨）· `S14.webp`（Reina 办公室周一钩）
+- 吻 / catch / OT 仍用旧 `n_heat_*`，且不得与对应 `n_with_*` 撞文件
+- Jade **不再挂** `n_pay_01_catch_b.webp`
 - 播放器只认 `assetId`，勿用 `nodeId` 拼文件名判缺图
+- 不要把 vision-forge 写实 jpg 放进本目录
+- 不要提交 `art-pack-ready/` 或 `wetblessing-src.tgz`
 
 缺图判定必须跟 assetId。

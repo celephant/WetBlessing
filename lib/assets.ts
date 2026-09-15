@@ -16,6 +16,12 @@ export const SHIPPED_CH01_SCENE_WEBPS = [
   "n_pay_02_ot_a",
   "n_pay_03_vanessa",
   "n_mia_edge_1",
+  "n_open",
+  "n_jade_desk",
+  "n_dodge_corridor",
+  "n_pay_settle",
+  "n_title",
+  "n_free_soft_exit",
 ] as const;
 
 const SHIPPED_STEMS = new Set<string>(SHIPPED_CH01_SCENE_WEBPS);
@@ -36,13 +42,12 @@ function stemOf(assetId: string): string {
 
 /**
  * Nearest existing Ch01 webp for a missing stem.
- * n_open / n_jade_desk / n_dodge_* → n_see_both
- * n_with_* → n_mia_edge_1 (Mia) or n_conflict (Jade)
- * else → n_see_both
+ * S12 corridor stills share n_pay_settle if a sibling file is absent.
+ * Heat / climax paths resolve as themselves.
  */
 export function fallbackSceneStem(stem: string): string {
-  if (stem === "n_open" || stem === "n_jade_desk" || stem.startsWith("n_dodge_")) {
-    return "n_see_both";
+  if (stem === "n_title" || stem === "n_free_soft_exit") {
+    return SHIPPED_STEMS.has("n_pay_settle") ? "n_pay_settle" : "n_see_both";
   }
   if (stem.startsWith("n_with_")) {
     return stem.includes("jade") ? "n_conflict" : "n_mia_edge_1";
@@ -62,6 +67,11 @@ function isClimaxScenePath(assetId: string): boolean {
   );
 }
 
+/** Heat stills (old n_heat_* plus bible plates S06a/S06b/S04/S06c/S11/S14) skip Ch01 stem fallback. */
+function isHeatScenePath(assetId: string): boolean {
+  return stripLeadingSlash(assetId).includes("/scenes/heat/");
+}
+
 function isBlockedClimaxPath(assetId: string): boolean {
   return isClimaxScenePath(assetId) && climaxManifest.status === "BLOCKED_BYTES";
 }
@@ -72,7 +82,7 @@ export function resolveAssetPath(assetId?: string): string {
   if (isBlockedClimaxPath(assetId)) {
     return scenePath(fallbackSceneStem(stemOf(assetId)));
   }
-  if (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES") {
+  if (isHeatScenePath(assetId) || (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES")) {
     return stripLeadingSlash(assetId);
   }
   const stem = stemOf(assetId);

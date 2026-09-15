@@ -23,6 +23,8 @@ describe("P-D1 engine surface", () => {
     expect(getNode("n_open").advance).toBe("n_see_both");
     expect(getNode("n_pay_02_router").advanceByFlag).toMatchObject({
       "went_with==mia": "n_pay_02_ot_mia",
+      "went_with==lina": "n_pay_02_ot_lina",
+      "went_with==rae": "n_pay_02_ot_rae",
     });
     const wall = getNode("n_ch01_first_sub");
     expect(wall.type).toBe("dialogue");
@@ -88,10 +90,20 @@ describe("P-D1 engine surface", () => {
 describe("P-D5 asset aliases", () => {
   it("maps paid catch/ot nodes off their nodeIds", () => {
     const aliases = chapterAssetAliases();
-    expect(aliases.n_pay_01_catch_mia).toBe("assets/scenes/ch01/n_pay_01_catch_b.webp");
-    expect(aliases.n_pay_01_catch_jade).toBe("assets/scenes/ch01/n_pay_01_catch_b.webp");
-    expect(aliases.n_pay_02_ot_mia).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
-    expect(aliases.n_pay_02_ot_jade).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
+    expect(aliases.n_pay_01_catch_mia).toBe(
+      "assets/scenes/heat/n_heat_sleep_legs.webp",
+    );
+    expect(aliases.n_pay_01_catch_jade).toBe(
+      "assets/scenes/heat/n_heat_jade_cling.webp",
+    );
+    expect(aliases.n_pay_02_ot_mia).toBe("assets/scenes/heat/n_heat_pin_mia.webp");
+    expect(aliases.n_pay_02_ot_jade).toBe(
+      "assets/scenes/heat/n_heat_straddle_jade.webp",
+    );
+    expect(aliases.n_with_mia).toBe("assets/scenes/heat/S06a.webp");
+    expect(aliases.n_reina_monday).toBeUndefined();
+    expect(aliases.n_pay_02_ot_rae).toBe("assets/scenes/heat/n_heat_ot_rae.webp");
+    expect(aliases.n_pay_03_vanessa).toBe("assets/scenes/heat/S11.webp");
     expect(aliases.n_pay_02_double_empty).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     expect(aliases.n_pay_02_router).toBe("assets/scenes/ch01/n_pay_02_ot_a.webp");
     const doc = readFileSync(
