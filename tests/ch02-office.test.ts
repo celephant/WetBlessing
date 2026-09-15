@@ -1,0 +1,177 @@
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { matchesDenyGlob } from "../lib/allowlist";
+import { resolveAssetUrl } from "../lib/assets";
+import { compileRoute, content, DEFAULT_CH01_VERSION } from "../lib/content";
+import {
+  CH02_OFFICE_PATH,
+  CH02_OFFICE_ROUTE_ID,
+  CH02_OFFICE_VERSION,
+  isCh02Pack,
+  isFourweekPack,
+  resolvePlayRoute,
+} from "../lib/dev-packs";
+import { tryReadCh02Office } from "../lib/dev-packs.node";
+import { playChoices, pumpToPrompt, startGame, view } from "../lib/engine";
+import { walkChoiceIndexPaths } from "../lib/choice-index";
+
+const root = path.resolve(__dirname, "..");
+
+const BANNED =
+  /认领|两条认领|不是雨|没有蒸汽|衣服都是干的|氯，不是雨|账单会来|两张嘴|身体却先认你|选的人不会被扔/;
+const FORBIDDEN = /阴茎|阴道|阴蒂|性交|插入|口交|生殖器|高中生|未成年|幼/;
+
+const CH02_WEBPS = [
+  "assets/scenes/ch02/S13.webp",
+  "assets/scenes/ch02/S14.webp",
+  "assets/scenes/ch02/S14-lock.webp",
+  "assets/scenes/ch02/S14-abort.webp",
+  "assets/scenes/ch02/S14-kiss.webp",
+] as const;
+
+function spokenHay(file = tryReadCh02Office(root)!): string {
+  return file.stages[0]!.nodes
+    .flatMap((node) => [
+      node.text ?? "",
+      ...(node.lines?.map((line) => line.text) ?? []),
+      ...(node.choices?.map((choice) => choice.text) ?? []),
+    ])
+    .join("\n");
+}
+
+describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
+  it("does not replace default Ch01 bytes or version", () => {
+    expect(DEFAULT_CH01_VERSION).toBe("0.4.8-feel-hot");
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
+    expect(content.routeId).toBe("route_kai_ch01");
+    expect(
+      createHash("sha256")
+        .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
+        .digest("hex"),
+    ).toBe("277ddd258733f233630afa2a4d22da7467069a510ad22ec2fb60c91a76a58922");
+  });
+
+  it("loads only via /play?content=ch02 and is denied as default", () => {
+    const file = tryReadCh02Office(root);
+    expect(file).not.toBeNull();
+    expect(file?.contentVersion).toBe(CH02_OFFICE_VERSION);
+    expect(file?.routeId).toBe(CH02_OFFICE_ROUTE_ID);
+    expect(matchesDenyGlob(CH02_OFFICE_PATH)).toBe(true);
+    expect(isCh02Pack("ch02")).toBe(true);
+    expect(isCh02Pack("ch02-office")).toBe(true);
+    expect(isCh02Pack(null)).toBe(false);
+    expect(isFourweekPack("ch02")).toBe(false);
+    expect(() =>
+      compileRoute(file!, { asDefault: true, sourcePath: CH02_OFFICE_PATH }),
+    ).toThrow(/P-D2 deny/);
+    expect(resolvePlayRoute(null, null, file)).toBeDefined();
+    expect(resolvePlayRoute("ch02", null, null)).toBe("missing-ch02");
+    const play = resolvePlayRoute("ch02", null, file);
+    expect(play).not.toBe("missing-ch02");
+    if (play === "missing-ch02" || play === "missing-fourweek") return;
+    expect(play.content.contentVersion).toBe(CH02_OFFICE_VERSION);
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
+  });
+
+  it("plays S13 public shame then S14 office with 29 / stockings / lock", () => {
+    const file = tryReadCh02Office(root)!;
+    const compiled = compileRoute(file);
+    expect(compiled.entryNodeId).toBe("n_ch02_open");
+    expect(compiled.firstSubNodeId).toBe("n_s14_wall");
+    expect(compiled.nodes.get("n_s14_wall")?.gate).toBe("first_sub");
+
+    const spoken = spokenHay(file);
+    expect(spoken).toMatch(/办公时间。带学生证。周一见/);
+    expect(spoken).toMatch(/你鸽了我，Kai/);
+    expect(spoken).toMatch(/二十九/);
+    expect(spoken).toMatch(/黑丝/);
+    expect(spoken).toMatch(/锁/);
+    expect(spoken).toMatch(/我还是你的讲师/);
+    expect(spoken).toMatch(/嘴对上/);
+    expect(spoken).not.toMatch(BANNED);
+    expect(spoken).not.toMatch(FORBIDDEN);
+    expect(spoken).not.toMatch(/ぬぷ|ぎち|ずぶ/);
+
+    const started = startGame({ story_pass_month: false }, compiled);
+    expect(started.stats.reina.affection).toBe(0);
+    expect(started.nodeId).toBe("n_ch02_open");
+
+    const free = playChoices(["c_s13_ok", "c_s14_free"], { story_pass_month: false }, compiled);
+    expect(free.nodeId).toBe("n_ch02_settle");
+    expect(free.flags.cafe_creditor).toBe("mia");
+    expect(free.flags.office_locked).toBe(true);
+    expect(free.stats.mia.affection).toBeGreaterThan(0);
+
+    const paid = playChoices(
+      ["c_s13_ok", "c_s14_kiss"],
+      { story_pass_month: true },
+      compiled,
+    );
+    expect(paid.nodeId).toBe("n_ch02_settle");
+    expect(paid.stats.reina.desire).toBeGreaterThan(0);
+    expect(paid.stats.reina.affection).toBeGreaterThan(0);
+
+    const locked = playChoices(["c_s13_ok"], { story_pass_month: false }, compiled, {
+      pumpAfter: true,
+    });
+    expect(locked.nodeId).toBe("n_s14_wall");
+    const wallView = view(locked, compiled);
+    expect(wallView.choices.map((choice) => choice.choiceId)).toEqual([
+      "c_s14_free",
+      "c_s14_kiss",
+      "c_s14_later",
+    ]);
+    expect(wallView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement).toBe(
+      "story_pass_month",
+    );
+  });
+
+  it("routes cafeteria by Ch01 stand-up flags and stays under the choiceIndex cap", () => {
+    const compiled = compileRoute(tryReadCh02Office(root)!);
+    expect(compiled.nodes.get("n_s13_router")?.playerVisible).toBe(false);
+    expect(compiled.nodes.get("n_s13_router")?.advanceByFlag?.["default"]).toBe(
+      "n_s13_mia",
+    );
+
+    const mia = pumpToPrompt(startGame({ story_pass_month: false }, compiled), compiled);
+    expect(mia.nodeId).toBe("n_s13_mia");
+
+    let jade = startGame({ story_pass_month: false }, compiled);
+    jade = {
+      ...jade,
+      flags: { ...jade.flags, stood_up_jade: true },
+    };
+    jade = pumpToPrompt(jade, compiled);
+    expect(jade.nodeId).toBe("n_s13_jade");
+
+    let both = startGame({ story_pass_month: false }, compiled);
+    both = {
+      ...both,
+      flags: { ...both.flags, stood_up_mia: true, stood_up_jade: true },
+    };
+    both = pumpToPrompt(both, compiled);
+    expect(both.nodeId).toBe("n_s13_both");
+
+    const paths = walkChoiceIndexPaths(compiled);
+    expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
+  });
+
+  it("ships ch02 plates and does not remap them onto Ch01", () => {
+    for (const rel of CH02_WEBPS) {
+      expect(existsSync(path.join(root, "public", rel)), rel).toBe(true);
+      expect(resolveAssetUrl(rel)).toBe(`/${rel}`);
+    }
+    const compiled = compileRoute(tryReadCh02Office(root)!);
+    for (const node of compiled.nodes.values()) {
+      if (!node.assetId) continue;
+      expect(node.assetId).toMatch(/^assets\/scenes\/ch02\//);
+      const url = resolveAssetUrl(node.assetId);
+      expect(url.startsWith("/assets/scenes/ch02/")).toBe(true);
+      expect(existsSync(path.join(root, "public", url.slice(1))), `${node.nodeId} ${url}`).toBe(
+        true,
+      );
+    }
+  });
+});

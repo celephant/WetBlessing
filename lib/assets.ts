@@ -72,6 +72,11 @@ function isHeatScenePath(assetId: string): boolean {
   return stripLeadingSlash(assetId).includes("/scenes/heat/");
 }
 
+/** Ch02 cafeteria / office plates live under scenes/ch02 and must not remap to Ch01. */
+function isCh02ScenePath(assetId: string): boolean {
+  return stripLeadingSlash(assetId).includes("/scenes/ch02/");
+}
+
 function isBlockedClimaxPath(assetId: string): boolean {
   return isClimaxScenePath(assetId) && climaxManifest.status === "BLOCKED_BYTES";
 }
@@ -82,7 +87,11 @@ export function resolveAssetPath(assetId?: string): string {
   if (isBlockedClimaxPath(assetId)) {
     return scenePath(fallbackSceneStem(stemOf(assetId)));
   }
-  if (isHeatScenePath(assetId) || (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES")) {
+  if (
+    isHeatScenePath(assetId) ||
+    isCh02ScenePath(assetId) ||
+    (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES")
+  ) {
     return stripLeadingSlash(assetId);
   }
   const stem = stemOf(assetId);

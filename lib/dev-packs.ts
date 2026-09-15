@@ -3,6 +3,10 @@ import type { ContentFile, ContentNode, Stage } from "./types";
 
 /** DEV-only fourweek pack. Never defaultAllow / never 0.5.0 player load. */
 export const FOURWEEK_MINI_PATH = "content/CONTENT-fourweek-mini-0.5.0.json";
+/** DEV-only Ch02 cafeteria + Reina office. Never defaultAllow. */
+export const CH02_OFFICE_PATH = "content/CONTENT-ch02-office.json";
+export const CH02_OFFICE_VERSION = "0.5.1-ch02-office";
+export const CH02_OFFICE_ROUTE_ID = "route_kai_ch02";
 export const FOURWEEK_WEEK_PATHS = [
   "content/CONTENT-w2-tug-draft.json",
   "content/CONTENT-w3-edge-draft.json",
@@ -26,6 +30,22 @@ export function isFourweekPack(pack?: string | null): boolean {
     value === "0.5.0" ||
     value === "content-fourweek"
   );
+}
+
+export function isCh02Pack(pack?: string | null): boolean {
+  const value = (pack ?? "").trim().toLowerCase();
+  return (
+    value === "ch02" ||
+    value === "ch02-office" ||
+    value === "0.5.1-ch02-office" ||
+    value === "content-ch02"
+  );
+}
+
+export function playPackId(pack?: string | null): "fourweek" | "ch02" | "default" {
+  if (isCh02Pack(pack)) return "ch02";
+  if (isFourweekPack(pack)) return "fourweek";
+  return "default";
 }
 
 function flattenDevStages(file: ContentFile): ContentFile {
@@ -73,7 +93,12 @@ export function compileDevPack(file: ContentFile): CompiledRoute {
 export function resolvePlayRoute(
   pack: string | null | undefined,
   fourweek: ContentFile | null,
-): CompiledRoute | "missing-fourweek" {
+  ch02: ContentFile | null = null,
+): CompiledRoute | "missing-fourweek" | "missing-ch02" {
+  if (isCh02Pack(pack)) {
+    if (!ch02) return "missing-ch02";
+    return compileRoute(ch02);
+  }
   if (!isFourweekPack(pack)) return route;
   if (!fourweek) return "missing-fourweek";
   return compileDevPack(fourweek);

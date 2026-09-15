@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import {
+  CH02_OFFICE_PATH,
   FOURWEEK_MINI_PATH,
   FOURWEEK_WEEK_PATHS,
 } from "./dev-packs";
@@ -15,6 +16,11 @@ export function tryReadJsonFile<T>(relPath: string, root = process.cwd()): T | n
 /** Official DEV fourweek bytes. Null when the fixture is not installed. */
 export function tryReadFourweekMini(root = process.cwd()): ContentFile | null {
   return tryReadJsonFile<ContentFile>(FOURWEEK_MINI_PATH, root);
+}
+
+/** DEV Ch02 office pack. Null when the fixture is not installed. */
+export function tryReadCh02Office(root = process.cwd()): ContentFile | null {
+  return tryReadJsonFile<ContentFile>(CH02_OFFICE_PATH, root);
 }
 
 export function listInstalledFourweekDrafts(root = process.cwd()): string[] {

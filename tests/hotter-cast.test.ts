@@ -214,7 +214,8 @@ describe("hotter-cast Ch01", () => {
     const started = startGame();
     expect(started.stats.rae.affection).toBe(0);
     expect(started.stats.lina.affection).toBe(0);
-    expect(started.stats).not.toHaveProperty("reina");
+    expect(started.stats.reina.affection).toBe(0);
+    expect(started.stats.reina.desire).toBe(0);
   });
 
   it("keeps paywall copy interrupted-kiss plus Monday, not porn", () => {

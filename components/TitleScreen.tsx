@@ -61,6 +61,10 @@ export function TitleScreen() {
           <Link href="/play?content=fourweek" className="text-gold/80 underline">
             DEV fourweek
           </Link>
+          {" · "}
+          <Link href="/play?content=ch02" className="text-gold/80 underline">
+            DEV ch02 办公室
+          </Link>
           <br />
           {/* TODO(slice-1): Auth / account entitlements */}
           {/* TODO(slice-1): Stripe Checkout for story_pass_month */}

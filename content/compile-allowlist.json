@@ -17,6 +17,11 @@
       "neverDefault": true
     },
     {
+      "path": "content/CONTENT-ch02-office.json",
+      "via": "/play?content=ch02",
+      "neverDefault": true
+    },
+    {
       "path": "content/CONTENT-w2-tug-draft.json",
       "via": "/play?content=fourweek",
       "neverDefault": true
@@ -38,9 +43,10 @@
     "persona_li_*",
     "*黎*",
     "CONTENT-fourweek-*",
+    "CONTENT-ch02-*",
     "CONTENT-w2-*",
     "CONTENT-w3-*",
     "CONTENT-w4-*"
   ],
-  "note": "默认演示0.4.8-feel-hot（与0.4.8-feel同档）；hotter-cast 仍此版本；fourweek-mini联调不升默认"
+  "note": "默认演示0.4.8-feel-hot（与0.4.8-feel同档）；hotter-cast 仍此版本；fourweek-mini / ch02-office 联调不升默认"
 }

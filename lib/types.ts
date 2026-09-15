@@ -5,7 +5,14 @@ export type StatBlock = {
   desire?: number;
 };
 
-export const CAST_STAT_KEYS = ["mia", "jade", "vanessa", "rae", "lina"] as const;
+export const CAST_STAT_KEYS = [
+  "mia",
+  "jade",
+  "vanessa",
+  "rae",
+  "lina",
+  "reina",
+] as const;
 export type CastStatKey = (typeof CAST_STAT_KEYS)[number];
 
 export type Delta = {
@@ -142,6 +149,7 @@ export type Stats = {
   vanessa: CharacterStats;
   rae: CharacterStats;
   lina: CharacterStats;
+  reina: CharacterStats;
   tension: number;
 };
 
