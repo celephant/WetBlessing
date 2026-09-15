@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { resolveAssetUrl } from "../lib/assets";
@@ -89,6 +89,24 @@ describe("Ch01 story + drift audit lock", () => {
     });
     expect(resolved.motion).toBe("hold");
     expect(resolved.cropName).toBe("wide");
+  });
+
+  it("pauses as a designed letterbox over a frozen still", () => {
+    const player = readFileSync(path.join(root, "components/VNPlayer.tsx"), "utf8");
+    const overlay = readFileSync(
+      path.join(root, "components/PauseOverlay.tsx"),
+      "utf8",
+    );
+    const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
+    expect(player).toContain("frozen={freezePlate}");
+    expect(player).toMatch(/paused\s*\|\|/);
+    expect(player).toContain("<PauseOverlay");
+    expect(overlay).toContain("data-pause-overlay");
+    expect(overlay).toContain("data-pause-letterbox");
+    expect(overlay).toContain("画面停住");
+    expect(overlay).toContain("Night Pass");
+    expect(overlay).not.toContain("backdrop-blur-[2px]");
+    expect(css).toContain(".pause-freeze-frame");
   });
 
   it("rewrites spoken copy to cause→reaction Chinese without slogan paste", () => {
