@@ -114,6 +114,24 @@ describe("asset-change transitions", () => {
     ).toBe("soft-zoom");
   });
 
+  it("aliases soft-zoom / softZoomCrop spellings", () => {
+    expect(parseTransition("soft-zoom")).toBe("soft-zoom");
+    expect(parseTransition("softZoom")).toBe("soft-zoom");
+    expect(parseTransition("soft_zoom")).toBe("soft-zoom");
+    expect(parseTransition("soft-zoom-crop")).toBe("soft-zoom-crop");
+    expect(parseTransition("softZoomCrop")).toBe("soft-zoom-crop");
+    expect(parseTransition("soft_zoom_crop")).toBe("soft-zoom-crop");
+    expect(
+      selectAssetChangeTransition({ explicit: "softZoom", changeCount: 0 }),
+    ).toBe("soft-zoom");
+    expect(
+      selectAssetChangeTransition({
+        explicit: "softZoomCrop",
+        changeCount: 0,
+      }),
+    ).toBe("soft-zoom-crop");
+  });
+
   it("cuts when resolved URL or authored assetId changes", () => {
     const open = sceneIdentity("assets/scenes/ch01/n_open.webp");
     const seeBoth = sceneIdentity("assets/scenes/ch01/n_see_both.webp");
@@ -181,6 +199,8 @@ describe("same-asset motion", () => {
   it("maps 0.4.8-feel-hot camera words onto shipped motion", () => {
     expect(parseCamera("wide")).toBe("kenburns-up");
     expect(parseCamera("close")).toBe("kenburns-right");
+    expect(parseCamera("close_alt")).toBe("breathe");
+    expect(parseCamera("close_hand")).toBe("breathe");
     expect(parseCamera("extreme_close")).toBe("breathe");
     expect(
       selectSameAssetMotion({
@@ -204,6 +224,8 @@ describe("fx + optional node/line hooks", () => {
     expect(selectSceneFx({ explicit: "none" })).toBe("warm-tint");
     expect(parseFx("bloom")).toBeNull();
     expect(parseFx("warm_dust")).toBe("warm-tint");
+    expect(parseFx("warm-veil")).toBe("warm-tint");
+    expect(parseFx("magenta-mist")).toBe("warm-tint");
     expect(parseFx("phone_glow")).toBe("soft-light");
     expect(parseFx("tension_hold")).toBe("vignette");
     expect(

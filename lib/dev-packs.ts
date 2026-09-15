@@ -1,5 +1,5 @@
 import { compileRoute, route, type CompiledRoute } from "./content";
-import type { ContentFile } from "./types";
+import type { ContentFile, ContentNode, Stage } from "./types";
 
 /** DEV-only fourweek pack. Never defaultAllow / never 0.5.0 player load. */
 export const FOURWEEK_MINI_PATH = "content/CONTENT-fourweek-mini-0.5.0.json";
@@ -28,9 +28,46 @@ export function isFourweekPack(pack?: string | null): boolean {
   );
 }
 
-/** Compile a DEV pack. Never assertDefaultLoad. */
+function flattenDevStages(file: ContentFile): ContentFile {
+  const stages = file.stages ?? [];
+  const byId = new Map(stages.map((stage) => [stage.stageId, stage]));
+  const nodes: ContentNode[] = [];
+  for (const stage of stages) {
+    for (const node of stage.nodes) {
+      const copy: ContentNode = { ...node };
+      if (copy.nextStageId) {
+        const dest = byId.get(copy.nextStageId);
+        if (dest) {
+          copy.advance = dest.entryNodeId;
+          if (copy.type === "settle") copy.type = "dialogue";
+        }
+      }
+      nodes.push(copy);
+    }
+  }
+  const entry: Stage = {
+    stageId: stages[0]?.stageId ?? "stage_fourweek_dev",
+    stageTitle: stages[0]?.stageTitle ?? file.routeTitle,
+    order: 1,
+    entryNodeId: stages[0]?.entryNodeId ?? nodes[0]?.nodeId ?? "",
+    nodes,
+  };
+  return {
+    ...file,
+    personas: file.personas ?? {},
+    meta: {
+      ...file.meta,
+      choiceIndexHardCap: file.meta?.choiceIndexHardCap ?? 16,
+      firstSubNodeId: file.meta?.firstSubNodeId ?? "n_w3_edge_lock_mia",
+      gateField: file.meta?.gateField ?? "first_sub",
+    },
+    stages: [entry],
+  };
+}
+
+/** Compile a DEV pack. Never assertDefaultLoad. Fourweek flattens w1–w4. */
 export function compileDevPack(file: ContentFile): CompiledRoute {
-  return compileRoute(file);
+  return compileRoute(flattenDevStages(file));
 }
 
 export function resolvePlayRoute(

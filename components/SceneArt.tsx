@@ -307,10 +307,10 @@ export function SceneArt({
     beforeChoices,
     cameraChanged: lineCameraChanged,
   });
-  const cropStyleFor = (name: CropName) => {
-    const fromCrop = cropToTransform(cropRect(name), 1);
+  const cropStyleFor = (name: CropName, rawCamera?: string) => {
+    const fromCrop = cropToTransform(cropRect(name, assetId, rawCamera), 1);
     const toCrop = cropToTransform(
-      cropRect(nextCropName(name)),
+      cropRect(nextCropName(name), assetId),
       MOTION_SPEC.kenBurnsScale,
     );
     return {
@@ -322,7 +322,7 @@ export function SceneArt({
       "--crop-to-ty": `${toCrop.ty}%`,
     } as CSSProperties;
   };
-  const cropStyle = cropStyleFor(cropName);
+  const cropStyle = cropStyleFor(cropName, camera);
   const motionClass =
     motion === "hold" ? "scene-crop-hold" : "scene-crop-kenburns";
   const incomingClass = activeTransition ? `scene-in-${activeTransition}` : "";
@@ -359,7 +359,7 @@ export function SceneArt({
           alt=""
           failed={outgoing.failed}
           motionClass="scene-crop-hold"
-          cropStyle={cropStyleFor(outgoing.cropName ?? cropName)}
+          cropStyle={cropStyleFor(outgoing.cropName ?? cropName, camera)}
           layerClass={`scene-plate-out ${outgoingClass}`}
         />
       ) : null}

@@ -1,11 +1,18 @@
 import cropsJson from "../content/ART-camera-crops-v1.json";
+import { DENSITY_MAX_SAME_COMPOSITION } from "./feel-density";
 import { NIGHT_PASS_DIALOG_DOCK } from "./tokens";
 
 export type CropName = "wide" | "mid" | "close";
 export type CropRect = { x: number; y: number; w: number; h: number };
 export type CropTransform = { scale: number; tx: number; ty: number };
 
-export const CAMERA_CROPS = cropsJson;
+type PackShot = { id: string; crop: CropRect };
+type CropsFile = typeof cropsJson & {
+  assets?: Record<string, PackShot[]>;
+  dialogSafeBottom?: number;
+};
+
+export const CAMERA_CROPS = cropsJson as CropsFile;
 
 export const DEFAULT_CROP_LINE = CAMERA_CROPS.defaultLine ?? "mia";
 
@@ -26,6 +33,9 @@ const ALIASES: Record<string, CropName> = {
   hold: "wide",
   extreme_close: "close",
   close_hands: "close",
+  close_hand: "close",
+  close_alt: "close",
+  close_collar: "close",
   medium: "mid",
   medium_danger: "mid",
   over_shoulder: "mid",
@@ -41,7 +51,42 @@ export function parseCropName(raw?: string): CropName | null {
   return mapped ?? null;
 }
 
-export function cropRect(name: CropName): CropRect {
+function stripAssetKey(assetId: string): string {
+  return assetId.replace(/^\/+/, "");
+}
+
+function dialogSafeClamp(rect: CropRect): CropRect {
+  const maxBottom = 1 - (CAMERA_CROPS.dialogSafeBottom ?? NIGHT_PASS_DIALOG_DOCK);
+  if (rect.y + rect.h <= maxBottom + 0.001) {
+    return { x: rect.x, y: rect.y, w: rect.w, h: rect.h };
+  }
+  return {
+    x: rect.x,
+    y: rect.y,
+    w: rect.w,
+    h: Math.max(0.08, maxBottom - rect.y),
+  };
+}
+
+function packShotsFor(assetId?: string): PackShot[] | undefined {
+  if (!assetId || !CAMERA_CROPS.assets) return undefined;
+  const rel = stripAssetKey(assetId);
+  return CAMERA_CROPS.assets[rel] ?? CAMERA_CROPS.assets[`/${rel}`];
+}
+
+export function cropRect(
+  name: CropName,
+  assetId?: string,
+  rawCamera?: string,
+): CropRect {
+  const shots = packShotsFor(assetId);
+  if (shots) {
+    const shotId = rawCamera || name;
+    const named =
+      shots.find((shot) => shot.id === shotId) ??
+      shots.find((shot) => shot.id === name);
+    if (named) return dialogSafeClamp(named.crop);
+  }
   const rect = CAMERA_CROPS.presets[name];
   return { x: rect.x, y: rect.y, w: rect.w, h: rect.h };
 }
@@ -53,9 +98,9 @@ export function nextCropName(name: CropName): CropName {
 
 /**
  * Same-asset multi-line cycle: wide → mid → close.
- * Composition may hold ≤2 lines; the 3rd line (holdCount ≥ 2) always
- * advances even if the fixture omits camera. Night/wall may lock crop.
- * Before choices, prefer mid/close for weight.
+ * Honor authored camera for ≤2 lines; the 3rd line (holdCount ≥ 2)
+ * auto-advances even if the fixture repeats camera. Night/wall may lock crop.
+ * Before choices, prefer close when the camera did not change.
  */
 export function selectCropName(options: {
   explicitCamera?: string;
@@ -72,7 +117,6 @@ export function selectCropName(options: {
   }
   const startIdx = named ? CROP_CYCLE.indexOf(named) : 0;
   const start = startIdx >= 0 ? startIdx : 0;
-  const cycled = CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
   if (
     options.beforeChoices &&
     !options.lockCrop &&
@@ -80,7 +124,13 @@ export function selectCropName(options: {
   ) {
     return "close";
   }
-  return cycled;
+  if (named && hold < DENSITY_MAX_SAME_COMPOSITION) {
+    return named;
+  }
+  if (named) {
+    return CROP_CYCLE[(start + hold - (DENSITY_MAX_SAME_COMPOSITION - 1)) % CROP_CYCLE.length]!;
+  }
+  return CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
 }
 
 export function cropToTransform(

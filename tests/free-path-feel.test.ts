@@ -50,10 +50,10 @@ describe("free-path feel (not paid-gated)", () => {
       "wide",
     );
     expect(selectCropName({ explicitCamera: open?.camera, holdCount: 1 })).toBe(
-      "mid",
+      "wide",
     );
     expect(selectCropName({ explicitCamera: open?.camera, holdCount: 2 })).toBe(
-      "close",
+      "mid",
     );
 
     const closeNode = listNodes().find((node) => node.nodeId === "n_mia_edge_1");
@@ -62,6 +62,9 @@ describe("free-path feel (not paid-gated)", () => {
     ).toBe("close");
     expect(
       selectCropName({ explicitCamera: closeNode?.camera, holdCount: 1 }),
+    ).toBe("close");
+    expect(
+      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 2 }),
     ).toBe("wide");
   });
 

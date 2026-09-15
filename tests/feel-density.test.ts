@@ -193,8 +193,15 @@ describe("FEEL density + intimate FX", () => {
     expect(MOTION_SPEC.softZoomCropMs).toBeLessThanOrEqual(280);
     expect(CROP_CUT_TRANSITION).toBe("soft-zoom-crop");
     expect(cutDurationMs(CROP_CUT_TRANSITION)).toBe(SOFT_ZOOM_CROP_MS);
+    expect(cutDurationMs("soft-zoom")).toBe(420);
     expect(cutDurationMs("dip-to-black")).toBe(380);
     expect(cutDurationMs("fade")).toBe(320);
+    expect(
+      selectAssetChangeTransition({
+        explicit: "softZoomCrop",
+        changeCount: 1,
+      }),
+    ).toBe(CROP_CUT_TRANSITION);
   });
 
   it("honors authored camera / transition / fx when they are valid", () => {
@@ -215,6 +222,26 @@ describe("FEEL density + intimate FX", () => {
     expect(resolved.fx).toBe("warm-tint");
     expect(resolved.motion).toBe("kenburns-up");
     expect(resolved.intimateBeat).toBeNull();
+  });
+
+  it("honors densify lines[] camera/transition/fx on 0.4.8-feel-hot", () => {
+    const open = content.stages[0]!.nodes.find((node) => node.nodeId === "n_open");
+    expect(open?.camera).toBe("wide");
+    expect(open?.transition).toBe("fade");
+    expect(open?.lines?.[0]?.camera).toBe("mid");
+    expect(open?.lines?.[0]?.transition).toBe("softZoomCrop");
+    const beat0 = resolveScenePresentation(open!, 0, {
+      changeCount: 0,
+      holdCount: 0,
+    });
+    expect(beat0.cropName).toBe("wide");
+    expect(beat0.transition).toBe("fade");
+    const beat1 = resolveScenePresentation(open!, 1, {
+      changeCount: 0,
+      holdCount: 1,
+    });
+    expect(beat1.cropName).toBe("mid");
+    expect(beat1.transition).toBe("soft-zoom-crop");
   });
 
   it("warns when an intimate beat node omits transition/fx", () => {

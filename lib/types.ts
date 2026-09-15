@@ -93,6 +93,8 @@ export type ContentNode = ScenePresentationHooks & {
   setFlags?: Record<string, FlagValue>;
   gate?: string;
   playerVisible?: boolean;
+  /** DEV fourweek stitch: settle hops to another stage's entry. */
+  nextStageId?: string;
 };
 
 export type Stage = {

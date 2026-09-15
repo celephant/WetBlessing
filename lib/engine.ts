@@ -1,5 +1,6 @@
 import { countsTowardChoiceIndex } from "./choice-index";
 import { getNode, route, type CompiledRoute } from "./content";
+import { flagMatches, matchFlagExpr } from "./flag-expr";
 import { isWallGate, isWallSku, SKU_CHAPTER_UNLOCK, SKU_EDGE_LOCK } from "./paywall-copy";
 import { SKU_STORY_PASS_MONTH } from "./tokens";
 import type {
@@ -8,13 +9,14 @@ import type {
   ContentNode,
   Delta,
   Entitlements,
-  FlagValue,
   Flags,
   GameState,
   SelectChoiceResult,
   Stats,
   ViewModel,
 } from "./types";
+
+export { flagMatches, matchFlagExpr } from "./flag-expr";
 
 const emptyStats = (): Stats => ({
   mia: { affection: 0, desire: 0 },
@@ -56,24 +58,6 @@ export function getBeats(node: ContentNode): Beat[] {
     beats.push({ speaker: "narrator", text: "" });
   }
   return beats;
-}
-
-export function flagMatches(flags: Flags, key: string, expected: FlagValue): boolean {
-  return flags[key] === expected;
-}
-
-export function matchFlagExpr(flags: Flags, expr: string): boolean {
-  const idx = expr.indexOf("==");
-  if (idx === -1) {
-    return Boolean(flags[expr.trim()]);
-  }
-  const key = expr.slice(0, idx).trim();
-  const value = expr.slice(idx + 2).trim();
-  const current = flags[key];
-  if (typeof current === "boolean") {
-    return String(current) === value;
-  }
-  return String(current ?? "") === value;
 }
 
 export function resolveNext(node: ContentNode, flags: Flags): string | null {

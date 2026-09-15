@@ -1,3 +1,4 @@
+import { matchFlagExpr } from "./flag-expr";
 import { isWallGate } from "./paywall-copy";
 import type { CompiledRoute, ContentNode, FlagValue, Flags } from "./types";
 
@@ -32,18 +33,10 @@ function nodeOf(compiled: CompiledRoute, nodeId: string): ContentNode {
   return node;
 }
 
-function matchExpr(flags: Flags, expr: string): boolean {
-  const idx = expr.indexOf("==");
-  if (idx === -1) return Boolean(flags[expr.trim()]);
-  const key = expr.slice(0, idx).trim();
-  const value = expr.slice(idx + 2).trim();
-  return String(flags[key] ?? "") === value;
-}
-
 function resolveLinear(node: ContentNode, flags: Flags): string | null {
   if (node.advanceByFlag) {
     for (const [expr, dest] of Object.entries(node.advanceByFlag)) {
-      if (matchExpr(flags, expr)) return dest;
+      if (matchFlagExpr(flags, expr)) return dest;
     }
     return null;
   }

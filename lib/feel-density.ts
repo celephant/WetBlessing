@@ -133,6 +133,10 @@ export function intimateBeatGaps(
 
 export function isIntimateForcedCut(
   name: string | null | undefined,
-): name is "soft-zoom" | "dip-to-black" {
-  return name === "soft-zoom" || name === "dip-to-black";
+): name is "soft-zoom" | "dip-to-black" | "soft-zoom-crop" {
+  return (
+    name === "soft-zoom" ||
+    name === "dip-to-black" ||
+    name === "soft-zoom-crop"
+  );
 }

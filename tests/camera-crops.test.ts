@@ -31,9 +31,9 @@ describe("ART camera crops", () => {
       "close",
     );
     expect(selectCropName({ explicitCamera: "wide", holdCount: 0 })).toBe("wide");
-    expect(selectCropName({ explicitCamera: "wide", holdCount: 1 })).toBe("mid");
+    expect(selectCropName({ explicitCamera: "wide", holdCount: 1 })).toBe("wide");
     expect(selectCropName({ explicitCamera: "wide", holdCount: 2 })).toBe(
-      "close",
+      "mid",
     );
     expect(
       selectCropName({ explicitCamera: "close", holdCount: 3, lockCrop: true }),
@@ -45,6 +45,9 @@ describe("ART camera crops", () => {
     expect(DEFAULT_CROP_LINE).toBe("mia");
     expect(CAMERA_CROPS.defaultLine).toBe("mia");
     expect(parseCropName("extreme_close")).toBe("close");
+    expect(parseCropName("close_alt")).toBe("close");
+    expect(parseCropName("close_hand")).toBe("close");
+    expect(parseCropName("close_collar")).toBe("close");
     expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("close");
   });
 

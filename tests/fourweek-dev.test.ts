@@ -74,8 +74,8 @@ describe("DEV fourweek switch (not default load)", () => {
     expect(DEFAULT_CH01_VERSION).toBe("0.4.8-feel-hot");
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(compileAllowlist.amendedFor).toBe("0.4.8-feel-hot");
-    expect(tryReadFourweekMini(root)).toBeNull();
-    expect(listInstalledFourweekDrafts(root)).toEqual([]);
+    expect(tryReadFourweekMini(root)?.contentVersion).toBe("0.5.0-fourweek-mini");
+    expect(listInstalledFourweekDrafts(root)).toEqual([FOURWEEK_MINI_PATH]);
     expect(matchesDenyGlob(FOURWEEK_MINI_PATH)).toBe(true);
     for (const week of FOURWEEK_WEEK_PATHS) {
       expect(matchesDenyGlob(week)).toBe(true);
@@ -107,14 +107,33 @@ describe("DEV fourweek switch (not default load)", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
   });
 
-  it("marks P0 climax webps BLOCKED_BYTES and does not invent files", () => {
-    expect(CLIMAX_ART_STATUS).toBe("BLOCKED_BYTES");
+  it("marks P0 climax webps INSTALLED from the official art pack", () => {
+    expect(CLIMAX_ART_STATUS).toBe("INSTALLED");
     expect(CLIMAX_WEBP_PATHS).toHaveLength(6);
     for (const rel of CLIMAX_WEBP_PATHS) {
-      expect(existsSync(path.join(root, rel))).toBe(false);
+      expect(existsSync(path.join(root, rel))).toBe(true);
     }
-    expect(resolveAssetUrl("assets/scenes/w2/n_w2_almost_kiss.webp")).toMatch(
-      /^\/assets\/scenes\/ch01\//,
+    expect(resolveAssetUrl("assets/scenes/w2/n_w2_almost_kiss.webp")).toBe(
+      "/assets/scenes/w2/n_w2_almost_kiss.webp",
     );
+    expect(resolveAssetUrl("assets/scenes/w3/n_w3_door_lock_hand.webp")).toBe(
+      "/assets/scenes/w3/n_w3_door_lock_hand.webp",
+    );
+    expect(resolveAssetUrl("assets/scenes/w4/n_w4_morning_light.webp")).toBe(
+      "/assets/scenes/w4/n_w4_morning_light.webp",
+    );
+  });
+
+  it("compiles /play?content=fourweek without promoting 0.5.0 to default", () => {
+    const installed = tryReadFourweekMini(root);
+    expect(installed).not.toBeNull();
+    expect(installed?.contentVersion).toBe("0.5.0-fourweek-mini");
+    const compiled = compileDevPack(installed!);
+    expect(compiled.content.contentVersion).toBe("0.5.0-fourweek-mini");
+    expect(compiled.nodes.size).toBeGreaterThan(1);
+    expect(compiled.nodes.has("n_w2_open")).toBe(true);
+    expect(compiled.nodes.has("n_w3_edge_lock_mia")).toBe(true);
+    expect(content.contentVersion).toBe("0.4.8-feel-hot");
+    expect(resolvePlayRoute("fourweek", installed)).not.toBe("missing-fourweek");
   });
 });

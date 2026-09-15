@@ -166,14 +166,28 @@ export function shouldPlayAssetTransition(
   return prev.url !== next.url || prev.assetId !== next.assetId;
 }
 
+const CROP_CUT_ALIASES = new Set([
+  "soft-zoom-crop",
+  "softZoomCrop",
+  "soft_zoom_crop",
+]);
+
+export function isCropCutTransition(
+  raw?: string | null,
+): raw is CropCutTransition {
+  return raw === CROP_CUT_TRANSITION;
+}
+
 export function parseTransition(
   raw?: string,
-): SceneTransitionName | null {
+): SceneTransitionName | CropCutTransition | null {
+  if (!raw) return null;
   if (raw === "fade" || raw === "soft-zoom" || raw === "dip-to-black") {
     return raw;
   }
   if (raw === "softZoom" || raw === "soft_zoom") return "soft-zoom";
   if (raw === "dip" || raw === "dip_to_black") return "dip-to-black";
+  if (CROP_CUT_ALIASES.has(raw)) return CROP_CUT_TRANSITION;
   return null;
 }
 
@@ -188,6 +202,9 @@ const CAMERA_ALIASES: Record<string, SceneCameraName> = {
   wide_split: "kenburns-up",
   insert: "hold",
   close_hands: "breathe",
+  close_hand: "breathe",
+  close_alt: "breathe",
+  close_collar: "breathe",
   medium_danger: "kenburns-right",
   bust: "breathe",
 };
@@ -209,6 +226,10 @@ const FX_ALIASES: Record<string, SceneFxName> = {
   danger_glance: "warm-tint",
   grain: "warm-tint",
   breathe: "warm-tint",
+  "warm-veil": "warm-tint",
+  warm_veil: "warm-tint",
+  "magenta-mist": "warm-tint",
+  magenta_mist: "warm-tint",
 };
 
 export function parseCamera(raw?: string): SceneCameraName | null {
@@ -262,7 +283,7 @@ export function selectAssetChangeTransition(options: {
   afterPurchase?: boolean;
   intimate?: boolean;
   intimateBeat?: boolean | IntimateBeatId | null;
-}): SceneTransitionName {
+}): SceneTransitionName | CropCutTransition {
   if (options.afterPurchase) {
     return tokenCut(tokens.transitions.defaults.afterPurchase);
   }
@@ -396,7 +417,7 @@ export function resolveScenePresentation(
     beforeChoices?: boolean;
   },
 ): {
-  transition: SceneTransitionName;
+  transition: SceneTransitionName | CropCutTransition;
   motion: SceneMotion;
   fx: SceneFxName;
   cropName: CropName;

@@ -12,7 +12,7 @@ export function tryReadJsonFile<T>(relPath: string, root = process.cwd()): T | n
   return JSON.parse(readFileSync(full, "utf8")) as T;
 }
 
-/** Official PART F bytes only. Returns null until the valid tar is installed. */
+/** Official DEV fourweek bytes. Null when the fixture is not installed. */
 export function tryReadFourweekMini(root = process.cwd()): ContentFile | null {
   return tryReadJsonFile<ContentFile>(FOURWEEK_MINI_PATH, root);
 }

@@ -53,12 +53,17 @@ export function fallbackSceneStem(stem: string): string {
   return "n_see_both";
 }
 
-function isBlockedClimaxPath(assetId: string): boolean {
+function isClimaxScenePath(assetId: string): boolean {
   const rel = stripLeadingSlash(assetId);
-  if (!rel.includes("/scenes/w2/") && !rel.includes("/scenes/w3/") && !rel.includes("/scenes/w4/")) {
-    return false;
-  }
-  return climaxManifest.status === "BLOCKED_BYTES";
+  return (
+    rel.includes("/scenes/w2/") ||
+    rel.includes("/scenes/w3/") ||
+    rel.includes("/scenes/w4/")
+  );
+}
+
+function isBlockedClimaxPath(assetId: string): boolean {
+  return isClimaxScenePath(assetId) && climaxManifest.status === "BLOCKED_BYTES";
 }
 
 /** Public-relative path (no leading slash), always a shipped webp. */
@@ -66,6 +71,9 @@ export function resolveAssetPath(assetId?: string): string {
   if (!assetId) return DEFAULT_SCENE_FALLBACK;
   if (isBlockedClimaxPath(assetId)) {
     return scenePath(fallbackSceneStem(stemOf(assetId)));
+  }
+  if (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES") {
+    return stripLeadingSlash(assetId);
   }
   const stem = stemOf(assetId);
   if (stem && SHIPPED_STEMS.has(stem)) {
