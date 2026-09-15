@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
+import { PauseOverlay } from "@/components/PauseOverlay";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { SceneArt } from "@/components/SceneArt";
 import { route, type CompiledRoute } from "@/lib/content";
@@ -205,7 +206,7 @@ export function VNPlayer({
         frozen={freezePlate}
       />
 
-      <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
+      <header className="absolute inset-x-0 top-0 z-[7] flex items-center justify-between px-3 pt-3">
         <div className="flex items-center gap-2">
           <Link
             href="/"
@@ -237,7 +238,7 @@ export function VNPlayer({
         </button>
       </header>
 
-      {snapshot.isSettle ? (
+      {paused ? null : snapshot.isSettle ? (
         <div
           className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
           style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
@@ -284,30 +285,7 @@ export function VNPlayer({
         </>
       )}
 
-      {paused ? (
-        <div
-          className="absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
-          data-pause-overlay=""
-        >
-          <div className="w-full max-w-xs rounded-dialog border border-white/15 bg-night/92 p-5 text-center">
-            <p className="font-display text-xl text-paper">暂停</p>
-            <p className="mt-2 font-ui text-sm text-mute">画面停住。周一还在。</p>
-            <button
-              type="button"
-              onClick={() => setPaused(false)}
-              className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-chip bg-mint font-ui text-[15px] font-medium text-ink"
-            >
-              继续
-            </button>
-            <Link
-              href="/"
-              className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-white/15 font-ui text-[15px] text-paper/80"
-            >
-              回到标题
-            </Link>
-          </div>
-        </div>
-      ) : null}
+      {paused ? <PauseOverlay onResume={() => setPaused(false)} /> : null}
 
       {locked ? (
         <PaywallOverlay
