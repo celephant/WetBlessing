@@ -23,11 +23,11 @@ describe("FEEL density + intimate FX", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
   });
 
-  it("auto-cycles wide→mid→close on the 3rd same-asset line when camera is omitted", () => {
+  it("keeps the full still instead of cycling crops on same-asset lines", () => {
     expect(DENSITY_MAX_SAME_COMPOSITION).toBe(2);
     expect(selectCropName({ holdCount: 0 })).toBe("wide");
-    expect(selectCropName({ holdCount: 1 })).toBe("mid");
-    expect(selectCropName({ holdCount: 2 })).toBe("close");
+    expect(selectCropName({ holdCount: 1 })).toBe("wide");
+    expect(selectCropName({ holdCount: 2 })).toBe("wide");
 
     const bare: ContentNode = {
       nodeId: "n_density_gap",
@@ -39,28 +39,28 @@ describe("FEEL density + intimate FX", () => {
     ).toBe("wide");
     expect(
       resolveScenePresentation(bare, 0, { changeCount: 0, holdCount: 1 }).cropName,
-    ).toBe("mid");
+    ).toBe("wide");
     expect(
       resolveScenePresentation(bare, 0, { changeCount: 0, holdCount: 2 }).cropName,
-    ).toBe("close");
+    ).toBe("wide");
   });
 
-  it("prefers a close/mid cut before choices", () => {
-    expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("close");
+  it("does not punch to close before choices", () => {
+    expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("wide");
     expect(
       selectCropName({
         explicitCamera: "mid",
         holdCount: 0,
         beforeChoices: true,
       }),
-    ).toBe("close");
+    ).toBe("wide");
     expect(
       selectCropName({
         explicitCamera: "wide",
         holdCount: 0,
         beforeChoices: true,
       }),
-    ).toBe("close");
+    ).toBe("wide");
     expect(
       selectCropName({
         explicitCamera: "mid",
@@ -68,7 +68,7 @@ describe("FEEL density + intimate FX", () => {
         beforeChoices: true,
         cameraChanged: true,
       }),
-    ).toBe("mid");
+    ).toBe("wide");
 
     const mia = content.stages[0]!.nodes.find(
       (node) => node.nodeId === "n_mia_edge_1",
@@ -79,7 +79,8 @@ describe("FEEL density + intimate FX", () => {
       holdCount: 0,
       beforeChoices: true,
     });
-    expect(["mid", "close"]).toContain(weighted.cropName);
+    expect(weighted.cropName).toBe("wide");
+    expect(weighted.motion).toBe("hold");
   });
 
   it("forces soft-zoom or dip on intimate beats and forbids fade-only", () => {
@@ -135,8 +136,8 @@ describe("FEEL density + intimate FX", () => {
     expect(resolved.transition).not.toBe("fade");
     expect(["soft-zoom", "dip-to-black"]).toContain(resolved.transition);
     expect(resolved.fx).toBe("warm-tint");
-    expect(resolved.motion).toBe("breathe");
-    expect(resolved.cropName).toBe("close");
+    expect(resolved.motion).toBe("hold");
+    expect(resolved.cropName).toBe("wide");
 
     for (const id of [
       "near_miss",
@@ -220,7 +221,7 @@ describe("FEEL density + intimate FX", () => {
     expect(resolved.cropName).toBe("wide");
     expect(resolved.transition).toBe("fade");
     expect(resolved.fx).toBe("warm-tint");
-    expect(resolved.motion).toBe("kenburns-up");
+    expect(resolved.motion).toBe("hold");
     expect(resolved.intimateBeat).toBeNull();
   });
 
@@ -228,20 +229,20 @@ describe("FEEL density + intimate FX", () => {
     const open = content.stages[0]!.nodes.find((node) => node.nodeId === "n_open");
     expect(open?.camera).toBe("wide");
     expect(open?.transition).toBe("fade");
-    expect(open?.lines?.[0]?.camera).toBe("mid");
-    expect(open?.lines?.[0]?.transition).toBe("softZoomCrop");
+    expect(open?.lines?.[0]?.camera).toBe("hold");
     const beat0 = resolveScenePresentation(open!, 0, {
       changeCount: 0,
       holdCount: 0,
     });
     expect(beat0.cropName).toBe("wide");
     expect(beat0.transition).toBe("fade");
+    expect(beat0.motion).toBe("hold");
     const beat1 = resolveScenePresentation(open!, 1, {
       changeCount: 0,
       holdCount: 1,
     });
-    expect(beat1.cropName).toBe("mid");
-    expect(beat1.transition).toBe("soft-zoom-crop");
+    expect(beat1.cropName).toBe("wide");
+    expect(beat1.motion).toBe("hold");
   });
 
   it("warns when an intimate beat node omits transition/fx", () => {

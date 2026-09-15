@@ -15,7 +15,6 @@ const FREE_BEFORE_WALL = [
   "n_open",
   "n_see_both",
   "n_jade_desk",
-  "n_mia_tease_auto",
   "n_dodge_corridor",
   "n_mia_edge_1",
   "n_mia_edge_2",
@@ -32,7 +31,7 @@ const FREE_BEFORE_WALL = [
 ];
 
 describe("free-path feel (not paid-gated)", () => {
-  it("gives unpaid free nodes Ken Burns/breath, crop cycle, and warm+magenta", () => {
+  it("gives unpaid free nodes warm grade and frozen stills", () => {
     expect(tokens.grade.warmVeil).toContain("255, 140, 120");
     expect(tokens.grade.magentaMist).toContain("220, 90, 140");
     expect(tokens.grade.forbid.join(" ")).toMatch(/FF0033|neon/i);
@@ -41,7 +40,7 @@ describe("free-path feel (not paid-gated)", () => {
       expect(isFreePathFeel(nodeId)).toBe(true);
       expect(isPaywallWallNode(nodeId)).toBe(false);
       expect(selectSceneFx({ nodeId, explicit: "dual_focus" })).toBe("warm-tint");
-      expect(selectSameAssetMotion({ holdCount: 0 })).not.toBe("hold");
+      expect(selectSameAssetMotion({ holdCount: 0 })).toBe("hold");
     }
 
     const open = listNodes().find((node) => node.nodeId === "n_open");
@@ -51,35 +50,22 @@ describe("free-path feel (not paid-gated)", () => {
       holdCount: 0,
     });
     expect(unpaid.fx).toBe("warm-tint");
-    expect(unpaid.motion).not.toBe("hold");
+    expect(unpaid.motion).toBe("hold");
 
     expect(selectCropName({ explicitCamera: open?.camera, holdCount: 0 })).toBe(
       "wide",
     );
-    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 1 })).toBe(
+    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 2 })).toBe(
       "wide",
     );
-    expect(selectCropName({ explicitCamera: open?.camera, holdCount: 2 })).toBe(
-      "mid",
-    );
-
-    const closeNode = listNodes().find((node) => node.nodeId === "n_mia_edge_1");
     expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 0 }),
-    ).toBe("close");
-    expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 1 }),
-    ).toBe("close");
-    expect(
-      selectCropName({ explicitCamera: closeNode?.camera, holdCount: 2 }),
+      selectCropName({ holdCount: 0, beforeChoices: true }),
     ).toBe("wide");
   });
 
   it("keeps SMS/wall on night grade and wall rhythm, not free warm", () => {
     expect(isFreePathFeel("n_sms_auto")).toBe(false);
     expect(isNightGradeNode("n_sms_auto")).toBe(true);
-    expect(isFreePathFeel("n_reina_monday")).toBe(false);
-    expect(isNightGradeNode("n_reina_monday")).toBe(true);
     expect(isFreePathFeel("n_ch01_first_sub", "first_sub")).toBe(false);
     expect(selectSceneFx({ nodeId: "n_sms_auto", explicit: "phone_glow" })).toBe(
       "vignette",

@@ -1,5 +1,4 @@
 import cropsJson from "../content/ART-camera-crops-v1.json";
-import { DENSITY_MAX_SAME_COMPOSITION } from "./feel-density";
 import { NIGHT_PASS_DIALOG_DOCK } from "./tokens";
 
 export type CropName = "wide" | "mid" | "close";
@@ -97,10 +96,8 @@ export function nextCropName(name: CropName): CropName {
 }
 
 /**
- * Same-asset multi-line cycle: wide → mid → close.
- * Honor authored camera for ≤2 lines; the 3rd line (holdCount ≥ 2)
- * auto-advances even if the fixture repeats camera. Night/wall may lock crop.
- * Before choices, prefer close when the camera did not change.
+ * User lock: the drawing IS the camera. Do not hunt wide→mid→close
+ * or punch to close while waiting on choices.
  */
 export function selectCropName(options: {
   explicitCamera?: string;
@@ -110,27 +107,17 @@ export function selectCropName(options: {
   /** True when this line authored a new camera vs the previous line. */
   cameraChanged?: boolean;
 }): CropName {
+  void options.holdCount;
+  void options.lockCrop;
+  void options.beforeChoices;
+  void options.cameraChanged;
   const named = parseCropName(options.explicitCamera);
-  const hold = Math.max(0, options.holdCount);
-  if (options.lockCrop && named && options.explicitCamera !== "kenburns") {
-    return named;
+  if (named && options.explicitCamera !== "kenburns") {
+    // Authored shot size may still name a crop, but default stills
+    // stay on the full plate so manga contact points are not cropped off.
+    return "wide";
   }
-  const startIdx = named ? CROP_CYCLE.indexOf(named) : 0;
-  const start = startIdx >= 0 ? startIdx : 0;
-  if (
-    options.beforeChoices &&
-    !options.lockCrop &&
-    !options.cameraChanged
-  ) {
-    return "close";
-  }
-  if (named && hold < DENSITY_MAX_SAME_COMPOSITION) {
-    return named;
-  }
-  if (named) {
-    return CROP_CYCLE[(start + hold - (DENSITY_MAX_SAME_COMPOSITION - 1)) % CROP_CYCLE.length]!;
-  }
-  return CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
+  return "wide";
 }
 
 export function cropToTransform(

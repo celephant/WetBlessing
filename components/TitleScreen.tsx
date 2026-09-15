@@ -17,7 +17,7 @@ export function TitleScreen() {
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/scenes/ch01/n_conflict.webp"
+          src="/assets/scenes/ch01/n_open.webp"
           alt="WetBlessing chapter 1"
           className="h-full w-full object-cover object-top opacity-80"
         />

@@ -65,6 +65,7 @@ export function VNPlayer({
   const [state, setState] = useState<GameState | null>(null);
   const [locked, setLocked] = useState<Choice | null>(null);
   const [afterPurchase, setAfterPurchase] = useState(false);
+  const [paused, setPaused] = useState(false);
   const pack = compiled.content;
 
   useEffect(() => {
@@ -109,12 +110,13 @@ export function VNPlayer({
   };
 
   const onDialogClick = () => {
-    if (locked) return;
+    if (paused || locked) return;
     if (snapshot.choices.length > 0 || snapshot.isSettle) return;
     commit(clickAdvance(state, compiled));
   };
 
   const onChoice = (choiceId: string) => {
+    if (paused) return;
     const result = selectChoice(state, choiceId, compiled);
     if (result.ok) {
       setLocked(null);
@@ -156,6 +158,12 @@ export function VNPlayer({
     Boolean(locked) ||
     snapshot.isPaywall ||
     isNightGradeNode(snapshot.node.nodeId, snapshot.node.gate);
+  const freezePlate =
+    paused ||
+    snapshot.isSettle ||
+    snapshot.choices.length > 0 ||
+    Boolean(locked) ||
+    wallNode;
 
   return (
     <div
@@ -169,6 +177,7 @@ export function VNPlayer({
           ? "on"
           : "off"
       }
+      data-paused={paused ? "on" : "off"}
       data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
       data-play-pack={packId}
       data-content-version={pack.contentVersion}
@@ -193,15 +202,26 @@ export function VNPlayer({
         forceNightGrade={nightGrade}
         gate={snapshot.node.gate}
         beforeChoices={snapshot.choices.length > 0}
+        frozen={freezePlate}
       />
 
       <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">
-        <Link
-          href="/"
-          className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
-        >
-          标题
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/"
+            className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
+          >
+            标题
+          </Link>
+          <button
+            type="button"
+            onClick={() => setPaused((value) => !value)}
+            className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-xs text-paper/80 backdrop-blur"
+            data-pause-toggle=""
+          >
+            {paused ? "继续" : "暂停"}
+          </button>
+        </div>
         <div className="text-center">
           <p className="font-display text-[11px] uppercase tracking-[0.22em] text-mint">
             Night Pass
@@ -263,6 +283,31 @@ export function VNPlayer({
           </div>
         </>
       )}
+
+      {paused ? (
+        <div
+          className="absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
+          data-pause-overlay=""
+        >
+          <div className="w-full max-w-xs rounded-dialog border border-white/15 bg-night/92 p-5 text-center">
+            <p className="font-display text-xl text-paper">暂停</p>
+            <p className="mt-2 font-ui text-sm text-mute">画面停住。周一还在。</p>
+            <button
+              type="button"
+              onClick={() => setPaused(false)}
+              className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-chip bg-mint font-ui text-[15px] font-medium text-ink"
+            >
+              继续
+            </button>
+            <Link
+              href="/"
+              className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-white/15 font-ui text-[15px] text-paper/80"
+            >
+              回到标题
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       {locked ? (
         <PaywallOverlay

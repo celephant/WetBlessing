@@ -113,9 +113,10 @@ export const DEFAULT_SCENE_FX: SceneFxName =
 /** SMS / first-sub wall stay on night vignette, not warm intimate grade. */
 export const NIGHT_GRADE_NODE_IDS = new Set([
   "n_sms_auto",
-  "n_reina_monday",
   "n_ch01_first_sub",
   "n_free_soft_exit",
+  "n_pay_settle",
+  "n_title",
 ]);
 
 export function isNightGradeNode(nodeId?: string, gate?: string): boolean {
@@ -192,22 +193,22 @@ export function parseTransition(
   return null;
 }
 
-/** 0.4.7-feel authored camera words → shipped motion primitives. */
+/** Authored camera words. Plate motion is always hold; aliases only name the still. */
 const CAMERA_ALIASES: Record<string, SceneCameraName> = {
-  wide: "kenburns-up",
-  medium: "kenburns",
-  close: "kenburns-right",
-  long_then_cut: "kenburns-left",
-  over_shoulder: "kenburns-left",
-  extreme_close: "breathe",
-  wide_split: "kenburns-up",
+  wide: "hold",
+  medium: "hold",
+  close: "hold",
+  long_then_cut: "hold",
+  over_shoulder: "hold",
+  extreme_close: "hold",
+  wide_split: "hold",
   insert: "hold",
-  close_hands: "breathe",
-  close_hand: "breathe",
-  close_alt: "breathe",
-  close_collar: "breathe",
-  medium_danger: "kenburns-right",
-  bust: "breathe",
+  close_hands: "hold",
+  close_hand: "hold",
+  close_alt: "hold",
+  close_collar: "hold",
+  medium_danger: "hold",
+  bust: "hold",
 };
 
 /** 0.4.7-feel authored fx words → shipped overlays. Unknown → default vignette. */
@@ -242,7 +243,7 @@ export function parseCamera(raw?: string): SceneCameraName | null {
     raw === "kenburns-left" ||
     raw === "kenburns-up"
   ) {
-    return raw;
+    return "hold";
   }
   if (raw && raw in CAMERA_ALIASES) {
     return CAMERA_ALIASES[raw]!;
@@ -313,43 +314,18 @@ export function selectAssetChangeTransition(options: {
 }
 
 /**
- * Same resolved art across consecutive lines: cycle Ken Burns /
- * breathe so ≥3 holds never stay a dead still. `camera: "hold"`
- * freezes the plate; other explicit cameras stick or cycle KB.
+ * User lock: stills stay still. Optional one-shot appear lives on
+ * assetId change (SceneArt fade/soft-zoom), not on same-asset holds.
+ * Looping Ken Burns / breathe / crop-cycle is forbidden.
  */
-export function selectSameAssetMotion(options: {
+export function selectSameAssetMotion(_options: {
   explicitCamera?: string;
   holdCount: number;
   allowHold?: boolean;
   intimateBeat?: boolean | IntimateBeatId | null;
+  frozen?: boolean;
 }): SceneMotion {
-  const camera = parseCamera(options.explicitCamera);
-  const hold = Math.max(0, options.holdCount);
-  if (options.intimateBeat && !camera) {
-    return "breathe";
-  }
-  if (options.explicitCamera && !camera) {
-    return "breathe";
-  }
-
-  if (camera === "hold") {
-    return options.allowHold
-      ? "hold"
-      : SAME_ASSET_MOTIONS[hold % SAME_ASSET_MOTIONS.length]!;
-  }
-  if (camera === "breathe") return "breathe";
-  if (
-    camera === "kenburns-right" ||
-    camera === "kenburns-left" ||
-    camera === "kenburns-up"
-  ) {
-    return camera;
-  }
-  if (camera === "kenburns") {
-    const ken = ["kenburns-right", "kenburns-left", "kenburns-up"] as const;
-    return ken[hold % ken.length]!;
-  }
-  return SAME_ASSET_MOTIONS[hold % SAME_ASSET_MOTIONS.length]!;
+  return "hold";
 }
 
 export function selectSceneFx(options: {
@@ -455,14 +431,15 @@ export function resolveScenePresentation(
     motion: selectSameAssetMotion({
       explicitCamera: hooks.camera,
       holdCount: options.holdCount,
-      allowHold: !isFreePathFeel(node.nodeId, node.gate),
+      allowHold: true,
       intimateBeat: Boolean(intimateBeat),
+      frozen: options.beforeChoices,
     }),
     fx,
     cropName: selectCropName({
       explicitCamera: hooks.camera ?? intimateFallbackCamera(intimateBeat),
       holdCount: options.holdCount,
-      lockCrop: isNightGradeNode(node.nodeId, node.gate),
+      lockCrop: true,
       beforeChoices: options.beforeChoices,
       cameraChanged,
     }),

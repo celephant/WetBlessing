@@ -15,7 +15,7 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | `S04.webp` | Rae 水手门缝 | `n_dorm_steam` |
 | `S06c.webp` | Lina 氯水跳台 | `n_with_lina` |
 | `S11.webp` | Vanessa **唯一雨** | `n_pay_03_vanessa` |
-| `S14.webp` | Reina 教員室 | `n_reina_monday`（周一钩 / Ch2 种子） |
+| `S14.webp` | Reina 教員室 | **Ch02 only — not wired on Ch01** |
 
 旧 heat 库存仍给 **吻 / catch / OT** 用，且不得与上表 `n_with_*` 撞文件：
 
@@ -32,7 +32,8 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | `n_heat_kiss_lina.webp` | Lina 完成吻 |
 | `n_heat_neck_rae.webp` | Rae 空楼道颈侧 `n_with_rae` |
 | `n_heat_door_steam.webp` | Rae catch（不复用 S04） |
-| `n_heat_kiss_rae.webp` | Rae 完成吻 + Rae OT |
+| `n_heat_kiss_rae.webp` | Rae 完成吻（不复用 OT） |
+| `n_heat_ot_rae.webp` | Rae OT 关门吻 |
 | `n_heat_kiss_vanessa.webp` | 旧雨吻库存，**不再挂节点**（现用 S11） |
 | `n_heat_vanessa_hug.webp` | Vanessa 大衣紧抱（库存） |
 | `n_heat_kiss_meet.webp` | 旧共用吻底，**不再挂到节点** |
@@ -49,10 +50,10 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | `n_pay_02_ot_mia` | ready | `assets/scenes/heat/n_heat_pin_mia.webp` | 赴约 Mia 加时 · 旧压床 |
 | `n_pay_02_ot_jade` | ready | `assets/scenes/heat/n_heat_straddle_jade.webp` | 赴约 Jade 加时 · 旧跨坐 |
 | `n_pay_02_ot_lina` | ready | `assets/scenes/heat/n_heat_hug_lina.webp` | 赴约 Lina 加时 · 紧抱 |
-| `n_pay_02_ot_rae` | ready | `assets/scenes/heat/n_heat_kiss_rae.webp` | 赴约 Rae 加时 · 吻仍；不复用颈侧 / S04 |
-| `n_pay_02_double_empty` | ready | `assets/scenes/ch01/n_pay_02_ot_a.webp` | 双鸽无赴约加时 · 复用 ot 氛围图 |
+| `n_pay_02_ot_rae` | ready | `assets/scenes/heat/n_heat_ot_rae.webp` | 赴约 Rae 加时 · 独立 OT，不复用免费吻 |
+| `n_pay_02_double_empty` | ready | `assets/scenes/ch01/n_pay_02_ot_a.webp` | 双鸽 · 空走廊 |
 | `n_pay_03_vanessa` | ready | `assets/scenes/heat/S11.webp` | Vanessa 唯一雨 |
-| `n_pay_settle` | placeholder | `assets/scenes/ch01/n_pay_settle.webp` | 结算占位 · **文件可缺** |
+| `n_pay_settle` | ready | `assets/scenes/ch01/n_pay_settle.webp` | S12 空走廊结算 |
 
 ### 历史命名对照
 
@@ -69,7 +70,11 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 
 | nodeId | artStatus | assetId |
 |---|---|---|
-| `n_mia_tease_auto` / `n_mia_edge_2` | ready / ready_reuse | `assets/scenes/ch01/n_mia_edge_1.webp` |
+| `n_open` | ready | `assets/scenes/ch01/n_open.webp` |
+| `n_see_both` | ready | `assets/scenes/ch01/n_see_both.webp` |
+| `n_jade_desk` | ready | `assets/scenes/ch01/n_jade_desk.webp` |
+| `n_dodge_corridor` | ready | `assets/scenes/ch01/n_dodge_corridor.webp` |
+| `n_mia_edge_1` / `n_mia_edge_2` | ready | `assets/scenes/ch01/n_mia_edge_1.webp` |
 | `n_dorm_steam` | ready | `assets/scenes/heat/S04.webp` |
 | `n_with_mia` | ready | `assets/scenes/heat/S06a.webp` |
 | `n_with_jade` | ready | `assets/scenes/heat/S06b.webp` |
@@ -80,7 +85,9 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | `n_kiss_lina` | ready | `assets/scenes/heat/n_heat_kiss_lina.webp` |
 | `n_kiss_rae` | ready | `assets/scenes/heat/n_heat_kiss_rae.webp` |
 | `n_sms_auto` | ready | `assets/scenes/ch01/n_sms_auto.webp` |
-| `n_reina_monday` | ready | `assets/scenes/heat/S14.webp` |
+| `n_ch01_first_sub` | ready | `assets/scenes/ch01/n_ch01_first_sub.webp` |
+
+S14 / `n_reina_monday` is **not** on the Ch01 graph. Mail is dry text on `n_sms_auto`.
 
 ## 3. 工程校验建议
 

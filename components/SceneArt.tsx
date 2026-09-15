@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   cropRect,
   cropToTransform,
-  nextCropName,
   selectCropName,
   type CropName,
 } from "@/lib/camera-crops";
@@ -17,7 +16,6 @@ import {
   cutDurationMs,
   isFreePathFeel,
   isNightGradeNode,
-  MOTION_SPEC,
   phoneGlowAllowed,
   selectAssetChangeTransition,
   selectSameAssetMotion,
@@ -43,6 +41,7 @@ type SceneArtProps = {
   forceNightGrade?: boolean;
   gate?: string;
   beforeChoices?: boolean;
+  frozen?: boolean;
 };
 
 type ActiveCut = SceneTransitionName | CropCutTransition | null;
@@ -69,6 +68,7 @@ export function SceneArt({
   forceNightGrade = false,
   gate,
   beforeChoices = false,
+  frozen = false,
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
@@ -92,8 +92,9 @@ export function SceneArt({
     selectSameAssetMotion({
       explicitCamera: camera,
       holdCount: 0,
-      allowHold: lockCrop,
+      allowHold: true,
       intimateBeat: Boolean(intimateBeat),
+      frozen: frozen || beforeChoices,
     }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
@@ -122,6 +123,7 @@ export function SceneArt({
     nodeId,
     gate,
     beforeChoices,
+    frozen,
     intimateBeat,
   });
   const didMountRef = useRef(false);
@@ -140,6 +142,7 @@ export function SceneArt({
     nodeId,
     gate,
     beforeChoices,
+    frozen,
     intimateBeat,
   };
 
@@ -229,14 +232,7 @@ export function SceneArt({
       holdCountRef.current = 0;
       setHoldCount(0);
       setLineCameraChanged(false);
-      setMotion(
-        selectSameAssetMotion({
-          explicitCamera: cam,
-          holdCount: 0,
-          allowHold: lockCrop,
-          intimateBeat: arrivingIntimate,
-        }),
-      );
+      setMotion("hold");
       identityRef.current = next;
       if (cutTimerRef.current !== null) {
         clearTimeout(cutTimerRef.current);
@@ -249,54 +245,10 @@ export function SceneArt({
       return;
     }
 
-    const prevCrop = selectCropName({
-      explicitCamera:
-        cam ??
-        intimateFallbackCamera(
-          typeof arrivingIntimate === "string" ? arrivingIntimate : null,
-        ),
-      holdCount: holdCountRef.current,
-      lockCrop,
-      beforeChoices: arrivingChoices,
-      cameraChanged,
-    });
+    // Same plate: freeze. Do not Ken Burns, breathe, or crop-hunt.
     holdCountRef.current += 1;
     setHoldCount(holdCountRef.current);
-    setMotion(
-      selectSameAssetMotion({
-        explicitCamera: cam,
-        holdCount: holdCountRef.current,
-        allowHold: lockCrop,
-        intimateBeat: arrivingIntimate,
-      }),
-    );
-    const nextCrop = selectCropName({
-      explicitCamera:
-        cam ??
-        intimateFallbackCamera(
-          typeof arrivingIntimate === "string" ? arrivingIntimate : null,
-        ),
-      holdCount: holdCountRef.current,
-      lockCrop,
-      beforeChoices: arrivingChoices,
-      cameraChanged,
-    });
-    if (nextCrop !== prevCrop) {
-      setOutgoing({
-        src: plateRef.current.src,
-        failed: plateFailedRef.current,
-        cropName: prevCrop,
-      });
-      setActiveTransition(CROP_CUT_TRANSITION);
-      if (cutTimerRef.current !== null) {
-        clearTimeout(cutTimerRef.current);
-      }
-      cutTimerRef.current = setTimeout(() => {
-        setOutgoing(null);
-        setActiveTransition(null);
-        cutTimerRef.current = null;
-      }, cutDurationMs(CROP_CUT_TRANSITION));
-    }
+    setMotion("hold");
   }, [assetId, beatKey, lockCrop]);
 
   const showImage = !plate.failed;
@@ -309,22 +261,14 @@ export function SceneArt({
   });
   const cropStyleFor = (name: CropName, rawCamera?: string) => {
     const fromCrop = cropToTransform(cropRect(name, assetId, rawCamera), 1);
-    const toCrop = cropToTransform(
-      cropRect(nextCropName(name), assetId),
-      MOTION_SPEC.kenBurnsScale,
-    );
     return {
       "--crop-from-scale": String(fromCrop.scale),
       "--crop-from-tx": `${fromCrop.tx}%`,
       "--crop-from-ty": `${fromCrop.ty}%`,
-      "--crop-to-scale": String(toCrop.scale),
-      "--crop-to-tx": `${toCrop.tx}%`,
-      "--crop-to-ty": `${toCrop.ty}%`,
     } as CSSProperties;
   };
   const cropStyle = cropStyleFor(cropName, camera);
-  const motionClass =
-    motion === "hold" ? "scene-crop-hold" : "scene-crop-kenburns";
+  const motionClass = "scene-crop-hold";
   const incomingClass = activeTransition ? `scene-in-${activeTransition}` : "";
   const outgoingClass = activeTransition ? `scene-out-${activeTransition}` : "";
 
@@ -334,7 +278,8 @@ export function SceneArt({
       data-scene-art={showImage ? "image" : "placeholder"}
       data-scene-src={plate.src}
       data-scene-transition={activeTransition ?? "none"}
-      data-scene-motion={motion}
+      data-scene-motion="hold"
+      data-scene-frozen={frozen || beforeChoices ? "on" : "off"}
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
       data-scene-crop={cropName}
@@ -365,7 +310,7 @@ export function SceneArt({
       ) : null}
 
       <ScenePlate
-        key={`in-${cropName}-${holdCount}`}
+        key={`in-${plate.src}`}
         src={plate.src}
         alt={alt}
         failed={plate.failed}
@@ -428,13 +373,7 @@ function ScenePlate({
         </div>
       ) : (
         <div className={`absolute inset-[-8%] ${motionClass}`} style={cropStyle}>
-          <div
-            className={
-              motionClass === "scene-crop-hold"
-                ? "h-full w-full"
-                : "scene-motion-breathe-layer h-full w-full"
-            }
-          >
+          <div className="h-full w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src}

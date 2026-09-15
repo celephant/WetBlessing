@@ -20,24 +20,23 @@ import type { ContentFile } from "../lib/types";
 import { isPaywallWallNode, selectSameAssetMotion } from "../lib/scene-presentation";
 
 describe("ART camera crops", () => {
-  it("cycles wide → mid → close and aliases far/shoulder", () => {
+  it("keeps the full still (wide) instead of hunting crops", () => {
     expect(CROP_CYCLE).toEqual(["wide", "mid", "close"]);
     expect(parseCropName("far")).toBe("wide");
     expect(parseCropName("shoulder")).toBe("mid");
     expect(selectCropName({ holdCount: 0 })).toBe("wide");
-    expect(selectCropName({ holdCount: 1 })).toBe("mid");
-    expect(selectCropName({ holdCount: 2 })).toBe("close");
+    expect(selectCropName({ holdCount: 1 })).toBe("wide");
+    expect(selectCropName({ holdCount: 2 })).toBe("wide");
     expect(selectCropName({ explicitCamera: "close", holdCount: 0 })).toBe(
-      "close",
+      "wide",
     );
     expect(selectCropName({ explicitCamera: "wide", holdCount: 0 })).toBe("wide");
-    expect(selectCropName({ explicitCamera: "wide", holdCount: 1 })).toBe("wide");
     expect(selectCropName({ explicitCamera: "wide", holdCount: 2 })).toBe(
-      "mid",
+      "wide",
     );
     expect(
       selectCropName({ explicitCamera: "close", holdCount: 3, lockCrop: true }),
-    ).toBe("close");
+    ).toBe("wide");
     expect(cropSafeBottom(cropRect("wide"))).toBe(true);
     expect(cropSafeBottom(cropRect("mid"))).toBe(true);
     expect(cropSafeBottom(cropRect("close"))).toBe(true);
@@ -48,13 +47,13 @@ describe("ART camera crops", () => {
     expect(parseCropName("close_alt")).toBe("close");
     expect(parseCropName("close_hand")).toBe("close");
     expect(parseCropName("close_collar")).toBe("close");
-    expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("close");
+    expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("wide");
   });
 
-  it("keeps free-path Ken Burns motion without a paid unlock", () => {
-    expect(selectSameAssetMotion({ holdCount: 0 })).not.toBe("hold");
+  it("keeps free-path plates frozen without a paid unlock", () => {
+    expect(selectSameAssetMotion({ holdCount: 0 })).toBe("hold");
     expect(selectSameAssetMotion({ explicitCamera: "wide", holdCount: 0 })).toBe(
-      "kenburns-up",
+      "hold",
     );
   });
 });

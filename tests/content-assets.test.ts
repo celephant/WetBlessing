@@ -65,13 +65,13 @@ describe("wired 0.4.8-feel-hot assets", () => {
 
   it("maps missing stems to the nearest shipped webp with a leading slash", () => {
     expect(resolveAssetUrl("assets/scenes/ch01/n_open.webp")).toBe(
-      "/assets/scenes/ch01/n_see_both.webp",
+      "/assets/scenes/ch01/n_open.webp",
     );
     expect(resolveAssetUrl("/assets/scenes/ch01/n_jade_desk.webp")).toBe(
-      "/assets/scenes/ch01/n_see_both.webp",
+      "/assets/scenes/ch01/n_jade_desk.webp",
     );
     expect(resolveAssetUrl("assets/scenes/ch01/n_dodge_corridor.webp")).toBe(
-      "/assets/scenes/ch01/n_see_both.webp",
+      "/assets/scenes/ch01/n_dodge_corridor.webp",
     );
     expect(resolveAssetUrl("assets/scenes/ch01/n_with_a.webp")).toBe(
       "/assets/scenes/ch01/n_mia_edge_1.webp",
@@ -83,7 +83,7 @@ describe("wired 0.4.8-feel-hot assets", () => {
       "/assets/scenes/ch01/n_conflict.webp",
     );
     expect(resolveAssetUrl("assets/scenes/ch01/n_pay_settle.webp")).toBe(
-      "/assets/scenes/ch01/n_see_both.webp",
+      "/assets/scenes/ch01/n_pay_settle.webp",
     );
     expect(resolveAssetUrl("assets/scenes/ch01/n_see_both.webp")).toBe(
       "/assets/scenes/ch01/n_see_both.webp",
@@ -93,7 +93,7 @@ describe("wired 0.4.8-feel-hot assets", () => {
     );
     expect(resolveAssetUrl(undefined)).toBe(`/${DEFAULT_SCENE_FALLBACK}`);
     expect(resolveAssetPath("assets/scenes/ch01/n_open.webp")).toBe(
-      "assets/scenes/ch01/n_see_both.webp",
+      "assets/scenes/ch01/n_open.webp",
     );
   });
 });

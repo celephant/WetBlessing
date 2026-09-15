@@ -33,6 +33,7 @@ const HEAT_FILES = [
   "assets/scenes/heat/n_heat_neck_rae.webp",
   "assets/scenes/heat/n_heat_door_steam.webp",
   "assets/scenes/heat/n_heat_kiss_rae.webp",
+  "assets/scenes/heat/n_heat_ot_rae.webp",
 ];
 
 /** Underage / genital bans stay. 18+ JK/sailor fashion is allowed. */
@@ -75,22 +76,22 @@ describe("hotter-cast Ch01", () => {
     expect(content.personas.persona_reina_v1.name).toBe("Reina");
     const spoken = spokenHay();
     expect(spoken).toMatch(/十八/);
-    expect(spoken).toMatch(/二十九/);
     expect(spoken).toMatch(/州立大学|大学/);
     expect(spoken).toMatch(/水手领/);
     expect(spoken).toMatch(/周一/);
-    expect(spoken).toMatch(/Reina|教員室|办公时间/);
+    expect(spoken).toMatch(/Reina|办公时间/);
+    expect(spoken).not.toMatch(/二十九/);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/这一下不是几乎——吻上了/);
     expect(spoken).not.toMatch(/(?<!二)十九/);
   });
 
-  it("walks dorm steam, party 5-way, collage/Monday, and interrupted kiss stills", () => {
+  it("walks dorm steam, party 5-way, collage mail, and interrupted kiss stills", () => {
     expect(route.nodes.has("n_dorm_steam")).toBe(true);
     expect(route.nodes.has("n_with_lina")).toBe(true);
     expect(route.nodes.has("n_with_rae")).toBe(true);
     expect(route.nodes.has("n_kiss_mia")).toBe(true);
-    expect(route.nodes.has("n_reina_monday")).toBe(true);
+    expect(route.nodes.has("n_reina_monday")).toBe(false);
     const conflict = route.nodes.get("n_conflict")!;
     expect(conflict.choices?.map((c) => c.choiceId)).toEqual([
       "c_go_mia",
@@ -103,11 +104,11 @@ describe("hotter-cast Ch01", () => {
       true,
     );
     expect(route.nodes.get("n_kiss_mia")?.advance).toBe("n_sms_auto");
-    expect(route.nodes.get("n_sms_auto")?.advance).toBe("n_reina_monday");
-    expect(route.nodes.get("n_reina_monday")?.advance).toBe("n_ch01_first_sub");
-    expect(route.nodes.get("n_mia_tease_auto")?.advance).toBe("n_dorm_steam");
+    expect(route.nodes.get("n_sms_auto")?.advance).toBe("n_ch01_first_sub");
+    expect(route.nodes.get("n_jade_desk")?.choices?.every((c) => c.next === "n_dorm_steam")).toBe(
+      true,
+    );
     expect(route.nodes.get("n_dorm_steam")?.advance).toBe("n_conflict");
-    expect(route.nodes.get("n_reina_monday")?.choices).toBeUndefined();
   });
 
   it("wires bible plates by assetId and keeps with/OT/catch unique", () => {
@@ -119,7 +120,7 @@ describe("hotter-cast Ch01", () => {
     expect(route.nodes.get("n_dorm_steam")?.assetId).toBe("assets/scenes/heat/S04.webp");
     expect(route.nodes.get("n_with_lina")?.assetId).toBe("assets/scenes/heat/S06c.webp");
     expect(route.nodes.get("n_pay_03_vanessa")?.assetId).toBe("assets/scenes/heat/S11.webp");
-    expect(route.nodes.get("n_reina_monday")?.assetId).toBe("assets/scenes/heat/S14.webp");
+    expect(route.nodes.get("n_reina_monday")).toBeUndefined();
     expect(route.nodes.get("n_kiss_mia")?.assetId).toBe("assets/scenes/heat/n_heat_kiss_mia.webp");
     expect(route.nodes.get("n_kiss_jade")?.assetId).toBe(
       "assets/scenes/heat/n_heat_kiss_jade.webp",
@@ -132,6 +133,9 @@ describe("hotter-cast Ch01", () => {
     );
     expect(route.nodes.get("n_with_rae")?.assetId).toBe("assets/scenes/heat/n_heat_neck_rae.webp");
     expect(route.nodes.get("n_kiss_rae")?.assetId).toBe("assets/scenes/heat/n_heat_kiss_rae.webp");
+    expect(route.nodes.get("n_pay_02_ot_rae")?.assetId).toBe(
+      "assets/scenes/heat/n_heat_ot_rae.webp",
+    );
     const kisses = [
       route.nodes.get("n_kiss_mia")?.assetId,
       route.nodes.get("n_kiss_jade")?.assetId,
@@ -168,11 +172,12 @@ describe("hotter-cast Ch01", () => {
     expect(nodeHay("n_with_jade")).toMatch(/砖/);
     expect(nodeHay("n_with_jade")).not.toMatch(/雨/);
     expect(nodeHay("n_kiss_jade")).not.toMatch(/雨/);
-    expect(nodeHay("n_with_lina")).toMatch(/氯|瓷砖|跳台/);
-    expect(nodeHay("n_kiss_lina")).toMatch(/不是雨/);
+    expect(nodeHay("n_with_lina")).toMatch(/氯|瓷砖|跳台|毛巾/);
+    expect(nodeHay("n_kiss_lina")).not.toMatch(/不是雨/);
     expect(nodeHay("n_dorm_steam")).toMatch(/水手领/);
     expect(nodeHay("n_pay_03_vanessa")).toMatch(/雨/);
-    expect(nodeHay("n_reina_monday")).toMatch(/黑丝|教員室|周一/);
+    expect(nodeHay("n_sms_auto")).toMatch(/周一|办公时间/);
+    expect(nodeHay("n_sms_auto")).not.toMatch(/黑丝/);
     const spoken = spokenHay();
     expect(spoken).toMatch(/乳沟|胸/);
     expect(spoken).toMatch(/腿/);
@@ -216,7 +221,7 @@ describe("hotter-cast Ch01", () => {
     expect(PAYWALL_HARD["zh-CN"].title).toMatch(/吻|唇|水汽|嘴对上/);
     expect(PAYWALL_HARD["zh-CN"].title).toMatch(/周一/);
     expect(PAYWALL_HARD["zh-CN"].body).toMatch(/吻/);
-    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/Reina|办公室/);
+    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/办公室/);
     expect(PAYWALL_HARD.behavior.tone).not.toMatch(FORBIDDEN);
     expect(JSON.stringify(PAYWALL_HARD)).not.toMatch(FORBIDDEN);
   });
