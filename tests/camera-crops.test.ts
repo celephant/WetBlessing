@@ -105,8 +105,8 @@ describe("edge_lock + paywall copy", () => {
     expect(isWallGate('"edge_lock"')).toBe(true);
   });
 
-  it("keeps wall1 体温未散 and owned edge primary 推门进去", () => {
-    expect(PAYWALL_HARD["zh-CN"].title).toContain("体温");
+  it("keeps wall1 interrupted-kiss hook and owned edge primary 推门进去", () => {
+    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/吻|唇|水汽/);
     expect(PAYWALL_HARD.behavior.tone).toMatch(/禁暗示开通后才开始暧昧/);
     expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass_month");
     expect(PAYWALL_HARD.behavior.secondaryAction).toBe(

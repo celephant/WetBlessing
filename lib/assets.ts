@@ -38,6 +38,7 @@ function stemOf(assetId: string): string {
  * Nearest existing Ch01 webp for a missing stem.
  * n_open / n_jade_desk / n_dodge_* → n_see_both
  * n_with_* → n_mia_edge_1 (Mia) or n_conflict (Jade)
+ * missing ch01 stems still fall back; W2–W3 climax paths resolve as themselves
  * else → n_see_both
  */
 export function fallbackSceneStem(stem: string): string {

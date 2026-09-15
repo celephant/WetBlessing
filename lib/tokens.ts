@@ -58,6 +58,8 @@ export function speakerColor(speaker: string): string {
   if (key === "mia") return tokens.colors.mia;
   if (key === "jade") return tokens.colors.jade;
   if (key === "vanessa") return tokens.colors.vanessa;
+  if (key === "rae") return tokens.colors.hot;
+  if (key === "lina") return tokens.colors.mint;
   if (key === "kai") return tokens.colors.mint;
   return tokens.colors.paper;
 }

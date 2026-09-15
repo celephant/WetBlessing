@@ -19,9 +19,16 @@ const FREE_BEFORE_WALL = [
   "n_dodge_corridor",
   "n_mia_edge_1",
   "n_mia_edge_2",
+  "n_dorm_steam",
   "n_conflict",
   "n_with_mia",
   "n_with_jade",
+  "n_with_lina",
+  "n_with_rae",
+  "n_kiss_mia",
+  "n_kiss_jade",
+  "n_kiss_lina",
+  "n_kiss_rae",
 ];
 
 describe("free-path feel (not paid-gated)", () => {

@@ -6,3 +6,5 @@ out
 .DS_Store
 .env*
 coverage
+art-pack-ready/
+wetblessing-src.tgz

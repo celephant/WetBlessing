@@ -35,7 +35,7 @@ export function TitleScreen() {
           校园恋爱视觉小说 · {content.routeTitle}
         </p>
         <p className="mt-2 font-ui text-sm text-mute">
-          擦边非成人 · 大学角色 18+ · Kai / Mia / Jade / Vanessa
+          擦边非成人 · 大学角色 18+ · Kai / Mia / Jade / Rae / Lina / Vanessa
         </p>
 
         <div className="mt-8 flex flex-col gap-2">

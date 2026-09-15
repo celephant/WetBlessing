@@ -5,12 +5,11 @@ export type StatBlock = {
   desire?: number;
 };
 
+export const CAST_STAT_KEYS = ["mia", "jade", "vanessa", "rae", "lina"] as const;
+export type CastStatKey = (typeof CAST_STAT_KEYS)[number];
+
 export type Delta = {
-  stats?: {
-    mia?: StatBlock;
-    jade?: StatBlock;
-    vanessa?: StatBlock;
-  };
+  stats?: Partial<Record<CastStatKey, StatBlock>>;
   tension?: number;
 };
 
@@ -141,6 +140,8 @@ export type Stats = {
   mia: CharacterStats;
   jade: CharacterStats;
   vanessa: CharacterStats;
+  rae: CharacterStats;
+  lina: CharacterStats;
   tension: number;
 };
 

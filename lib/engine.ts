@@ -3,18 +3,19 @@ import { getNode, route, type CompiledRoute } from "./content";
 import { flagMatches, matchFlagExpr } from "./flag-expr";
 import { isWallGate, isWallSku, SKU_CHAPTER_UNLOCK, SKU_EDGE_LOCK } from "./paywall-copy";
 import { SKU_STORY_PASS_MONTH } from "./tokens";
-import type {
-  Beat,
-  Choice,
-  ContentNode,
-  Delta,
-  Entitlements,
-  FlagValue,
-  Flags,
-  GameState,
-  SelectChoiceResult,
-  Stats,
-  ViewModel,
+import {
+  CAST_STAT_KEYS,
+  type Beat,
+  type Choice,
+  type ContentNode,
+  type Delta,
+  type Entitlements,
+  type FlagValue,
+  type Flags,
+  type GameState,
+  type SelectChoiceResult,
+  type Stats,
+  type ViewModel,
 } from "./types";
 
 export { flagMatches, matchFlagExpr } from "./flag-expr";
@@ -23,6 +24,8 @@ const emptyStats = (): Stats => ({
   mia: { affection: 0, desire: 0 },
   jade: { affection: 0, desire: 0 },
   vanessa: { affection: 0, desire: 0 },
+  rae: { affection: 0, desire: 0 },
+  lina: { affection: 0, desire: 0 },
   tension: 0,
 });
 
@@ -81,10 +84,12 @@ export function applyDelta(stats: Stats, delta?: Delta): Stats {
     mia: { ...stats.mia },
     jade: { ...stats.jade },
     vanessa: { ...stats.vanessa },
+    rae: { ...stats.rae },
+    lina: { ...stats.lina },
     tension: stats.tension + (delta.tension ?? 0),
   };
   if (delta.stats) {
-    for (const who of ["mia", "jade", "vanessa"] as const) {
+    for (const who of CAST_STAT_KEYS) {
       const block = delta.stats[who];
       if (!block) continue;
       next[who] = {
