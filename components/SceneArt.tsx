@@ -8,7 +8,10 @@ import {
   selectCropName,
   type CropName,
 } from "@/lib/camera-crops";
-import { detectIntimateBeat } from "@/lib/feel-density";
+import {
+  detectIntimateBeat,
+  intimateFallbackCamera,
+} from "@/lib/feel-density";
 import {
   CROP_CUT_TRANSITION,
   cutDurationMs,
@@ -204,7 +207,11 @@ export function SceneArt({
         src: plateRef.current.src,
         failed: plateFailedRef.current,
         cropName: selectCropName({
-          explicitCamera: cam,
+          explicitCamera:
+            cam ??
+            intimateFallbackCamera(
+              typeof arrivingIntimate === "string" ? arrivingIntimate : null,
+            ),
           holdCount: holdCountRef.current,
           lockCrop,
           beforeChoices: arrivingChoices,
@@ -236,7 +243,11 @@ export function SceneArt({
     }
 
     const prevCrop = selectCropName({
-      explicitCamera: cam,
+      explicitCamera:
+        cam ??
+        intimateFallbackCamera(
+          typeof arrivingIntimate === "string" ? arrivingIntimate : null,
+        ),
       holdCount: holdCountRef.current,
       lockCrop,
       beforeChoices: arrivingChoices,
@@ -252,7 +263,11 @@ export function SceneArt({
       }),
     );
     const nextCrop = selectCropName({
-      explicitCamera: cam,
+      explicitCamera:
+        cam ??
+        intimateFallbackCamera(
+          typeof arrivingIntimate === "string" ? arrivingIntimate : null,
+        ),
       holdCount: holdCountRef.current,
       lockCrop,
       beforeChoices: arrivingChoices,
@@ -277,7 +292,7 @@ export function SceneArt({
 
   const showImage = !plate.failed;
   const cropName = selectCropName({
-    explicitCamera: camera,
+    explicitCamera: camera ?? intimateFallbackCamera(intimateBeat),
     holdCount,
     lockCrop,
     beforeChoices,

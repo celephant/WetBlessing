@@ -2,6 +2,8 @@ import { resolveAssetUrl } from "./assets";
 import { selectCropName, type CropName } from "./camera-crops";
 import {
   detectIntimateBeat,
+  intimateBeatSpec,
+  intimateFallbackCamera,
   isIntimateForcedCut,
   SOFT_ZOOM_CROP_MS,
   type IntimateBeatId,
@@ -241,20 +243,7 @@ export function parseFx(raw?: string): SceneFxName | null {
 function intimateBeatTransition(
   beatId: IntimateBeatId | null,
 ): SceneTransitionName | null {
-  if (!beatId) return null;
-  const table = tokens.intimateBeats;
-  const spec =
-    beatId === "near_miss"
-      ? table.near_miss
-      : beatId === "door_lock"
-        ? table.door_lock
-        : beatId === "sleepover_edge"
-          ? table.sleepover_edge
-          : beatId === "vanessa_close"
-            ? table.vanessa_close
-            : beatId === "morning_light"
-              ? table.morning_light
-              : null;
+  const spec = intimateBeatSpec(beatId);
   return spec ? tokenCut(spec.transition) : null;
 }
 
@@ -438,7 +427,7 @@ export function resolveScenePresentation(
     }),
     fx,
     cropName: selectCropName({
-      explicitCamera: hooks.camera,
+      explicitCamera: hooks.camera ?? intimateFallbackCamera(intimateBeat),
       holdCount: options.holdCount,
       lockCrop: isNightGradeNode(node.nodeId, node.gate),
       beforeChoices: options.beforeChoices,

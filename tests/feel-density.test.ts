@@ -127,6 +127,23 @@ describe("FEEL density + intimate FX", () => {
     expect(["soft-zoom", "dip-to-black"]).toContain(resolved.transition);
     expect(resolved.fx).toBe("warm-tint");
     expect(resolved.motion).toBe("breathe");
+    expect(resolved.cropName).toBe("close");
+
+    for (const id of [
+      "near_miss",
+      "door_lock",
+      "sleepover_edge",
+      "vanessa_close",
+      "morning_light",
+    ] as const) {
+      const cut = selectAssetChangeTransition({
+        explicit: "fade",
+        changeCount: 0,
+        intimateBeat: id,
+      });
+      expect(cut).not.toBe("fade");
+      expect(["soft-zoom", "dip-to-black"]).toContain(cut);
+    }
 
     expect(
       detectIntimateBeat({

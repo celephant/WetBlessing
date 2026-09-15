@@ -74,9 +74,26 @@ export function densityLineChanged(sameAssetLineIndex: number): boolean {
   return sameAssetLineIndex >= 1;
 }
 
+export function intimateBeatSpec(beatId: IntimateBeatId | null) {
+  if (!beatId) return null;
+  const table = tokens.intimateBeats;
+  if (beatId === "near_miss") return table.near_miss;
+  if (beatId === "door_lock") return table.door_lock;
+  if (beatId === "sleepover_edge") return table.sleepover_edge;
+  if (beatId === "vanessa_close") return table.vanessa_close;
+  if (beatId === "morning_light") return table.morning_light;
+  return null;
+}
+
+export function intimateFallbackCamera(
+  beatId: IntimateBeatId | null,
+): string | undefined {
+  return intimateBeatSpec(beatId)?.camera;
+}
+
 /** Intimate asset-id change: fade-only is forbidden. Honor soft-zoom / dip. */
 export function intimateAllowsFade(): boolean {
-  return false;
+  return !tokens.intimateBeats.forbidFadeOnly;
 }
 
 export function isIntimateForcedCut(
