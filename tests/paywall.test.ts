@@ -76,10 +76,11 @@ describe("in-dialogue paywall", () => {
 
     const seen = new Set<string>();
     while (state.nodeId !== "n_pay_settle") {
-      if (seen.has(state.nodeId)) {
+      const key = `${state.nodeId}:${state.beatIndex}`;
+      if (seen.has(key)) {
         throw new Error(`stuck at ${state.nodeId}`);
       }
-      seen.add(state.nodeId);
+      seen.add(key);
       state = clickAdvance(state);
     }
     expect(view(state).isSettle).toBe(true);

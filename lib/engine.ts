@@ -9,6 +9,7 @@ import type {
   ContentNode,
   Delta,
   Entitlements,
+  FlagValue,
   Flags,
   GameState,
   SelectChoiceResult,

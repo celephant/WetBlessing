@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { compileRoute, content, getNode, route } from "../lib/content";
 import {
   clickAdvance,
+  getBeats,
   playChoices,
   pumpToPrompt,
   resolveNext,
@@ -69,7 +70,7 @@ describe("engine advance vs branches", () => {
     expect(state.nodeId).toBe("n_open");
     expect(state.choiceIndex).toBe(0);
 
-    state = clickAdvance(state);
+    state = pumpToPrompt(state);
     expect(state.nodeId).toBe("n_see_both");
     expect(state.choiceIndex).toBe(0);
   });
@@ -88,16 +89,23 @@ describe("engine advance vs branches", () => {
   });
 
   it("clicks through in-node lines before revealing choices", () => {
-    const state = startGame();
-    const opened = clickAdvance(state);
-    const first = view(opened);
+    let state = startGame();
+    while (state.nodeId === "n_open") {
+      state = clickAdvance(state);
+    }
+    expect(state.nodeId).toBe("n_see_both");
+    const first = view(state);
     expect(first.choices).toHaveLength(0);
     expect(first.beat.speaker).toBe("narrator");
 
-    const second = clickAdvance(opened);
-    expect(view(second).beat.speaker).toBe("mia");
-    const third = clickAdvance(second);
-    const last = view(third);
+    const beats = getBeats(first.node);
+    expect(beats.some((beat) => beat.speaker === "mia")).toBe(true);
+    expect(beats.some((beat) => beat.speaker === "jade")).toBe(true);
+
+    while (!view(state).isLastBeat) {
+      state = clickAdvance(state);
+    }
+    const last = view(state);
     expect(last.beat.speaker).toBe("jade");
     expect(last.choices.map((c) => c.choiceId)).toEqual([
       "c_help_mia",
