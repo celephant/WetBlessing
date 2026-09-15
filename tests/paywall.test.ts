@@ -5,6 +5,7 @@ import {
   playChoices,
   selectChoice,
   unlockNext,
+  unlockScope,
   view,
 } from "../lib/engine";
 
@@ -51,6 +52,21 @@ describe("in-dialogue paywall", () => {
     expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
     expect(result.state.flags.catch_target).toBe("mia");
     expect(result.state.pendingChoiceId).toBeNull();
+  });
+
+  it("unlockScope w1_continue continues Ch01 without minting the pass", () => {
+    const state = playChoices(["c_dodge_both", "c_dodge_party"]);
+    const locked = selectChoice(state, "c_sub_round_mia");
+    expect(locked.ok).toBe(false);
+    if (locked.ok) return;
+
+    const result = unlockScope(locked.state, "w1_continue");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.state.entitlements.w1_continue).toBe(true);
+    expect(result.state.entitlements.story_pass_month).toBe(false);
+    expect(result.state.entitlements.w2_office).toBeFalsy();
+    expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
   });
 
   it("allows free soft-exit without a pass", () => {

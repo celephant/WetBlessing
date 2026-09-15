@@ -155,11 +155,17 @@ export type Stats = {
 
 export type Flags = Record<string, FlagValue>;
 
+export type ChapterScope = "w1_continue" | "w2_office" | "w3_edge_night";
+
 export type Entitlements = {
   story_pass_month: boolean;
   /** Sibling of first_sub. Local /play full-entitle grants both walls. */
   edge_lock?: boolean;
+  /** Unscoped leftover. Not a season pass. Do not treat as all walls. */
   chapter_unlock?: boolean;
+  w1_continue?: boolean;
+  w2_office?: boolean;
+  w3_edge_night?: boolean;
 };
 
 export type GameState = {

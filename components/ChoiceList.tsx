@@ -12,14 +12,16 @@ import type { Choice } from "@/lib/types";
 
 type ChoiceListProps = {
   choices: Choice[];
-  entitled: boolean;
+  choiceEntitled?: (choice: Choice) => boolean;
+  entitled?: boolean;
   onSelect: (choiceId: string) => void;
   enterDelayMs?: number;
 };
 
 export function ChoiceList({
   choices,
-  entitled,
+  choiceEntitled,
+  entitled = false,
   onSelect,
   enterDelayMs = 0,
 }: ChoiceListProps) {
@@ -37,10 +39,11 @@ export function ChoiceList({
         const variant = choiceVariant(choice);
         const passChip = showsPassChip(choice);
         const goldOnce = showsYuanGoldSweep(choice);
+        const owned = choiceEntitled ? choiceEntitled(choice) : entitled;
         const locked =
           passChip &&
           Boolean(choice.requiresEntitlement) &&
-          !entitled;
+          !owned;
         return (
           <button
             key={choice.choiceId}

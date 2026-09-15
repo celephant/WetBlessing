@@ -23,7 +23,7 @@ import {
   startGame,
   view,
 } from "../lib/engine";
-import { PAYWALL_EDGE_LOCK } from "../lib/paywall-copy";
+import { PAYWALL_EDGE_LOCK, offersEdgeNightSku } from "../lib/paywall-copy";
 import type { CompiledRoute, Flags } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
@@ -165,11 +165,24 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     const none = playFrom(compiled, { ch3_bind: "none" }, []);
     expect(none.nodeId).toBe("n_s21_vanessa");
     expect(none.flags.ch3_bind).toBe("none");
+    expect(offersEdgeNightSku(none.flags)).toBe(false);
+    expect(compiled.nodes.get("n_s18_empty")?.gate).not.toBe("edge_lock");
+    expect(
+      compiled.nodes.get("n_s18_empty")?.choices?.some((c) => c.requiresEntitlement),
+    ).toBeFalsy();
     for (const node of compiled.nodes.values()) {
       if (none.nodeId === node.nodeId) {
         expect(node.gate).not.toBe("edge_lock");
       }
     }
+
+    const officeOnly = playChoices(
+      ["c_s18_ok"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+    );
+    expect(officeOnly.nodeId).toBe("n_s19_mia");
+    expect(selectChoice(officeOnly, "c_push", compiled).ok).toBe(false);
 
     const jadeNight = playFrom(
       compiled,
