@@ -42,13 +42,13 @@
       "n_pay_settle",
       "n_title"
     ],
-    "changelog": "0.4.8-feel-hot hotter-cast: keep default version; add college LIs Rae/Lina; dorm steam + party 5-way; free kiss beats interrupted by SMS; wire W2–W3 heat cluster (almost_kiss / sleepover_edge / door_lock_hand / catch_b) via assetId; hotter zh copy; paid catch/OT for new LIs. fourweek not default. T-erotic only.",
+    "changelog": "0.4.8-feel-hot hotter-cast-2: ship curated anime heat stills (kiss-meet, sleep-legs, wet-cling, door-steam); raise copy to completed kiss + body heat; keep Rae/Lina; fourweek not default.",
     "artPayDefault": "catch_b visual defaults to Jade (poster B); Mia catch variant TBD",
     "feelPatch": "FEEL-免费段必须够烫-出品补丁-0.4.8.md",
     "feelRules": "T-erotic tension only; no nudity; no sex acts; male-campus tease",
     "ceoStamp": "CEO·WetBlessing 2026-09-14：批准默认演示 0.4.8-feel-hot；四周灌装 0.5.0-fourweek-mini 可进仓但暂不改默认，等工程可连打+景贴P0",
-    "scaleLock": "大胆擦边：吻、湿衣贴身、睡袍/卫衣滑肩、几乎看见；禁露点；禁生殖器；禁性交实写；禁校服未成年编码",
-    "freeHotRule": "墙前免费段须保持 horny；付费买更爆更完整峰值；禁露点实操",
+    "scaleLock": "动漫CG擦边：完成吻、胸、腿、乳沟、短下摆、湿衣贴身、滑肩；禁露点实绘；禁生殖器；禁性交静帧；禁校服未成年编码",
+    "freeHotRule": "墙前免费段须吻上、湿衣、胸腿可见边缘；付费把吻拉长；禁露点实操",
     "versionAlias": "0.4.8-feel",
     "aka": [
       "0.4.8-feel",
@@ -60,10 +60,11 @@
     "visualDensity": "FEEL-换图密度：出品已打底 camera/transition/fx；内容补拆镜 lines[] ≤2句/镜；同图≤2句播放器仍自动换裁切",
     "castNote": "Kai + Mia/Jade/Vanessa + Rae(19 dorm) + Lina(20 swim volunteer). College 18+ only.",
     "artHeatCluster": [
-      "assets/scenes/w2/n_w2_almost_kiss.webp",
-      "assets/scenes/w3/n_w3_sleepover_edge.webp",
-      "assets/scenes/ch01/n_pay_01_catch_b.webp",
-      "assets/scenes/w3/n_w3_door_lock_hand.webp"
+      "assets/scenes/heat/n_heat_kiss_meet.webp",
+      "assets/scenes/heat/n_heat_sleep_legs.webp",
+      "assets/scenes/heat/n_heat_wet_cling.webp",
+      "assets/scenes/heat/n_heat_door_steam.webp",
+      "assets/scenes/ch01/n_pay_01_catch_b.webp"
     ]
   },
   "personas": {
@@ -97,7 +98,7 @@
           "nodeId": "n_open",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "州立大学报到日。宿舍电梯口堵着纸箱。热水汽从楼道漫出来，像一整层的人都刚冲完澡。",
+          "text": "州立大学报到日。宿舍电梯口堵着纸箱。热水汽从楼道漫出来，湿衣、锁骨、刚洗完的大腿气味叠在一起。",
           "assetId": "assets/scenes/ch01/n_open.webp",
           "artCue": "宿舍电梯厅全景日光纸箱，大构图；缺图用占位",
           "artStatus": "placeholder",
@@ -111,7 +112,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "空气潮得发黏。有人侧身挤过你时，湿透的衣摆贴上你手背——凉一下，又热一下。她没回头，只把那半拍拖得很慢。",
+              "text": "有人侧身挤过你。湿透的短下摆贴上你手背，胸口的布料热热地擦过去。她没回头，只把那半拍拖得很慢。",
               "camera": "mid",
               "transition": "softZoomCrop"
             }
@@ -121,7 +122,7 @@
           "nodeId": "n_see_both",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "电梯门开。热气涌出来，带着沐浴露和湿头发的味道。",
+          "text": "电梯门开。热气涌出来，带着沐浴露、湿头发、和刚贴过皮肤的温度。",
           "assetId": "assets/scenes/ch01/n_see_both.webp",
           "artCue": "电梯口双人同框：Mia抱箱左近景，Jade迎新队右路过，Kai可被两人叫到；半身大构图日系动漫；脸在上55%；底栏28%留给对话框勿烧UI",
           "artStatus": "ready",
@@ -133,20 +134,20 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "Mia 抱着纸箱，卫衣领口被箱子扯斜，锁骨一层亮汗，布料贴着起伏；Jade 擦肩而过，湿短裙边扫过你大腿外侧，香水糊在鼻尖，耳环几乎碰到你颊。两个人都开口了——像在抢你的视线落点。",
+              "text": "Mia 抱着纸箱，卫衣领口被扯到乳沟边缘，锁骨一层亮汗；Jade 擦肩而过，湿短裙下摆扫过你大腿外侧，香水糊在鼻尖。两个人都开口了——像在抢你的嘴，也在抢你的视线落点。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "mia",
-              "text": "「Kai，手别插裤兜——箱子！领口歪了就看，别装正人君子。湿的地方你也看见了。」",
+              "text": "「Kai，手别插裤兜——箱子！领口歪了就看。胸也看见了就别装。今晚想吻就直说。」",
               "camera": "close_alt",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "jade",
-              "text": "「哟，新生？登记桌缺人手。——哦，你认识她？眼睛黏在人家锁骨上也不害臊。再看一眼，肩带我也给你看。」",
+              "text": "「哟，新生？登记桌缺人手。——眼睛黏在人家乳沟上也不害臊。再看一眼，肩带、腿，我一起给你看。」",
               "camera": "mid",
               "transition": "softZoomCrop"
             }
@@ -238,7 +239,7 @@
           "choices": [
             {
               "choiceId": "c_jade_smirk",
-              "text": "接招：看见了。——合影贴多近都行。包括现在。",
+              "text": "接招：看见了。——胸、腿、合影，贴多近都行。",
               "next": "n_mia_tease_auto",
               "delta": {
                 "stats": {
@@ -301,14 +302,14 @@
             },
             {
               "speaker": "jade",
-              "text": "「名字——别写歪。合影站近点好看……肩带刚才滑下去了，你盯了整整一秒。要不要我再滑一次给你看？」",
+              "text": "「名字——别写歪。合影站近点……肩带滑下去了，你盯的是胸。要不要我再滑一次，让你吻到锁骨？」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "close_whisper"
             },
             {
               "speaker": "narrator",
-              "text": "她不急着拉，先看你一眼，才慢悠悠勾回去，笑得不老实。唇几乎擦过你下颌。",
+              "text": "她不急着拉。湿短上衣贴着起伏。唇几乎擦过你下颌，像试你敢不敢真吻。",
               "camera": "close_collar",
               "transition": "softZoomCrop"
             }
@@ -335,7 +336,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "发丝扫过肩，卫衣领口挂在危险边缘，锁骨湿亮；她自己先别开视线，哼一声走进电梯。门缝里涌出的，是汗、热气，和你刚才没吻完的距离。",
+              "text": "卫衣领口挂在乳沟边缘，锁骨湿亮；她哼一声走进电梯。门缝里涌出的是汗、热气，和你没吻上的嘴。",
               "camera": "mid",
               "transition": "softZoomCrop"
             }
@@ -355,13 +356,13 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "谁都没被你接住——可掌心、鼻尖、后颈全是她们留下的潮热，像还贴着，像还要吻。",
+              "text": "谁都没被你接住——掌心、鼻尖、腿侧全是潮热，像还要吻，像布料还贴着。",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "mia",
-              "text": "（远处）「……行。晚上别装死。领口我自己扯——你刚才看够了，嘴还空着。」",
+              "text": "（远处）「……行。晚上别装死。领口我自己扯到你吻得到的地方——你刚才看够胸了。」",
               "camera": "close_alt",
               "transition": "softZoomCrop"
             },
@@ -392,7 +393,7 @@
           "choices": [
             {
               "choiceId": "c_mia_hugish",
-              "text": "接招：旧毛病。——吊带我看见了。下唇也是。",
+              "text": "接招：旧毛病。——领口、腿、下唇，我都看见了。",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -456,14 +457,14 @@
             },
             {
               "speaker": "mia",
-              "text": "「别装不认识。手伸过来——旧的那套。想吻就别装成搬箱子。」",
+              "text": "「别装不认识。手伸过来。想吻胸前这层汗，就别装成搬箱子。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "吊带又往下滑，几乎挂住；她不急着拉，抬眼看你，呼吸一下一下打在你锁骨窝里，湿湿热热。",
+              "text": "卫衣又往下滑，乳沟边缘亮着；她不急着拉，呼吸打在你锁骨窝里，小腹隔着纸箱几乎贴上你。",
               "camera": "close_hand",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -474,7 +475,7 @@
           "nodeId": "n_mia_edge_2",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "电梯很窄，空气发黏。她偏头时发丝擦过你下巴，下唇几乎擦到你下颌——再近半寸就是吻。",
+          "text": "电梯很窄。她偏头时发丝擦过你下巴，下唇碰上你下颌——不是几乎，已经是吻的边。",
           "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
           "artCue": "更近：发丝擦下巴；Mia耳尖微红嘴硬；占位直至出图",
           "artStatus": "ready_reuse",
@@ -541,14 +542,14 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "电梯很窄，空气发黏。她偏头时发丝擦过你下巴——下唇几乎擦到你下颌。再近半寸就是吻。",
+              "text": "电梯很窄。她偏头时发丝擦过你下巴，下唇碰上你下颌——不是几乎，已经是吻的边。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "narrator",
-              "text": "她自己也顿住。耳尖红透，锁骨亮汗，卫衣领口挂在临界；潮湿衣料擦过你小臂内侧，热意一路爬上来。",
+              "text": "耳尖红透。卫衣领口挂在临界，潮湿衣料擦过你小臂，胸口的热隔着布料传过来。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -562,7 +563,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "声音发哑，却又送近半寸。唇距一寸。世界还没允许亲下去——她骂你胆子大似的哼一声，腿却没退。",
+              "text": "她送近。唇贴上你的，只一下，又骂你胆子大。腿没退。胸还抵着纸箱。",
               "camera": "close_collar",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -580,9 +581,9 @@
           "nodeId": "n_dorm_steam",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你刷卡上楼。对面门缝里涌出热水汽。Rae 只披了件宽大的睡T，湿发贴着颈侧，布料被水汽咬得发透。",
-          "assetId": "assets/scenes/w3/n_w3_door_lock_hand.webp",
-          "artCue": "复用 w3 door_lock_hand：共握门把、近、潮；大学宿舍楼道；Rae 19；非校服",
+          "text": "你刷卡上楼。对面门缝里涌出热水汽。Rae 只披了件湿透的白T，布料贴着胸口，下摆只盖到髋，大腿全湿。",
+          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
+          "artCue": "heat door-steam：湿白T贴胸、乳沟、髋腿、共握门把；Rae 宿舍楼道",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -595,21 +596,21 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她和你同时伸手去握门把——指节叠在一起，谁都没先抽。T恤被蒸汽贴在锁骨上，像刚洗完还没决定要不要见人。",
+              "text": "她和你同时伸手去握门把。T恤被蒸汽咬得发透，乳沟的形状贴在布料上。谁都没先抽手。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "rae",
-              "text": "「邻屋。十九。州立。别装没看见——T恤湿了，我知道。门把你还按着。」",
+              "text": "「邻屋。十九。州立。别装没看见——T恤湿了，胸也湿了。门把你还按着。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "她笑了一下，把门把往你掌心里按。再近半寸就能吻到她还带着水汽的下唇。她先松开，留你一个人发热——楼下派对已经在喊人。",
+              "text": "她把门把按进你掌心，髋从侧面贴上你。再近就是吻。她先松开，留你发热——楼下派对已经在喊人。",
               "camera": "close_collar",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -620,7 +621,7 @@
           "nodeId": "n_conflict",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "傍晚，迎新边缘的小型派对漏到泳池边。音乐、热气、甜酒和别人的香水糊在皮肤上。",
+          "text": "迎新派对漏到泳池边。湿气、甜酒、短下摆和别人的香水糊在皮肤上。",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "派对廊道霓虹左右分压：Mia侧门招手，Jade台阶喊合影，Kai居中；大构图；勿烧对话框",
           "artStatus": "ready",
@@ -634,25 +635,25 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "有人经过时胸口几乎蹭到你臂弯。侧门阴影里 Mia 的领口被风掀起一角；台阶灯下 Jade 肩带又在下滑；泳池边 Lina 刚从水里起来，薄罩衫湿得发透；楼道口 Rae 的湿发还贴在颈侧。",
+              "text": "Mia 侧门阴影里卫衣滑下一肩，乳沟亮着；Jade 台阶上短裙下摆被风掀起一截大腿；泳池边 Lina 金发湿透，短上衣贴着胸，腿上全是水；楼道口 Rae 的湿T还没干。",
               "camera": "mid",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "mia",
-              "text": "「那边太吵。你过来一下——就我们。领口……你再盯，我可要当众问你亲不亲。」",
+              "text": "「那边太吵。你过来。领口、腿，你再盯——我就当众让你吻。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "jade",
-              "text": "「Kai！上来合影——就差你。站我旁边，手别瞎放；肩带滑了，你管不管？不管就用嘴管。」",
+              "text": "「Kai！上来合影。站我旁边。肩带滑了，胸你管不管？不管就用嘴管。」",
               "camera": "close_alt",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "lina",
-              "text": "「新生？水还在往下滴。过来——借你的衣服，或者借你的嘴。大学泳池，别装没见过湿的。」",
+              "text": "「新生？水还往腿上滴。过来——借你的衣服，或者把吻还我。大学泳池，湿的不算犯规。」",
               "camera": "close",
               "transition": "softZoomCrop"
             }
@@ -660,7 +661,7 @@
           "choices": [
             {
               "choiceId": "c_go_mia",
-              "text": "赴 Mia（私下）——领口阴影里，吻悬着。",
+              "text": "赴 Mia（宿舍）——滑肩、裸腿、吻悬着。",
               "next": "n_with_mia",
               "delta": {
                 "stats": {
@@ -686,7 +687,7 @@
             },
             {
               "choiceId": "c_go_jade",
-              "text": "赴 Jade（合影）——肩贴肩，肩带还挂着。",
+              "text": "赴 Jade（合影）——短下摆、肩贴肩。",
               "next": "n_with_jade",
               "delta": {
                 "stats": {
@@ -712,7 +713,7 @@
             },
             {
               "choiceId": "c_go_lina",
-              "text": "赴 Lina（泳池）——湿罩衫还在滴水。",
+              "text": "赴 Lina（泳池）——湿衣贴胸，还在滴水。",
               "next": "n_with_lina",
               "delta": {
                 "stats": {
@@ -738,7 +739,7 @@
             },
             {
               "choiceId": "c_go_rae",
-              "text": "赴 Rae（楼道）——门把还热，水汽还在。",
+              "text": "赴 Rae（楼道）——湿T、门把、大腿。",
               "next": "n_with_rae",
               "delta": {
                 "stats": {
@@ -764,7 +765,7 @@
             },
             {
               "choiceId": "c_dodge_party",
-              "text": "躲开所有人——四具体温都空着，唇也空着。",
+              "text": "躲开所有人——四具体温、四张嘴都空着。",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 3
@@ -792,9 +793,9 @@
           "nodeId": "n_with_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "侧门其实通到她宿舍。灯只开了一盏。Mia 坐在床沿，卫衣滑下一肩，锁骨到胸前那一线亮着。她不拉。",
-          "assetId": "assets/scenes/w3/n_w3_sleepover_edge.webp",
-          "artCue": "复用 w3 sleepover_edge：床沿、深蓝卫衣滑肩、锁骨；大学宿舍；非校服；无生殖器",
+          "text": "侧门通到她宿舍。灯只开了一盏。Mia 坐在床沿，卫衣滑过肩膀，乳沟和腿都露着。她不拉。",
+          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
+          "artCue": "heat sleep-legs：床沿卫衣滑肩、乳沟、裸腿；Mia 宿舍；非校服",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -803,7 +804,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：吻上去——她骂你胆子大，腿却分开一点让你站近。",
+              "text": "接招：把吻加深——她骂你，腿却夹了一下你的膝。",
               "next": "n_kiss_mia",
               "delta": {
                 "stats": {
@@ -821,7 +822,7 @@
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：先应付——手还停在她腰侧衣料上。热留一半。",
+              "text": "圆场：先应付——手还停在她大腿外侧的衣摆上。",
               "next": "n_kiss_mia",
               "delta": {
                 "stats": {
@@ -839,7 +840,7 @@
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：看手机——喉结滚，腿没挪开。她眼神一瞬发冷。",
+              "text": "躲开：看手机——唇还贴着，胸还热。",
               "next": "n_kiss_mia",
               "delta": {
                 "tension": 1
@@ -858,20 +859,20 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "侧门风凉，屋里潮热。Mia 坐在床沿，深蓝卫衣滑下一肩——像睡袍，又像故意不穿好。她不拉。",
+              "text": "深蓝卫衣掉下一肩，下摆只盖到大腿根的边缘。她把你拉到两膝之间，胸口起伏。",
               "camera": "mid",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "mia",
-              "text": "「就一句——别让我在门口像白痴。过来。吻我。就一下。」",
+              "text": "「过来。吻我。吻到我身上这层汗还热的时候。就一下也算。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "narrator",
-              "text": "你正要俯身——唇已经碰到她下唇的温度——手机却先亮了。光打在她没拉上去的肩线上。现在亲下去，还是先看屏幕？",
+              "text": "你俯身。唇碰上她的——真碰上了。卫衣肩线还挂着。手机却先亮了。光打在她胸口。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -882,7 +883,7 @@
           "nodeId": "n_with_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "闪光灯间隙，Jade 把你拉到台阶阴影。湿短上衣贴着，肩带挂在手臂上，像等你用嘴把它咬回去。",
+          "text": "闪光灯间隙。Jade 把你拉到台阶阴影。湿短上衣贴着胸，短裙下摆扫你手背，像等你用嘴把它咬回去。",
           "assetId": "assets/scenes/ch01/n_pay_01_catch_b.webp",
           "artCue": "复用 catch_b：Jade 夜色近景、湿运动短上衣、锁骨；大学派对后",
           "artStatus": "ready",
@@ -893,7 +894,7 @@
           "choices": [
             {
               "choiceId": "c_wj_close",
-              "text": "接招：吻上去——手扶上她滑落的肩带边缘。她笑得不老实。",
+              "text": "接招：再吻——手扶上她滑落的肩带和湿短上衣边缘。",
               "next": "n_kiss_jade",
               "delta": {
                 "stats": {
@@ -911,7 +912,7 @@
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：先应付——肩还贴着她的潮热。场面圆住，唇没圆。",
+              "text": "圆场：先应付——掌心还贴着她腰，唇没离开。",
               "next": "n_kiss_jade",
               "delta": {
                 "stats": {
@@ -929,7 +930,7 @@
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：看手机——故意拉开，仍不够远。闪光灯还在记仇。",
+              "text": "躲开：看手机——短下摆还扫在你手腕上。",
               "next": "n_kiss_jade",
               "delta": {
                 "tension": 1
@@ -948,20 +949,20 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "闪光灯间隙，Jade 肩线还贴着热。合影位空着的那一秒，她故意不拉肩带。雨细细的，布料更贴。",
+              "text": "雨细细的。布料更贴。她不拉肩带，乳沟和锁骨全是水。合影位空着的那一秒，她把你的手按在自己腰侧。",
               "camera": "mid",
               "transition": "soft-zoom",
               "fx": "flash_afterglow"
             },
             {
               "speaker": "jade",
-              "text": "「站这边——镜头好看。现在没镜头。亲一下，算你还合影。肩带你管不管？」",
+              "text": "「现在没镜头。亲。亲到胸前这层雨。肩带你管不管？」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "narrator",
-              "text": "你正要碰上她的唇——另一条短信杀到，像另一只手按在你后腰。被看见的羞耻先起鸡皮。亲不亲？",
+              "text": "你吻上去。唇碰上。她笑出声，舌头只点一下就退。短信震在两个人紧贴的小腹之间。",
               "camera": "close",
               "transition": "softZoomCrop"
             }
@@ -971,9 +972,9 @@
           "nodeId": "n_with_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "泳池侧门更衣室。Lina 把湿罩衫拧了一把，水滴在你鞋面。里面是深色泳布——大学泳队的湿，不是秀。",
-          "assetId": "assets/scenes/w3/n_w3_sleepover_edge.webp",
-          "artCue": "复用 sleepover_edge 作为湿衣/近身原型；Lina 泳池侧；待专用泳装变体",
+          "text": "泳池侧门。Lina 把湿短上衣拧了一把，水滴在你鞋面。布料贴着胸，短下摆下面是湿透的大腿。",
+          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
+          "artCue": "heat wet-cling：金发泳队向、湿短上衣贴胸、短下摆大腿；大学泳池夜",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -985,20 +986,20 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "水还从她发梢往锁骨上滴。薄罩衫透出泳布的深色边缘。她不躲，让你看，又用下巴点你的嘴。",
+              "text": "金发还在滴水。她不躲，让你看湿衣贴出来的形状，又用下巴点你的嘴。",
               "camera": "mid",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "lina",
-              "text": "「二十。迎新泳班。别装正人君子。冷。吻我，或者把干的衣服给我。」",
+              "text": "「二十。迎新泳班。冷。吻我。吻到胸前这层水退掉——或者把干的衣服给我。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "narrator",
-              "text": "你正要碰上她带着氯水味道的唇——手机在湿口袋里震。水还在滴。亲不亲？",
+              "text": "你碰上她带着氯水的唇。真吻。湿上衣贴上你小臂。手机在湿口袋里震。水还在往腿上滴。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1007,7 +1008,7 @@
           "choices": [
             {
               "choiceId": "c_wl_close",
-              "text": "接招：吻上去——氯水和雨混在一起。她咬你下唇一下。",
+              "text": "接招：吻上去——氯水和雨混在一起。她咬你下唇。",
               "next": "n_kiss_lina",
               "delta": {
                 "stats": {
@@ -1025,7 +1026,7 @@
             },
             {
               "choiceId": "c_wl_ok",
-              "text": "圆场：先把衣服给她——手还停在湿罩衫边缘。",
+              "text": "圆场：先把衣服给她——手还停在湿下摆边缘。",
               "next": "n_kiss_lina",
               "delta": {
                 "stats": {
@@ -1043,7 +1044,7 @@
             },
             {
               "choiceId": "c_wl_phone",
-              "text": "躲开：看手机——水滴仍打在你手背。她哼一声。",
+              "text": "躲开：看手机——水滴仍打在你手背和她胸口。",
               "next": "n_kiss_lina",
               "delta": {
                 "tension": 1
@@ -1061,9 +1062,9 @@
           "nodeId": "n_with_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "又回到那扇门。Rae 的宽T还湿。两只手在门把上叠着，像白天那一下没做完。",
-          "assetId": "assets/scenes/w3/n_w3_door_lock_hand.webp",
-          "artCue": "复用 door_lock_hand：共握、羞、近；Rae 宿舍门",
+          "text": "又回到那扇门。Rae 的白T还湿，贴着胸，下摆只到髋。两只手在门把上叠着。",
+          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
+          "artCue": "heat door-steam：湿白T贴胸、乳沟、髋腿、共握门把；Rae 宿舍楼道",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -1075,20 +1076,20 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "楼道空了。蒸汽还在。她把额头抵上你的，湿发扫过你嘴唇。门把在两掌之间发烫。",
+              "text": "楼道空了。蒸汽还在。她把额头抵上你的，湿发扫过你嘴唇，髋从侧面贴上来。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "rae",
-              "text": "「刚才没亲。现在补。轻一点——隔墙是别人的大学宿舍，不是让你演。」",
+              "text": "「刚才没亲完。现在补。轻一点——隔墙是同学的大学宿舍。胸贴着你，别装没感觉。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "narrator",
-              "text": "你正要吻下去——短信把你们两个的指节震开。门还关着。吻还悬着。",
+              "text": "你吻下去。唇碰上。门把还在掌心。短信把你们的嘴震开。T恤还透着热。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1097,7 +1098,7 @@
           "choices": [
             {
               "choiceId": "c_wr_close",
-              "text": "接招：吻上去——她哼进你嘴里，门把还被按着。",
+              "text": "接招：吻上去——她哼进你嘴里，湿T贴着你胸口。",
               "next": "n_kiss_rae",
               "delta": {
                 "stats": {
@@ -1115,7 +1116,7 @@
             },
             {
               "choiceId": "c_wr_ok",
-              "text": "圆场：先开门——额还抵着，唇差一寸。",
+              "text": "圆场：先开门——额还抵着，唇差一寸，腿没退。",
               "next": "n_kiss_rae",
               "delta": {
                 "stats": {
@@ -1133,7 +1134,7 @@
             },
             {
               "choiceId": "c_wr_phone",
-              "text": "躲开：看手机——她的湿发还扫在你唇上。",
+              "text": "躲开：看手机——她的湿发和胸口还贴着。",
               "next": "n_kiss_rae",
               "delta": {
                 "tension": 1
@@ -1151,9 +1152,9 @@
           "nodeId": "n_kiss_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "她扣住你后颈。唇贴上来。卫衣肩线还挂着。然后手机亮了。",
-          "assetId": "assets/scenes/w2/n_w2_almost_kiss.webp",
-          "artCue": "复用 w2 almost_kiss：雨、湿发、唇距几乎为零；大学夜；非完成色情；无生殖器",
+          "text": "她扣住你后颈。唇贴死。卫衣肩线还挂着，胸口的热隔着布料压上来。然后手机亮了。",
+          "assetId": "assets/scenes/heat/n_heat_kiss_meet.webp",
+          "artCue": "heat kiss-meet：雨夜完成吻、湿发、滑肩乳沟；动漫CG；大学成人；无生殖器",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -1166,21 +1167,21 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "雨丝一样的水汽贴在两张脸上。这一下不是几乎——唇碰上了。湿、软、带着一点牙。再近半寸就是吻的深处，世界还没允许。",
+              "text": "雨丝一样的水汽贴在脸上。这一下不是几乎——嘴对上了。湿、软、带着一点牙。她的胸随着呼吸贴紧你。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "mia",
-              "text": "「……记住。然后你再去看那个屏幕。吻是我的，账单是你的。」",
+              "text": "「……记住这张嘴。然后你再去看那个屏幕。吻是我的，账单是你的。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "短信杀到。吻被咬断。呼吸还喷在人中。未赴的那条光，打在刚分开的唇上。",
+              "text": "短信杀到。吻被咬断。唇还分开一线热气。未赴的光打在刚亲过的嘴和她没拉上去的肩上。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1191,9 +1192,9 @@
           "nodeId": "n_kiss_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "她笑着咬你下唇一下。雨和香水糊在一起。闪光灯余韵还在眼皮里。",
-          "assetId": "assets/scenes/w2/n_w2_almost_kiss.webp",
-          "artCue": "复用 w2 almost_kiss：雨、湿发、唇距几乎为零；大学夜；非完成色情；无生殖器",
+          "text": "她笑着咬你下唇。雨和香水糊在一起。湿短上衣贴着胸，闪光灯余韵还在眼皮里。",
+          "assetId": "assets/scenes/heat/n_heat_kiss_meet.webp",
+          "artCue": "heat kiss-meet：雨夜完成吻、湿发、滑肩乳沟；动漫CG；大学成人；无生殖器",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -1206,21 +1207,21 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "雨丝一样的水汽贴在两张脸上。这一下不是几乎——唇碰上了。湿、软、带着一点牙。再近半寸就是吻的深处，世界还没允许。",
+              "text": "雨丝一样的水汽贴在脸上。这一下不是几乎——嘴对上了。湿、软、带着一点牙。她的胸随着呼吸贴紧你。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "jade",
-              "text": "「合影现在才算。去看你的短信——我记得你亲过。」",
+              "text": "「合影现在才算。去看你的短信——我记得你亲过，也记得你看过。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "短信杀到。吻被咬断。呼吸还喷在人中。未赴的那条光，打在刚分开的唇上。",
+              "text": "短信杀到。吻被咬断。唇还分开一线热气。未赴的光打在刚亲过的嘴和她没拉上去的肩上。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1231,9 +1232,9 @@
           "nodeId": "n_kiss_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "氯水和雨混在唇上。她的湿罩衫贴上你小臂。吻短、狠、带着笑。",
-          "assetId": "assets/scenes/w2/n_w2_almost_kiss.webp",
-          "artCue": "复用 w2 almost_kiss：雨、湿发、唇距几乎为零；大学夜；非完成色情；无生殖器",
+          "text": "氯水和雨混在唇上。她的湿短上衣贴上你小臂，胸口的水隔着布料凉一下。吻短、狠、带着笑。",
+          "assetId": "assets/scenes/heat/n_heat_kiss_meet.webp",
+          "artCue": "heat kiss-meet：雨夜完成吻、湿发、滑肩乳沟；动漫CG；大学成人；无生殖器",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -1246,21 +1247,21 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "雨丝一样的水汽贴在两张脸上。这一下不是几乎——唇碰上了。湿、软、带着一点牙。再近半寸就是吻的深处，世界还没允许。",
+              "text": "雨丝一样的水汽贴在脸上。这一下不是几乎——嘴对上了。湿、软、带着一点牙。她的胸随着呼吸贴紧你。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "lina",
-              "text": "「冷退了一点。去看屏幕吧——水还在滴，我还在。」",
+              "text": "「冷退了一点。去看屏幕吧——水还在往腿上滴，胸还贴着你。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "短信杀到。吻被咬断。呼吸还喷在人中。未赴的那条光，打在刚分开的唇上。",
+              "text": "短信杀到。吻被咬断。唇还分开一线热气。未赴的光打在刚亲过的嘴和她没拉上去的肩上。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1271,9 +1272,9 @@
           "nodeId": "n_kiss_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "门把还在掌心。她把吻做得又轻又密，像怕隔墙听见，又像故意让你听见呼吸。",
-          "assetId": "assets/scenes/w2/n_w2_almost_kiss.webp",
-          "artCue": "复用 w2 almost_kiss：雨、湿发、唇距几乎为零；大学夜；非完成色情；无生殖器",
+          "text": "门把还在掌心。她把吻做得又轻又密，湿T贴着你，像怕隔墙听见，又像故意让你听见呼吸。",
+          "assetId": "assets/scenes/heat/n_heat_kiss_meet.webp",
+          "artCue": "heat kiss-meet：雨夜完成吻、湿发、滑肩乳沟；动漫CG；大学成人；无生殖器",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -1286,21 +1287,21 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "雨丝一样的水汽贴在两张脸上。这一下不是几乎——唇碰上了。湿、软、带着一点牙。再近半寸就是吻的深处，世界还没允许。",
+              "text": "雨丝一样的水汽贴在脸上。这一下不是几乎——嘴对上了。湿、软、带着一点牙。她的胸随着呼吸贴紧你。",
               "camera": "close",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "rae",
-              "text": "「补完了。去看你的灯——别让我在门后像白痴。」",
+              "text": "「补完了。去看你的灯——别让我穿着湿衣服在门后像白痴。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "短信杀到。吻被咬断。呼吸还喷在人中。未赴的那条光，打在刚分开的唇上。",
+              "text": "短信杀到。吻被咬断。唇还分开一线热气。未赴的光打在刚亲过的嘴和她没拉上去的肩上。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1311,7 +1312,7 @@
           "nodeId": "n_sms_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "未赴的那条短信亮着，字又短又狠——像当面点名。屏幕光打在你发热的手指、还没平的呼吸、刚分开的唇上。（谁都没赴——几条一起亮，刚贴过的体温不肯散。）没有免费的「想回」。",
+          "text": "未赴的短信亮着。屏幕光打在你发热的手指、刚分开的唇、还贴着别人胸口的那层热上。没有免费的「想回」。",
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "暗廊下手机通知光斑模糊无可读气泡；情绪钩；勿烧聊天气泡字/商城按钮",
           "artStatus": "ready",
@@ -1325,14 +1326,14 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "身体比理智先记住了刚才的吻。短信不问「在吗」——只甩一句：你选了谁。唇还湿着。",
+              "text": "身体比理智先记住了刚才的嘴。短信不问在吗——只甩一句：你选了谁。唇还湿着。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "潮热还挂在锁骨印象里。装忙没用——账单已经到了。吻停在一半。",
+              "text": "潮热还挂在锁骨和胸前印象里。装忙没用。吻停在一半，布料还记得。",
               "camera": "close",
               "transition": "dip",
               "fx": "phone_glow"
@@ -1344,7 +1345,7 @@
           "type": "dialogue",
           "gate": "first_sub",
           "speaker": "narrator",
-          "text": "短信还在。你的手指停在屏幕上方——潮热、肩带、锁骨、刚刚碰上的唇，全还挂在皮肤上。体温没散，名分没有。",
+          "text": "短信还在。手指停在屏幕上方——刚吻过的嘴、湿衣、乳沟边缘、没退开的腿，全还挂在皮肤上。体温没散，名分没有。",
           "assetId": "assets/scenes/ch01/n_ch01_first_sub.webp",
           "artCue": "情绪钩侧脸；手机屏仅光感；无月卡按钮烧进图；选项区由UI叠敷衍vs圆场",
           "artStatus": "ready",
@@ -1354,7 +1355,7 @@
           "choices": [
             {
               "choiceId": "c_free_read",
-              "text": "（已读不回）——热还在唇上，装冷。",
+              "text": "（已读不回）——热还在唇上和胸口，装冷。",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 2
@@ -1363,7 +1364,7 @@
             },
             {
               "choiceId": "c_free_busy",
-              "text": "「忙。」——假的。吻的味道还没退。",
+              "text": "「忙。」——假的。吻的味道、湿衣的味道都没退。",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 1
@@ -1372,7 +1373,7 @@
             },
             {
               "choiceId": "c_sub_round_mia",
-              "text": "「刚才不是故意晾你。现在——就我们。把吻做完。」",
+              "text": "「刚才不是故意晾你。现在——就我们。把吻做完。卫衣你自己也不必拉。」",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass_month",
@@ -1390,7 +1391,7 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "「合影我还欠你一张。肩带那一下，唇也记得。」",
+              "text": "「合影我还欠你一张。肩带、短下摆、唇，我都记得。」",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass_month",
@@ -1408,7 +1409,7 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "「水还没干。我过来——把你的罩衫，和刚才那句话，一起圆上。」",
+              "text": "「水还没干。我过来——湿衣、腿、刚才那句，一起圆上。」",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass_month",
@@ -1426,7 +1427,7 @@
             },
             {
               "choiceId": "c_sub_round_rae",
-              "text": "「门把还热。我回来——把刚才没亲的补上。」",
+              "text": "「门把还热。湿T还贴着。我回来把吻补完。」",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass_month",
@@ -1456,14 +1457,14 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "刚才那一下还在后颈发热。唇上的水汽没干。现在说圆场，还是装没事？装得了脑子，装不了刚吻过的指尖。",
+              "text": "唇上的水汽没干。胸前那层热也没干。现在说圆场，还是装没事？装得了脑子，装不了刚吻过的指尖。",
               "camera": "mid",
               "transition": "softZoomCrop",
               "fx": "breath"
             },
             {
               "speaker": "narrator",
-              "text": "想回——就得付这场的完整后果。免费只够停在「亲到一半」。",
+              "text": "想把吻做完——就得付这场的完整后果。免费只够停在「嘴对上了，然后被打断」。",
               "camera": "close_hand",
               "transition": "softZoomCrop",
               "fx": "tension_hold"
@@ -1500,7 +1501,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "今晚到此为止——吻停在一半，除非你改主意。",
+              "text": "今晚到此为止——嘴对上了，然后被掐断。除非你改主意。",
               "camera": "close",
               "transition": "softZoomCrop"
             }
@@ -1519,8 +1520,8 @@
           "nodeId": "n_pay_01_catch_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Mia 接住。不是敷衍——是把话说圆，再把吻圆上。她卫衣仍滑在肩下，呼吸打在你下唇。",
-          "assetId": "assets/scenes/w3/n_w3_sleepover_edge.webp",
+          "text": "你先把 Mia 接住。宿舍灯还是那一盏。卫衣滑肩，腿还露着。你把话说圆，再把吻压回去——嘴对上，胸口的热隔着布料传来。",
+          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
           "artCue": {
             "scene": "dorm_night_after_party",
             "characters": [
@@ -1531,8 +1532,8 @@
               }
             ],
             "shot": "close",
-            "note": "圆场接住 Mia；复用 sleepover_edge 滑肩睡袍感；待专用 Mia 变体",
-            "summary": "复用 w3 sleepover_edge"
+            "note": "Mia 圆场；新绘滑肩裸腿，不再复用 w3 sleepover",
+            "summary": "heat sleep-legs"
           },
           "artStatus": "ready",
           "characters": [
@@ -1548,7 +1549,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「……那你倒是亲。卫衣我自己也不拉。」",
+              "text": "「……那你倒是亲。卫衣我自己也不拉。腿也是。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1566,7 +1567,7 @@
           "nodeId": "n_pay_01_catch_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Jade 接住。公开场合欠的面子，私下用吻补——她肩带又晃，耳环贴着你颊，唇带着雨。",
+          "text": "你先把 Jade 接住。公开场合欠的面子，私下用吻补——湿短上衣贴着胸，耳环贴着你颊。",
           "assetId": "assets/scenes/ch01/n_pay_01_catch_b.webp",
           "artCue": {
             "scene": "campus_night_after_party",
@@ -1589,13 +1590,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「合影我还欠你一张。别在别人面前翻我牌——肩带那一下，唇也记得。我在。」",
+              "text": "「合影我还欠你一张。肩带、短下摆、唇，我都记得。我在。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "jade",
-              "text": "「还算会说话。嘴过来。——这次有镜头也没关系。」",
+              "text": "「还算会说话。嘴过来。——这次有镜头也没关系，胸你已经看过了。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1613,8 +1614,8 @@
           "nodeId": "n_pay_01_catch_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Lina 接住。泳池边的水还没干。你把那句「借你的嘴」当面圆上——吻落在带氯的下唇。",
-          "assetId": "assets/scenes/w2/n_w2_almost_kiss.webp",
+          "text": "你先把 Lina 接住。泳池边的水还没干。湿短上衣贴着胸。你把那句「借你的嘴」当面圆上——吻落在带氯的下唇。",
+          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
           "artCue": {
             "scene": "pool_night_after_party",
             "characters": [
@@ -1625,8 +1626,8 @@
               }
             ],
             "shot": "close",
-            "note": "圆场接住 Lina；复用 almost_kiss",
-            "summary": "复用 w2 almost_kiss"
+            "note": "Lina 湿衣贴身；不再复用 almost_kiss / sleepover",
+            "summary": "heat wet-cling"
           },
           "artStatus": "ready",
           "characters": [
@@ -1636,13 +1637,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「水还没干。我过来——把你的罩衫，和刚才那句话，一起圆上。」",
+              "text": "「水还没干。我过来——湿衣、腿、刚才那句，一起圆上。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "lina",
-              "text": "「那现在就亲。湿的不算犯规——这是大学泳池。」",
+              "text": "「那现在就亲。湿的不算犯规——这是大学泳池。胸贴着你，别退。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1660,8 +1661,8 @@
           "nodeId": "n_pay_01_catch_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你先把 Rae 接住。又是那扇门。湿T、水汽、叠在一起的指节。这次你没有松开。",
-          "assetId": "assets/scenes/w3/n_w3_door_lock_hand.webp",
+          "text": "你先把 Rae 接住。又是那扇门。湿T贴胸，髋还在你掌侧。这次你没有松开。",
+          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
           "artCue": {
             "scene": "dorm_hall_steam",
             "characters": [
@@ -1672,8 +1673,8 @@
               }
             ],
             "shot": "close",
-            "note": "圆场接住 Rae；复用 door_lock_hand",
-            "summary": "复用 w3 door_lock_hand"
+            "note": "Rae 湿T贴身；新绘",
+            "summary": "heat door-steam"
           },
           "artStatus": "ready",
           "characters": [
@@ -1683,13 +1684,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「门把还热。我回来——把刚才没亲的补上。」",
+              "text": "「门把还热。湿T还贴着。我回来把吻补完。」",
               "camera": "close",
               "transition": "softZoomCrop"
             },
             {
               "speaker": "rae",
-              "text": "「那就补。轻。隔墙是同学——不是让你演成人片。」",
+              "text": "「那就补。轻。隔墙是同学——吻可以，别把衣服当成人片。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1727,8 +1728,8 @@
           "nodeId": "n_pay_02_ot_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你把时间补回给刚才赴约的 Mia。加时私下——门关上。她把你拉到床沿，卫衣又滑下一肩。这次没有短信。吻可以停在呼吸里。仍只写唇、锁骨、潮湿布料。",
-          "assetId": "assets/scenes/w3/n_w3_sleepover_edge.webp",
+          "text": "加时。门关上。Mia 把你拉到床沿，卫衣又滑下一肩，腿分开一点。这次没有短信。吻可以停在呼吸和胸口的热里。仍只写唇、锁骨、潮湿布料。",
+          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
           "artCue": {
             "scene": "dorm_lounge_late",
             "characters": [
@@ -1739,8 +1740,8 @@
               }
             ],
             "shot": "medium",
-            "note": "赴约 A=Mia 加时；复用 sleepover_edge；熟悉感 T 级吻，不写实操",
-            "summary": "宿舍床沿；Mia 滑肩；吻停住"
+            "note": "Mia 加时吻；滑肩裸腿",
+            "summary": "heat sleep-legs 加时"
           },
           "artStatus": "ready",
           "characters": [
@@ -1754,7 +1755,7 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「这次别看手机。吻我。停在吻就好——我还没让你再往下。」",
+              "text": "「这次别看手机。吻我。停在吻和这层衣料就好——我还没让你再往下。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1765,7 +1766,7 @@
           "nodeId": "n_pay_02_ot_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "合影后的缝隙里，你把时间补回给 Jade。加时私下——肩还记得刚才贴着的潮热。吻这次被允许拉长。肩带痕迹还在；选的人不会被扔。",
+          "text": "加时私下。Jade 肩还记得刚才贴着的潮热。吻被允许拉长。湿短上衣、短下摆、肩带痕迹都还在；选的人不会被扔。",
           "assetId": "assets/scenes/ch01/n_pay_01_catch_b.webp",
           "artCue": {
             "scene": "dorm_lounge_late",
@@ -1792,7 +1793,7 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「镜头关了。唇别关。——再近点，雨还在你头发上。」",
+              "text": "「镜头关了。唇别关。——再近点，雨还在你头发上，也在我胸口。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1803,8 +1804,8 @@
           "nodeId": "n_pay_02_ot_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你把时间补回给 Lina。更衣室的灯只留一条。湿罩衫挂在椅背，吻被允许拉长。停在唇与锁骨，不写下去。",
-          "assetId": "assets/scenes/w3/n_w3_sleepover_edge.webp",
+          "text": "加时。更衣室的灯只留一条。湿短上衣挂在椅背，吻被允许拉长。停在唇、锁骨、还没干的腿。不写下去。",
+          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
           "artCue": {
             "scene": "pool_changing_late",
             "characters": [
@@ -1815,8 +1816,8 @@
               }
             ],
             "shot": "close",
-            "note": "赴约 Lina 加时；复用 sleepover_edge 作为近身湿衣原型",
-            "summary": "复用 sleepover_edge"
+            "note": "Lina 湿衣贴身；不再复用 almost_kiss / sleepover",
+            "summary": "heat wet-cling"
           },
           "artStatus": "ready",
           "characters": [
@@ -1830,7 +1831,7 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「加时只吻。泳布还在——你看，但不许再往下讲。」",
+              "text": "「加时只吻。湿衣还在——你看胸、看腿，但不许再往下讲。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1841,8 +1842,8 @@
           "nodeId": "n_pay_02_ot_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你把时间补回给 Rae。门从里面扣上。宽T仍湿，吻又轻又密。隔墙是别人的宿舍。停在唇，不写实操。",
-          "assetId": "assets/scenes/w3/n_w3_door_lock_hand.webp",
+          "text": "加时。门从里面扣上。宽T仍湿，贴着胸。吻又轻又密。隔墙是别人的宿舍。停在唇，不写实操。",
+          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
           "artCue": {
             "scene": "dorm_door_late",
             "characters": [
@@ -1853,8 +1854,8 @@
               }
             ],
             "shot": "close",
-            "note": "赴约 Rae 加时；复用 door_lock_hand",
-            "summary": "复用 door_lock_hand"
+            "note": "Rae 湿T贴身；新绘",
+            "summary": "heat door-steam"
           },
           "artStatus": "ready",
           "characters": [
@@ -1868,7 +1869,7 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「选的人不会被扔在门后。吻可以再来一下——只一下。」",
+              "text": "「选的人不会被扔在门后。吻可以再来一下——胸还贴着你。只一下。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1903,7 +1904,7 @@
           "nodeId": "n_pay_03_vanessa",
           "type": "dialogue",
           "speaker": "vanessa",
-          "text": "「……你挺会周旋。」她从人缝里看了你一眼，目光在你刚吻过的唇上停半秒，领口开得比白天更大一指，Troy 的影子在她身后。「别让我无聊。雨还没停。」",
+          "text": "「……你挺会周旋。」目光在你刚吻过的唇上停半秒，又掉到领口开得更大的那一指。「别让我无聊。雨还没停。你嘴上的水，也是。」",
           "assetId": "assets/scenes/ch01/n_pay_03_vanessa.webp",
           "artCue": {
             "scene": "campus_night_edge",
@@ -1944,7 +1945,7 @@
             },
             {
               "speaker": "vanessa",
-              "text": "「别让我无聊。雨还没停——你唇上的水，也是。」",
+              "text": "「别让我无聊。雨还没停——你唇上的水，也是。胸前那层热，我闻得到。」",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "magenta-mist"
@@ -1954,7 +1955,7 @@
         {
           "nodeId": "n_pay_settle",
           "type": "settle",
-          "text": "首订兑现：圆场吻 → 赴约加时吻 → Vanessa 气味。停在衣料与唇，不写实操。",
+          "text": "首订兑现：圆场吻 → 赴约加时吻 → Vanessa 气味。停在衣料、胸、腿与唇，不写实操。",
           "assetId": "assets/scenes/ch01/n_pay_settle.webp",
           "artCue": "结算占位",
           "artStatus": "placeholder",

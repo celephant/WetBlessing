@@ -11,10 +11,10 @@ import { PAYWALL_HARD } from "../lib/paywall-copy";
 const root = path.resolve(__dirname, "..");
 
 const HEAT_CLUSTER = [
-  "assets/scenes/w2/n_w2_almost_kiss.webp",
-  "assets/scenes/w3/n_w3_sleepover_edge.webp",
-  "assets/scenes/ch01/n_pay_01_catch_b.webp",
-  "assets/scenes/w3/n_w3_door_lock_hand.webp",
+  "assets/scenes/heat/n_heat_kiss_meet.webp",
+  "assets/scenes/heat/n_heat_sleep_legs.webp",
+  "assets/scenes/heat/n_heat_wet_cling.webp",
+  "assets/scenes/heat/n_heat_door_steam.webp",
 ];
 
 const FORBIDDEN = /阴茎|阴道|阴蒂|性交|插入|口交|生殖器|jk制服|学校制服|高中生|未成年|幼/;
@@ -70,16 +70,17 @@ describe("hotter-cast Ch01", () => {
     expect(route.nodes.get("n_dorm_steam")?.advance).toBe("n_conflict");
   });
 
-  it("wires the W2–W3 heat cluster by assetId to files on disk", () => {
+  it("wires completed-kiss and exposure stills by assetId to files on disk", () => {
     for (const rel of HEAT_CLUSTER) {
       expect(existsSync(path.join(root, "public", rel)), rel).toBe(true);
     }
     expect(route.nodes.get("n_kiss_mia")?.assetId).toBe(HEAT_CLUSTER[0]);
     expect(route.nodes.get("n_with_mia")?.assetId).toBe(HEAT_CLUSTER[1]);
-    expect(route.nodes.get("n_with_jade")?.assetId).toBe(HEAT_CLUSTER[2]);
+    expect(route.nodes.get("n_with_lina")?.assetId).toBe(HEAT_CLUSTER[2]);
     expect(route.nodes.get("n_dorm_steam")?.assetId).toBe(HEAT_CLUSTER[3]);
-    expect(route.nodes.get("n_pay_01_catch_lina")?.assetId).toBe(HEAT_CLUSTER[0]);
+    expect(route.nodes.get("n_pay_01_catch_lina")?.assetId).toBe(HEAT_CLUSTER[2]);
     expect(route.nodes.get("n_pay_01_catch_rae")?.assetId).toBe(HEAT_CLUSTER[3]);
+    expect(resolveAssetUrl(HEAT_CLUSTER[0])).toBe(`/${HEAT_CLUSTER[0]}`);
     for (const node of route.nodes.values()) {
       if (!node.assetId) continue;
       const url = resolveAssetUrl(node.assetId);
@@ -91,8 +92,10 @@ describe("hotter-cast Ch01", () => {
       route.nodes.get("n_kiss_mia")?.text,
       ...(route.nodes.get("n_kiss_mia")?.lines?.map((l) => l.text) ?? []),
     ].join(" ");
-    expect(kissHay).toMatch(/吻/);
+    expect(kissHay).toMatch(/吻|嘴对上/);
     expect(JSON.stringify(content)).toMatch(/湿/);
+    expect(JSON.stringify(content)).toMatch(/乳沟|胸/);
+    expect(JSON.stringify(content)).toMatch(/腿/);
   });
 
   it("keeps choiceIndex ≤ 10 and records rae/lina stats", () => {

@@ -38,7 +38,7 @@ function stemOf(assetId: string): string {
  * Nearest existing Ch01 webp for a missing stem.
  * n_open / n_jade_desk / n_dodge_* → n_see_both
  * n_with_* → n_mia_edge_1 (Mia) or n_conflict (Jade)
- * missing ch01 stems still fall back; W2–W3 climax paths resolve as themselves
+ * missing ch01 stems still fall back; W2–W3 climax and heat/ paths resolve as themselves
  * else → n_see_both
  */
 export function fallbackSceneStem(stem: string): string {
@@ -63,6 +63,10 @@ function isClimaxScenePath(assetId: string): boolean {
   );
 }
 
+function isHeatScenePath(assetId: string): boolean {
+  return stripLeadingSlash(assetId).includes("/scenes/heat/");
+}
+
 function isBlockedClimaxPath(assetId: string): boolean {
   return isClimaxScenePath(assetId) && climaxManifest.status === "BLOCKED_BYTES";
 }
@@ -73,7 +77,7 @@ export function resolveAssetPath(assetId?: string): string {
   if (isBlockedClimaxPath(assetId)) {
     return scenePath(fallbackSceneStem(stemOf(assetId)));
   }
-  if (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES") {
+  if (isHeatScenePath(assetId) || (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES")) {
     return stripLeadingSlash(assetId);
   }
   const stem = stemOf(assetId);
