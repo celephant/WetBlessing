@@ -31,7 +31,7 @@
       "n_title",
       "n_with_a"
     ],
-    "changelog": "0.4.8-feel-hot: 墙1前加烫；CEO定版名 feel-hot；内容补拆镜 densify lines[]（出品已打底 camera/transition/fx 保留；camera 别名归 ART）；补齐 n_jade_desk/edge1/with/vanessa lines 拆镜；fix lines speaker：jade_desk/mia_edge_1 旁白归 narrator",
+    "changelog": "0.4.8-feel-hot: 墙1前加烫；CEO定版名 feel-hot；内容补拆镜 densify lines[]（出品已打底 camera/transition/fx 保留；camera 别名归 ART）；补齐 n_jade_desk/edge1/with/vanessa lines 拆镜；fix lines speaker：jade_desk/mia_edge_1 旁白归 narrator｜dik-v1.1-pass1-batch1(#1-3): n_mia_edge_2 拆5镜+statusHint痞/稳；n_with_mia/jade speaker拆旁白/台词+大胆羞耻反馈；n_sms_auto打断加狠；n_ch01_first_sub饥渴墙文案；contentVersion仍0.4.8-feel-hot；with_* 改为正要…短信杀到再进选项｜dik-batch4: statusHint ensure W1 接招/圆场/躲开 + 供稿 CONTENT-DIK-轻Status供稿-v0.1.md",
     "artPayDefault": "catch_b visual defaults to Jade (poster B); Mia catch variant TBD",
     "feelPatch": "FEEL-免费段必须够烫-出品补丁-0.4.8.md",
     "feelRules": "T-erotic tension only; no nudity; no sex acts; male-campus tease",
@@ -40,7 +40,9 @@
     "freeHotRule": "墙前免费段须保持 horny；付费买更爆更完整峰值；禁露点实操",
     "versionAlias": "0.4.8-feel",
     "aka": [
-      "0.4.8-feel"
+      "0.4.8-feel",
+      "dik-act1-pass1",
+      "dik-batch4-status"
     ],
     "visualDensity": "FEEL-换图密度：出品已打底 camera/transition/fx；内容补拆镜 lines[] ≤2句/镜；同图≤2句播放器仍自动换裁切"
   },
@@ -138,6 +140,12 @@
               },
               "setFlags": {
                 "helped_mia_box": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -154,6 +162,12 @@
               "setFlags": {
                 "jade_noticed": true,
                 "path_via": "jade_desk"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -170,6 +184,12 @@
               },
               "setFlags": {
                 "dodged_see_both": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -201,6 +221,12 @@
                     "desire": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -213,6 +239,12 @@
                     "affection": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
@@ -221,6 +253,12 @@
               "next": "n_mia_tease_auto",
               "delta": {
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -338,6 +376,12 @@
                   }
                 },
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -350,6 +394,12 @@
                     "affection": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
@@ -358,6 +408,12 @@
               "next": "n_mia_edge_2",
               "delta": {
                 "tension": 2
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -403,7 +459,7 @@
           "choices": [
             {
               "choiceId": "c_mia_banter",
-              "text": "接招：那你还撞我。——下唇差一寸。",
+              "text": "接招：那你还撞我。——下唇差一寸。她骂你胆子大，却又送近。",
               "next": "n_conflict",
               "delta": {
                 "stats": {
@@ -412,11 +468,17 @@
                   }
                 },
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_mia_box",
-              "text": "圆场：箱子到了。（声音发干）",
+              "text": "圆场：箱子到了。（声音发干，热留一半）",
               "next": "n_conflict",
               "delta": {
                 "stats": {
@@ -424,14 +486,26 @@
                     "affection": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_mia_go",
-              "text": "躲开：……你先。（后颈还热）",
+              "text": "躲开：……你先。（后颈还热，账单会来）",
               "next": "n_conflict",
               "delta": {
                 "tension": 2
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -441,10 +515,38 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她自己也顿住，耳尖红透，锁骨亮汗，吊带挂在临界；却只哼一声，声音发哑：「你长高了这点，别以为我要仰视你。」潮湿衣料擦过你小臂内侧，热意一路爬上来。",
+              "text": "电梯很窄，空气发黏。她偏头时发丝擦过你下巴——下唇几乎擦到你下颌。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "narrator",
+              "text": "她自己也顿住。耳尖红透，锁骨亮汗，吊带挂在临界；潮湿衣料擦过你小臂内侧，热意一路爬上来。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "mia",
+              "text": "「你长高了这点，别以为我要仰视你。」",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "声音发哑，却又送近半寸。唇距一寸。世界还没允许亲下去——她骂你胆子大似的哼一声，腿却没退。",
+              "camera": "close_collar",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "后颈发烫。你装得住脸，装不住呼吸。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             }
           ]
         },
@@ -498,6 +600,12 @@
               "setFlags": {
                 "went_with": "mia",
                 "stood_up_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             },
             {
@@ -515,6 +623,12 @@
               "setFlags": {
                 "went_with": "jade",
                 "stood_up_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             },
             {
@@ -528,6 +642,12 @@
                 "went_with": "none",
                 "stood_up_mia": true,
                 "stood_up_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -538,8 +658,8 @@
         {
           "nodeId": "n_with_mia",
           "type": "dialogue",
-          "speaker": "mia",
-          "text": "侧门风凉，她身上还热。Mia 盯你：「就一句——别让我在门口像白痴。」手机却先亮了，光打在她微湿的锁骨上。",
+          "speaker": "narrator",
+          "text": "侧门风凉，她身上还热。Mia 盯你：「就一句——别让我在门口像白痴。」你正要再近，手机却先亮了，光打在她微湿的锁骨上。",
           "assetId": "assets/scenes/ch01/n_with_a.webp",
           "artCue": "与Mia私下短确认；可复用with图",
           "artStatus": "placeholder",
@@ -550,7 +670,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：再近——几乎贴上她湿锁骨。",
+              "text": "接招：再近——几乎贴上她湿锁骨。她骂你胆子大，腿却没退。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -558,11 +678,17 @@
                     "desire": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：先应付——手还停在她腰侧衣料上。",
+              "text": "圆场：先应付——手还停在她腰侧衣料上。热留一半。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -570,14 +696,26 @@
                     "affection": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：看手机——喉结滚，腿没挪开。",
+              "text": "躲开：看手机——喉结滚，腿没挪开。她眼神一瞬发冷。",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -586,26 +724,31 @@
           "transition": "soft-zoom",
           "lines": [
             {
-              "speaker": "mia",
-              "text": "侧门风凉，她身上还热。Mia 盯你：「就一句——别让我在门口像白痴。",
+              "speaker": "narrator",
+              "text": "侧门风凉，她身上还热。Mia 盯你，领口阴影还没散。",
               "camera": "mid",
               "transition": "soft-zoom",
               "fx": "warm-veil"
             },
             {
               "speaker": "mia",
-              "text": "」手机却先亮了，光打在她微湿的锁骨上。",
+              "text": "「就一句——别让我在门口像白痴。」",
               "camera": "close",
-              "transition": "softZoomCrop",
-              "fx": "breath"
+              "transition": "softZoomCrop"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你正要再近——几乎贴上她湿锁骨——手机却先亮了。未赴那条短信，光打在微湿锁骨上，像当场揭穿：另一边还在等你。现在动手，还是先看屏幕？",
+              "camera": "close",
+              "transition": "softZoomCrop"
             }
           ]
         },
         {
           "nodeId": "n_with_jade",
           "type": "dialogue",
-          "speaker": "jade",
-          "text": "闪光灯间隙，Jade 肩线还贴着热。她压声：「站这边——镜头好看。」合影未散，另一条短信杀到，像另一只手按在你后腰。",
+          "speaker": "narrator",
+          "text": "闪光灯间隙，Jade 肩线还贴着热。她压声：「站这边——镜头好看。」你正要扶肩带，另一条短信杀到，像另一只手按在你后腰。",
           "assetId": "assets/scenes/ch01/n_with_a.webp",
           "artCue": "与Jade公开合影缝隙短确认",
           "artStatus": "placeholder",
@@ -616,7 +759,7 @@
           "choices": [
             {
               "choiceId": "c_wj_close",
-              "text": "接招：再近——手扶上她滑落的肩带边缘。",
+              "text": "接招：再近——手扶上她滑落的肩带边缘。她笑得不老实，镜头还亮着。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -624,11 +767,17 @@
                     "desire": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：先应付——肩还贴着她的潮热。",
+              "text": "圆场：先应付——肩还贴着她的潮热。场面圆住。",
               "next": "n_sms_auto",
               "delta": {
                 "stats": {
@@ -636,14 +785,26 @@
                     "affection": 1
                   }
                 }
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：看手机——故意拉开，仍不够远。",
+              "text": "躲开：看手机——故意拉开，仍不够远。闪光灯还在记仇。",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -652,18 +813,23 @@
           "transition": "soft-zoom",
           "lines": [
             {
-              "speaker": "jade",
-              "text": "闪光灯间隙，Jade 肩线还贴着热。她压声：「站这边——镜头好看。",
+              "speaker": "narrator",
+              "text": "闪光灯间隙，Jade 肩线还贴着热。合影位空着的那一秒，她故意不拉肩带。",
               "camera": "mid",
               "transition": "soft-zoom",
               "fx": "flash_afterglow"
             },
             {
               "speaker": "jade",
-              "text": "」合影未散，另一条短信杀到，像另一只手按在你后腰。",
+              "text": "「站这边——镜头好看。肩带滑了，你管不管？」",
               "camera": "close",
-              "transition": "softZoomCrop",
-              "fx": "breath"
+              "transition": "softZoomCrop"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你正要扶上她滑落的肩带边缘——另一条短信杀到，像另一只手按在你后腰。被看见的羞耻先起鸡皮。手伸不伸？",
+              "camera": "close",
+              "transition": "softZoomCrop"
             }
           ]
         },
@@ -671,7 +837,7 @@
           "nodeId": "n_sms_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "未赴的那条短信亮着，屏幕光打在你发热的手指和还没平的呼吸上。（两场都没去——两条一起亮，像两具刚贴过的体温不肯散。）没有免费的「想回」。",
+          "text": "未赴的那条短信亮着，字又短又狠——像当面点名。屏幕光打在你发热的手指和还没平的呼吸上。（两场都没去——两条一起亮，两具刚贴过的体温不肯散。）没有免费的「想回」。",
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "暗廊下手机通知光斑模糊无可读气泡；情绪钩；勿烧聊天气泡字/商城按钮",
           "artStatus": "ready",
@@ -685,10 +851,17 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "身体比理智先记住了刚才的距离。",
+              "text": "身体比理智先记住了刚才的距离。短信不问「在吗」——只甩一句：你选了谁。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "潮热还挂在锁骨印象里。装忙没用——账单已经到了。",
+              "camera": "close",
+              "transition": "dip",
+              "fx": "phone_glow"
             }
           ]
         },
@@ -697,7 +870,7 @@
           "type": "dialogue",
           "gate": "first_sub",
           "speaker": "narrator",
-          "text": "短信还在。你的手指停在屏幕上方——潮热、肩带、锁骨、几乎碰上的唇，全还挂在皮肤上。",
+          "text": "短信还在。你的手指停在屏幕上方——潮热、肩带、锁骨、几乎碰上的唇，全还挂在皮肤上。体温没散，名分没有。",
           "assetId": "assets/scenes/ch01/n_ch01_first_sub.webp",
           "artCue": "情绪钩侧脸；手机屏仅光感；无月卡按钮烧进图；选项区由UI叠敷衍vs圆场",
           "artStatus": "ready",
@@ -707,7 +880,7 @@
           "choices": [
             {
               "choiceId": "c_free_read",
-              "text": "（已读不回）——热还在指尖。",
+              "text": "（已读不回）——热还在指尖，装冷。",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 2
@@ -716,7 +889,7 @@
             },
             {
               "choiceId": "c_free_busy",
-              "text": "「忙。」——假的。",
+              "text": "「忙。」——假的。锁骨印象还没退。",
               "next": "n_free_soft_exit",
               "delta": {
                 "tension": 1
@@ -725,7 +898,7 @@
             },
             {
               "choiceId": "c_sub_round_mia",
-              "text": "「刚才不是故意晾你。现在——就我们。」",
+              "text": "「刚才不是故意晾你。现在——就我们。热还没散。」",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass_month",
@@ -743,7 +916,7 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "「合影我还欠你一张。别在别人面前翻我牌。」",
+              "text": "「合影我还欠你一张。别在别人面前翻我牌——肩带那一下，我记得。」",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass_month",
@@ -761,7 +934,7 @@
             },
             {
               "choiceId": "c_later",
-              "text": "稍后再说",
+              "text": "稍后再说——体温先压一下。",
               "next": "n_title",
               "delta": {},
               "gateChoice": "defer"
@@ -773,10 +946,17 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "现在说圆场，还是装没事？装得了脑子，装不了刚才那一下。",
+              "text": "刚才那一下还在后颈发热。现在说圆场，还是装没事？装得了脑子，装不了指尖的潮。",
               "camera": "mid",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "想回——就得付这场的完整后果。免费只够停在「几乎」。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "tension_hold"
             }
           ]
         },

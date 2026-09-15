@@ -5,6 +5,7 @@ export type CompileAllowEntry = {
   path: string;
   contentVersion: string;
   routeId: string;
+  aliases?: string[];
   supersedes?: string | string[];
 };
 

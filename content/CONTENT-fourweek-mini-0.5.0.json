@@ -13,7 +13,15 @@
     ],
     "defaultAllowlist": "0.4.8-feel-hot only until CEO promotes mini",
     "producerGate": "await named-W3 rescan",
-    "visualDensity": "FEEL-换图密度：暧昧爆点强制 soft-zoom/dip + warm-veil/magenta-mist"
+    "visualDensity": "FEEL-换图密度：暧昧爆点强制 soft-zoom/dip + warm-veil/magenta-mist",
+    "dikBatch2": true,
+    "changelog": [
+      "DIK §6 batch2 (#4 cafe / #5 05a→05b / #6 locker) densify; STOP before #7",
+      "DIK §6 batch3 (#7 edge_lock / #8 sleepover 03) densify; STOP before #9",
+      "DIK §6 batch4 (#9 light Status / #10 谣言群聊 / #11 W4尾卡第一部完 / #12 四结局可达); twelve-beat pass CLOSE"
+    ],
+    "dikBatch3": true,
+    "dikBatch4": true
   },
   "stages": [
     {
@@ -74,9 +82,9 @@
         {
           "nodeId": "n_w2_cafe_mia",
           "type": "dialogue",
-          "speaker": "mia",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "Mia 托盘一响：「派对合影很好看。——我门口那一下呢？」",
+          "text": "托盘砸在桌上——Mia 笑着，眼里没有笑。她点名：派对合影很好看。——门口那一下，你鸽了我。",
           "assetId": "assets/scenes/w2/n_w2_cafe_mia.webp",
           "artCue": "食堂账单短",
           "artStatus": "placeholder",
@@ -87,7 +95,7 @@
           "choices": [
             {
               "choiceId": "c_ok",
-              "text": "接招：是我的锅。",
+              "text": "接招：是我的锅。——当众认下。她哼一声，却又把托盘往你这边推半寸。",
               "next": "n_w2_rain_r",
               "delta": {
                 "stats": {
@@ -98,39 +106,83 @@
               },
               "setFlags": {
                 "w2_cafe_creditor": "mia"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_soft",
-              "text": "圆场：……灯光太狠。",
+              "text": "圆场：……灯光太狠。——场面圆住，热留一半。她眼底那刀没完全收回。",
               "next": "n_w2_rain_r",
               "delta": {},
               "setFlags": {
                 "w2_cafe_creditor": "mia"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_d",
-              "text": "躲开：看菜单。",
+              "text": "躲开：看菜单。——后颈还热。她把名字又咬了一遍，账单没走。",
               "next": "n_w2_rain_r",
               "delta": {
                 "tension": 2
               },
               "setFlags": {
                 "w2_cafe_creditor": "mia"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
           "setFlags": {
             "w2_cafe_creditor": "mia"
-          }
+          },
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "afterimage",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "食堂噪杂里，托盘砸在桌面——脆响像当众点名。Mia 坐下，笑不达眼，目光钉住你。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "mia",
+              "text": "「派对合影很好看。——我门口那一下呢？你鸽了我，Kai。」",
+              "camera": "close",
+              "transition": "fade",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "邻桌有人侧耳。账单摊开：你鸽了她——她把名字咬得很轻，却让整张桌子发烫。",
+              "camera": "mid",
+              "transition": "fade",
+              "fx": "breath"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_cafe_jade",
           "type": "dialogue",
-          "speaker": "jade",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "Jade 笑不达眼：「合影位空着。——你很会消失。」",
+          "text": "Jade 笑不达眼。合影位空着——她点名：你很会消失。托盘边缘磕桌，轻，却刺。",
           "assetId": "assets/scenes/w2/n_w2_cafe_jade.webp",
           "artCue": "食堂账单短",
           "artStatus": "placeholder",
@@ -141,7 +193,7 @@
           "choices": [
             {
               "choiceId": "c_ok",
-              "text": "接招：是我的锅。",
+              "text": "接招：是我的锅。——当众认下。她笑了一下，眼睛仍冷，腿却没挪开。",
               "next": "n_w2_rain_r",
               "delta": {
                 "stats": {
@@ -152,39 +204,83 @@
               },
               "setFlags": {
                 "w2_cafe_creditor": "jade"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_soft",
-              "text": "圆场：……灯光太狠。",
+              "text": "圆场：……灯光太狠。——场面圆住，热留一半。她指尖敲托盘沿，没完全放过你。",
               "next": "n_w2_rain_r",
               "delta": {},
               "setFlags": {
                 "w2_cafe_creditor": "jade"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_d",
-              "text": "躲开：看菜单。",
+              "text": "躲开：看菜单。——后颈还热。她把「消失」又轻声重复一遍，账单没走。",
               "next": "n_w2_rain_r",
               "delta": {
                 "tension": 2
               },
               "setFlags": {
                 "w2_cafe_creditor": "jade"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
           "setFlags": {
             "w2_cafe_creditor": "jade"
-          }
+          },
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "afterimage",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "她把托盘轻轻磕上桌沿——笑还在唇边，眼底没有。合影位空着的那一格，像当众挂着你的缺席。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "jade",
+              "text": "「合影位空着。——你很会消失，Kai。肩带滑的时候，你不在。」",
+              "camera": "close",
+              "transition": "fade",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "周围嘈杂忽然变远。她没抬嗓子，却把「消失」两个字钉进你后颈——账单到了。",
+              "camera": "mid",
+              "transition": "fade",
+              "fx": "breath"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_cafe_both",
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "两边都空过。Mia 刺一句，Jade 又补刀。",
+          "text": "两边都空过。托盘一响，笑不达眼——Mia 点门口，Jade 点合影位。两张账单叠在同一张桌上。",
           "assetId": "assets/scenes/w2/n_w2_cafe_both.webp",
           "artCue": "食堂账单短",
           "artStatus": "placeholder",
@@ -196,7 +292,7 @@
           "choices": [
             {
               "choiceId": "c_ok",
-              "text": "接招：是我的锅。",
+              "text": "接招：是我的锅。——两边都认。一人哼、一人冷笑，热却没散。",
               "next": "n_w2_rain_r",
               "delta": {
                 "stats": {
@@ -210,26 +306,44 @@
               },
               "setFlags": {
                 "w2_cafe_creditor": "both"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_soft",
-              "text": "圆场：……灯光太狠。",
+              "text": "圆场：……灯光太狠。——场面圆住一半；两双眼睛仍钉着你。",
               "next": "n_w2_rain_r",
               "delta": {},
               "setFlags": {
                 "w2_cafe_creditor": "both"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_d",
-              "text": "躲开：看菜单。",
+              "text": "躲开：看菜单。——后颈烫。两个人都把名字又咬了一遍。",
               "next": "n_w2_rain_r",
               "delta": {
                 "tension": 2
               },
               "setFlags": {
                 "w2_cafe_creditor": "both"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -238,14 +352,37 @@
           },
           "lines": [
             {
+              "speaker": "narrator",
+              "text": "托盘砸桌。两边都空过——Mia 与 Jade 同桌，目光像两把刀叠在一起。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
               "speaker": "mia",
-              "text": "「门口很好等。」"
+              "text": "「门口很好等。——你鸽了谁，自己记得。」",
+              "camera": "close",
+              "transition": "fade",
+              "fx": "afterimage"
             },
             {
               "speaker": "jade",
-              "text": "「合影位也是。」"
+              "text": "「合影位也是。——笑得很好看，人不在。」",
+              "camera": "close_alt",
+              "transition": "fade",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "邻桌安静半秒。两张账单叠在同一张桌上——你逃得了派对，逃不过食堂点名。",
+              "camera": "mid",
+              "transition": "fade",
+              "fx": "breath"
             }
-          ]
+          ],
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "afterimage"
         },
         {
           "nodeId": "n_w2_rain_r",
@@ -287,13 +424,25 @@
               },
               "setFlags": {
                 "rain_close_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
               "text": "圆场：留一拳。",
               "next": "n_w2_troy",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
@@ -301,6 +450,12 @@
               "next": "n_w2_troy",
               "delta": {
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -335,13 +490,25 @@
               },
               "setFlags": {
                 "rain_close_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
               "text": "圆场：伞分你。",
               "next": "n_w2_troy",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
@@ -349,6 +516,12 @@
               "next": "n_w2_troy",
               "delta": {
                 "tension": 1
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -377,13 +550,25 @@
               "delta": {},
               "setFlags": {
                 "trouble_tier": "mid"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
               "text": "圆场：路过。",
               "next": "n_w2_locker",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
@@ -392,6 +577,12 @@
               "delta": {},
               "setFlags": {
                 "face_loss": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -408,11 +599,18 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "更衣室门外热气涌出来，像有人刚把衣服扯开又穿上。Jade 擦汗，衣料还黏在皮肤上；Mia 已在灯下，领口随呼吸起伏。",
+          "text": "更衣室门外热气涌出来。——两双手：双女目光像两只手按住你。送谁，羞耻立刻到。",
           "lines": [
             {
               "speaker": "narrator",
-              "text": "——两个人都看见你，目光像两只手。",
+              "text": "更衣室门外热气涌出来，像有人刚把衣服扯开又穿上。湿气贴肤，灯管嗡一声。",
+              "camera": "mid",
+              "transition": "fade",
+              "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "——两个人都看见你。目光像两双手：一只按住喉结，一只按住后颈。被同时看见的羞耻先到。",
               "camera": "close",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -421,45 +619,72 @@
               "speaker": "jade",
               "text": "「送我到车。门里还热。——肩带我自己管，你管眼睛。」",
               "camera": "close_alt",
-              "transition": "softZoomCrop"
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             },
             {
               "speaker": "mia",
               "text": "「……你答应过路上讲清楚。别让我看你跟她一起消失。」",
               "camera": "mid",
-              "transition": "softZoomCrop"
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "narrator",
+              "text": "送谁，另一双眼睛立刻发冷——羞耻是即时的：你转头的那一秒，账单就写好了。",
+              "camera": "close",
+              "transition": "dip",
+              "fx": "afterimage"
             }
           ],
           "choices": [
             {
               "choiceId": "c_j",
-              "text": "送 Jade",
+              "text": "送 Jade——Mia 目光一冷。当场羞耻：你又选她。",
               "next": "n_w2_05a_r",
               "delta": {},
               "setFlags": {
                 "w2_went_with": "jade",
                 "w2_stood_up_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             },
             {
               "choiceId": "c_m",
-              "text": "送 Mia",
+              "text": "送 Mia——Jade 笑不达眼。当场羞耻：合影位又空。",
               "next": "n_w2_05a_r",
               "delta": {},
               "setFlags": {
                 "w2_went_with": "mia",
                 "w2_stood_up_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             },
             {
               "choiceId": "c_n",
-              "text": "躲开两边",
+              "text": "躲开两边——两双手都松了，却更刺。后颈还热，双账单会来。",
               "next": "n_w2_05a_r",
               "delta": {},
               "setFlags": {
                 "w2_went_with": "none",
                 "w2_stood_up_mia": true,
                 "w2_stood_up_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -499,7 +724,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "free",
-          "text": "只剩呼吸。Mia 锁骨亮着薄汗，下唇几乎擦到你的——声音发干：「再近——」热意顶到唇边，世界还差一寸。",
+          "text": "只剩呼吸。Mia 锁骨亮着薄汗，下唇几乎擦到你的——「再近——」热意顶到唇边，世界还差一寸。",
           "characters": [
             "kai",
             "mia"
@@ -510,7 +735,7 @@
           "choices": [
             {
               "choiceId": "c_05a_paid",
-              "text": "继续——看完整的一寸（唇距峰值）。",
+              "text": "继续——看完整的一寸（唇距峰值）。体温未散。",
               "next": "n_w2_05b_mia",
               "delta": {},
               "requiresEntitlement": "story_pass_month",
@@ -520,7 +745,7 @@
             },
             {
               "choiceId": "c_05a_cut",
-              "text": "（预告切断）带着未散的热离开。——今晚不够。",
+              "text": "（预告切断）带着未散的热离开。——今晚不够。账单会来。",
               "next": "n_w2_vanessa",
               "delta": {
                 "tension": 1
@@ -529,14 +754,37 @@
           ],
           "camera": "close",
           "transition": "soft-zoom",
-          "fx": "warm-veil"
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "只剩呼吸。Mia 锁骨亮着薄汗，潮湿衣料擦过你小臂——热意一路爬到喉结。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "mia",
+              "text": "「再近——」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "下唇几乎擦到你的。声音发干，腿没退。唇距一寸——免费只够停在几乎。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_05a_jade",
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "free",
-          "text": "只剩呼吸。Jade 肩带滑着，下唇几乎擦到你的——声音发干：「再近——」香水与体温顶到唇边，还差一寸。",
+          "text": "只剩呼吸。Jade 肩带滑着，下唇几乎擦到你的——「再近——」香水与体温顶到唇边，还差一寸。",
           "characters": [
             "kai",
             "jade"
@@ -547,7 +795,7 @@
           "choices": [
             {
               "choiceId": "c_05a_paid",
-              "text": "继续——看完整的一寸（唇距峰值）。",
+              "text": "继续——看完整的一寸（唇距峰值）。体温未散。",
               "next": "n_w2_05b_jade",
               "delta": {},
               "requiresEntitlement": "story_pass_month",
@@ -557,7 +805,7 @@
             },
             {
               "choiceId": "c_05a_cut",
-              "text": "（预告切断）带着未散的热离开。——今晚不够。",
+              "text": "（预告切断）带着未散的热离开。——今晚不够。账单会来。",
               "next": "n_w2_vanessa",
               "delta": {
                 "tension": 1
@@ -566,7 +814,30 @@
           ],
           "camera": "close",
           "transition": "soft-zoom",
-          "fx": "warm-veil"
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "只剩呼吸。Jade 肩带又滑半寸——她不急着拉，先看你会不会动手。香水像故意留指纹。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "jade",
+              "text": "「再近——」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "下唇几乎擦到你的。香水与体温顶到唇边——还差一寸。免费只够停在几乎。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_05b_r",
@@ -590,13 +861,13 @@
         {
           "nodeId": "n_w2_05b_mia",
           "type": "dialogue",
-          "speaker": "mia",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "唇距一寸。世界还没允许亲下去。",
+          "text": "唇距一寸。世界还没允许亲下去。——Mia 喘在你锁骨窝，热意顶满，吻没收成。",
           "choices": [
             {
               "choiceId": "c_close",
-              "text": "接招：再近半寸。",
+              "text": "接招：再近半寸。——她骂你胆子大，却又送近。唇距峰值，吻仍没收成。",
               "next": "n_w2_05b_interrupt",
               "delta": {
                 "stats": {
@@ -607,24 +878,42 @@
               },
               "setFlags": {
                 "almost_kiss_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_brake",
-              "text": "圆场：……等等。",
+              "text": "圆场：……等等。——场面圆住，热留一半。她喘还没平。",
               "next": "n_w2_05b_interrupt",
               "delta": {},
               "setFlags": {
                 "almost_kiss_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_back",
-              "text": "躲开：退后。",
+              "text": "躲开：退后。——她眼神一瞬发冷。后颈还热，账单会来。",
               "next": "n_w2_05b_interrupt",
               "delta": {},
               "setFlags": {
                 "almost_hurt_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -637,18 +926,48 @@
           ],
           "camera": "close",
           "transition": "soft-zoom",
-          "fx": "magenta-mist"
+          "fx": "magenta-mist",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "她偏头时发丝擦过你下巴。唇距一寸——呼吸打在锁骨窝里，潮湿衣料几乎贴上来。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……再近半寸。——别装听不见。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "她骂你胆子大似的哼一声，腿却没退。下唇几乎擦过——热意顶满，世界还没允许亲下去。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "一寸。只有一寸。吻没收成——空气发黏，后颈先烫。",
+              "camera": "close_collar",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_05b_jade",
           "type": "dialogue",
-          "speaker": "jade",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "唇距一寸。世界还没允许亲下去。",
+          "text": "唇距一寸。世界还没允许亲下去。——Jade 肩带滑着，香水顶到唇边，吻没收成。",
           "choices": [
             {
               "choiceId": "c_close",
-              "text": "接招：再近半寸。",
+              "text": "接招：再近半寸。——她骂你胆子大，却又送近。唇距峰值，吻仍没收成。",
               "next": "n_w2_05b_interrupt",
               "delta": {
                 "stats": {
@@ -659,24 +978,42 @@
               },
               "setFlags": {
                 "almost_kiss_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_brake",
-              "text": "圆场：……等等。",
+              "text": "圆场：……等等。——场面圆住，热留一半。肩带仍挂在临界。",
               "next": "n_w2_05b_interrupt",
               "delta": {},
               "setFlags": {
                 "almost_kiss_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c_back",
-              "text": "躲开：退后。",
+              "text": "躲开：退后。——她眼神一瞬发冷。后颈还热，账单会来。",
               "next": "n_w2_05b_interrupt",
               "delta": {},
               "setFlags": {
                 "almost_hurt_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -689,14 +1026,44 @@
           ],
           "camera": "close",
           "transition": "soft-zoom",
-          "fx": "magenta-mist"
+          "fx": "magenta-mist",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "肩带又滑。她不拉——先把距离送近半寸。香水与体温顶到唇边，空气发黏。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "jade",
+              "text": "「……管不管？——眼睛，还是手。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "下唇几乎擦过你的。她笑不达眼，腿却没退——唇距一寸，世界还没允许亲下去。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "一寸。只有一寸。吻没收成——被看见的羞耻与热意叠在一起，后颈先烫。",
+              "camera": "close_collar",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            }
+          ]
         },
         {
           "nodeId": "n_w2_05b_interrupt",
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "第三人打断——Troy 影、或另一声短信外放、或门被推开。热气散了。",
+          "text": "第三人打断——Troy 影、或另一声短信外放、或门被推开。热气散了。谁都没亲到。",
           "advance": "n_w2_vanessa",
           "assetId": "assets/scenes/w2/n_w2_05b_interrupt.webp",
           "artCue": "打断余韵",
@@ -710,9 +1077,17 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "谁都没亲到。",
+              "text": "门响。Troy 影、或短信外放、或第三人推门——热气像被刀切开。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "谁都没亲到。唇距那一寸没收成——只剩后颈还烫，账单会来。",
               "camera": "close",
-              "transition": "softZoomCrop"
+              "transition": "softZoomCrop",
+              "fx": "afterimage"
             }
           ]
         },
@@ -730,6 +1105,12 @@
               "delta": {},
               "setFlags": {
                 "vanessa_w2_reply": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -739,13 +1120,25 @@
               "delta": {},
               "setFlags": {
                 "vanessa_w2_reply": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c3",
               "text": "躲开：（已读）",
               "next": "n_w2_hook",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w2/n_w2_vanessa.webp",
@@ -850,19 +1243,37 @@
               "choiceId": "c1",
               "text": "接招：走。",
               "next": "n_w3_02a_mia",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c2",
               "text": "圆场：……就一会儿。",
               "next": "n_w3_02a_mia",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
               "text": "躲开：我回自己宿舍。",
               "next": "n_w3_soft_end",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w3/n_w3_lib_mia.webp",
@@ -887,19 +1298,37 @@
               "choiceId": "c1",
               "text": "接招：走。",
               "next": "n_w3_02a_jade",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c2",
               "text": "圆场：……就一会儿。",
               "next": "n_w3_02a_jade",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
               "text": "躲开：我回自己宿舍。",
               "next": "n_w3_soft_end",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w3/n_w3_lib_jade.webp",
@@ -939,7 +1368,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "free",
-          "text": "Mia 门口。旧 T 恤领口扯大，锁骨湿着。",
+          "text": "Mia 门口。旧 T 恤领口扯大，锁骨湿着——门把烫得像刚被她捂过。免费只够停在几乎。",
           "advance": "n_w3_edge_lock_mia",
           "assetId": "assets/scenes/w3/n_w3_02a_mia.webp",
           "artCue": "门把吊Mia",
@@ -954,10 +1383,24 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "你的手搭上门把——金属发烫——停住。她呼吸打在你腕侧：「进不进。」",
+              "text": "走廊灯把她影子拉长。旧 T 恤领口扯大一指，锁骨亮着薄汗——门缝里涌出未散的热。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "tension_hold"
+            },
+            {
+              "speaker": "mia",
+              "text": "「进不进。——别装听不见。」",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你的手搭上门把——金属发烫，像刚被她捂过。呼吸打在你腕侧；免费只够停在几乎。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             }
           ]
         },
@@ -966,7 +1409,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "free",
-          "text": "Jade 门口。演出后的衣料还乱，肩带挂着。",
+          "text": "Jade 门口。演出后的衣料还乱，肩带挂着——门把烫得像刚被她捂过。免费只够停在几乎。",
           "advance": "n_w3_edge_lock_jade",
           "assetId": "assets/scenes/w3/n_w3_02a_jade.webp",
           "artCue": "门把吊Jade",
@@ -981,10 +1424,24 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "你的手搭上门把，热意从门缝里涌出来。她看你：「推，还是装没事。」",
+              "text": "门缝里涌出香水与未散的热。肩带挂着，衣料还乱——她把你钉在门槛这一寸。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "tension_hold"
+            },
+            {
+              "speaker": "jade",
+              "text": "「推，还是装没事。——选一个。」",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你的手搭上门把，热意从金属爬上手心。她目光不停——免费只够停在几乎。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             }
           ]
         },
@@ -994,31 +1451,49 @@
           "gate": "edge_lock",
           "speaker": "narrator",
           "tier": "free",
-          "text": "门还没开。Mia 的热气在门缝里，像一声没说完的「进来」。",
+          "text": "门还没开。门把烫得像刚被她捂过——Mia 的热气在门缝里，像一声没说完的「进来」。免费吊够烫。",
           "choices": [
             {
               "choiceId": "c_leave",
-              "text": "离开。——带着门把上的热。",
+              "text": "离开。——带着门把上的热。软退，账单会记。",
               "next": "n_w3_soft_end",
               "delta": {},
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             },
             {
               "choiceId": "c_push",
-              "text": "推门进去。——看 Mia 把门锁合上之后。",
+              "text": "接招：推门进去。——看 Mia 把门锁合上之后。她骂你胆子大，却又让开半步。",
               "next": "n_w3_02b_mia",
               "delta": {},
               "requiresEntitlement": "story_pass_month",
               "cta": "story_pass_month",
               "onLocked": "show_pass_chip",
-              "gateChoice": "subscribe"
+              "gateChoice": "subscribe",
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c_later",
-              "text": "稍后再说。",
+              "text": "稍后再说。——热留在门把上。",
               "next": "n_w3_title",
               "delta": {},
-              "gateChoice": "defer"
+              "gateChoice": "defer",
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w3/n_w3_edge_lock_mia.webp",
@@ -1034,10 +1509,24 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "你的手指还在发烫的门把上。",
-              "camera": "mid",
+              "text": "你的手指还按在发烫的门把上。金属热意一路爬到腕骨——门缝里，她的呼吸近得像贴着你。",
+              "camera": "close_hand",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……进来。——或带着这点热走。」",
+              "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "门还没开。免费吊够烫——锁合上之后才算真正过墙。推，还是装没事。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "tension_hold"
             }
           ]
         },
@@ -1047,31 +1536,49 @@
           "gate": "edge_lock",
           "speaker": "narrator",
           "tier": "free",
-          "text": "门还没开。Jade 的热气在门缝里，像一声没说完的「进来」。",
+          "text": "门还没开。门把烫得像刚被她捂过——Jade 的热气在门缝里，像一声没说完的「进来」。免费吊够烫。",
           "choices": [
             {
               "choiceId": "c_leave",
-              "text": "离开。——带着门把上的热。",
+              "text": "离开。——带着门把上的热。软退，账单会记。",
               "next": "n_w3_soft_end",
               "delta": {},
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             },
             {
               "choiceId": "c_push",
-              "text": "推门进去。——看 Jade 把门锁合上之后。",
+              "text": "接招：推门进去。——看 Jade 把门锁合上之后。她哼你胆子大，肩带却又滑半寸。",
               "next": "n_w3_02b_jade",
               "delta": {},
               "requiresEntitlement": "story_pass_month",
               "cta": "story_pass_month",
               "onLocked": "show_pass_chip",
-              "gateChoice": "subscribe"
+              "gateChoice": "subscribe",
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c_later",
-              "text": "稍后再说。",
+              "text": "稍后再说。——热留在门把上。",
               "next": "n_w3_title",
               "delta": {},
-              "gateChoice": "defer"
+              "gateChoice": "defer",
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w3/n_w3_edge_lock_jade.webp",
@@ -1087,10 +1594,24 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "你的手指还在发烫的门把上。",
-              "camera": "mid",
+              "text": "你的手指还按在发烫的门把上。热意从门缝涌出来，肩带影子晃一下——世界只剩推或不推。",
+              "camera": "close_hand",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "jade",
+              "text": "「推。——别装只是路过。」",
+              "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "门还没开。免费吊够烫——锁合上之后才算真正过墙。她等你接招。",
+              "camera": "close_hand",
+              "transition": "softZoomCrop",
+              "fx": "tension_hold"
             }
           ]
         },
@@ -1099,7 +1620,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "门锁合上。Mia 背靠门，呼吸乱，旧称呼差点脱口。",
+          "text": "门锁合上——咔。Mia 背靠门，呼吸乱，旧称呼差点脱口。同空间，不是上床。",
           "advance": "n_w3_03_mia",
           "assetId": "assets/scenes/w3/n_w3_02b_mia.webp",
           "artCue": "进门Mia",
@@ -1114,10 +1635,24 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "空间只够两个人的体温。",
+              "text": "门锁合上——咔。金属轻响像判决：外面的世界被切掉。",
+              "camera": "close_hand",
+              "transition": "dip",
+              "fx": "breath"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……Kai。」——旧称呼卡在喉咙，没叫全。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "她背靠门，呼吸乱。空间只够两个人的体温——锁已合，下一步才是留不留。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             }
           ]
         },
@@ -1126,7 +1661,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "门锁合上。Jade 笑意散了，只剩近。",
+          "text": "门锁合上——咔。Jade 笑意散了，只剩近。同空间，不是上床。",
           "advance": "n_w3_03_jade",
           "assetId": "assets/scenes/w3/n_w3_02b_jade.webp",
           "artCue": "进门Jade",
@@ -1141,45 +1676,77 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "肩带又滑一寸，她不拉：「坐。——近点。」",
+              "text": "门锁合上——咔。轻响落进安静，像把走廊彻底关在外面。",
+              "camera": "close_hand",
+              "transition": "dip",
+              "fx": "breath"
+            },
+            {
+              "speaker": "jade",
+              "text": "「坐。——近点。」肩带又滑一寸，她不拉。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "笑意散了，只剩近。空间只够呼吸——锁已合，下一步才是留不留。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
             }
           ]
         },
         {
           "nodeId": "n_w3_03_mia",
           "type": "dialogue",
-          "speaker": "mia",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "留宿边缘。Mia 半露肩，锁骨湿润，衣料皱在你视线里。",
+          "text": "留宿边缘。Mia 半露肩，锁骨湿润，衣料皱在你视线里——同空间，不是上床。",
           "choices": [
             {
               "choiceId": "c1",
-              "text": "接招：别停。",
+              "text": "接招：别停。——她骂你胆子大，却又送近。互斥会刺。",
               "next": "n_w3_04_set_mia",
               "delta": {},
               "setFlags": {
                 "edge_sleepover_mia": true,
                 "edge_sleepover_pending": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
-              "text": "圆场：……先这样。",
+              "text": "圆场：……先这样。——场面圆住，热留一半。她喘还没平。",
               "next": "n_w3_04_set_mia",
               "delta": {},
               "setFlags": {
                 "edge_sleepover_mia": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c3",
-              "text": "躲开：我该走。",
+              "text": "躲开：我该走。——后颈还热。账单会来。",
               "next": "n_w3_05",
               "delta": {
                 "tension": 2
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -1195,46 +1762,92 @@
           "fx": "magenta-mist",
           "lines": [
             {
+              "speaker": "narrator",
+              "text": "半露肩。锁骨湿润，衣料皱在你视线里——晨光还没来，体温已经贴上。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "magenta-mist"
+            },
+            {
               "speaker": "mia",
               "text": "「我们是不是早就……」——同空间，不是上床。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "她指尖停在你衣角，没再往下。空气发黏，腿没退——峰值吊在这一寸。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "若你今晚留下：Jade 会在群聊里刺「又是她」——谣言先到，名分没有。互斥会记账。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……别装听不见。留不留。」",
+              "camera": "close_collar",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
             }
           ]
         },
         {
           "nodeId": "n_w3_03_jade",
           "type": "dialogue",
-          "speaker": "jade",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "留宿边缘。Jade 衣领凌乱，薄汗，几乎贴上你。",
+          "text": "留宿边缘。Jade 衣领凌乱，薄汗，几乎贴上你——同空间，不是上床。",
           "choices": [
             {
               "choiceId": "c1",
-              "text": "接招：别停。",
+              "text": "接招：别停。——她哼你胆子大，肩带却又滑。互斥会刺。",
               "next": "n_w3_04_set_jade",
               "delta": {},
               "setFlags": {
                 "edge_sleepover_jade": true,
                 "edge_sleepover_pending": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
-              "text": "圆场：……先这样。",
+              "text": "圆场：……先这样。——场面圆住，热留一半。她目光没完全收回。",
               "next": "n_w3_04_set_jade",
               "delta": {},
               "setFlags": {
                 "edge_sleepover_jade": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c3",
-              "text": "躲开：我该走。",
+              "text": "躲开：我该走。——后颈还热。账单会来。",
               "next": "n_w3_05",
               "delta": {
                 "tension": 2
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -1250,11 +1863,39 @@
           "fx": "magenta-mist",
           "lines": [
             {
+              "speaker": "narrator",
+              "text": "衣领凌乱，薄汗。她几乎贴上你——香水像故意留指纹，世界缩成这一寸。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "magenta-mist"
+            },
+            {
               "speaker": "jade",
               "text": "「别装只是朋友。」——同空间，不是上床。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
+            },
+            {
+              "speaker": "narrator",
+              "text": "肩带又滑。她不拉，目光停在喉结——峰值吊着，吻没收成，名分也没有。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "若你今晚留下：Mia 会在短信里刺「你又选她」——群聊谣言先到。互斥会记账。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "jade",
+              "text": "「……留不留。别装路过。」",
+              "camera": "close_collar",
+              "transition": "softZoomCrop",
+              "fx": "magenta-mist"
             }
           ]
         },
@@ -1299,33 +1940,199 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "次日走廊有目光。谣言比早饭快。刺痛线的短信已到——没被选中的那个人。",
-          "choices": [
-            {
-              "choiceId": "c1",
-              "text": "接招：看回去。",
-              "next": "n_w3_05",
-              "delta": {}
-            },
-            {
-              "choiceId": "c2",
-              "text": "圆场：装没看见。",
-              "next": "n_w3_05",
-              "delta": {}
-            },
-            {
-              "choiceId": "c3",
-              "text": "躲开：加快脚步。",
-              "next": "n_w3_05",
-              "delta": {}
-            }
-          ],
+          "playerVisible": false,
+          "text": "（谣言群聊路由）",
+          "advanceByFlag": {
+            "edge_sleepover_mia==true": "n_w3_rumor_mia",
+            "edge_sleepover_jade==true": "n_w3_rumor_jade",
+            "default": "n_w3_rumor_mia"
+          },
           "assetId": "assets/scenes/w3/n_w3_04_seen.webp",
-          "artCue": "被看见",
+          "artCue": "谣言路由",
           "artStatus": "placeholder",
           "characters": [
             "kai"
-          ]
+          ],
+          "meta": {
+            "namedBeat": "谣言群聊",
+            "dikBatch4": true
+          }
+        },
+        {
+          "nodeId": "n_w3_rumor_mia",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "《谣言群聊》——截图式气泡比早饭快。匿名：昨夜门锁响过。刺痛线已到 Jade。",
+          "camera": "close",
+          "transition": "insert",
+          "fx": "phone_glow",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "手机亮。群聊截图式气泡一串——没头像的「？？」先丢图：走廊门缝、你的肩线。",
+              "camera": "close",
+              "transition": "insert",
+              "fx": "phone_glow"
+            },
+            {
+              "speaker": "narrator",
+              "text": "匿名：「Mia 那间……门锁响了吧。」——被看见的羞耻先到，名分没有。",
+              "camera": "close_alt",
+              "transition": "dip",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "刺痛线弹出——Jade：「又是她。」三个字，比群聊更烫。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "走廊目光扫过来。你屏幕还亮着，像把昨夜同空间又摊开一次。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "phone_glow"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c1",
+              "text": "接招：看回去。——群气泡还亮着，你偏不躲。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c2",
+              "text": "圆场：装没看见。——锁上屏幕，热还停在指腹。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c3",
+              "text": "躲开：加快脚步。——匿名气泡追到后颈。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            }
+          ],
+          "assetId": "assets/scenes/w3/n_w3_04_seen.webp",
+          "artCue": "谣言群聊",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ],
+          "meta": {
+            "namedBeat": "谣言群聊",
+            "dikBatch4": true
+          }
+        },
+        {
+          "nodeId": "n_w3_rumor_jade",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "《谣言群聊》——截图式气泡比早饭快。匿名：昨夜门锁响过。刺痛线已到 Mia。",
+          "camera": "close",
+          "transition": "insert",
+          "fx": "phone_glow",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "手机亮。群聊截图式气泡一串——没头像的「？？」先丢图：走廊门缝、你的肩线。",
+              "camera": "close",
+              "transition": "insert",
+              "fx": "phone_glow"
+            },
+            {
+              "speaker": "narrator",
+              "text": "匿名：「Jade 那边……门锁响了吧。」——被看见的羞耻先到，名分没有。",
+              "camera": "close_alt",
+              "transition": "dip",
+              "fx": "magenta-mist"
+            },
+            {
+              "speaker": "narrator",
+              "text": "刺痛线弹出——Mia：「你又选她。」四个字，比群聊更刺。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            },
+            {
+              "speaker": "narrator",
+              "text": "走廊目光扫过来。你屏幕还亮着，像把昨夜同空间又摊开一次。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "phone_glow"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c1",
+              "text": "接招：看回去。——群气泡还亮着，你偏不躲。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c2",
+              "text": "圆场：装没看见。——锁上屏幕，热还停在指腹。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c3",
+              "text": "躲开：加快脚步。——匿名气泡追到后颈。",
+              "next": "n_w3_05",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            }
+          ],
+          "assetId": "assets/scenes/w3/n_w3_04_seen.webp",
+          "artCue": "谣言群聊",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ],
+          "meta": {
+            "namedBeat": "谣言群聊",
+            "dikBatch4": true
+          }
         },
         {
           "nodeId": "n_w3_05",
@@ -1341,19 +2148,37 @@
               "delta": {},
               "setFlags": {
                 "trouble_tier": "high"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
               "choiceId": "c2",
               "text": "圆场：误会。",
               "next": "n_w3_06",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
               "text": "躲开：不接。",
               "next": "n_w3_06",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w3/n_w3_05.webp",
@@ -1378,6 +2203,12 @@
               "delta": {},
               "setFlags": {
                 "vanessa_crack": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
               }
             },
             {
@@ -1387,6 +2218,12 @@
               "delta": {},
               "setFlags": {
                 "vanessa_crack": true
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
               }
             },
             {
@@ -1395,6 +2232,12 @@
               "next": "n_w3_07",
               "delta": {
                 "tension": 2
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -1519,25 +2362,43 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "晨光凌乱。肩线、皱衣、话说一半。",
+          "text": "《皱衣未说完》——晨光凌乱。肩线、皱衣、话说一半。体温还在，名分没有。",
           "choices": [
             {
               "choiceId": "c1",
               "text": "接招：别装无事。",
               "next": "n_w4_confront",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c2",
               "text": "圆场：……先上课。",
               "next": "n_w4_confront",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
             },
             {
               "choiceId": "c3",
               "text": "躲开：先走。",
               "next": "n_w4_confront",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w4/n_w4_morning.webp",
@@ -1552,7 +2413,14 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "体温还在。",
+              "text": "晨光切过皱衣。肩线还乱，呼吸未平——话说到一半就停。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "narrator",
+              "text": "体温还在。名分没有。走廊那头，选边的气口已经打开。",
               "camera": "close_alt",
               "transition": "softZoomCrop",
               "fx": "breath"
@@ -1564,15 +2432,25 @@
           "type": "dialogue",
           "speaker": "troy",
           "tier": "paid",
-          "text": "Troy：「选边。现在。」",
+          "text": "《选边·现在》——Troy：「选边。现在。」",
           "choices": [
             {
               "choiceId": "c1",
-              "text": "接招：挺我在乎的人。",
+              "text": "接招：挺我在乎的人。——挡在她前面。",
               "next": "n_w4_hub_pick",
               "delta": {},
               "setFlags": {
                 "w4_stand": "protect"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                },
+                "openIf": {
+                  "comment": "INTENT only — engine not wired: rascal>=3 may surface bolder line「别挡她。滚。」; Status UI later",
+                  "rascal_gte": 3
+                }
               }
             },
             {
@@ -1582,6 +2460,16 @@
               "delta": {},
               "setFlags": {
                 "w4_stand": "defuse"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                },
+                "openIf": {
+                  "comment": "INTENT only — steady>=3 may soften to「别在这儿闹。我带走。」; Status UI later",
+                  "steady_gte": 3
+                }
               }
             },
             {
@@ -1592,6 +2480,12 @@
               "setFlags": {
                 "w4_stand": "fold",
                 "trouble_tier": "high"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
               }
             }
           ],
@@ -1608,25 +2502,43 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "这一学期，你把重量交给谁？",
+          "text": "第一部收束——你把重量交给谁？（可重开其他结局）",
           "choices": [
             {
               "choiceId": "c_m",
               "text": "Mia——发小优先。",
               "next": "n_w4_end_mia",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             },
             {
               "choiceId": "c_j",
               "text": "Jade——公开定性。",
               "next": "n_w4_end_jade",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             },
             {
               "choiceId": "c_v",
               "text": "Vanessa——裂缝加深（不抢成）。",
               "next": "n_w4_end_vanessa",
-              "delta": {}
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
             }
           ],
           "assetId": "assets/scenes/w4/n_w4_hub_pick.webp",
@@ -1639,9 +2551,9 @@
         {
           "nodeId": "n_w4_end_mia",
           "type": "dialogue",
-          "speaker": "mia",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "旧称呼终于说出口。半公开，完整赢——不是安慰奖。",
+          "text": "旧称呼终于说出口。半公开，完整赢——不是安慰奖。第一部在这儿收住。",
           "advance": "n_w4_tail",
           "assetId": "assets/scenes/w4/n_w4_end_mia.webp",
           "artCue": "发小",
@@ -1649,14 +2561,33 @@
           "characters": [
             "kai",
             "mia"
+          ],
+          "camera": "close",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "晨光里肩线还乱。体温还在——名分，这一次有了半边。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……笨蛋。叫我一声。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
           ]
         },
         {
           "nodeId": "n_w4_end_jade",
           "type": "dialogue",
-          "speaker": "jade",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "看台灯光下贴肩。「这下他们看清楚了。」面子赢，浅，但真。",
+          "text": "看台灯光下贴肩。面子赢，浅，但真。第一部在这儿收住。",
           "advance": "n_w4_tail",
           "assetId": "assets/scenes/w4/n_w4_end_jade.webp",
           "artCue": "公开",
@@ -1664,14 +2595,33 @@
           "characters": [
             "kai",
             "jade"
+          ],
+          "camera": "mid",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "合影位不再空。肩带临界，她却故意不躲镜头。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "jade",
+              "text": "「这下他们看清楚了。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
           ]
         },
         {
           "nodeId": "n_w4_end_vanessa",
           "type": "dialogue",
-          "speaker": "vanessa",
+          "speaker": "narrator",
           "tier": "paid",
-          "text": "咖啡后续。眼底有裂，Troy 影还在。",
+          "text": "咖啡后续。眼底有裂——裂缝加深，不是抢成。Troy 影还在。第一部在这儿收住。",
           "advance": "n_w4_tail",
           "assetId": "assets/scenes/w4/n_w4_end_vanessa.webp",
           "artCue": "裂缝",
@@ -1684,6 +2634,13 @@
           "transition": "dip",
           "fx": "danger_glance",
           "lines": [
+            {
+              "speaker": "narrator",
+              "text": "领口大一指的余温还在。她没倒向你——但裂了。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
             {
               "speaker": "vanessa",
               "text": "「我没倒向你。——还没。」",
@@ -1698,13 +2655,25 @@
           "type": "dialogue",
           "speaker": "narrator",
           "tier": "paid",
-          "text": "麻烦爆了。走廊很冷。Troy 赢了这一轮。——可重开。",
+          "text": "麻烦爆了。走廊很冷。Troy 赢了这一轮。——第一部仍完结：可重开，换一条结局。",
           "advance": "n_w4_tail",
           "assetId": "assets/scenes/w4/n_w4_end_crash.webp",
           "artCue": "翻车",
           "artStatus": "placeholder",
           "characters": [
             "kai"
+          ],
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "afterimage",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "选边的气口空着。账单结成翻车——不是续作钩，是重开邀请。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            }
           ]
         },
         {
@@ -1712,7 +2681,7 @@
           "type": "settle",
           "tier": "paid",
           "chapterEnd": true,
-          "text": "第一学期未完。下学期更爆——抢人章预告。",
+          "text": "第一部完 · 可重开其他结局。同一条报到路，换一边重量——发小 / 公开 / 裂缝 / 翻车，都能打到。",
           "nextStageId": null,
           "assetId": "assets/scenes/w4/n_w4_tail.webp",
           "artCue": "尾卡",

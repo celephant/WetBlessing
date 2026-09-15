@@ -56,9 +56,11 @@ describe("P-D2 compile allowlist", () => {
         path: DEFAULT_CH01_PATH,
         contentVersion: DEFAULT_CH01_VERSION,
         routeId: DEFAULT_CH01_ROUTE_ID,
+        aliases: ["0.4.8-feel"],
         supersedes: ["0.4.7-feel", "0.4.6-midboard"],
       },
     ]);
+    expect(compileAllowlist.defaultAllow[0]?.aliases).toContain("0.4.8-feel");
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(content.routeId).toBe("route_kai_ch01");
     expect(() => assertDefaultLoad(content, DEFAULT_CH01_PATH)).not.toThrow();

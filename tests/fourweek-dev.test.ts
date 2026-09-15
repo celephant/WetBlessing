@@ -1,4 +1,5 @@
-import { existsSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { CLIMAX_ART_STATUS, resolveAssetUrl } from "../lib/assets";
@@ -75,7 +76,15 @@ describe("DEV fourweek switch (not default load)", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(compileAllowlist.amendedFor).toBe("0.4.8-feel-hot");
     expect(tryReadFourweekMini(root)?.contentVersion).toBe("0.5.0-fourweek-mini");
-    expect(listInstalledFourweekDrafts(root)).toEqual([FOURWEEK_MINI_PATH]);
+    expect(
+      createHash("sha256")
+        .update(readFileSync(path.join(root, FOURWEEK_MINI_PATH)))
+        .digest("hex"),
+    ).toBe("f60674fa31da44525c2d76b8455e60f7a6d974621ab95d10a082ff2a0bac7912");
+    expect(listInstalledFourweekDrafts(root)).toEqual([
+      FOURWEEK_MINI_PATH,
+      ...FOURWEEK_WEEK_PATHS,
+    ]);
     expect(matchesDenyGlob(FOURWEEK_MINI_PATH)).toBe(true);
     for (const week of FOURWEEK_WEEK_PATHS) {
       expect(matchesDenyGlob(week)).toBe(true);

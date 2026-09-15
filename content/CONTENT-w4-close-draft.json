@@ -1,0 +1,382 @@
+{
+  "routeId": "route_kai_w4_close_draft",
+  "contentVersion": "0.5.0-w4-draft",
+  "meta": {
+    "status": "DRAFT_NOT_DEFAULT_ALLOWLIST",
+    "dikBatch4": true
+  },
+  "stages": [
+    {
+      "stageId": "stage_w4_close",
+      "stageTitle": "W4",
+      "order": 4,
+      "entryNodeId": "n_w4_open",
+      "nodes": [
+        {
+          "nodeId": "n_w4_open",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "收束周。有的人晨光里衣料还皱着；有的人只剩下短信。",
+          "advance": "n_w4_morning_r",
+          "assetId": "assets/scenes/w4/n_w4_open.webp",
+          "artCue": "开",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ]
+        },
+        {
+          "nodeId": "n_w4_morning_r",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "playerVisible": false,
+          "text": "（留宿旗→晨光）",
+          "advanceByFlag": {
+            "edge_sleepover_mia==true": "n_w4_morning",
+            "edge_sleepover_jade==true": "n_w4_morning",
+            "default": "n_w4_confront"
+          },
+          "assetId": "assets/scenes/w4/n_w4_morning_r.webp",
+          "artCue": "路由",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ]
+        },
+        {
+          "nodeId": "n_w4_morning",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "《皱衣未说完》——晨光凌乱。肩线、皱衣、话说一半。体温还在，名分没有。",
+          "choices": [
+            {
+              "choiceId": "c1",
+              "text": "接招：别装无事。",
+              "next": "n_w4_confront",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c2",
+              "text": "圆场：……先上课。",
+              "next": "n_w4_confront",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                }
+              }
+            },
+            {
+              "choiceId": "c3",
+              "text": "躲开：先走。",
+              "next": "n_w4_confront",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            }
+          ],
+          "assetId": "assets/scenes/w4/n_w4_morning.webp",
+          "artCue": "晨光凌乱",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ],
+          "camera": "close",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "晨光切过皱衣。肩线还乱，呼吸未平——话说到一半就停。",
+              "camera": "close",
+              "transition": "soft-zoom",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "narrator",
+              "text": "体温还在。名分没有。走廊那头，选边的气口已经打开。",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_w4_confront",
+          "type": "dialogue",
+          "speaker": "troy",
+          "tier": "paid",
+          "text": "《选边·现在》——Troy：「选边。现在。」",
+          "choices": [
+            {
+              "choiceId": "c1",
+              "text": "接招：挺我在乎的人。——挡在她前面。",
+              "next": "n_w4_hub_pick",
+              "delta": {},
+              "setFlags": {
+                "w4_stand": "protect"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "rascal",
+                  "delta": 1
+                },
+                "openIf": {
+                  "comment": "INTENT only — engine not wired: rascal>=3 may surface bolder line「别挡她。滚。」; Status UI later",
+                  "rascal_gte": 3
+                }
+              }
+            },
+            {
+              "choiceId": "c2",
+              "text": "圆场：别在这儿闹。",
+              "next": "n_w4_hub_pick",
+              "delta": {},
+              "setFlags": {
+                "w4_stand": "defuse"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "steady",
+                  "delta": 1
+                },
+                "openIf": {
+                  "comment": "INTENT only — steady>=3 may soften to「别在这儿闹。我带走。」; Status UI later",
+                  "steady_gte": 3
+                }
+              }
+            },
+            {
+              "choiceId": "c3",
+              "text": "躲开：不接招。",
+              "next": "n_w4_end_crash",
+              "delta": {},
+              "setFlags": {
+                "w4_stand": "fold",
+                "trouble_tier": "high"
+              },
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            }
+          ],
+          "assetId": "assets/scenes/w4/n_w4_confront.webp",
+          "artCue": "对峙",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai",
+            "troy"
+          ]
+        },
+        {
+          "nodeId": "n_w4_hub_pick",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "第一部收束——你把重量交给谁？（可重开其他结局）",
+          "choices": [
+            {
+              "choiceId": "c_m",
+              "text": "Mia——发小优先。",
+              "next": "n_w4_end_mia",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            },
+            {
+              "choiceId": "c_j",
+              "text": "Jade——公开定性。",
+              "next": "n_w4_end_jade",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            },
+            {
+              "choiceId": "c_v",
+              "text": "Vanessa——裂缝加深（不抢成）。",
+              "next": "n_w4_end_vanessa",
+              "delta": {},
+              "meta": {
+                "statusHint": {
+                  "axis": "none",
+                  "delta": 0
+                }
+              }
+            }
+          ],
+          "assetId": "assets/scenes/w4/n_w4_hub_pick.webp",
+          "artCue": "分支",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ]
+        },
+        {
+          "nodeId": "n_w4_end_mia",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "旧称呼终于说出口。半公开，完整赢——不是安慰奖。第一部在这儿收住。",
+          "advance": "n_w4_tail",
+          "assetId": "assets/scenes/w4/n_w4_end_mia.webp",
+          "artCue": "发小",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "close",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "晨光里肩线还乱。体温还在——名分，这一次有了半边。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……笨蛋。叫我一声。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_w4_end_jade",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "看台灯光下贴肩。面子赢，浅，但真。第一部在这儿收住。",
+          "advance": "n_w4_tail",
+          "assetId": "assets/scenes/w4/n_w4_end_jade.webp",
+          "artCue": "公开",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "camera": "mid",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "合影位不再空。肩带临界，她却故意不躲镜头。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "warm-veil"
+            },
+            {
+              "speaker": "jade",
+              "text": "「这下他们看清楚了。」",
+              "camera": "close_alt",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_w4_end_vanessa",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "咖啡后续。眼底有裂——裂缝加深，不是抢成。Troy 影还在。第一部在这儿收住。",
+          "advance": "n_w4_tail",
+          "assetId": "assets/scenes/w4/n_w4_end_vanessa.webp",
+          "artCue": "裂缝",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai",
+            "vanessa"
+          ],
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "danger_glance",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "领口大一指的余温还在。她没倒向你——但裂了。",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            },
+            {
+              "speaker": "vanessa",
+              "text": "「我没倒向你。——还没。」",
+              "camera": "close",
+              "transition": "softZoomCrop",
+              "fx": "breath"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_w4_end_crash",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "tier": "paid",
+          "text": "麻烦爆了。走廊很冷。Troy 赢了这一轮。——第一部仍完结：可重开，换一条结局。",
+          "advance": "n_w4_tail",
+          "assetId": "assets/scenes/w4/n_w4_end_crash.webp",
+          "artCue": "翻车",
+          "artStatus": "placeholder",
+          "characters": [
+            "kai"
+          ],
+          "camera": "mid",
+          "transition": "dip",
+          "fx": "afterimage",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "选边的气口空着。账单结成翻车——不是续作钩，是重开邀请。",
+              "camera": "mid",
+              "transition": "dip",
+              "fx": "afterimage"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_w4_tail",
+          "type": "settle",
+          "tier": "paid",
+          "chapterEnd": true,
+          "text": "第一部完 · 可重开其他结局。同一条报到路，换一边重量——发小 / 公开 / 裂缝 / 翻车，都能打到。",
+          "nextStageId": null,
+          "assetId": "assets/scenes/w4/n_w4_tail.webp",
+          "artCue": "尾卡",
+          "artStatus": "placeholder",
+          "characters": []
+        }
+      ]
+    }
+  ]
+}

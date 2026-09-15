@@ -6,6 +6,7 @@
       "path": "content/CONTENT-ch01-free-to-firstsub.json",
       "contentVersion": "0.4.8-feel-hot",
       "routeId": "route_kai_ch01",
+      "aliases": ["0.4.8-feel"],
       "supersedes": ["0.4.7-feel", "0.4.6-midboard"]
     }
   ],
@@ -41,5 +42,5 @@
     "CONTENT-w3-*",
     "CONTENT-w4-*"
   ],
-  "note": "结构同0.4.6；观感文案升0.4.8-feel-hot（supersedes 0.4.7-feel / 0.4.6-midboard）。黎包与 fourweek 草稿仍不得进默认编译与演示。"
+  "note": "默认演示0.4.8-feel-hot（与0.4.8-feel同档）；fourweek-mini联调不升默认"
 }
