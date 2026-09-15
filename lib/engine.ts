@@ -20,12 +20,15 @@ import {
 
 export { flagMatches, matchFlagExpr } from "./flag-expr";
 
+const zeroPair = () => ({ affection: 0, desire: 0 });
+
 const emptyStats = (): Stats => ({
-  mia: { affection: 0, desire: 0 },
-  jade: { affection: 0, desire: 0 },
-  vanessa: { affection: 0, desire: 0 },
-  rae: { affection: 0, desire: 0 },
-  lina: { affection: 0, desire: 0 },
+  mia: zeroPair(),
+  jade: zeroPair(),
+  vanessa: zeroPair(),
+  rae: zeroPair(),
+  lina: zeroPair(),
+  reina: zeroPair(),
   tension: 0,
 });
 
@@ -81,12 +84,13 @@ export function resolveNext(node: ContentNode, flags: Flags): string | null {
 export function applyDelta(stats: Stats, delta?: Delta): Stats {
   if (!delta) return stats;
   const next: Stats = {
-    mia: { ...stats.mia },
-    jade: { ...stats.jade },
-    vanessa: { ...stats.vanessa },
-    rae: { ...stats.rae },
-    lina: { ...stats.lina },
-    tension: stats.tension + (delta.tension ?? 0),
+    mia: { ...(stats.mia ?? zeroPair()) },
+    jade: { ...(stats.jade ?? zeroPair()) },
+    vanessa: { ...(stats.vanessa ?? zeroPair()) },
+    rae: { ...(stats.rae ?? zeroPair()) },
+    lina: { ...(stats.lina ?? zeroPair()) },
+    reina: { ...(stats.reina ?? zeroPair()) },
+    tension: (stats.tension ?? 0) + (delta.tension ?? 0),
   };
   if (delta.stats) {
     for (const who of CAST_STAT_KEYS) {

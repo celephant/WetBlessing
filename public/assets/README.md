@@ -5,7 +5,8 @@
 **付费段别名（P-D5）：** 完整表见 `docs/ART-assetId-aliases.md`。
 
 摘要（bible-wire）：
-- 圣经镜头图按 scene ID：`S06a.webp`（Mia 床）· `S06b.webp`（Jade 干楼梯）· `S04.webp`（Rae 水手门）· `S06c.webp`（Lina 氯水）· `S11.webp`（Vanessa 唯一雨）· `S14.webp`（Reina 办公室周一钩）
+- 圣经镜头图按 scene ID：`S06a.webp`（Mia 床）· `S06b.webp`（Jade 干楼梯）· `S04.webp`（Rae 水手门）· `S06c.webp`（Lina 氯水）· `S11.webp`（Vanessa 唯一雨）· `S14.webp`（Reina 办公室周一钩，Ch01 未接线）
+- Ch02 新静帧在 `scenes/ch02/`：`S13.webp` 食堂 · `S14.webp` 办公室 · `S14-lock.webp` 锁门 · `S14-abort.webp` 免费中止 · `S14-kiss.webp` 付费吻
 - 吻 / catch / OT 仍用旧 `n_heat_*`，且不得与对应 `n_with_*` 撞文件
 - Jade **不再挂** `n_pay_01_catch_b.webp`
 - 播放器只认 `assetId`，勿用 `nodeId` 拼文件名判缺图

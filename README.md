@@ -7,6 +7,7 @@ Campus romance VN web player. Suggestive / not adult. College characters 18+ (Ka
 Next.js App Router + TypeScript + Tailwind player wired to `content/CONTENT-ch01-free-to-firstsub.json` (0.4.8-feel-hot) and Night Pass tokens in `content/UI-tokens.json`. Those fixtures are the only default content source.
 
 - Default Ch01: `content/CONTENT-ch01-free-to-firstsub.json` @ 0.4.8-feel-hot (linked at `src/content/chapters/ch01.json`)
+- DEV Ch02 cafeteria + Reina office: `/play?content=ch02` (pack `content/CONTENT-ch02-office.json`; does **not** replace default Ch01). Title screen link: **DEV ch02 办公室**. Toggle **DEV PASS** for the paid office kiss.
 - P-D2 default load allowlist: `content/compile-allowlist.json` (only `0.4.8-feel-hot` / `route_kai_ch01`; deny `route_li_*` / `stage_0*` / `persona_li_*` / 黎包 / fourweek drafts)
 - Click the dialogue box to advance lines
 - Engine: `advance` / `advanceByFlag` / `gate:first_sub` on dialogue / `settle` / `requiresEntitlement` / `onLocked: show_pass_chip` / `cta: story_pass_month`

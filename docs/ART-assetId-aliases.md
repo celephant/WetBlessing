@@ -89,10 +89,22 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 
 S14 / `n_reina_monday` is **not** on the Ch01 graph. Mail is dry text on `n_sms_auto`.
 
+## 2b. Ch02（DEV `/play?content=ch02`）
+
+新文件在 `public/assets/scenes/ch02/`，**不改** `scenes/ch01`。直出路径，不走 Ch01 stem fallback。
+
+| nodeId | assetId |
+|---|---|
+| `n_ch02_open` / `n_s13_*` / `n_s13_after` | `assets/scenes/ch02/S13.webp` |
+| `n_s14_office` / `n_s14_silk` / `n_s14_wall` | `assets/scenes/ch02/S14.webp` |
+| `n_s14_lock` | `assets/scenes/ch02/S14-lock.webp` |
+| `n_s14_abort` / `n_ch02_settle` | `assets/scenes/ch02/S14-abort.webp` |
+| `n_s14_kiss` | `assets/scenes/ch02/S14-kiss.webp` |
+
 ## 3. 工程校验建议
 
 1. 缺图判定：`fs.exists(public/` + `assetId`)`，**不要** `exists(nodeId + '.webp')`。  
-2. `scenes/heat/` 与 w2/w3 一样按路径直出，不走 Ch01 stem fallback。  
+2. `scenes/heat/`、`scenes/ch02/` 与 w2/w3 一样按路径直出，不走 Ch01 stem fallback。  
 3. 不要提交 `art-pack-ready/` 或 `wetblessing-src.tgz`。
 
 ## 4. 仍缺
