@@ -5,7 +5,7 @@ export type CompileAllowEntry = {
   path: string;
   contentVersion: string;
   routeId: string;
-  supersedes?: string;
+  supersedes?: string | string[];
 };
 
 export type CompileAllowlist = {

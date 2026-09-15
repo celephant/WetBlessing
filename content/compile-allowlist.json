@@ -6,7 +6,7 @@
       "path": "content/CONTENT-ch01-free-to-firstsub.json",
       "contentVersion": "0.4.8-feel-hot",
       "routeId": "route_kai_ch01",
-      "supersedes": "0.4.7-feel"
+      "supersedes": ["0.4.7-feel", "0.4.6-midboard"]
     }
   ],
   "denyDefaultGlobs": [

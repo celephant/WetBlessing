@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
@@ -24,6 +25,11 @@ function walkFiles(dir: string, acc: string[] = []): string[] {
 describe("Slice-0 hard locks", () => {
   it("uses only the 0.4.8-feel-hot content pack on main", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
+    expect(
+      createHash("sha256")
+        .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
+        .digest("hex"),
+    ).toBe("62220c4880f0edec22c77756af5801f576ab86a5948501c03859632a9e40f82a");
     expect(content.project).toBe("WetBlessing");
     expect(readdirSync(path.join(root, "content")).sort()).toEqual([
       "ART-camera-crops-v1.json",

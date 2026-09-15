@@ -56,7 +56,7 @@ describe("P-D2 compile allowlist", () => {
         path: DEFAULT_CH01_PATH,
         contentVersion: DEFAULT_CH01_VERSION,
         routeId: DEFAULT_CH01_ROUTE_ID,
-        supersedes: "0.4.7-feel",
+        supersedes: ["0.4.7-feel", "0.4.6-midboard"],
       },
     ]);
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
@@ -99,6 +99,9 @@ describe("P-D2 compile allowlist", () => {
     ).toThrow(/P-D2 deny/);
     expect(() =>
       compileRoute({ ...stub, contentVersion: "0.4.6-midboard" }, { asDefault: true }),
+    ).toThrow(/0\.4\.8-feel-hot/);
+    expect(() =>
+      compileRoute({ ...stub, contentVersion: "0.4.7-feel" }, { asDefault: true }),
     ).toThrow(/0\.4\.8-feel-hot/);
   });
 
