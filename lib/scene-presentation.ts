@@ -238,6 +238,26 @@ export function parseFx(raw?: string): SceneFxName | null {
   return null;
 }
 
+function intimateBeatTransition(
+  beatId: IntimateBeatId | null,
+): SceneTransitionName | null {
+  if (!beatId) return null;
+  const table = tokens.intimateBeats;
+  const spec =
+    beatId === "near_miss"
+      ? table.near_miss
+      : beatId === "door_lock"
+        ? table.door_lock
+        : beatId === "sleepover_edge"
+          ? table.sleepover_edge
+          : beatId === "vanessa_close"
+            ? table.vanessa_close
+            : beatId === "morning_light"
+              ? table.morning_light
+              : null;
+  return spec ? tokenCut(spec.transition) : null;
+}
+
 /**
  * Missing / unknown `transition` cycles the three shipped cuts
  * so investor play still moves even when the fixture omits `transition`.
@@ -262,13 +282,8 @@ export function selectAssetChangeTransition(options: {
     typeof options.intimateBeat === "string" ? options.intimateBeat : null;
   if (options.intimateBeat) {
     if (isIntimateForcedCut(parsed)) return parsed;
-    const fromTable =
-      beatId && beatId in tokens.intimateBeats
-        ? (tokens.intimateBeats as Record<string, { transition?: string }>)[
-            beatId
-          ]?.transition
-        : undefined;
-    if (fromTable) return tokenCut(fromTable);
+    const fromTable = intimateBeatTransition(beatId);
+    if (fromTable) return fromTable;
     return tokenCut(tokens.transitions.defaults.intimate);
   }
   if (parsed) return parsed;
