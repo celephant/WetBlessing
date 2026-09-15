@@ -6,8 +6,12 @@ import {
   cropToTransform,
   nextCropName,
   selectCropName,
+  type CropName,
 } from "@/lib/camera-crops";
+import { detectIntimateBeat } from "@/lib/feel-density";
 import {
+  CROP_CUT_TRANSITION,
+  cutDurationMs,
   isFreePathFeel,
   isNightGradeNode,
   MOTION_SPEC,
@@ -17,15 +21,16 @@ import {
   selectSceneFx,
   shouldPlayAssetTransition,
   sceneIdentity,
-  TRANSITION_MS,
+  type CropCutTransition,
   type SceneMotion,
 } from "@/lib/scene-presentation";
 import { artAlt } from "@/lib/tokens";
-import type { SceneFxName, SceneTransitionName } from "@/lib/types";
+import type { ArtCue, SceneFxName, SceneTransitionName } from "@/lib/types";
 
 type SceneArtProps = {
   assetId?: string;
-  artCue?: string | { summary?: string };
+  artCue?: ArtCue;
+  nodeText?: string;
   nodeId: string;
   beatKey: string;
   transition?: string;
@@ -34,7 +39,10 @@ type SceneArtProps = {
   afterPurchase?: boolean;
   forceNightGrade?: boolean;
   gate?: string;
+  beforeChoices?: boolean;
 };
+
+type ActiveCut = SceneTransitionName | CropCutTransition | null;
 
 const PLACEHOLDER_BG =
   "bg-[radial-gradient(ellipse_at_top,_rgba(255,140,120,0.22),_transparent_55%),radial-gradient(ellipse_at_center,_rgba(220,90,140,0.10),_transparent_58%),radial-gradient(ellipse_at_bottom,_rgba(94,224,192,0.16),_transparent_48%),linear-gradient(180deg,#2a1a28_0%,#161820_52%,#122028_100%)]";
@@ -42,11 +50,13 @@ const PLACEHOLDER_BG =
 type Plate = {
   src: string;
   failed: boolean;
+  cropName?: CropName;
 };
 
 export function SceneArt({
   assetId,
   artCue,
+  nodeText,
   nodeId,
   beatKey,
   transition,
@@ -55,6 +65,7 @@ export function SceneArt({
   afterPurchase = false,
   forceNightGrade = false,
   gate,
+  beforeChoices = false,
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
@@ -65,18 +76,31 @@ export function SceneArt({
   const [plate, setPlate] = useState<Plate>({ src, failed: false });
   const [outgoing, setOutgoing] = useState<Plate | null>(null);
   const [activeTransition, setActiveTransition] =
-    useState<SceneTransitionName | null>("fade");
+    useState<ActiveCut>("fade");
   const lockCrop =
     forceNightGrade || isNightGradeNode(nodeId, gate);
+  const intimateBeat = detectIntimateBeat({
+    nodeId,
+    assetId,
+    artCue,
+    text: nodeText,
+  });
   const [motion, setMotion] = useState<SceneMotion>(() =>
     selectSameAssetMotion({
       explicitCamera: camera,
       holdCount: 0,
       allowHold: lockCrop,
+      intimateBeat: Boolean(intimateBeat),
     }),
   );
   const [overlay, setOverlay] = useState<SceneFxName>(() =>
-    selectSceneFx({ explicit: fx, nodeId, gate, forceNightGrade }),
+    selectSceneFx({
+      explicit: fx,
+      nodeId,
+      gate,
+      forceNightGrade,
+      intimateBeat: Boolean(intimateBeat),
+    }),
   );
   const [holdCount, setHoldCount] = useState(0);
 
@@ -93,6 +117,8 @@ export function SceneArt({
     forceNightGrade,
     nodeId,
     gate,
+    beforeChoices,
+    intimateBeat: Boolean(intimateBeat),
   });
   const didMountRef = useRef(false);
   const prevBeatRef = useRef(beatKey);
@@ -108,18 +134,28 @@ export function SceneArt({
     forceNightGrade,
     nodeId,
     gate,
+    beforeChoices,
+    intimateBeat: Boolean(intimateBeat),
   };
 
   useEffect(() => {
-    setOverlay(selectSceneFx({ explicit: fx, nodeId, gate, forceNightGrade }));
-  }, [fx, nodeId, gate, forceNightGrade]);
+    setOverlay(
+      selectSceneFx({
+        explicit: fx,
+        nodeId,
+        gate,
+        forceNightGrade,
+        intimateBeat: Boolean(intimateBeat),
+      }),
+    );
+  }, [fx, nodeId, gate, forceNightGrade, intimateBeat]);
 
   useEffect(() => {
     const entrance = window.setTimeout(() => {
       if (changeCountRef.current === 0) {
         setActiveTransition(null);
       }
-    }, TRANSITION_MS.fade);
+    }, cutDurationMs("fade"));
     return () => {
       clearTimeout(entrance);
       if (cutTimerRef.current !== null) {
@@ -150,6 +186,8 @@ export function SceneArt({
       afterPurchase: purchased,
       nodeId: arrivingId,
       gate: arrivingGate,
+      beforeChoices: arrivingChoices,
+      intimateBeat: arrivingIntimate,
     } = hooksRef.current;
 
     if (shouldPlayAssetTransition(identityRef.current, next)) {
@@ -160,10 +198,17 @@ export function SceneArt({
         nodeId: arrivingId,
         gate: arrivingGate,
         afterPurchase: purchased,
+        intimateBeat: arrivingIntimate,
       });
       setOutgoing({
         src: plateRef.current.src,
         failed: plateFailedRef.current,
+        cropName: selectCropName({
+          explicitCamera: cam,
+          holdCount: holdCountRef.current,
+          lockCrop,
+          beforeChoices: arrivingChoices,
+        }),
       });
       setPlate({ src: next.url, failed: false });
       plateFailedRef.current = false;
@@ -175,6 +220,7 @@ export function SceneArt({
           explicitCamera: cam,
           holdCount: 0,
           allowHold: lockCrop,
+          intimateBeat: arrivingIntimate,
         }),
       );
       identityRef.current = next;
@@ -185,10 +231,16 @@ export function SceneArt({
         setOutgoing(null);
         setActiveTransition(null);
         cutTimerRef.current = null;
-      }, TRANSITION_MS[nextTransition]);
+      }, cutDurationMs(nextTransition));
       return;
     }
 
+    const prevCrop = selectCropName({
+      explicitCamera: cam,
+      holdCount: holdCountRef.current,
+      lockCrop,
+      beforeChoices: arrivingChoices,
+    });
     holdCountRef.current += 1;
     setHoldCount(holdCountRef.current);
     setMotion(
@@ -196,29 +248,56 @@ export function SceneArt({
         explicitCamera: cam,
         holdCount: holdCountRef.current,
         allowHold: lockCrop,
+        intimateBeat: arrivingIntimate,
       }),
     );
-  }, [assetId, beatKey]);
+    const nextCrop = selectCropName({
+      explicitCamera: cam,
+      holdCount: holdCountRef.current,
+      lockCrop,
+      beforeChoices: arrivingChoices,
+    });
+    if (nextCrop !== prevCrop) {
+      setOutgoing({
+        src: plateRef.current.src,
+        failed: plateFailedRef.current,
+        cropName: prevCrop,
+      });
+      setActiveTransition(CROP_CUT_TRANSITION);
+      if (cutTimerRef.current !== null) {
+        clearTimeout(cutTimerRef.current);
+      }
+      cutTimerRef.current = setTimeout(() => {
+        setOutgoing(null);
+        setActiveTransition(null);
+        cutTimerRef.current = null;
+      }, cutDurationMs(CROP_CUT_TRANSITION));
+    }
+  }, [assetId, beatKey, lockCrop]);
 
   const showImage = !plate.failed;
   const cropName = selectCropName({
     explicitCamera: camera,
     holdCount,
     lockCrop,
+    beforeChoices,
   });
-  const fromCrop = cropToTransform(cropRect(cropName), 1);
-  const toCrop = cropToTransform(
-    cropRect(nextCropName(cropName)),
-    MOTION_SPEC.kenBurnsScale,
-  );
-  const cropStyle = {
-    "--crop-from-scale": String(fromCrop.scale),
-    "--crop-from-tx": `${fromCrop.tx}%`,
-    "--crop-from-ty": `${fromCrop.ty}%`,
-    "--crop-to-scale": String(toCrop.scale),
-    "--crop-to-tx": `${toCrop.tx}%`,
-    "--crop-to-ty": `${toCrop.ty}%`,
-  } as CSSProperties;
+  const cropStyleFor = (name: CropName) => {
+    const fromCrop = cropToTransform(cropRect(name), 1);
+    const toCrop = cropToTransform(
+      cropRect(nextCropName(name)),
+      MOTION_SPEC.kenBurnsScale,
+    );
+    return {
+      "--crop-from-scale": String(fromCrop.scale),
+      "--crop-from-tx": `${fromCrop.tx}%`,
+      "--crop-from-ty": `${fromCrop.ty}%`,
+      "--crop-to-scale": String(toCrop.scale),
+      "--crop-to-tx": `${toCrop.tx}%`,
+      "--crop-to-ty": `${toCrop.ty}%`,
+    } as CSSProperties;
+  };
+  const cropStyle = cropStyleFor(cropName);
   const motionClass =
     motion === "hold" ? "scene-crop-hold" : "scene-crop-kenburns";
   const incomingClass = activeTransition ? `scene-in-${activeTransition}` : "";
@@ -234,6 +313,11 @@ export function SceneArt({
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
       data-scene-crop={cropName}
+      data-density-line={String(holdCount + 1)}
+      data-intimate-beat={intimateBeat ?? "off"}
+      data-crop-cut={
+        activeTransition === CROP_CUT_TRANSITION ? "soft-zoom" : "off"
+      }
       data-free-feel={
         !forceNightGrade && isFreePathFeel(nodeId, gate) ? "on" : "off"
       }
@@ -250,7 +334,7 @@ export function SceneArt({
           alt=""
           failed={outgoing.failed}
           motionClass="scene-crop-hold"
-          cropStyle={cropStyle}
+          cropStyle={cropStyleFor(outgoing.cropName ?? cropName)}
           layerClass={`scene-plate-out ${outgoingClass}`}
         />
       ) : null}

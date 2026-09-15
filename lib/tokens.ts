@@ -40,6 +40,7 @@ export function tokenRootCss(): string {
   --transition-fade-ms: ${t.fade.ms}ms;
   --transition-fade-ease: ${t.fade.ease};
   --transition-soft-zoom-ms: ${t.softZoom.ms}ms;
+  --transition-soft-zoom-crop-ms: 280ms;
   --transition-soft-zoom-ease: ${t.softZoom.ease};
   --transition-soft-zoom-old: ${t.softZoom.oldScaleTo};
   --transition-soft-zoom-new: ${t.softZoom.newScaleFrom};

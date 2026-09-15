@@ -24,6 +24,14 @@ const ALIASES: Record<string, CropName> = {
   "kenburns-right": "close",
   breathe: "close",
   hold: "wide",
+  extreme_close: "close",
+  close_hands: "close",
+  medium: "mid",
+  medium_danger: "mid",
+  over_shoulder: "mid",
+  long_then_cut: "wide",
+  wide_split: "wide",
+  insert: "mid",
 };
 
 export function parseCropName(raw?: string): CropName | null {
@@ -44,13 +52,15 @@ export function nextCropName(name: CropName): CropName {
 
 /**
  * Same-asset multi-line cycle: wide → mid → close.
- * Free path starts on the authored crop (close/mid when the fixture asks)
- * then walks the cycle on each hold. Night/wall may lock the authored crop.
+ * Composition may hold ≤2 lines; the 3rd line (holdCount ≥ 2) always
+ * advances even if the fixture omits camera. Night/wall may lock crop.
+ * Before choices, prefer mid/close for weight.
  */
 export function selectCropName(options: {
   explicitCamera?: string;
   holdCount: number;
   lockCrop?: boolean;
+  beforeChoices?: boolean;
 }): CropName {
   const named = parseCropName(options.explicitCamera);
   const hold = Math.max(0, options.holdCount);
@@ -59,7 +69,11 @@ export function selectCropName(options: {
   }
   const startIdx = named ? CROP_CYCLE.indexOf(named) : 0;
   const start = startIdx >= 0 ? startIdx : 0;
-  return CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
+  const cycled = CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
+  if (options.beforeChoices && !options.lockCrop && cycled === "wide") {
+    return named === "mid" ? "mid" : "close";
+  }
+  return cycled;
 }
 
 export function cropToTransform(

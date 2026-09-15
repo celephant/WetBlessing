@@ -1,4 +1,11 @@
 import { resolveAssetUrl } from "./assets";
+import { selectCropName, type CropName } from "./camera-crops";
+import {
+  detectIntimateBeat,
+  isIntimateForcedCut,
+  SOFT_ZOOM_CROP_MS,
+  type IntimateBeatId,
+} from "./feel-density";
 import { isWallGate } from "./paywall-copy";
 import { tokens } from "./tokens";
 import type {
@@ -84,7 +91,19 @@ export const MOTION_SPEC = {
   softZoomOldScaleTo: tokens.transitions.softZoom.oldScaleTo,
   softZoomNewScaleFrom: tokens.transitions.softZoom.newScaleFrom,
   softZoomFocusY: tokens.transitions.softZoom.focusY,
+  /** Same-asset camera-only cut. Spec: ≤280ms, no hard cut / no dip. */
+  softZoomCropMs: SOFT_ZOOM_CROP_MS,
 } as const;
+
+export const CROP_CUT_TRANSITION = "soft-zoom-crop" as const;
+export type CropCutTransition = typeof CROP_CUT_TRANSITION;
+
+export function cutDurationMs(
+  name: SceneTransitionName | CropCutTransition,
+): number {
+  if (name === CROP_CUT_TRANSITION) return MOTION_SPEC.softZoomCropMs;
+  return TRANSITION_MS[name];
+}
 
 export const DEFAULT_SCENE_FX: SceneFxName =
   tokens.grade.defaultIntimate === "warm" ? "warm-tint" : "vignette";
@@ -151,6 +170,8 @@ export function parseTransition(
   if (raw === "fade" || raw === "soft-zoom" || raw === "dip-to-black") {
     return raw;
   }
+  if (raw === "softZoom" || raw === "soft_zoom") return "soft-zoom";
+  if (raw === "dip" || raw === "dip_to_black") return "dip-to-black";
   return null;
 }
 
@@ -228,6 +249,7 @@ export function selectAssetChangeTransition(options: {
   gate?: string;
   afterPurchase?: boolean;
   intimate?: boolean;
+  intimateBeat?: boolean;
 }): SceneTransitionName {
   if (options.afterPurchase) {
     return tokenCut(tokens.transitions.defaults.afterPurchase);
@@ -236,6 +258,10 @@ export function selectAssetChangeTransition(options: {
     return tokenCut(tokens.transitions.defaults.smsOrPaywall);
   }
   const parsed = parseTransition(options.explicit);
+  if (options.intimateBeat) {
+    if (isIntimateForcedCut(parsed)) return parsed;
+    return tokenCut(tokens.transitions.defaults.intimate);
+  }
   if (parsed) return parsed;
   if (options.intimate) {
     return tokenCut(tokens.transitions.defaults.intimate);
@@ -254,9 +280,13 @@ export function selectSameAssetMotion(options: {
   explicitCamera?: string;
   holdCount: number;
   allowHold?: boolean;
+  intimateBeat?: boolean;
 }): SceneMotion {
   const camera = parseCamera(options.explicitCamera);
   const hold = Math.max(0, options.holdCount);
+  if (options.intimateBeat && !camera) {
+    return "breathe";
+  }
 
   if (camera === "hold") {
     return options.allowHold
@@ -283,6 +313,7 @@ export function selectSceneFx(options: {
   nodeId?: string;
   gate?: string;
   forceNightGrade?: boolean;
+  intimateBeat?: boolean;
 }): SceneFxName {
   // PhoneGlow stays off on SMS + paywall (night vignette only).
   if (
@@ -293,7 +324,7 @@ export function selectSceneFx(options: {
   }
   // Free path (and any non-night beat): warmVeil + magentaMist, not adult red/black.
   // Authored dual_focus / close_whisper / etc. must not flatten this to a cold plate.
-  if (isFreePathFeel(options.nodeId, options.gate)) {
+  if (options.intimateBeat || isFreePathFeel(options.nodeId, options.gate)) {
     return "warm-tint";
   }
   return parseFx(options.explicit) ?? DEFAULT_SCENE_FX;
@@ -336,17 +367,31 @@ export function presentationHooksForBeat(
 export function resolveScenePresentation(
   node: ContentNode,
   beatIndex: number,
-  options: { changeCount: number; holdCount: number; afterPurchase?: boolean },
+  options: {
+    changeCount: number;
+    holdCount: number;
+    afterPurchase?: boolean;
+    beforeChoices?: boolean;
+  },
 ): {
   transition: SceneTransitionName;
   motion: SceneMotion;
   fx: SceneFxName;
+  cropName: CropName;
+  intimateBeat: IntimateBeatId | null;
 } {
   const hooks = presentationHooksForBeat(node, beatIndex);
+  const intimateBeat = detectIntimateBeat({
+    nodeId: node.nodeId,
+    assetId: node.assetId,
+    artCue: node.artCue,
+    text: node.text,
+  });
   const fx = selectSceneFx({
     explicit: hooks.fx,
     nodeId: node.nodeId,
     gate: node.gate,
+    intimateBeat: Boolean(intimateBeat),
   });
   return {
     transition: selectAssetChangeTransition({
@@ -356,12 +401,21 @@ export function resolveScenePresentation(
       gate: node.gate,
       afterPurchase: options.afterPurchase,
       intimate: fx === "warm-tint",
+      intimateBeat: Boolean(intimateBeat),
     }),
     motion: selectSameAssetMotion({
       explicitCamera: hooks.camera,
       holdCount: options.holdCount,
       allowHold: !isFreePathFeel(node.nodeId, node.gate),
+      intimateBeat: Boolean(intimateBeat),
     }),
     fx,
+    cropName: selectCropName({
+      explicitCamera: hooks.camera,
+      holdCount: options.holdCount,
+      lockCrop: isNightGradeNode(node.nodeId, node.gate),
+      beforeChoices: options.beforeChoices,
+    }),
+    intimateBeat,
   };
 }

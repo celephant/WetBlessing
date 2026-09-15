@@ -183,6 +183,7 @@ export function VNPlayer({
       <SceneArt
         assetId={snapshot.node.assetId}
         artCue={snapshot.node.artCue}
+        nodeText={`${snapshot.node.text ?? ""} ${snapshot.beat.text ?? ""}`}
         nodeId={snapshot.node.nodeId}
         beatKey={beatKey}
         transition={sceneHooks.transition}
@@ -191,6 +192,7 @@ export function VNPlayer({
         afterPurchase={afterPurchase}
         forceNightGrade={nightGrade}
         gate={snapshot.node.gate}
+        beforeChoices={snapshot.choices.length > 0}
       />
 
       <header className="absolute inset-x-0 top-0 z-[4] flex items-center justify-between px-3 pt-3">

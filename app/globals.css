@@ -49,6 +49,18 @@ body {
   animation: scene-soft-zoom-out var(--transition-soft-zoom-ms, 420ms)
     var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
 }
+.scene-in-soft-zoom-crop,
+.scene-out-soft-zoom-crop {
+  transform-origin: 50% var(--transition-soft-zoom-focus-y, 45%);
+}
+.scene-in-soft-zoom-crop {
+  animation: scene-soft-zoom-in var(--transition-soft-zoom-crop-ms, 280ms)
+    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
+}
+.scene-out-soft-zoom-crop {
+  animation: scene-soft-zoom-out var(--transition-soft-zoom-crop-ms, 280ms)
+    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
+}
 .scene-in-dip-to-black {
   animation: scene-dip-in var(--transition-dip-ms, 380ms) ease-in-out forwards;
 }
@@ -291,6 +303,8 @@ body {
   .scene-out-fade,
   .scene-in-soft-zoom,
   .scene-out-soft-zoom,
+  .scene-in-soft-zoom-crop,
+  .scene-out-soft-zoom-crop,
   .scene-in-dip-to-black,
   .scene-out-dip-to-black,
   .scene-dip-veil,
@@ -307,7 +321,9 @@ body {
     animation: none;
   }
   .scene-in-soft-zoom,
-  .scene-out-soft-zoom {
+  .scene-out-soft-zoom,
+  .scene-in-soft-zoom-crop,
+  .scene-out-soft-zoom-crop {
     transform: none;
   }
 }

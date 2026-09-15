@@ -265,6 +265,8 @@ describe("fx + optional node/line hooks", () => {
       transition: "soft-zoom",
       motion: "kenburns-right",
       fx: "warm-tint",
+      cropName: "wide",
+      intimateBeat: null,
     });
   });
 

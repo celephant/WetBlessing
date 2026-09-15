@@ -44,6 +44,8 @@ describe("ART camera crops", () => {
     expect(cropRect("wide").y + cropRect("wide").h).toBeLessThanOrEqual(0.72);
     expect(DEFAULT_CROP_LINE).toBe("mia");
     expect(CAMERA_CROPS.defaultLine).toBe("mia");
+    expect(parseCropName("extreme_close")).toBe("close");
+    expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("close");
   });
 
   it("keeps free-path Ken Burns motion without a paid unlock", () => {
