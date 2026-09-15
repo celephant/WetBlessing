@@ -14,6 +14,7 @@ import {
   resolveScenePresentation,
   selectAssetChangeTransition,
 } from "../lib/scene-presentation";
+import { tokens } from "../lib/tokens";
 import type { ContentNode } from "../lib/types";
 
 describe("FEEL density + intimate FX", () => {
@@ -96,6 +97,18 @@ describe("FEEL density + intimate FX", () => {
         intimateBeat: true,
       }),
     ).toBe("soft-zoom");
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 0,
+        intimateBeat: "door_lock",
+      }),
+    ).toBe("dip-to-black");
+    expect(
+      selectAssetChangeTransition({
+        changeCount: 0,
+        intimateBeat: "near_miss",
+      }),
+    ).toBe("soft-zoom");
 
     const kiss: ContentNode = {
       nodeId: "n_w2_almost_kiss",
@@ -148,11 +161,12 @@ describe("FEEL density + intimate FX", () => {
   });
 
   it("keeps same-asset camera cuts at a short soft-zoom ≤280ms with no dip", () => {
-    expect(SOFT_ZOOM_CROP_MS).toBe(280);
-    expect(MOTION_SPEC.softZoomCropMs).toBe(280);
+    expect(SOFT_ZOOM_CROP_MS).toBeLessThanOrEqual(280);
+    expect(SOFT_ZOOM_CROP_MS).toBe(tokens.transitions.softZoomCrop.msDefault);
+    expect(MOTION_SPEC.softZoomCropMs).toBe(SOFT_ZOOM_CROP_MS);
     expect(MOTION_SPEC.softZoomCropMs).toBeLessThanOrEqual(280);
     expect(CROP_CUT_TRANSITION).toBe("soft-zoom-crop");
-    expect(cutDurationMs(CROP_CUT_TRANSITION)).toBe(280);
+    expect(cutDurationMs(CROP_CUT_TRANSITION)).toBe(SOFT_ZOOM_CROP_MS);
     expect(cutDurationMs("dip-to-black")).toBe(380);
     expect(cutDurationMs("fade")).toBe(320);
   });

@@ -8,19 +8,24 @@ import type { Choice } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
 
-describe("UI-tokens.json Night Pass v1.1", () => {
+describe("UI-tokens.json Night Pass v1.1.1", () => {
   it("matches the locked SHA256 payload", () => {
     const raw = readFileSync(path.join(root, "content/UI-tokens.json"));
     expect(createHash("sha256").update(raw).digest("hex")).toBe(
       UI_TOKENS_SHA256,
     );
     expect(UI_TOKENS_SHA256).toBe(
-      "8a68fad85f268e7fc1c3f9f4515efed9d0b666380eb3f9cb8ad2420bf1c817de",
+      "452d7671f71c8b870242d00aa67cc8ac0e170f58ee842e352132b2a344102072",
     );
   });
 
   it("locks dialog / continue / stagger / cuts / grade", () => {
-    expect(tokens.version).toBe("1.1.0");
+    expect(tokens.version).toBe("1.1.1");
+    expect(tokens.intimateBeats.forbidFadeOnly).toBe(true);
+    expect(tokens.intimateBeats.near_miss.transition).toBe("softZoom");
+    expect(tokens.intimateBeats.door_lock.transition).toBe("dip");
+    expect(tokens.transitions.softZoomCrop.msMax).toBe(280);
+    expect(tokens.transitions.softZoomCrop.msDefault).toBeLessThanOrEqual(280);
     expect(tokens.motion.dialogMs).toBe(220);
     expect(tokens.motion.dialogContinueMs).toBe(140);
     expect(tokens.motion.choiceStaggerMs).toBe(48);

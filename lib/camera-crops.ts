@@ -32,6 +32,7 @@ const ALIASES: Record<string, CropName> = {
   long_then_cut: "wide",
   wide_split: "wide",
   insert: "mid",
+  bust: "close",
 };
 
 export function parseCropName(raw?: string): CropName | null {

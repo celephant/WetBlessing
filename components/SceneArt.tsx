@@ -118,7 +118,7 @@ export function SceneArt({
     nodeId,
     gate,
     beforeChoices,
-    intimateBeat: Boolean(intimateBeat),
+    intimateBeat,
   });
   const didMountRef = useRef(false);
   const prevBeatRef = useRef(beatKey);
@@ -135,7 +135,7 @@ export function SceneArt({
     nodeId,
     gate,
     beforeChoices,
-    intimateBeat: Boolean(intimateBeat),
+    intimateBeat,
   };
 
   useEffect(() => {

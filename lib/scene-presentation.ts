@@ -62,8 +62,8 @@ export const TRANSITION_MS: Record<SceneTransitionName, number> = {
 };
 
 /**
- * Design Lead lock — sourced from `content/UI-tokens.json` v1.1
- * (`motion` / `transitions` / `grade`).
+ * Design Lead lock — sourced from `content/UI-tokens.json` v1.1.1
+ * (`motion` / `transitions` / `grade` / `intimateBeats`).
  */
 export const MOTION_SPEC = {
   dialogMs: tokens.motion.dialogMs,
@@ -249,7 +249,7 @@ export function selectAssetChangeTransition(options: {
   gate?: string;
   afterPurchase?: boolean;
   intimate?: boolean;
-  intimateBeat?: boolean;
+  intimateBeat?: boolean | IntimateBeatId | null;
 }): SceneTransitionName {
   if (options.afterPurchase) {
     return tokenCut(tokens.transitions.defaults.afterPurchase);
@@ -258,8 +258,17 @@ export function selectAssetChangeTransition(options: {
     return tokenCut(tokens.transitions.defaults.smsOrPaywall);
   }
   const parsed = parseTransition(options.explicit);
+  const beatId =
+    typeof options.intimateBeat === "string" ? options.intimateBeat : null;
   if (options.intimateBeat) {
     if (isIntimateForcedCut(parsed)) return parsed;
+    const fromTable =
+      beatId && beatId in tokens.intimateBeats
+        ? (tokens.intimateBeats as Record<string, { transition?: string }>)[
+            beatId
+          ]?.transition
+        : undefined;
+    if (fromTable) return tokenCut(fromTable);
     return tokenCut(tokens.transitions.defaults.intimate);
   }
   if (parsed) return parsed;
@@ -280,11 +289,14 @@ export function selectSameAssetMotion(options: {
   explicitCamera?: string;
   holdCount: number;
   allowHold?: boolean;
-  intimateBeat?: boolean;
+  intimateBeat?: boolean | IntimateBeatId | null;
 }): SceneMotion {
   const camera = parseCamera(options.explicitCamera);
   const hold = Math.max(0, options.holdCount);
   if (options.intimateBeat && !camera) {
+    return "breathe";
+  }
+  if (options.explicitCamera && !camera) {
     return "breathe";
   }
 
@@ -313,7 +325,7 @@ export function selectSceneFx(options: {
   nodeId?: string;
   gate?: string;
   forceNightGrade?: boolean;
-  intimateBeat?: boolean;
+  intimateBeat?: boolean | IntimateBeatId | null;
 }): SceneFxName {
   // PhoneGlow stays off on SMS + paywall (night vignette only).
   if (
@@ -401,7 +413,7 @@ export function resolveScenePresentation(
       gate: node.gate,
       afterPurchase: options.afterPurchase,
       intimate: fx === "warm-tint",
-      intimateBeat: Boolean(intimateBeat),
+      intimateBeat,
     }),
     motion: selectSameAssetMotion({
       explicitCamera: hooks.camera,

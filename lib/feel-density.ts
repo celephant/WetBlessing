@@ -1,10 +1,14 @@
+import { tokens } from "./tokens";
 import type { ArtCue } from "./types";
 
 /** Same full asset/composition may last at most this many dialogue lines. */
 export const DENSITY_MAX_SAME_COMPOSITION = 2;
 
-/** Same-asset camera-only cut. Spec: short soft-zoom ≤280ms, no hard cut. */
-export const SOFT_ZOOM_CROP_MS = 280;
+/** Same-asset camera-only cut. Tokens v1.1.1: default 260, max 280. */
+export const SOFT_ZOOM_CROP_MS = Math.min(
+  tokens.transitions.softZoomCrop.msDefault,
+  tokens.transitions.softZoomCrop.msMax,
+);
 
 export type IntimateBeatId =
   | "near_miss"

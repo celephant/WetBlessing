@@ -1,6 +1,6 @@
 {
   "name": "WetBlessing Night Pass",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "colors": {
     "void": "#07080C",
     "night": "#12141C",
@@ -143,6 +143,12 @@
       "intimate": "softZoom",
       "smsOrPaywall": "dip",
       "afterPurchase": "softZoom"
+    },
+    "softZoomCrop": {
+      "msMax": 280,
+      "msDefault": 260,
+      "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "crossfadeMsMax": 80
     }
   },
   "grade": {
@@ -157,5 +163,52 @@
     "defaultIntimate": "warm",
     "defaultSmsWall": "night"
   },
-  "feelSpec": "UI-观感加码-动效过场-v1.md"
+  "feelSpec": "UI-观感加码-动效过场-v1.md",
+  "intimateBeats": {
+    "near_miss": {
+      "transition": "softZoom",
+      "ms": 420,
+      "grade": "warm",
+      "fx": "breathe",
+      "camera": "close"
+    },
+    "door_lock": {
+      "transition": "dip",
+      "ms": 380,
+      "grade": "warm",
+      "fx": "grain",
+      "camera": "close"
+    },
+    "sleepover_edge": {
+      "transition": "softZoom",
+      "ms": 420,
+      "grade": "warm",
+      "fx": "breathe",
+      "camera": "close",
+      "optionalLeadDipMs": 380
+    },
+    "vanessa_close": {
+      "transition": "softZoom",
+      "ms": 420,
+      "grade": "warm",
+      "fx": "breathe",
+      "camera": "close",
+      "nameplate": "gold"
+    },
+    "morning_light": {
+      "transition": "softZoom",
+      "ms": 460,
+      "grade": "warm",
+      "fx": "breathe",
+      "camera": "bust",
+      "warmVeilBoost": 0.12
+    },
+    "cropOnly": {
+      "transition": "softZoomCrop",
+      "msMax": 280,
+      "msDefault": 260
+    },
+    "forbidFadeOnly": true
+  },
+  "feelIntimateSpec": "UI-关键暧昧时刻特效-v1.md"
 }

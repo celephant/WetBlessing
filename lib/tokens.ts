@@ -3,7 +3,7 @@ import uiTokens from "../content/UI-tokens.json";
 export const tokens = uiTokens;
 
 export const UI_TOKENS_SHA256 =
-  "8a68fad85f268e7fc1c3f9f4515efed9d0b666380eb3f9cb8ad2420bf1c817de";
+  "452d7671f71c8b870242d00aa67cc8ac0e170f58ee842e352132b2a344102072";
 
 export const SKU_STORY_PASS_MONTH = "story_pass_month";
 
@@ -16,7 +16,7 @@ export const PASS_HEADLINE = tokens.paywall.headline;
 export const PASS_FOOTNOTE = tokens.paywall.footnote;
 export const PASS_WALL_NODE_ID = tokens.paywall.nodeId;
 
-/** Injected into :root so CSS motion stays locked to UI-tokens.json v1.1. */
+/** Injected into :root so CSS motion stays locked to UI-tokens.json v1.1.1. */
 export function tokenRootCss(): string {
   const m = tokens.motion;
   const t = tokens.transitions;
@@ -40,7 +40,7 @@ export function tokenRootCss(): string {
   --transition-fade-ms: ${t.fade.ms}ms;
   --transition-fade-ease: ${t.fade.ease};
   --transition-soft-zoom-ms: ${t.softZoom.ms}ms;
-  --transition-soft-zoom-crop-ms: 280ms;
+  --transition-soft-zoom-crop-ms: ${t.softZoomCrop.msDefault}ms;
   --transition-soft-zoom-ease: ${t.softZoom.ease};
   --transition-soft-zoom-old: ${t.softZoom.oldScaleTo};
   --transition-soft-zoom-new: ${t.softZoom.newScaleFrom};

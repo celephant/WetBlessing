@@ -168,10 +168,10 @@ describe("same-asset motion", () => {
     ).toBe(3);
   });
 
-  it("ignores unknown camera strings and uses the default cycle", () => {
+  it("degrades unknown camera strings to breathe", () => {
     expect(parseCamera("drone")).toBeNull();
     expect(selectSameAssetMotion({ explicitCamera: "drone", holdCount: 0 })).toBe(
-      selectSameAssetMotion({ holdCount: 0 }),
+      "breathe",
     );
   });
 
