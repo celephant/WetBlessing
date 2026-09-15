@@ -57,6 +57,7 @@ export function PaywallOverlay({
           <button
             type="button"
             disabled
+            data-sku="story_pass_month"
             className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-gold/40 bg-gold/15 font-ui text-[15px] text-gold/80"
           >
             {/* TODO(slice-1): Stripe Checkout for story_pass_month */}
@@ -68,8 +69,9 @@ export function PaywallOverlay({
           type="button"
           disabled
           className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-white/10 bg-white/[0.04] font-ui text-[15px] text-paper/70"
+          data-sku="chapter_unlock"
         >
-          {zh.secondary} · ${CHAPTER_UNLOCK_PRICE}
+          {zh.secondary}
         </button>
 
         <button
@@ -87,7 +89,7 @@ export function PaywallOverlay({
         >
           {zh.tertiary}
         </button>
-        <p className="sr-only">{`story_pass_month ${PASS_PRICE}`}</p>
+        <p className="sr-only">{`story_pass_month ${PASS_PRICE} chapter_unlock ${CHAPTER_UNLOCK_PRICE}`}</p>
       </div>
     </div>
   );

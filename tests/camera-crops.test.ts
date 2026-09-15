@@ -7,7 +7,13 @@ import {
   selectCropName,
 } from "../lib/camera-crops";
 import { compileRoute } from "../lib/content";
-import { isWallGate, PAYWALL_EDGE_LOCK, PAYWALL_HARD } from "../lib/paywall-copy";
+import {
+  CHAPTER_UNLOCK_PRICE,
+  isWallGate,
+  paywallCopyForGate,
+  PAYWALL_EDGE_LOCK,
+  PAYWALL_HARD,
+} from "../lib/paywall-copy";
 import type { ContentFile } from "../lib/types";
 import { isPaywallWallNode, selectSameAssetMotion } from "../lib/scene-presentation";
 
@@ -93,6 +99,20 @@ describe("edge_lock + paywall copy", () => {
   it("keeps wall1 体温未散 and owned edge primary 推门进去", () => {
     expect(PAYWALL_HARD["zh-CN"].title).toContain("体温");
     expect(PAYWALL_HARD.behavior.tone).toMatch(/禁暗示开通后才开始暧昧/);
+    expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass_month");
+    expect(PAYWALL_HARD.behavior.secondaryAction).toBe(
+      "checkout_sku:chapter_unlock|scope=w1_continue",
+    );
+    expect(PAYWALL_HARD["zh-CN"].primary).toContain("$8.99");
+    expect(PAYWALL_HARD["zh-CN"].secondary).toContain("$2.99");
     expect(PAYWALL_EDGE_LOCK["zh-CN"].primaryOwned).toBe("推门进去");
+    expect(PAYWALL_EDGE_LOCK.behavior.primaryOwnedAction).toBe("continue_paid_edge");
+    expect(PAYWALL_EDGE_LOCK.behavior.secondaryAction).toBe(
+      "checkout_sku:chapter_unlock|scope=w3_edge_night",
+    );
+    expect(PAYWALL_EDGE_LOCK["zh-CN"].primary).toContain("$8.99");
+    expect(CHAPTER_UNLOCK_PRICE).toBe(2.99);
+    expect(paywallCopyForGate("first_sub")).toBe(PAYWALL_HARD);
+    expect(paywallCopyForGate("edge_lock")).toBe(PAYWALL_EDGE_LOCK);
   });
 });
