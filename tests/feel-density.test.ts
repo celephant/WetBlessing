@@ -5,6 +5,7 @@ import {
   DENSITY_MAX_SAME_COMPOSITION,
   detectIntimateBeat,
   intimateAllowsFade,
+  intimateBeatGaps,
   SOFT_ZOOM_CROP_MS,
 } from "../lib/feel-density";
 import {
@@ -52,7 +53,7 @@ describe("FEEL density + intimate FX", () => {
         holdCount: 0,
         beforeChoices: true,
       }),
-    ).toBe("mid");
+    ).toBe("close");
     expect(
       selectCropName({
         explicitCamera: "wide",
@@ -60,6 +61,14 @@ describe("FEEL density + intimate FX", () => {
         beforeChoices: true,
       }),
     ).toBe("close");
+    expect(
+      selectCropName({
+        explicitCamera: "mid",
+        holdCount: 0,
+        beforeChoices: true,
+        cameraChanged: true,
+      }),
+    ).toBe("mid");
 
     const mia = content.stages[0]!.nodes.find(
       (node) => node.nodeId === "n_mia_edge_1",
@@ -206,5 +215,17 @@ describe("FEEL density + intimate FX", () => {
     expect(resolved.fx).toBe("warm-tint");
     expect(resolved.motion).toBe("kenburns-up");
     expect(resolved.intimateBeat).toBeNull();
+  });
+
+  it("warns when an intimate beat node omits transition/fx", () => {
+    const bare: ContentNode = {
+      nodeId: "n_w2_almost_kiss",
+      type: "dialogue",
+      text: "almost-kiss",
+    };
+    const gaps = intimateBeatGaps([bare]);
+    expect(gaps.some((row) => row.includes("missing transition"))).toBe(true);
+    expect(gaps.some((row) => row.includes("missing fx"))).toBe(true);
+    expect(Array.isArray(intimateBeatGaps(content.stages[0]!.nodes))).toBe(true);
   });
 });

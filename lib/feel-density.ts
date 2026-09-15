@@ -96,6 +96,41 @@ export function intimateAllowsFade(): boolean {
   return !tokens.intimateBeats.forbidFadeOnly;
 }
 
+export function intimateBeatGaps(
+  nodes: Array<{
+    nodeId?: string;
+    assetId?: string;
+    artCue?: ArtCue;
+    text?: string;
+    transition?: string;
+    fx?: string;
+    lines?: Array<{ transition?: string; fx?: string }>;
+  }>,
+): string[] {
+  const gaps: string[] = [];
+  for (const node of nodes) {
+    const beat = detectIntimateBeat({
+      nodeId: node.nodeId,
+      assetId: node.assetId,
+      artCue: node.artCue,
+      text: node.text,
+    });
+    if (!beat) continue;
+    const hasTransition =
+      Boolean(node.transition) ||
+      Boolean(node.lines?.some((line) => line.transition));
+    const hasFx =
+      Boolean(node.fx) || Boolean(node.lines?.some((line) => line.fx));
+    if (!hasTransition) {
+      gaps.push(`${node.nodeId ?? "?"}: missing transition (${beat})`);
+    }
+    if (!hasFx) {
+      gaps.push(`${node.nodeId ?? "?"}: missing fx (${beat})`);
+    }
+  }
+  return gaps;
+}
+
 export function isIntimateForcedCut(
   name: string | null | undefined,
 ): name is "soft-zoom" | "dip-to-black" {

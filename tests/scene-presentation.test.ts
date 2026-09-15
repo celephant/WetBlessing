@@ -104,8 +104,11 @@ describe("asset-change transitions", () => {
     expect(cycled).toEqual(["fade", "soft-zoom", "dip-to-black", "fade"]);
   });
 
-  it("treats unknown transition strings as missing", () => {
+  it("degrades unknown transition strings to soft-zoom", () => {
     expect(parseTransition("explode")).toBeNull();
+    expect(
+      selectAssetChangeTransition({ explicit: "explode", changeCount: 0 }),
+    ).toBe("soft-zoom");
     expect(
       selectAssetChangeTransition({ explicit: "explode", changeCount: 1 }),
     ).toBe("soft-zoom");

@@ -1,5 +1,6 @@
 import { assertDefaultLoad } from "./allowlist";
 import { assertChoiceIndexBudget } from "./choice-index";
+import { intimateBeatGaps } from "./feel-density";
 import type { CompiledRoute, ContentFile, ContentNode } from "./types";
 import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
 
@@ -42,6 +43,8 @@ export function compileRoute(
     gateField: file.meta.gateField,
   };
   assertChoiceIndexBudget(compiled);
+  // Optional audit only — never fails compile or default load.
+  void intimateBeatGaps([...nodes.values()]);
   return compiled;
 }
 

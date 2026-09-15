@@ -106,6 +106,7 @@ export function SceneArt({
     }),
   );
   const [holdCount, setHoldCount] = useState(0);
+  const [lineCameraChanged, setLineCameraChanged] = useState(false);
 
   const identityRef = useRef(identity);
   const plateRef = useRef(plate);
@@ -126,6 +127,7 @@ export function SceneArt({
   const didMountRef = useRef(false);
   const prevBeatRef = useRef(beatKey);
   const prevAssetRef = useRef(assetId);
+  const prevCameraRef = useRef(camera);
   const cutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   plateRef.current = plate;
@@ -192,6 +194,9 @@ export function SceneArt({
       beforeChoices: arrivingChoices,
       intimateBeat: arrivingIntimate,
     } = hooksRef.current;
+    const cameraChanged = Boolean(cam && cam !== prevCameraRef.current);
+    prevCameraRef.current = cam;
+    setLineCameraChanged(cameraChanged);
 
     if (shouldPlayAssetTransition(identityRef.current, next)) {
       changeCountRef.current += 1;
@@ -215,6 +220,7 @@ export function SceneArt({
           holdCount: holdCountRef.current,
           lockCrop,
           beforeChoices: arrivingChoices,
+          cameraChanged,
         }),
       });
       setPlate({ src: next.url, failed: false });
@@ -222,6 +228,7 @@ export function SceneArt({
       setActiveTransition(nextTransition);
       holdCountRef.current = 0;
       setHoldCount(0);
+      setLineCameraChanged(false);
       setMotion(
         selectSameAssetMotion({
           explicitCamera: cam,
@@ -251,6 +258,7 @@ export function SceneArt({
       holdCount: holdCountRef.current,
       lockCrop,
       beforeChoices: arrivingChoices,
+      cameraChanged,
     });
     holdCountRef.current += 1;
     setHoldCount(holdCountRef.current);
@@ -271,6 +279,7 @@ export function SceneArt({
       holdCount: holdCountRef.current,
       lockCrop,
       beforeChoices: arrivingChoices,
+      cameraChanged,
     });
     if (nextCrop !== prevCrop) {
       setOutgoing({
@@ -296,6 +305,7 @@ export function SceneArt({
     holdCount,
     lockCrop,
     beforeChoices,
+    cameraChanged: lineCameraChanged,
   });
   const cropStyleFor = (name: CropName) => {
     const fromCrop = cropToTransform(cropRect(name), 1);

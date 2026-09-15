@@ -62,6 +62,8 @@ export function selectCropName(options: {
   holdCount: number;
   lockCrop?: boolean;
   beforeChoices?: boolean;
+  /** True when this line authored a new camera vs the previous line. */
+  cameraChanged?: boolean;
 }): CropName {
   const named = parseCropName(options.explicitCamera);
   const hold = Math.max(0, options.holdCount);
@@ -71,8 +73,12 @@ export function selectCropName(options: {
   const startIdx = named ? CROP_CYCLE.indexOf(named) : 0;
   const start = startIdx >= 0 ? startIdx : 0;
   const cycled = CROP_CYCLE[(start + hold) % CROP_CYCLE.length]!;
-  if (options.beforeChoices && !options.lockCrop && cycled === "wide") {
-    return named === "mid" ? "mid" : "close";
+  if (
+    options.beforeChoices &&
+    !options.lockCrop &&
+    !options.cameraChanged
+  ) {
+    return "close";
   }
   return cycled;
 }

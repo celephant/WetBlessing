@@ -189,6 +189,7 @@ const CAMERA_ALIASES: Record<string, SceneCameraName> = {
   insert: "hold",
   close_hands: "breathe",
   medium_danger: "kenburns-right",
+  bust: "breathe",
 };
 
 /** 0.4.7-feel authored fx words → shipped overlays. Unknown → default vignette. */
@@ -206,6 +207,8 @@ const FX_ALIASES: Record<string, SceneFxName> = {
   phone_glow: "soft-light",
   tension_hold: "vignette",
   danger_glance: "warm-tint",
+  grain: "warm-tint",
+  breathe: "warm-tint",
 };
 
 export function parseCamera(raw?: string): SceneCameraName | null {
@@ -248,8 +251,8 @@ function intimateBeatTransition(
 }
 
 /**
- * Missing / unknown `transition` cycles the three shipped cuts
- * so investor play still moves even when the fixture omits `transition`.
+ * Missing `transition` cycles fade / soft-zoom / dip.
+ * Unknown strings degrade to soft-zoom (with breathe on the plate).
  */
 export function selectAssetChangeTransition(options: {
   explicit?: string;
@@ -267,6 +270,8 @@ export function selectAssetChangeTransition(options: {
     return tokenCut(tokens.transitions.defaults.smsOrPaywall);
   }
   const parsed = parseTransition(options.explicit);
+  const unknownExplicit =
+    Boolean(options.explicit) && !parsed;
   const beatId =
     typeof options.intimateBeat === "string" ? options.intimateBeat : null;
   if (options.intimateBeat) {
@@ -276,6 +281,7 @@ export function selectAssetChangeTransition(options: {
     return tokenCut(tokens.transitions.defaults.intimate);
   }
   if (parsed) return parsed;
+  if (unknownExplicit) return TRANSITION_SOFT_ZOOM;
   if (options.intimate) {
     return tokenCut(tokens.transitions.defaults.intimate);
   }
@@ -397,6 +403,11 @@ export function resolveScenePresentation(
   intimateBeat: IntimateBeatId | null;
 } {
   const hooks = presentationHooksForBeat(node, beatIndex);
+  const prevHooks =
+    beatIndex > 0 ? presentationHooksForBeat(node, beatIndex - 1) : null;
+  const cameraChanged = Boolean(
+    prevHooks && hooks.camera && hooks.camera !== prevHooks.camera,
+  );
   const intimateBeat = detectIntimateBeat({
     nodeId: node.nodeId,
     assetId: node.assetId,
@@ -431,6 +442,7 @@ export function resolveScenePresentation(
       holdCount: options.holdCount,
       lockCrop: isNightGradeNode(node.nodeId, node.gate),
       beforeChoices: options.beforeChoices,
+      cameraChanged,
     }),
     intimateBeat,
   };
