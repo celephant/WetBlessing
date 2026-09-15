@@ -36,6 +36,8 @@ describe("Slice-0 hard locks", () => {
       "ART-climax-manifest.json",
       "CONTENT-ch01-free-to-firstsub.json",
       "CONTENT-ch02-office.json",
+      "CONTENT-ch03-night.json",
+      "CONTENT-ch04-endings.json",
       "CONTENT-fourweek-mini-0.5.0.json",
       "CONTENT-w2-tug-draft.json",
       "CONTENT-w3-edge-draft.json",

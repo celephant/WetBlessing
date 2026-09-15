@@ -70,7 +70,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(resolvePlayRoute("ch02", null, null)).toBe("missing-ch02");
     const play = resolvePlayRoute("ch02", null, file);
     expect(play).not.toBe("missing-ch02");
-    if (play === "missing-ch02" || play === "missing-fourweek") return;
+    if (typeof play === "string") return;
     expect(play.content.contentVersion).toBe(CH02_OFFICE_VERSION);
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
   });
