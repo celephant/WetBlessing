@@ -1,6 +1,8 @@
 {
   "status": "BLOCKED_BYTES",
-  "reason": "P0 climax webp attachments were not recoverable as original bytes in this agent run (vision-only / no binary payload). Do not invent images.",
+  "reason": "P0 climax webp attachments were vision-only in this agent run (no recoverable original webp bytes on disk). Do not invent images. Parent should ship a follow-up binary PR.",
+  "amendedFor": "0.4.8-feel-hot",
+  "defaultLoad": "0.4.8-feel-hot",
   "paths": [
     "public/assets/scenes/w2/n_w2_almost_kiss.webp",
     "public/assets/scenes/w2/n_w2_door_gap.webp",
@@ -8,5 +10,13 @@
     "public/assets/scenes/w3/n_w3_sleepover_edge.webp",
     "public/assets/scenes/w3/n_w3_vanessa_dm.webp",
     "public/assets/scenes/w4/n_w4_morning_light.webp"
+  ],
+  "files": [
+    { "path": "public/assets/scenes/w2/n_w2_almost_kiss.webp", "status": "BLOCKED_BYTES" },
+    { "path": "public/assets/scenes/w2/n_w2_door_gap.webp", "status": "BLOCKED_BYTES" },
+    { "path": "public/assets/scenes/w3/n_w3_door_lock_hand.webp", "status": "BLOCKED_BYTES" },
+    { "path": "public/assets/scenes/w3/n_w3_sleepover_edge.webp", "status": "BLOCKED_BYTES" },
+    { "path": "public/assets/scenes/w3/n_w3_vanessa_dm.webp", "status": "BLOCKED_BYTES" },
+    { "path": "public/assets/scenes/w4/n_w4_morning_light.webp", "status": "BLOCKED_BYTES" }
   ]
 }

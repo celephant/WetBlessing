@@ -6,7 +6,7 @@ import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { SceneArt } from "@/components/SceneArt";
-import { content } from "@/lib/content";
+import { route, type CompiledRoute } from "@/lib/content";
 import {
   clickAdvance,
   selectChoice,
@@ -33,14 +33,18 @@ import {
 import { NIGHT_PASS_DIALOG_DOCK_CSS } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
 
-function persistSave(state: GameState) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(SAVE_STORAGE_KEY, JSON.stringify(state));
+function saveKey(packId: string) {
+  return packId === "default" ? SAVE_STORAGE_KEY : `${SAVE_STORAGE_KEY}:${packId}`;
 }
 
-function readSave(): GameState | null {
+function persistSave(state: GameState, packId: string) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(saveKey(packId), JSON.stringify(state));
+}
+
+function readSave(packId: string): GameState | null {
   if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(SAVE_STORAGE_KEY);
+  const raw = localStorage.getItem(saveKey(packId));
   if (!raw) return null;
   try {
     return JSON.parse(raw) as GameState;
@@ -49,15 +53,24 @@ function readSave(): GameState | null {
   }
 }
 
-export function VNPlayer({ resume = false }: { resume?: boolean }) {
+export function VNPlayer({
+  resume = false,
+  compiled = route,
+  packId = "default",
+}: {
+  resume?: boolean;
+  compiled?: CompiledRoute;
+  packId?: string;
+}) {
   const [state, setState] = useState<GameState | null>(null);
   const [locked, setLocked] = useState<Choice | null>(null);
   const [afterPurchase, setAfterPurchase] = useState(false);
+  const pack = compiled.content;
 
   useEffect(() => {
     const entitlements = loadEntitlements();
     if (resume) {
-      const saved = readSave();
+      const saved = readSave(packId);
       if (saved) {
         setState({
           ...saved,
@@ -70,8 +83,8 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
         return;
       }
     }
-    setState(startGame(entitlements));
-  }, [resume]);
+    setState(startGame(entitlements, compiled));
+  }, [resume, compiled, packId]);
 
   useEffect(() => {
     if (!afterPurchase) return;
@@ -86,23 +99,23 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
     return <div className="h-dvh bg-void" />;
   }
 
-  const snapshot = view(state);
+  const snapshot = view(state, compiled);
   const beatKey = `${state.nodeId}:${state.beatIndex}`;
   const sceneHooks = presentationHooksForBeat(snapshot.node, state.beatIndex);
 
   const commit = (next: GameState) => {
-    persistSave(next);
+    persistSave(next, packId);
     setState(next);
   };
 
   const onDialogClick = () => {
     if (locked) return;
     if (snapshot.choices.length > 0 || snapshot.isSettle) return;
-    commit(clickAdvance(state));
+    commit(clickAdvance(state, compiled));
   };
 
   const onChoice = (choiceId: string) => {
-    const result = selectChoice(state, choiceId);
+    const result = selectChoice(state, choiceId, compiled);
     if (result.ok) {
       setLocked(null);
       commit(result.state);
@@ -116,7 +129,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
 
   const onDevUnlock = () => {
     grantFullEntitleDev(state.entitlements);
-    const result = unlockNext(state);
+    const result = unlockNext(state, undefined, compiled);
     if (result.ok) {
       setLocked(null);
       setAfterPurchase(true);
@@ -157,6 +170,8 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
           : "off"
       }
       data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
+      data-play-pack={packId}
+      data-content-version={pack.contentVersion}
       data-unlock-gates="first_sub,edge_lock"
       data-entitle-first-sub={state.entitlements.story_pass_month ? "on" : "off"}
       data-entitle-edge-lock={
@@ -189,7 +204,7 @@ export function VNPlayer({ resume = false }: { resume?: boolean }) {
           <p className="font-display text-[11px] uppercase tracking-[0.22em] text-mint">
             Night Pass
           </p>
-          <p className="font-ui text-xs text-paper/70">{content.routeTitle}</p>
+          <p className="font-ui text-xs text-paper/70">{pack.routeTitle}</p>
         </div>
         <button
           type="button"

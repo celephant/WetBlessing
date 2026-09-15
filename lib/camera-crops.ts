@@ -7,6 +7,8 @@ export type CropTransform = { scale: number; tx: number; ty: number };
 
 export const CAMERA_CROPS = cropsJson;
 
+export const DEFAULT_CROP_LINE = CAMERA_CROPS.defaultLine ?? "mia";
+
 export const CROP_CYCLE = CAMERA_CROPS.cycle as CropName[];
 
 const ALIASES: Record<string, CropName> = {

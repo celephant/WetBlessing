@@ -62,6 +62,9 @@ describe("P-D2 compile allowlist", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
     expect(content.routeId).toBe("route_kai_ch01");
     expect(() => assertDefaultLoad(content, DEFAULT_CH01_PATH)).not.toThrow();
+    expect(compileAllowlist.optionalDevAllow?.every((entry) => entry.neverDefault)).toBe(
+      true,
+    );
   });
 
   it("denies frozen 黎 / route_li / stage_0 / persona_li globs", () => {

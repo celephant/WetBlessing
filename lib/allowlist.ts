@@ -8,10 +8,17 @@ export type CompileAllowEntry = {
   supersedes?: string | string[];
 };
 
+export type CompileDevAllowEntry = {
+  path: string;
+  via?: string;
+  neverDefault?: boolean;
+};
+
 export type CompileAllowlist = {
   patch: string;
   amendedFor?: string;
   defaultAllow: CompileAllowEntry[];
+  optionalDevAllow?: CompileDevAllowEntry[];
   denyDefaultGlobs: string[];
   note: string;
 };

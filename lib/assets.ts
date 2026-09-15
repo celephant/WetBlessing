@@ -1,5 +1,8 @@
+import climaxManifest from "../content/ART-climax-manifest.json";
 import { content } from "./content";
 import type { ContentFile } from "./types";
+
+export const CLIMAX_ART_STATUS = climaxManifest.status;
 
 const CH01_SCENE_DIR = "assets/scenes/ch01";
 
@@ -50,9 +53,20 @@ export function fallbackSceneStem(stem: string): string {
   return "n_see_both";
 }
 
+function isBlockedClimaxPath(assetId: string): boolean {
+  const rel = stripLeadingSlash(assetId);
+  if (!rel.includes("/scenes/w2/") && !rel.includes("/scenes/w3/") && !rel.includes("/scenes/w4/")) {
+    return false;
+  }
+  return climaxManifest.status === "BLOCKED_BYTES";
+}
+
 /** Public-relative path (no leading slash), always a shipped webp. */
 export function resolveAssetPath(assetId?: string): string {
   if (!assetId) return DEFAULT_SCENE_FALLBACK;
+  if (isBlockedClimaxPath(assetId)) {
+    return scenePath(fallbackSceneStem(stemOf(assetId)));
+  }
   const stem = stemOf(assetId);
   if (stem && SHIPPED_STEMS.has(stem)) {
     return scenePath(stem);

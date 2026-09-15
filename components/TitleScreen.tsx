@@ -58,6 +58,10 @@ export function TitleScreen() {
         <p className="mt-6 font-ui text-[11px] leading-5 text-mute">
           content {content.contentVersion}
           <br />
+          <Link href="/play?content=fourweek" className="text-gold/80 underline">
+            DEV fourweek
+          </Link>
+          <br />
           {/* TODO(slice-1): Auth / account entitlements */}
           {/* TODO(slice-1): Stripe Checkout for story_pass_month */}
           {/* TODO(slice-1): Railway production deploy */}

@@ -5,6 +5,12 @@
   "mother": { "w": 2048, "h": 1152 },
   "dialogSafeBottom": 0.28,
   "defaultLine": "mia",
+  "lines": {
+    "mia": {
+      "note": "Default 联调 line. Shared mother 2048×1152 presets; cycle wide→mid→close.",
+      "cycle": ["wide", "mid", "close"]
+    }
+  },
   "aliases": {
     "far": "wide",
     "shoulder": "mid",
