@@ -22,9 +22,9 @@ describe("P-D1 engine surface", () => {
   it("wires advance, advanceByFlag, first_sub-on-dialogue, settle, entitlement, chip, cta", () => {
     expect(getNode("n_open").advance).toBe("n_see_both");
     expect(getNode("n_pay_02_router").advanceByFlag).toMatchObject({
-      "went_with==mia": "n_pay_02_ot_mia",
-      "went_with==lina": "n_pay_02_ot_lina",
-      "went_with==rae": "n_pay_02_ot_rae",
+      "catch_target==mia": "n_pay_02_ot_mia",
+      "catch_target==lina": "n_pay_02_ot_lina",
+      "catch_target==rae": "n_pay_02_ot_rae",
     });
     const wall = getNode("n_ch01_first_sub");
     expect(wall.type).toBe("dialogue");

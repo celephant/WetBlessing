@@ -1617,11 +1617,11 @@
             "kai"
           ],
           "advanceByFlag": {
-            "went_with==mia": "n_pay_02_ot_mia",
-            "went_with==jade": "n_pay_02_ot_jade",
-            "went_with==lina": "n_pay_02_ot_lina",
-            "went_with==rae": "n_pay_02_ot_rae",
-            "went_with==none": "n_pay_02_double_empty"
+            "catch_target==mia": "n_pay_02_ot_mia",
+            "catch_target==jade": "n_pay_02_ot_jade",
+            "catch_target==lina": "n_pay_02_ot_lina",
+            "catch_target==rae": "n_pay_02_ot_rae",
+            "default": "n_pay_02_double_empty"
           },
           "playerVisible": false
         },
