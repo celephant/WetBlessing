@@ -25,9 +25,10 @@ body {
 }
 
 /* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon.
-   Landscape / desktop: cover the pane above the 28% dock.
-   Phone portrait: pin a complete 16:9 still to the top (no left/right crop).
-   Dialogue sits under that still. Fade on assetId change, then hold. */
+   Landscape / desktop: 16:9 covers the pane above the 28% dock.
+   Portrait + paired 9:16: contain the portrait file in that same pane (no cover-crop).
+   Portrait + landscape-only: pin a complete 16:9 still to the top (PR #10 fallback).
+   Fade on assetId change, then hold. */
 .vn-stage {
   container-type: inline-size;
   container-name: vn;
@@ -41,11 +42,25 @@ body {
   bottom: var(--night-pass-dock, 28%);
 }
 
+.scene-still-hold picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .scene-still-fill {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+}
+
+[data-title-idle] [data-title-still] picture,
+[data-title-idle] [data-title-still] img {
+  width: 100%;
+  height: 100%;
 }
 
 .choice-overlay {
@@ -56,28 +71,36 @@ body {
   bottom: var(--night-pass-dock, 28%);
 }
 
+@media (orientation: portrait) {
+  .scene-art-pane[data-still-pair="paired"] .scene-still-fill,
+  [data-title-idle][data-still-pair="paired"] .scene-still-fill {
+    object-fit: contain;
+    object-position: center center;
+  }
+}
+
 @media (orientation: portrait) and (max-width: 719px) {
-  .scene-art-pane {
+  .scene-art-pane:not([data-still-pair="paired"]) {
     bottom: auto;
     width: 100%;
     height: auto;
     aspect-ratio: var(--scene-still-aspect, 16 / 9);
   }
-  .scene-art-pane .scene-still-fill {
+  .scene-art-pane:not([data-still-pair="paired"]) .scene-still-fill {
     object-fit: contain;
     object-position: center center;
   }
-  .choice-overlay {
+  .vn-stage:not(:has([data-still-pair="paired"])) .choice-overlay {
     bottom: auto;
     height: calc(100cqw * 9 / 16 - 3.25rem);
   }
-  [data-night-pass-dock],
-  [data-settle-dock] {
+  .vn-stage:not(:has([data-still-pair="paired"])) [data-night-pass-dock],
+  .vn-stage:not(:has([data-still-pair="paired"])) [data-settle-dock] {
     top: calc(100cqw * 9 / 16);
     bottom: 0;
     height: auto !important;
   }
-  [data-night-pass-dock] [data-dialog-enter] {
+  .vn-stage:not(:has([data-still-pair="paired"])) [data-night-pass-dock] [data-dialog-enter] {
     justify-content: flex-start;
   }
 }

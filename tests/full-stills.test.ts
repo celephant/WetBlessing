@@ -35,6 +35,8 @@ describe("full stills (no Ken Burns / postage stamp)", () => {
     expect(sceneArt).not.toMatch(/cropToTransform|scene-crop-kenburns|breathe-layer/);
     expect(sceneArt).toContain('data-scene-fit="frame"');
     expect(sceneArt).toContain('data-scene-crop="full"');
+    expect(sceneArt).toContain("<picture>");
+    expect(sceneArt).toContain("data-still-pair");
 
     expect(css).toContain(".scene-art-pane");
     expect(css).toContain("--scene-still-aspect: 16 / 9");
@@ -46,12 +48,14 @@ describe("full stills (no Ken Burns / postage stamp)", () => {
     expect(css).toContain("object-fit: contain");
     expect(css).toContain("aspect-ratio: var(--scene-still-aspect, 16 / 9)");
     expect(css).toContain("100cqw");
-    expect(css).toContain(".scene-art-pane .scene-still-fill");
+    expect(css).toContain(".scene-art-pane:not([data-still-pair=\"paired\"]) .scene-still-fill");
+    expect(css).toContain(".scene-art-pane[data-still-pair=\"paired\"] .scene-still-fill");
     expect(css).toContain(".choice-overlay");
     expect(css).not.toMatch(/@keyframes scene-crop-kenburns|@keyframes scene-breathe/);
 
     expect(title).toContain("scene-still-fill");
     expect(title).toContain("data-title-idle");
+    expect(title).toContain("<picture>");
 
     expect(pause).toContain("vn-stage");
     expect(pause).toContain("data-choice-overlay");
