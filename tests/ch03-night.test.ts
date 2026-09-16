@@ -277,6 +277,28 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(left.nodeId).toBe("n_s21_vanessa");
   });
 
+  it("hides 先回 Vanessa unless they heard her on rumor morning", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const dodged = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_dodge"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(dodged.nodeId).toBe("n_s21_threads");
+    expect(dodged.flags.vanessa_crack).not.toBe(true);
+    expect(view(dodged, compiled).choices.map((c) => c.choiceId)).not.toContain("c_sms_vanessa");
+
+    const heard = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_ok"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(heard.flags.vanessa_crack).toBe(true);
+    expect(view(heard, compiled).choices.map((c) => c.choiceId)).toContain("c_sms_vanessa");
+  });
+
   it("speaks fluent Chinese without banned slogans, steam-door clones, or Reina sleepover", () => {
     const spoken = spokenHay();
     expect(spoken).toMatch(/只是坐/);

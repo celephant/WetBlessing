@@ -1507,6 +1507,11 @@
               "delta": {},
               "setFlags": {
                 "w4_sms_first": "vanessa"
+              },
+              "requires": {
+                "flags": {
+                  "vanessa_crack": true
+                }
               }
             }
           ]
