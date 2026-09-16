@@ -8,7 +8,7 @@
     "firstSubNodeId": "n_funnel_10",
     "gateField": "first_sub",
     "neverDefault": true,
-    "changelog": "Anonymous night-pool funnel before login. KEEP stills + spine/Ch01 copy. Does not rewire Ch01 n_open."
+    "changelog": "Hook plates are KEEP wet-body stills, not hall cardboard. Does not rewire Ch01 n_open."
   },
   "personas": {
     "persona_kai_v1": { "name": "Kai" },
@@ -28,25 +28,15 @@
           "nodeId": "n_funnel_01",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "水还亮着。四块地，没人让。湿气贴着小臂。心跳已经先走了一步。",
-          "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "artCue": "S05 四分夜图：Mia 侧门 / Jade 台阶相机 / Lina 跳台 / Rae 水手楼道；无雨",
+          "text": "水还亮着。湿气贴着小臂。心跳已经先走了一步。",
+          "assetId": "assets/scenes/heat/S06c.webp",
+          "artCue": "S06c 夜池湿衣大腿毛巾 POV；漏斗第一剧情镜。不是大厅纸箱、不是四分站桩",
           "artStatus": "ready",
-          "characters": ["kai", "mia", "jade", "lina", "rae"],
+          "characters": ["kai", "lina"],
           "setFlags": { "funnel_step": 1 },
           "camera": "hold",
           "transition": "fade",
           "fx": "none",
-          "lines": [
-            {
-              "speaker": "mia",
-              "text": "「还站中间干什么。」"
-            },
-            {
-              "speaker": "jade",
-              "text": "「Kai。别动。就一张。」"
-            }
-          ],
           "choices": [
             {
               "choiceId": "c_f1_enter",

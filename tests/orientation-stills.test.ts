@@ -13,6 +13,7 @@ import {
   PORTRAIT_SOURCE_MEDIA,
   PORTRAIT_STILL_BY_LANDSCAPE,
   TITLE_LANDSCAPE_ASSET_ID,
+  HALL_OPEN_LANDSCAPE_ASSET_ID,
 } from "../lib/orientation-stills";
 
 const root = path.resolve(__dirname, "..");
@@ -23,11 +24,19 @@ function publicFile(url: string): string {
 }
 
 describe("orientation still pick (9:16 vs 16:9)", () => {
-  it("maps n_open to the title portrait and n_conflict to C1-01", () => {
+  it("maps the title hook to S06a and keeps n_open as the Ch01 hall pair", () => {
     expect(pickStillUrl(TITLE_LANDSCAPE_ASSET_ID, "portrait")).toBe(
-      "/media/ch01-portrait/title-portrait.png",
+      "/media/ch01-portrait/C1-M1-portrait.png",
     );
     expect(pickStillUrl(TITLE_LANDSCAPE_ASSET_ID, "landscape")).toBe(
+      "/assets/scenes/heat/S06a.webp",
+    );
+    expect(TITLE_LANDSCAPE_ASSET_ID).not.toContain("n_open");
+    expect(HALL_OPEN_LANDSCAPE_ASSET_ID).toBe("assets/scenes/ch01/n_open.webp");
+    expect(pickStillUrl(HALL_OPEN_LANDSCAPE_ASSET_ID, "portrait")).toBe(
+      "/media/ch01-portrait/title-portrait.png",
+    );
+    expect(pickStillUrl(HALL_OPEN_LANDSCAPE_ASSET_ID, "landscape")).toBe(
       "/assets/scenes/ch01/n_open.webp",
     );
     expect(pickStillUrl("assets/scenes/ch01/n_conflict.webp", "portrait")).toBe(
@@ -37,6 +46,8 @@ describe("orientation still pick (9:16 vs 16:9)", () => {
       "/assets/scenes/ch01/n_conflict.webp",
     );
     expect(orientedStill("assets/scenes/ch01/n_open.webp").pair).toBe("paired");
+    expect(orientedStill("assets/scenes/heat/S06a.webp").pair).toBe("paired");
+    expect(orientedStill("assets/scenes/heat/S06c.webp").pair).toBe("paired");
   });
 
   it("leaves unmatched landscape webps landscape-only (no CSS-crop substitute)", () => {

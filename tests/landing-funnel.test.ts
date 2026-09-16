@@ -22,6 +22,7 @@ import {
   FUNNEL_ZONE_LINES,
   handoffFunnelToCh01,
 } from "../lib/funnel";
+import { TITLE_LANDSCAPE_ASSET_ID } from "../lib/orientation-stills";
 
 const root = path.resolve(__dirname, "..");
 
@@ -113,6 +114,18 @@ describe("landing funnel (pre-login, not default)", () => {
     expect(hay).toContain("点开那张拼贴。");
     expect(hay).not.toMatch(/箱子/);
     expect(FUNNEL_NOTICE).toContain("学生事务。带学生证。");
+    expect(TITLE_LANDSCAPE_ASSET_ID).toBe("assets/scenes/heat/S06a.webp");
+    expect(TITLE_LANDSCAPE_ASSET_ID).not.toContain("n_open");
+    const title = readFileSync(path.join(root, "components/TitleScreen.tsx"), "utf8");
+    expect(title).not.toContain("n_open");
+    expect(title).not.toMatch(HEART_BTN);
+    expect(title).toContain("data-title-start=\"funnel\"");
+    const f1 = file.stages[0]!.nodes.find((node) => node.nodeId === "n_funnel_01");
+    const f2 = file.stages[0]!.nodes.find((node) => node.nodeId === "n_funnel_02");
+    expect(f1?.assetId).toBe("assets/scenes/heat/S06c.webp");
+    expect(f2?.assetId).toBe("assets/scenes/ch01/n_conflict.webp");
+    expect(f1?.assetId).not.toContain("n_open");
+    expect(f2?.assetId).not.toContain("n_open");
     const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
     expect(css).toMatch(/\.choice-overlay\s*\{[\s\S]*?pointer-events:\s*none/);
     expect(readFileSync(path.join(root, "components/FunnelHud.tsx"), "utf8")).toContain(
@@ -130,11 +143,13 @@ describe("landing funnel (pre-login, not default)", () => {
     let state = startGame({}, compiled);
     state = pumpToPrompt(state, compiled);
     expect(view(state, compiled).node.nodeId).toBe("n_funnel_01");
+    expect(view(state, compiled).node.assetId).toBe("assets/scenes/heat/S06c.webp");
     state = selectChoice(state, "c_f1_enter", compiled).ok
       ? (selectChoice(state, "c_f1_enter", compiled) as { ok: true; state: typeof state }).state
       : state;
     state = pumpToPrompt(state, compiled);
     expect(view(state, compiled).node.nodeId).toBe("n_funnel_02");
+    expect(view(state, compiled).node.assetId).toBe("assets/scenes/ch01/n_conflict.webp");
     const seen = selectChoice(state, "c_f2_seen", compiled);
     expect(seen.ok).toBe(true);
     if (!seen.ok) return;

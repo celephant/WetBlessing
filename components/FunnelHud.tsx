@@ -7,6 +7,7 @@ import {
   FUNNEL_ZONE_LINES,
   type FunnelZone,
   funnelZoneForNode,
+  isFunnelClockNode,
   isFunnelFlashNode,
   isFunnelLookNode,
   isFunnelPoolNode,
@@ -34,7 +35,7 @@ export function FunnelHud({
   const look = isFunnelLookNode(nodeId);
   const forced = funnelZoneForNode(nodeId, flags);
   const active = looked ?? forced;
-  const showClock = pool || nodeId.startsWith("n_funnel_06");
+  const showClock = isFunnelClockNode(nodeId);
   const showNotice = nodeId === "n_funnel_09" || nodeId === "n_funnel_10";
 
   useEffect(() => {
@@ -46,14 +47,14 @@ export function FunnelHud({
   }, []);
 
   useEffect(() => {
-    if (!isFunnelFlashNode(nodeId, beatIndex)) {
+    if (!isFunnelFlashNode(nodeId, beatIndex, looked)) {
       setFlash(false);
       return;
     }
     setFlash(true);
     const cut = window.setTimeout(() => setFlash(false), 70);
     return () => window.clearTimeout(cut);
-  }, [nodeId, beatIndex]);
+  }, [nodeId, beatIndex, looked]);
 
   const boxes = portrait ? FUNNEL_HOTSPOTS.portrait : FUNNEL_HOTSPOTS.landscape;
   const zones = useMemo(
@@ -96,7 +97,7 @@ export function FunnelHud({
                 active === zone
                   ? "funnel-hotspot-on border-paper/80"
                   : "border-paper/25"
-              } ${nodeId === "n_funnel_01" ? "funnel-hotspot-scan" : ""}`}
+              } ${look ? "funnel-hotspot-scan" : ""}`}
               data-funnel-hotspot={zone}
               aria-label={FUNNEL_ZONE_LINES[zone].text}
             />

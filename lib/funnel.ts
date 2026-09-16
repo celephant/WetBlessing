@@ -39,8 +39,8 @@ export const FUNNEL_HOTSPOTS: Record<
   },
 };
 
+/** Night-pool map plate (n_conflict). F1 is a wet close-up, not this map. */
 const POOL_NODES = new Set([
-  "n_funnel_01",
   "n_funnel_02",
   "n_funnel_03",
   "n_funnel_03_take",
@@ -56,6 +56,10 @@ const POOL_NODES = new Set([
 
 export function isFunnelPoolNode(nodeId: string): boolean {
   return POOL_NODES.has(nodeId);
+}
+
+export function isFunnelClockNode(nodeId: string): boolean {
+  return nodeId === "n_funnel_01" || isFunnelPoolNode(nodeId) || nodeId.startsWith("n_funnel_06");
 }
 
 export function funnelZoneForNode(nodeId: string, flags: Flags): FunnelZone | null {
@@ -78,8 +82,12 @@ export function isFunnelLookNode(nodeId: string): boolean {
   return nodeId === "n_funnel_02";
 }
 
-export function isFunnelFlashNode(nodeId: string, beatIndex: number): boolean {
-  return nodeId === "n_funnel_01" && beatIndex === 2;
+export function isFunnelFlashNode(
+  nodeId: string,
+  _beatIndex: number,
+  looked?: FunnelZone | null,
+): boolean {
+  return nodeId === "n_funnel_02" && looked === "jade";
 }
 
 export function readFunnelCompleted(): boolean {

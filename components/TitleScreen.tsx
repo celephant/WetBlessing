@@ -26,6 +26,7 @@ export function TitleScreen() {
       className="relative min-h-dvh overflow-hidden bg-void text-paper"
       data-title-idle=""
       data-still-pair={titleStill.pair}
+      data-title-asset={TITLE_LANDSCAPE_ASSET_ID}
     >
       <div className="absolute inset-0" data-title-still="">
         <picture>
@@ -38,11 +39,11 @@ export function TitleScreen() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={titleStill.landscapeUrl}
-            alt="WetBlessing chapter 1"
-            className="scene-still-fill opacity-80"
+            alt="WetBlessing"
+            className="scene-still-fill"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh max-w-dialog flex-col justify-end px-6 pb-12 pt-16">
