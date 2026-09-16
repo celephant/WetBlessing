@@ -243,6 +243,15 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
   it("speaks fluent Chinese without banned slogans, steam-door clones, or Reina sleepover", () => {
     const spoken = spokenHay();
     expect(spoken).toMatch(/只是坐/);
+    expect(spoken).toMatch(/她没松手/);
+    expect(spoken).toMatch(/门缝里是她的肩/);
+    expect(spoken).toMatch(/证挂在门边钩上/);
+    expect(spoken).toMatch(/她伸手把钩上的证朝里/);
+    expect(spoken).toMatch(/你还没走/);
+    expect(spoken).not.toMatch(/门缝里只有暗/);
+    expect(spoken).not.toMatch(/证不在钩上|证的钩是空的/);
+    expect(spoken).not.toMatch(/你还下来，是你自己选的/);
+    expect(spoken).not.toMatch(/谁会叫你坐一下/);
     expect(spoken).toMatch(/从里面关/);
     expect(spoken).toMatch(/锁该落下/);
     expect(spoken).toMatch(/谁进去了/);

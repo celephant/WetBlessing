@@ -75,7 +75,7 @@
           "nodeId": "n_ch03_open",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "闭馆日傍晚。办公室那晚过了几天，楼开始赶人。",
+          "text": "闭馆日傍晚。办公室那天，楼开始赶人。",
           "assetId": "assets/scenes/ch03/S18.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -89,12 +89,6 @@
             {
               "speaker": "narrator",
               "text": "广播把闭馆两个字念得很平。椅子腿在地板上响。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "谁会叫你坐一下，得看这几天你把重量放在哪边。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -155,7 +149,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "指尖收回去。她没看你，像在等你自己决定跟不跟。",
+              "text": "她没松手。她没看你，像在等你自己决定跟不跟。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -309,7 +303,7 @@
             },
             {
               "speaker": "lina",
-              "text": "「挡道。灯我关。——你还下来，是你自己选的。」",
+              "text": "「挡道。灯我关。——你还没走。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -363,7 +357,7 @@
           "nodeId": "n_s18_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "洗衣房。烘筒转着。她穿着白天那件水手领当居家，证不在钩上。",
+          "text": "洗衣房。烘筒转着。她穿着白天那件水手领当居家，证挂在门边钩上。",
           "assetId": "assets/scenes/ch03/S18R.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -472,7 +466,7 @@
           "nodeId": "n_s19_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "她的寝室门。锁还是横着的。门缝里只有暗。",
+          "text": "她的寝室门。锁还是横着的。门缝里是她的肩。",
           "assetId": "assets/scenes/ch03/S19.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1015,7 +1009,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "吻在颈侧。烘筒把你们的呼吸盖过去。证的钩是空的。",
+              "text": "吻在颈侧。烘筒把你们的呼吸盖过去。她伸手把钩上的证朝里。",
               "camera": "hold",
               "transition": "fade"
             },
