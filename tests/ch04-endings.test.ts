@@ -309,7 +309,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
 
   it("speaks ending cards without banned slogans or a Season 2 hook", () => {
     const spoken = spokenHay();
-    expect(spoken).toMatch(/半边名分|笨蛋/);
+    expect(spoken).toMatch(/笨蛋/);
     expect(spoken).toMatch(/这下他们看清楚了/);
     expect(spoken).toMatch(/我没倒向你。——还没/);
     expect(spoken).toMatch(/这一轮 Troy 赢了/);
@@ -327,7 +327,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/这儿没有闪光/);
     expect(spoken).toMatch(/♡|♥/);
     expect(spoken).toMatch(/……/);
-    expect(spoken).not.toMatch(/名分还没人给/);
+    expect(spoken).toMatch(/～/);
+    expect(spoken).not.toMatch(/名分还没人给|半边名分/);
+    expect(spoken).not.toMatch(/皱衣/);
     expect(spoken).not.toMatch(/这帧/);
     expect(spoken).not.toMatch(/没有下学期/);
     expect(spoken).not.toMatch(/证翻白|证在钩上|证还朝里|那张证/);
@@ -335,6 +337,48 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/ぬぷ|ぎち|ずぶ/);
+
+    const file = tryReadCh04Endings(root)!;
+    const byId = new Map(file.stages[0]!.nodes.map((node) => [node.nodeId, node]));
+    const nodeHay = (id: string) => {
+      const node = byId.get(id);
+      return [node?.text ?? "", ...(node?.lines?.map((line) => line.text) ?? [])].join("\n");
+    };
+    const tight = [
+      "n_ch04_open",
+      "n_s23_mia",
+      "n_s23_jade",
+      "n_s23_lina",
+      "n_s23_rae",
+      "n_s23_vanessa",
+      "n_s23_empty",
+      "n_s24_crash",
+      "n_s24_tail",
+      "n_s24_reina",
+    ];
+    for (const id of tight) {
+      expect(nodeHay(id), id).not.toMatch(/♥|♡|～/);
+    }
+    const heat = [
+      "n_s22_mia",
+      "n_s22_jade",
+      "n_s22_lina",
+      "n_s22_rae",
+      "n_s24_mia",
+      "n_s24_jade",
+      "n_s24_lina",
+      "n_s24_rae",
+      "n_s24_vanessa",
+    ];
+    for (const id of heat) {
+      expect(nodeHay(id), id).toMatch(/……/);
+      expect(nodeHay(id), id).toMatch(/～/);
+      expect(nodeHay(id), id).toMatch(/♥|♡/);
+    }
+    const buttons = file.stages[0]!.nodes.flatMap((node) =>
+      (node.choices ?? []).map((choice) => choice.text),
+    ).join("\n");
+    expect(buttons).not.toMatch(/♥|♡|～/);
   });
 
   it("stays under the choiceIndex cap and ships ch04 plates off the Ch01 remap", () => {

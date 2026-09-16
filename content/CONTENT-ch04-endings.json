@@ -35,7 +35,7 @@
       "n_s24_tail"
     ],
     "artPlaceholder": [],
-    "changelog": "Ch04 routers: skip bed without sleepover; S23 default empty not Mia; Jade/Lina/Rae use empty Troy plate; S24 student sleepover > Vanessa. Strip 名分还没人给 / 证普法 / 这帧 / 没有下学期. Keep spoken heat.",
+    "changelog": "Ch04 routers unchanged. Dialogue-voice: S21 phone Stage 1 tight; S22 beds and S24 endings Stage 3–4 with ～……♥; Troy hallway Stage 1 no hearts; no ♥ on buttons; no 名分/皱衣/这帧.",
     "scaleLock": "全员 18+；无生殖器；无性交静帧；无第三堵墙；Reina 不进 Troy 三人镜头"
   },
   "personas": {
@@ -127,7 +127,7 @@
           "nodeId": "n_s22_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "晨光切在她肩上。吊带夜里皱成这样……粉裤边还陷在床单里。♥",
+          "text": "晨光切在肩上。吊带夜里皱成这样……粉裤边还陷在床单里。",
           "assetId": "assets/scenes/ch04/S22-mia.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -141,13 +141,13 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她没抬头。唇色还深。……你一开口，这张床就得认你留过。♡",
+              "text": "牙关咬着。腰自己迎上去。床单还热。……呼吸湿。",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "mia",
-              "text": "「……别先说话。叫了，我就得承认你留下来了。♡」",
+              "text": "「……别先说话。叫了，我就得承认你留下来了～♥」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -192,7 +192,7 @@
           "nodeId": "n_s22_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "窗帘没拉严。她把相机翻过去……镜头对着墙，不是你。♥",
+          "text": "窗帘没拉严。她把相机翻过去……镜头对着墙，不是你。",
           "assetId": "assets/scenes/ch04/S22-jade.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -206,7 +206,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "快门还温着。她指腹停在上面，没按。……像在等你先出声。♡",
+              "text": "快门还温着。指腹停在上面，没按。腿自己并了一下。……等你先出声～♥",
               "camera": "hold",
               "transition": "fade"
             },
@@ -257,7 +257,7 @@
           "nodeId": "n_s22_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "晨光切过湿瓷砖。她抱膝，泳衣还贴着……水珠从锁骨往下滑。♥",
+          "text": "晨光切过湿瓷砖。她抱膝，泳衣还贴着……水珠从锁骨往下滑。",
           "assetId": "assets/scenes/ch04/S22-lina.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -271,7 +271,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "楼还锁着。她没让你松手。……水还在她膝弯里发亮。♡",
+              "text": "楼还锁着。水声很轻。她没让你松手。……膝弯那层凉还在发亮～♥",
               "camera": "hold",
               "transition": "fade"
             },
@@ -322,7 +322,7 @@
           "nodeId": "n_s22_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "烘筒停了。水手领还皱着……钩朝里。♥",
+          "text": "烘筒停了。水手领还贴着锁骨……钩朝里。",
           "assetId": "assets/scenes/ch04/S22-rae.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -336,7 +336,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她脚没沾地。呼吸很浅。……像生怕你一开口，墙就醒。♡",
+              "text": "她脚没沾地。呼吸很浅。唔。……像生怕你一开口，墙就醒～♥",
               "camera": "hold",
               "transition": "fade"
             },
@@ -416,7 +416,7 @@
           "nodeId": "n_s23_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Mia 在你侧后……肩还皱着，背心被风贴了一下。♥",
+          "text": "Troy 堵住楼道。Mia 在你侧后。……背心被风贴了一下。",
           "assetId": "assets/scenes/ch04/S23.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -443,7 +443,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「……别替我答。♡」",
+              "text": "「……别替我答。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -515,7 +515,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "你今早才离开的那个人……还没走到这个转角。耳尖那点热还在。♡",
+              "text": "你今早才离开的那个人……还没走到这个转角。耳尖那点热还在。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -587,7 +587,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "你今早才离开的那个人……还没走到这个转角。池水那层凉还贴在小臂上。♡",
+              "text": "你今早才离开的那个人……还没走到这个转角。池水那层凉还贴在小臂上。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -659,7 +659,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "你今早才离开的那个人……还没走到这个转角。隔墙那层热还没散。♡",
+              "text": "你今早才离开的那个人……还没走到这个转角。隔墙那层热还没散。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -705,7 +705,7 @@
           "nodeId": "n_s23_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Vanessa 站在他侧后……外套是干的，地面也是。♥",
+          "text": "Troy 堵住楼道。Vanessa 站在他侧后。……外套是干的，地面也是。",
           "assetId": "assets/scenes/ch04/S23-vanessa.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -732,7 +732,7 @@
             },
             {
               "speaker": "vanessa",
-              "text": "「听不听是一回事。……别把我当奖品。♡」",
+              "text": "「听不听是一回事。……别把我当奖品。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -881,7 +881,7 @@
           "nodeId": "n_s24_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "食堂门口。她没躲别人的目光。……露肩被日光碰到，她还是拉着你的手。♥",
+          "text": "食堂门口。她没躲别人的目光。……露肩被日光碰到，她还是拉着你的手。",
           "assetId": "assets/scenes/ch04/S24-mia.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -895,13 +895,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「……笨蛋。叫我一声。♡」",
+              "text": "「……笨蛋。叫我一声～♥」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "这一声她接住了。半边名分。……指节还热。",
+              "text": "这一声她接住了。……指节还热。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -915,7 +915,7 @@
           "nodeId": "n_s24_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "合影位不空。她把你拉进框……闪光开着，裙边还在抖。♥",
+          "text": "合影位不空。她把你拉进框……闪光开着，裙边还在抖。",
           "assetId": "assets/scenes/ch04/S24-jade.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -929,13 +929,13 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「这下他们看清楚了。♡」",
+              "text": "「这下他们看清楚了。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "浅。真。……她没松那只袖。",
+              "text": "浅。真。……她没松那只袖～♥",
               "camera": "hold",
               "transition": "fade"
             }
@@ -949,7 +949,7 @@
           "nodeId": "n_s24_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "檐下。地面是干的。雨已经下过了。……风衣敞着，她没倒过来。♥",
+          "text": "檐下。地面是干的。雨已经下过了。……风衣敞着，她没倒过来。",
           "assetId": "assets/scenes/ch04/S24-vanessa.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -963,13 +963,13 @@
           "lines": [
             {
               "speaker": "vanessa",
-              "text": "「我没倒向你。——还没。♡」",
+              "text": "「我没倒向你。——还没。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "裂了。Troy 的影还在。……不是抢成。唇还近。",
+              "text": "裂了。Troy 的影还在。……不是抢成。唇还近～♥",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1010,7 +1010,7 @@
           "nodeId": "n_s24_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "对门从里面关上。……水手领还没干。♥",
+          "text": "对门从里面关上。……水手领还没干。",
           "assetId": "assets/scenes/ch04/S24-rae.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1024,13 +1024,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「隔墙听不见了。……嗯。」",
+              "text": "「隔墙听不见了。……唔。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "世界在门外。她背对着你带上门。……指节还贴着你刚碰过的那层领。♡",
+              "text": "世界在门外。她背对着你带上门。……指节还贴着你刚碰过的那层领～♥",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1064,7 +1064,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "她还是不给称呼。楼是锁的。……泳衣贴着呼吸，链子在门里发烫。♥",
+              "text": "她还是不给称呼。楼是锁的。……泳衣贴着呼吸，链子在门里发烫～♥",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1098,7 +1098,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "她仍是问题。问题没有写完。……黑丝还压在桌沿，门开着，嘴却偏开了。♡",
+              "text": "她仍是问题。问题没有写完。……黑丝还压在桌沿，门开着，嘴却偏开了。",
               "camera": "hold",
               "transition": "fade"
             }
