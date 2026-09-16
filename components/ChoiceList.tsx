@@ -32,7 +32,7 @@ export function ChoiceList({
 
   return (
     <div
-      className="relative z-[3] mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
+      className="relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
       data-choice-stagger={MOTION_SPEC.choiceStaggerMs}
       data-wall-chips={enterDelayMs > 0 ? "after-dip" : "ready"}
     >

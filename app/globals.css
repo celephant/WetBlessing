@@ -69,6 +69,7 @@ body {
   right: 0;
   top: 3.25rem;
   bottom: var(--night-pass-dock, 28%);
+  pointer-events: none;
 }
 
 @media (orientation: portrait) {
