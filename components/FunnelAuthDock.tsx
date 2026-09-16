@@ -39,7 +39,6 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
     <div
       className="flex h-full w-full flex-col justify-end overflow-y-auto border-t border-white/10 bg-night/88 px-5 py-2 backdrop-blur-xl"
       data-funnel-auth=""
-      data-night-pass-dock="28"
     >
       <div className="mx-auto flex w-full max-w-dialog flex-col gap-1.5">
         <p className="font-ui text-[15px] leading-6 text-paper">{caption}</p>
