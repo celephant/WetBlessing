@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { resolveAssetUrl } from "../lib/assets";
 import { selectCropName } from "../lib/camera-crops";
 import { content, route } from "../lib/content";
-import { playChoices } from "../lib/engine";
+import { clickAdvance, playChoices, selectChoice, startGame, view } from "../lib/engine";
 import {
   resolveScenePresentation,
   selectSameAssetMotion,
@@ -69,8 +69,43 @@ describe("Ch01 story + drift audit lock", () => {
       ...(route.nodes.get("n_sms_auto")?.lines?.map((line) => line.text) ?? []),
     ].join("\n");
     expect(sms).toMatch(/办公时间。带学生证。周一见/);
+    expect(sms).toMatch(/下午电梯口，两个人抢你一只手/);
+    expect(sms).not.toMatch(/吻|唇/);
     expect(sms).not.toMatch(/黑丝|二十九/);
     expect(sms).not.toMatch(BANNED);
+
+    const wall = route.nodes.get("n_ch01_first_sub")!;
+    expect(wall.text).toBe("群发出去了。周一写进日程。");
+    expect(wall.text).not.toMatch(/吻/);
+  });
+
+  it("R1 dodge-all unpaid never speaks a kiss", () => {
+    const texts: string[] = [];
+    let state = startGame({ story_pass_month: false });
+    const drain = () => {
+      for (let i = 0; i < 24; i++) {
+        const snapshot = view(state);
+        texts.push(snapshot.beat.text);
+        if (snapshot.choices.length > 0 || snapshot.isSettle) {
+          texts.push(...snapshot.choices.map((choice) => choice.text));
+          return;
+        }
+        if (!snapshot.canClickAdvance) return;
+        const next = clickAdvance(state);
+        if (next.nodeId === state.nodeId && next.beatIndex === state.beatIndex) return;
+        state = next;
+      }
+    };
+    drain();
+    for (const choiceId of ["c_dodge_both", "c_dodge_party"] as const) {
+      const result = selectChoice(state, choiceId);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      state = result.state;
+      drain();
+    }
+    expect(state.nodeId).toBe("n_ch01_first_sub");
+    expect(texts.join("\n")).not.toMatch(/吻|唇/);
   });
 
   it("freezes stills: hold motion, no crop-cycle, no looping Ken Burns", () => {

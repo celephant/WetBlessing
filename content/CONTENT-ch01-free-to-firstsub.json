@@ -1275,7 +1275,7 @@
           "nodeId": "n_sms_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "新生群。一张拼贴：电梯口的 Mia，和派对里你刚离开的那个人。没有字。",
+          "text": "新生群。一张拼贴：下午电梯口，两个人抢你一只手。没有字。",
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "S07 手机近、拼贴剪影；勿烧聊天气泡；无办公室黑丝",
           "artStatus": "ready",
@@ -1295,7 +1295,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "没有照片。没有解释。唇上的水汽还没干。",
+              "text": "没有照片。没有解释。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1306,7 +1306,7 @@
           "type": "dialogue",
           "gate": "first_sub",
           "speaker": "narrator",
-          "text": "吻落了。群发出去了。周一写进日程。",
+          "text": "群发出去了。周一写进日程。",
           "assetId": "assets/scenes/ch01/n_ch01_first_sub.webp",
           "artCue": "S08 打断吻冻帧 + 拼贴残影；非 Kai 卫衣特写",
           "artStatus": "ready",
