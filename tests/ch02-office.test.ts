@@ -133,7 +133,6 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(kissView.choices.map((choice) => choice.choiceId)).toEqual([
       "c_s14_free",
       "c_s14_kiss",
-      "c_s14_later",
     ]);
     expect(
       kissView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement,

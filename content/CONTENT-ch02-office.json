@@ -489,12 +489,6 @@
               "setFlags": {
                 "reina_office_kiss": true
               }
-            },
-            {
-              "choiceId": "c_s14_later",
-              "text": "稍后再说",
-              "next": "n_ch02_title",
-              "delta": {}
             }
           ]
         },
