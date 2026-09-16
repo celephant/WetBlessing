@@ -69,6 +69,7 @@ export function PlayClient({
 
   return (
     <VNPlayer
+      key={`${playPackId(pack)}:${resume ? "r" : "n"}:${params.get("continue") === "1" ? "c" : "s"}`}
       resume={resume}
       compiled={resolved}
       packId={playPackId(pack)}

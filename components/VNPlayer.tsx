@@ -117,6 +117,10 @@ export function VNPlayer({
     return <div className="h-dvh bg-void" />;
   }
 
+  if (!compiled.nodes.has(state.nodeId)) {
+    return <div className="h-dvh bg-void" data-pack-switch="" />;
+  }
+
   const snapshot = view(state, compiled);
   const beatKey = `${state.nodeId}:${state.beatIndex}`;
   const sceneHooks = presentationHooksForBeat(snapshot.node, state.beatIndex);

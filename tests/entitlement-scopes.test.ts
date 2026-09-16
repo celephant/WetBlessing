@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { compileRoute, content, route } from "../lib/content";
 import { tryReadCh02Office, tryReadCh03Night } from "../lib/dev-packs.node";
 import {
+  clickAdvance,
   hasEntitlement,
   playChoices,
   selectChoice,
@@ -27,7 +28,7 @@ import {
   SCOPE_W3_EDGE_NIGHT,
   scopeForGate,
 } from "../lib/paywall-copy";
-import { canPlayCh04, seasonContinueTarget } from "../lib/season-continue";
+import { applySeasonCarry, canPlayCh04, seasonContinueTarget } from "../lib/season-continue";
 
 const ch01Dodge = ["c_dodge_both", "c_dodge_party"] as const;
 
@@ -149,6 +150,31 @@ describe("entitlement scopes (fake-unlock only)", () => {
 });
 
 describe("season continue + bind none", () => {
+  it("carries Ch01 flags into Ch02 without looking up n_pay_settle", () => {
+    let state = playChoices(
+      [...ch01Dodge, "c_sub_round_mia"],
+      { story_pass_month: false, w1_continue: true },
+      route,
+      { pumpAfter: false },
+    );
+    const seen = new Set<string>();
+    while (state.nodeId !== "n_pay_settle") {
+      const key = `${state.nodeId}:${state.beatIndex}`;
+      if (seen.has(key)) throw new Error(`stuck at ${state.nodeId}`);
+      seen.add(key);
+      state = clickAdvance(state);
+    }
+    const ch02 = compileRoute(tryReadCh02Office()!);
+    expect(ch02.nodes.has("n_pay_settle")).toBe(false);
+    const continued = applySeasonCarry(startGame(state.entitlements, ch02), {
+      flags: state.flags,
+      stats: state.stats,
+    });
+    expect(continued.nodeId).toBe("n_ch02_wall");
+    expect(continued.flags.stood_up_mia).toBe(true);
+    expect(selectChoice(continued, "c_ch02_enter", ch02).ok).toBe(false);
+  });
+
   it("offers Ch01 paid coda → Ch02 and Ch02 → Ch03", () => {
     expect(
       seasonContinueTarget("default", "n_pay_settle", mintScope(undefined, SCOPE_W1_CONTINUE), {})
