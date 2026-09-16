@@ -90,14 +90,14 @@ describe("reserved edge_lock sibling wall", () => {
     expect(isPaywallWallNode("n_future_edge", '"edge_lock"')).toBe(true);
     expect(
       selectAssetChangeTransition({ changeCount: 0, gate: "edge_lock" }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         changeCount: 0,
         afterPurchase: true,
         gate: "edge_lock",
       }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(WALL_RHYTHM.arrival).toBe("dip-to-black");
     expect(WALL_RHYTHM.afterPurchase).toBe("soft-zoom");
     expect(phoneGlowAllowed({ gate: "edge_lock" })).toBe(false);

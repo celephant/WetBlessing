@@ -23,10 +23,12 @@ body {
   font-family: var(--font-ui);
 }
 
-/* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon. */
+/* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon.
+   Stills pin the whole drawing (object-fit contain). Motion is a one-shot
+   fade when assetId changes, then hold. No Ken Burns / breathe / crop. */
 .scene-plate-in,
 .scene-plate-out {
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 
 .scene-in-fade {
@@ -37,66 +39,9 @@ body {
   animation: scene-fade-out var(--transition-fade-ms, 320ms)
     var(--transition-fade-ease, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
 }
-.scene-in-soft-zoom,
-.scene-out-soft-zoom {
-  transform-origin: 50% var(--transition-soft-zoom-focus-y, 45%);
-}
-.scene-in-soft-zoom {
-  animation: scene-soft-zoom-in var(--transition-soft-zoom-ms, 420ms)
-    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
-}
-.scene-out-soft-zoom {
-  animation: scene-soft-zoom-out var(--transition-soft-zoom-ms, 420ms)
-    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
-}
-.scene-in-soft-zoom-crop,
-.scene-out-soft-zoom-crop {
-  transform-origin: 50% var(--transition-soft-zoom-focus-y, 45%);
-}
-.scene-in-soft-zoom-crop {
-  animation: scene-soft-zoom-in var(--transition-soft-zoom-crop-ms, 280ms)
-    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
-}
-.scene-out-soft-zoom-crop {
-  animation: scene-soft-zoom-out var(--transition-soft-zoom-crop-ms, 280ms)
-    var(--transition-soft-zoom-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
-}
-.scene-in-dip-to-black {
-  animation: scene-dip-in var(--transition-dip-ms, 380ms) ease-in-out forwards;
-}
-.scene-out-dip-to-black {
-  animation: scene-dip-out var(--transition-dip-ms, 380ms) ease-in-out forwards;
-}
 
-.scene-dip-veil {
-  background: var(--transition-dip-overlay, #07080c);
-  animation: scene-dip-veil var(--transition-dip-ms, 380ms) ease-in-out forwards;
-}
-
-.scene-motion-hold,
-.scene-crop-hold {
-  transform: scale(var(--crop-from-scale, 1.012))
-    translate(var(--crop-from-tx, 0%), var(--crop-from-ty, 0%));
-}
-.scene-crop-kenburns {
-  animation: scene-crop-kenburns var(--motion-kenburns-ms, 14000ms) ease-in-out
-    forwards;
-}
-.scene-motion-kenburns-right {
-  animation: scene-kenburns-right var(--motion-kenburns-ms, 14000ms) ease-in-out
-    forwards;
-}
-.scene-motion-kenburns-left {
-  animation: scene-kenburns-left var(--motion-kenburns-ms, 14000ms) ease-in-out
-    forwards;
-}
-.scene-motion-kenburns-up {
-  animation: scene-kenburns-up var(--motion-kenburns-ms, 14000ms) ease-in-out
-    forwards;
-}
-.scene-motion-breathe,
-.scene-motion-breathe-layer {
-  animation: scene-breathe var(--motion-breathe-ms, 3200ms) ease-in-out infinite;
+.scene-still-hold {
+  transform: none;
 }
 
 .scene-fx-vignette {
@@ -143,6 +88,24 @@ body {
     var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
 }
 
+.pause-overlay,
+.paywall-overlay,
+[data-title-idle] [data-title-still] img,
+[data-paused="on"] .scene-plate-in,
+[data-paused="on"] .scene-plate-out,
+[data-paused="on"] .scene-still-hold {
+  animation: none !important;
+  transform: none !important;
+}
+
+[data-paused="on"] .animate-caret-pulse,
+[data-paused="on"] .choice-enter,
+[data-paused="on"] .dialog-enter,
+[data-paused="on"] .dialog-continue,
+[data-paused="on"] .dialog-nameplate {
+  animation-play-state: paused !important;
+}
+
 @keyframes scene-fade-in {
   from {
     opacity: 0;
@@ -157,105 +120,6 @@ body {
   }
   to {
     opacity: 0;
-  }
-}
-@keyframes scene-soft-zoom-in {
-  from {
-    opacity: 0;
-    transform: scale(var(--transition-soft-zoom-new, 1.06));
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes scene-soft-zoom-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(var(--transition-soft-zoom-old, 1.04));
-  }
-}
-@keyframes scene-dip-in {
-  0% {
-    opacity: 0;
-  }
-  42% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes scene-dip-out {
-  0% {
-    opacity: 1;
-  }
-  32% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes scene-dip-veil {
-  0% {
-    opacity: 0;
-  }
-  31.6% {
-    opacity: 0.72;
-  }
-  42.1% {
-    opacity: 0.72;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes scene-crop-kenburns {
-  from {
-    transform: scale(var(--crop-from-scale, 1))
-      translate(var(--crop-from-tx, 0%), var(--crop-from-ty, 0%));
-  }
-  to {
-    transform: scale(var(--crop-to-scale, 1.028))
-      translate(var(--crop-to-tx, 0%), var(--crop-to-ty, 0%));
-  }
-}
-@keyframes scene-kenburns-right {
-  from {
-    transform: scale(1) translate(0%, 0%);
-  }
-  to {
-    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(-1.2%, 0.6%);
-  }
-}
-@keyframes scene-kenburns-left {
-  from {
-    transform: scale(1.004) translate(-0.4%, 0.2%);
-  }
-  to {
-    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(1.2%, -0.4%);
-  }
-}
-@keyframes scene-kenburns-up {
-  from {
-    transform: scale(1) translate(0%, 0.6%);
-  }
-  to {
-    transform: scale(var(--motion-kenburns-scale, 1.028)) translate(0%, -0.8%);
-  }
-}
-@keyframes scene-breathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(calc(1 + var(--motion-breathe-scale, 0.004)));
   }
 }
 @keyframes dialog-enter {
@@ -301,29 +165,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .scene-in-fade,
   .scene-out-fade,
-  .scene-in-soft-zoom,
-  .scene-out-soft-zoom,
-  .scene-in-soft-zoom-crop,
-  .scene-out-soft-zoom-crop,
-  .scene-in-dip-to-black,
-  .scene-out-dip-to-black,
-  .scene-dip-veil,
-  .scene-motion-kenburns-right,
-  .scene-motion-kenburns-left,
-  .scene-motion-kenburns-up,
-  .scene-crop-kenburns,
-  .scene-motion-breathe,
-  .scene-motion-breathe-layer,
   .dialog-enter,
   .dialog-continue,
   .dialog-nameplate,
   .choice-enter {
     animation: none;
-  }
-  .scene-in-soft-zoom,
-  .scene-out-soft-zoom,
-  .scene-in-soft-zoom-crop,
-  .scene-out-soft-zoom-crop {
-    transform: none;
   }
 }

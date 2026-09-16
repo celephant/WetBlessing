@@ -13,13 +13,16 @@ export function TitleScreen() {
   }, []);
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-void text-paper">
-      <div className="absolute inset-0">
+    <main
+      className="relative min-h-dvh overflow-hidden bg-void text-paper"
+      data-title-idle=""
+    >
+      <div className="absolute inset-0" data-title-still="">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/assets/scenes/ch01/n_open.webp"
           alt="WetBlessing chapter 1"
-          className="h-full w-full object-cover object-top opacity-80"
+          className="h-full w-full object-contain object-center opacity-80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-black/30" />
       </div>

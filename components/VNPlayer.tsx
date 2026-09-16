@@ -347,7 +347,7 @@ export function VNPlayer({
 
       {paused ? (
         <div
-          className="absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
+          className="pause-overlay absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
           data-pause-overlay=""
         >
           <div className="w-full max-w-xs rounded-dialog border border-white/15 bg-night/92 p-5 text-center">

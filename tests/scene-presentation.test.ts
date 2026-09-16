@@ -50,27 +50,27 @@ describe("asset-change transitions", () => {
     expect(TRANSITION_MS["dip-to-black"]).toBe(tokens.transitions.dip.ms);
   });
 
-  it("dips on SMS/wall arrival and soft-zooms after purchase", () => {
+  it("pins fade on SMS/wall and after purchase; tokens still name the old cuts", () => {
     expect(
       selectAssetChangeTransition({
         changeCount: 0,
         nodeId: "n_ch01_first_sub",
       }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         changeCount: 1,
         nodeId: "n_sms_auto",
         explicit: "fade",
       }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         changeCount: 0,
         afterPurchase: true,
         nodeId: "n_pay_01_catch_mia",
       }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(WALL_RHYTHM.arrival).toBe("dip-to-black");
     expect(WALL_RHYTHM.afterPurchase).toBe("soft-zoom");
     expect(WALL_RHYTHM.goldOnlyOnYuan).toBe(true);
@@ -82,36 +82,36 @@ describe("asset-change transitions", () => {
         nodeId: "n_future_edge",
         gate: "edge_lock",
       }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
   });
 
-  it("honors an explicit cut and ignores the cycle index", () => {
+  it("ignores authored cuts and the cycle index; plate fade only", () => {
     expect(
       selectAssetChangeTransition({ explicit: "soft-zoom", changeCount: 0 }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({ explicit: "dip-to-black", changeCount: 0 }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({ explicit: "fade", changeCount: 2 }),
     ).toBe("fade");
   });
 
-  it("cycles the three shipped cuts when the field is missing", () => {
+  it("does not cycle zoom/dip when the field is missing", () => {
     const cycled = [0, 1, 2, 3].map((changeCount) =>
       selectAssetChangeTransition({ changeCount }),
     );
-    expect(cycled).toEqual(["fade", "soft-zoom", "dip-to-black", "fade"]);
+    expect(cycled).toEqual(["fade", "fade", "fade", "fade"]);
   });
 
-  it("degrades unknown transition strings to soft-zoom", () => {
+  it("degrades unknown transition strings to fade", () => {
     expect(parseTransition("explode")).toBeNull();
     expect(
       selectAssetChangeTransition({ explicit: "explode", changeCount: 0 }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({ explicit: "explode", changeCount: 1 }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
   });
 
   it("aliases soft-zoom / softZoomCrop spellings", () => {
@@ -123,13 +123,13 @@ describe("asset-change transitions", () => {
     expect(parseTransition("soft_zoom_crop")).toBe("soft-zoom-crop");
     expect(
       selectAssetChangeTransition({ explicit: "softZoom", changeCount: 0 }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         explicit: "softZoomCrop",
         changeCount: 0,
       }),
-    ).toBe("soft-zoom-crop");
+    ).toBe("fade");
   });
 
   it("cuts when resolved URL or authored assetId changes", () => {
@@ -275,7 +275,7 @@ describe("fx + optional node/line hooks", () => {
     expect(
       resolveScenePresentation(bare, 0, { changeCount: 2, holdCount: 0 }),
     ).toEqual({
-      transition: "soft-zoom",
+      transition: "fade",
       motion: "hold",
       fx: "warm-tint",
       cropName: "wide",

@@ -62,11 +62,11 @@ describe("Slice-0 hard locks", () => {
     const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
     expect(css).not.toMatch(/#ff0033|#ff0000|#FF0033/i);
     expect(css).toContain("#07080c");
-    expect(css).toContain("1.028");
+    expect(css).not.toMatch(/scene-crop-kenburns|scene-breathe|kenburns-right/);
     expect(css).toContain("rgba(220, 90, 140");
     expect(css).toContain("--motion-dialog-continue-ms, 140ms");
     expect(css).toContain("--motion-choice-ms, 160ms");
-    expect(css).toContain("--transition-soft-zoom-focus-y, 45%");
+    expect(css).toContain("scene-fade-in");
     const paywall = readFileSync(path.join(root, "components/PaywallOverlay.tsx"), "utf8");
     expect(paywall).not.toMatch(/bg-black/);
     expect(paywall).toContain("bg-void/70");
