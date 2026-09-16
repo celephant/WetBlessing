@@ -2,9 +2,7 @@ import { resolveAssetUrl } from "./assets";
 import { selectCropName, type CropName } from "./camera-crops";
 import {
   detectIntimateBeat,
-  intimateBeatSpec,
   intimateFallbackCamera,
-  isIntimateForcedCut,
   SOFT_ZOOM_CROP_MS,
   type IntimateBeatId,
 } from "./feel-density";
@@ -266,16 +264,10 @@ export function parseFx(raw?: string): SceneFxName | null {
   return null;
 }
 
-function intimateBeatTransition(
-  beatId: IntimateBeatId | null,
-): SceneTransitionName | null {
-  const spec = intimateBeatSpec(beatId);
-  return spec ? tokenCut(spec.transition) : null;
-}
-
 /**
- * Missing `transition` cycles fade / soft-zoom / dip.
- * Unknown strings degrade to soft-zoom (with breathe on the plate).
+ * User lock: when the picture changes, one short appear/crossfade,
+ * then hold. Soft-zoom / dip / crop-cut / Ken Burns stay off the plate
+ * even if JSON or tokens still name those cuts.
  */
 export function selectAssetChangeTransition(options: {
   explicit?: string;
@@ -285,37 +277,14 @@ export function selectAssetChangeTransition(options: {
   afterPurchase?: boolean;
   intimate?: boolean;
   intimateBeat?: boolean | IntimateBeatId | null;
-}): SceneTransitionName | CropCutTransition {
-  if (options.afterPurchase) {
-    return tokenCut(tokens.transitions.defaults.afterPurchase);
-  }
-  if (isNightGradeNode(options.nodeId, options.gate)) {
-    return tokenCut(tokens.transitions.defaults.smsOrPaywall);
-  }
-  const parsed = parseTransition(options.explicit);
-  const unknownExplicit =
-    Boolean(options.explicit) && !parsed;
-  const beatId =
-    typeof options.intimateBeat === "string" ? options.intimateBeat : null;
-  if (options.intimateBeat) {
-    if (isIntimateForcedCut(parsed)) return parsed;
-    const fromTable = intimateBeatTransition(beatId);
-    if (fromTable) return fromTable;
-    return tokenCut(tokens.transitions.defaults.intimate);
-  }
-  if (parsed) return parsed;
-  if (unknownExplicit) return TRANSITION_SOFT_ZOOM;
-  if (options.intimate) {
-    return tokenCut(tokens.transitions.defaults.intimate);
-  }
-  return SCENE_TRANSITIONS[
-    Math.abs(options.changeCount) % SCENE_TRANSITIONS.length
-  ]!;
+}): SceneTransitionName {
+  void options;
+  return TRANSITION_FADE;
 }
 
 /**
  * User lock: stills stay still. Optional one-shot appear lives on
- * assetId change (SceneArt fade/soft-zoom), not on same-asset holds.
+ * assetId change (SceneArt fade), not on same-asset holds.
  * Looping Ken Burns / breathe / crop-cycle is forbidden.
  */
 export function selectSameAssetMotion(_options: {

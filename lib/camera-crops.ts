@@ -17,6 +17,9 @@ export const DEFAULT_CROP_LINE = CAMERA_CROPS.defaultLine ?? "mia";
 
 export const CROP_CYCLE = CAMERA_CROPS.cycle as CropName[];
 
+/** Pin the whole drawing. Presets still letterbox for the dock; display ignores them. */
+export const FULL_STILL_RECT: CropRect = { x: 0, y: 0, w: 1, h: 1 };
+
 const ALIASES: Record<string, CropName> = {
   ...(CAMERA_CROPS.aliases as Record<string, CropName>),
   wide: "wide",
@@ -97,7 +100,8 @@ export function nextCropName(name: CropName): CropName {
 
 /**
  * User lock: the drawing IS the camera. Do not hunt wide→mid→close
- * or punch to close while waiting on choices.
+ * or punch to close while waiting on choices. Display uses the full
+ * still (object-fit contain); this name is only a stable label.
  */
 export function selectCropName(options: {
   explicitCamera?: string;
@@ -107,23 +111,21 @@ export function selectCropName(options: {
   /** True when this line authored a new camera vs the previous line. */
   cameraChanged?: boolean;
 }): CropName {
-  void options.holdCount;
-  void options.lockCrop;
-  void options.beforeChoices;
-  void options.cameraChanged;
-  const named = parseCropName(options.explicitCamera);
-  if (named && options.explicitCamera !== "kenburns") {
-    // Authored shot size may still name a crop, but default stills
-    // stay on the full plate so manga contact points are not cropped off.
-    return "wide";
-  }
+  void options;
   return "wide";
+}
+
+export function fullStillTransform(): CropTransform {
+  return { scale: 1, tx: 0, ty: 0 };
 }
 
 export function cropToTransform(
   rect: CropRect,
   scaleExtra = 1,
 ): CropTransform {
+  if (rect.w >= 1 && rect.h >= 1 && scaleExtra === 1) {
+    return fullStillTransform();
+  }
   const cx = rect.x + rect.w / 2;
   const cy = rect.y + rect.h / 2;
   const scale = Math.max(1 / rect.w, 1 / rect.h) * scaleExtra;

@@ -313,22 +313,25 @@ export function VNPlayer({
         </div>
       ) : (
         <>
-          <div
-            className="absolute inset-x-0 z-[3] flex flex-col justify-end pb-2"
-            style={{ bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
-          >
-            <ChoiceList
-              key={snapshot.node.nodeId}
-              choices={snapshot.choices}
-              choiceEntitled={(choice) =>
-                !choice.requiresEntitlement ||
-                hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
-              }
-              entitled={passOn}
-              onSelect={onChoice}
-              enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
-            />
-          </div>
+          {snapshot.choices.length > 0 ? (
+            <div
+              className="absolute inset-x-0 z-[3] flex items-center justify-center px-3"
+              style={{ top: "3.25rem", bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
+              data-choice-overlay=""
+            >
+              <ChoiceList
+                key={snapshot.node.nodeId}
+                choices={snapshot.choices}
+                choiceEntitled={(choice) =>
+                  !choice.requiresEntitlement ||
+                  hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
+                }
+                entitled={passOn}
+                onSelect={onChoice}
+                enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
+              />
+            </div>
+          ) : null}
           <div
             className="absolute inset-x-0 bottom-0 z-[2]"
             data-night-pass-dock="28"
@@ -347,7 +350,7 @@ export function VNPlayer({
 
       {paused ? (
         <div
-          className="absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
+          className="pause-overlay absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
           data-pause-overlay=""
         >
           <div className="w-full max-w-xs rounded-dialog border border-white/15 bg-night/92 p-5 text-center">

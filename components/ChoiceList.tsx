@@ -52,7 +52,7 @@ export function ChoiceList({
             style={{
               animationDelay: `${enterDelayMs + index * MOTION_SPEC.choiceStaggerMs}ms`,
             }}
-            className={`choice-enter flex min-h-[52px] items-stretch overflow-hidden rounded-chip border border-white/10 bg-white/[0.08] text-left backdrop-blur-md transition hover:bg-white/[0.12] ${
+            className={`choice-enter flex min-h-[52px] items-stretch overflow-hidden rounded-chip border border-white/15 bg-night/75 text-left backdrop-blur-md transition hover:bg-night/85 ${
               variant === "pass"
                 ? "shadow-[0_0_24px_rgba(232,197,106,0.18)]"
                 : ""
