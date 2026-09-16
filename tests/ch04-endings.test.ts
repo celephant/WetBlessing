@@ -344,7 +344,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
       const node = byId.get(id);
       return [node?.text ?? "", ...(node?.lines?.map((line) => line.text) ?? [])].join("\n");
     };
-    const tight = [
+    const stage1 = [
       "n_ch04_open",
       "n_s23_mia",
       "n_s23_jade",
@@ -352,29 +352,40 @@ describe("Ch04 名分 (DEV, not default)", () => {
       "n_s23_rae",
       "n_s23_vanessa",
       "n_s23_empty",
+      "n_s24_mia",
+      "n_s24_jade",
       "n_s24_crash",
       "n_s24_tail",
-      "n_s24_reina",
     ];
-    for (const id of tight) {
+    for (const id of stage1) {
+      expect(nodeHay(id), id).not.toMatch(/♥|♡|～/);
+      expect(nodeHay(id), id).not.toMatch(/唔……|哈啊/);
+    }
+    const stage2 = ["n_s24_vanessa", "n_s24_reina"];
+    for (const id of stage2) {
+      expect(nodeHay(id), id).toMatch(/……|、/);
       expect(nodeHay(id), id).not.toMatch(/♥|♡|～/);
     }
+    expect(nodeHay("n_s24_vanessa")).toMatch(/哈啊|等、/);
     const heat = [
       "n_s22_mia",
       "n_s22_jade",
       "n_s22_lina",
       "n_s22_rae",
-      "n_s24_mia",
-      "n_s24_jade",
       "n_s24_lina",
       "n_s24_rae",
-      "n_s24_vanessa",
     ];
     for (const id of heat) {
+      expect(nodeHay(id), id).toMatch(/唔|哈啊/);
       expect(nodeHay(id), id).toMatch(/……/);
-      expect(nodeHay(id), id).toMatch(/～/);
-      expect(nodeHay(id), id).toMatch(/♥|♡/);
+      expect(nodeHay(id), id).toMatch(/♥|♡|～/);
+      expect(nodeHay(id), id).toMatch(/热|凉|湿|烫|呼吸|水声|腰|膝|脚|领|床单|快门/);
     }
+    expect(nodeHay("n_s22_mia")).toMatch(/不要停|承认你留下来了/);
+    expect(spoken).not.toMatch(/魔物|触手|败犬|肮脏的魔物/);
+    expect(nodeHay("n_s22_jade") + nodeHay("n_s22_lina") + nodeHay("n_s22_rae")).not.toMatch(
+      /是……是你|现在是谁在要你/,
+    );
     const buttons = file.stages[0]!.nodes.flatMap((node) =>
       (node.choices ?? []).map((choice) => choice.text),
     ).join("\n");
