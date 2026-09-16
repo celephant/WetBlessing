@@ -5,7 +5,7 @@ import Link from "next/link";
 export function PauseOverlay({ onResume }: { onResume: () => void }) {
   return (
     <div
-      className="absolute inset-0 z-[6]"
+      className="pause-overlay absolute inset-0 z-[6]"
       data-pause-overlay=""
       role="dialog"
       aria-modal="true"

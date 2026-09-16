@@ -24,6 +24,10 @@ describe("full stills (no Ken Burns / postage stamp)", () => {
       path.join(root, "components/VNPlayer.tsx"),
       "utf8",
     );
+    const pauseOverlay = readFileSync(
+      path.join(root, "components/PauseOverlay.tsx"),
+      "utf8",
+    );
     const paywall = readFileSync(
       path.join(root, "components/PaywallOverlay.tsx"),
       "utf8",
@@ -62,8 +66,9 @@ describe("full stills (no Ken Burns / postage stamp)", () => {
     expect(pause).toContain("data-settle-dock");
     expect(pause).toContain("choice-overlay");
     expect(pause).toMatch(/snapshot\.choices\.length > 0/);
-    expect(pause).toContain("pause-overlay");
-    expect(pause).toContain("data-pause-overlay");
+    expect(pause).toContain("<PauseOverlay");
+    expect(pauseOverlay).toContain("pause-overlay");
+    expect(pauseOverlay).toContain("data-pause-overlay");
     expect(paywall).toContain("paywall-overlay");
 
     expect(selectSameAssetMotion({ holdCount: 3 })).toBe("hold");
