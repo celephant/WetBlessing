@@ -552,7 +552,7 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「推，还是装路过。……别拍。」",
+              "text": "「推，还是装路过。……别拍。唔。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -810,7 +810,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "笑不在脸上。一条腿收在沙发里。镜头对着墙。",
+              "text": "笑不在脸上。脚趾还是蜷了。镜头对着墙。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -864,7 +864,7 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「灯一条。手别松开。……再给……～」",
+              "text": "「灯一条。手别松开。……哈啊……再给……～」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -924,7 +924,7 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「世界在门外。脚别碰那滩水——那是洗衣液。……唔。轻。」",
+              "text": "「世界在门外。脚别碰那滩水——那是洗衣液。……唔。轻。～」",
               "camera": "hold",
               "transition": "fade"
             },
