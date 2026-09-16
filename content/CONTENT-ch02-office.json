@@ -554,7 +554,7 @@
           "lines": [
             {
               "speaker": "reina",
-              "text": "「坐下。把门带上。——先不用锁。」",
+              "text": "「坐下。把门带上。——先、先不用锁。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -605,13 +605,13 @@
           "lines": [
             {
               "speaker": "reina",
-              "text": "「看我。不是看腿。」",
+              "text": "「看我。不是看腿。……使不上力。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "声音仍是办公室的。百叶缝里有人影晃过。为什么使不上力。",
+              "text": "声音仍是办公室的。百叶缝里有人影晃过。黑丝压着桌沿发烫。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -782,7 +782,7 @@
             },
             {
               "speaker": "reina",
-              "text": "「是……是你……别停。♥」",
+              "text": "「是……是你……哈啊……别停。♥」",
               "camera": "hold",
               "transition": "fade"
             },

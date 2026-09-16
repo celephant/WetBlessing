@@ -480,7 +480,7 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「你倒是会跟。手、拿开。——别用那种眼神。」",
+              "text": "「你倒是会跟。手拿开。……不、别用那种眼神。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -501,7 +501,7 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「看完了？……嘴过来。」",
+              "text": "「看完了？……不、嘴过来。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -932,7 +932,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「看完了？……嘴过来。」",
+              "text": "「看完了？……不、嘴过来。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1017,7 +1017,7 @@
             },
             {
               "speaker": "jade",
-              "text": "「刚才那张给迎新页。这张——没有。」",
+              "text": "「刚才那张给迎新页。这张——没有。别、别举起来。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1071,7 +1071,7 @@
             },
             {
               "speaker": "lina",
-              "text": "「别盯。……不、拿着就拿着。」",
+              "text": "「别盯。……不、拿着就拿着。别碰那。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1194,7 +1194,7 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「明明不该……凯……♥」",
+              "text": "「明明不该……唔……凯……♥」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -1736,7 +1736,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「脚。不许假装没看见。……不、倒是亲。」",
+              "text": "「脚。不许假装没看见。……唔。不、倒是亲。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1770,7 +1770,7 @@
             },
             {
               "speaker": "jade",
-              "text": "「还算会伸手。……上来。别、别给别人看。」",
+              "text": "「还算会伸手。……上来。别碰那。别、别给别人看。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1821,7 +1821,7 @@
           "nodeId": "n_pay_01_catch_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "门还开着。她回了头。隔墙暂时没人经过。",
+          "text": "门还开着。她回了头。蒸汽贴着后颈。隔墙暂时没人经过。",
           "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
           "artCue": "S09 Rae catch：水手门、拼贴之后；非湿 T",
           "artStatus": "ready",
@@ -1875,7 +1875,7 @@
           "nodeId": "n_pay_02_ot_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "她把你压回枕头。手机扣在远处。水声很轻。腰自己迎上去。",
+          "text": "她把你压回枕头。手机扣在远处。齿关一软。水声很轻。腰自己迎上去。",
           "assetId": "assets/scenes/heat/n_heat_pin_mia.webp",
           "artCue": "S10 Mia OT：拼贴之后的羞耻热；不复用 S06a / catch",
           "artStatus": "ready",
@@ -1896,7 +1896,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「是……是你……别停。♥」",
+              "text": "「是……是你……别停。……要、要坏。♥」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1906,7 +1906,7 @@
           "nodeId": "n_pay_02_ot_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "吻变长。砖还凉，她大腿却热。鞋底抵着。呼吸烫。",
+          "text": "吻变长。砖还凉，她大腿却热。鞋底抵着。布料擦过砖。脚趾还是蜷了。",
           "assetId": "assets/scenes/heat/n_heat_straddle_jade.webp",
           "artCue": "S10 Jade OT：干砖；禁止雨水",
           "artStatus": "ready",
@@ -2072,7 +2072,7 @@
           "nodeId": "n_pay_03_yes",
           "type": "dialogue",
           "speaker": "vanessa",
-          "text": "「吻可以。……慢一点。——我没倒向你。还没。」",
+          "text": "「吻可以。……慢一点。——唔。我没倒向你。还没。」",
           "assetId": "assets/scenes/heat/S11.webp",
           "artCue": "C1-11 接招末句；同一雨巷",
           "artStatus": "ready",

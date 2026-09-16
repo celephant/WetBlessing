@@ -229,7 +229,7 @@
             },
             {
               "speaker": "jade",
-              "text": "「回楼里。就坐会儿。别拍。」",
+              "text": "「回楼里。就坐会儿。别拍。……别、别亮屏幕。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -305,7 +305,7 @@
             },
             {
               "speaker": "lina",
-              "text": "「关了灯还站着，是你自己选的。」",
+              "text": "「关了灯还站着，是你自己选的。……手别松开。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -375,7 +375,7 @@
             },
             {
               "speaker": "rae",
-              "text": "「隔墙听得见烘筒。门从里面带上。……轻。」",
+              "text": "「隔墙听得见烘筒。门从里面带上。……轻。别出声。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -552,7 +552,7 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「推，还是装路过。……别拍。」",
+              "text": "「推，还是装路过。……别拍。唔。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -864,7 +864,7 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「灯一条。手别松开。……再给……～」",
+              "text": "「灯一条。手别松开。……哈啊……再给……～」",
               "camera": "hold",
               "transition": "fade"
             },
