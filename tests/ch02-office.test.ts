@@ -106,7 +106,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(unpaid.nodeId).toBe("n_ch02_wall");
     expect(view(unpaid, compiled).isPaywall).toBe(true);
     expect(selectChoice(unpaid, "c_ch02_enter", compiled).ok).toBe(false);
-    expect(unpaid.flags.cafe_creditor).toBe("mia");
+    expect(unpaid.flags.cafe_creditor).toBe("both");
 
     const free = playChoices(
       ["c_s13_ok", "c_ch02_enter", "c_s14_free"],
@@ -114,7 +114,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       compiled,
     );
     expect(free.nodeId).toBe("n_ch02_settle");
-    expect(free.flags.cafe_creditor).toBe("mia");
+    expect(free.flags.cafe_creditor).toBe("both");
     expect(free.flags.office_locked).toBe(true);
     expect(free.stats.mia.affection).toBeGreaterThan(0);
 
@@ -147,29 +147,32 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(selectChoice(inside, "c_s14_kiss", compiled).ok).toBe(true);
   });
 
-  it("routes cafeteria by Ch01 stand-up flags and stays under the choiceIndex cap", () => {
+  it("routes cafeteria by catch_target × went_with and stays under the choiceIndex cap", () => {
     const compiled = compileRoute(tryReadCh02Office(root)!);
     expect(compiled.nodes.get("n_s13_router")?.playerVisible).toBe(false);
-    expect(compiled.nodes.get("n_s13_router")?.advanceByFlag?.["default"]).toBe(
-      "n_s13_mia",
-    );
+    expect(compiled.nodes.get("n_s13_router")?.advanceByFlag).toMatchObject({
+      "catch_target==mia && went_with==jade": "n_s13_mia_caught",
+      "catch_target==jade && went_with==mia": "n_s13_mia_partner",
+      "catch_target==mia": "n_s13_jade",
+      "catch_target==jade": "n_s13_mia",
+      "went_with==mia": "n_s13_jade",
+      "went_with==jade": "n_s13_mia",
+      default: "n_s13_both",
+    });
 
-    const mia = pumpToPrompt(startGame({ story_pass_month: false, w2_office: true }, compiled), compiled);
-    expect(mia.nodeId).toBe("n_s13_mia");
-
-    let jade = startGame({ story_pass_month: false, w2_office: true }, compiled);
-    jade = {
-      ...jade,
-      flags: { ...jade.flags, stood_up_jade: true },
+    const cafeAt = (flags: Record<string, string>) => {
+      let state = startGame({ story_pass_month: false, w2_office: true }, compiled);
+      state = { ...state, flags: { ...state.flags, ...flags } };
+      return pumpToPrompt(state, compiled).nodeId;
     };
-    expect(pumpToPrompt(jade, compiled).nodeId).toBe("n_s13_jade");
 
-    let both = startGame({ story_pass_month: false, w2_office: true }, compiled);
-    both = {
-      ...both,
-      flags: { ...both.flags, stood_up_mia: true, stood_up_jade: true },
-    };
-    expect(pumpToPrompt(both, compiled).nodeId).toBe("n_s13_both");
+    expect(cafeAt({ went_with: "mia", catch_target: "mia" })).toBe("n_s13_jade");
+    expect(cafeAt({ went_with: "mia", catch_target: "jade" })).toBe("n_s13_mia_partner");
+    expect(cafeAt({ went_with: "jade", catch_target: "mia" })).toBe("n_s13_mia_caught");
+    expect(cafeAt({ went_with: "jade", catch_target: "jade" })).toBe("n_s13_mia");
+    expect(cafeAt({ went_with: "mia" })).toBe("n_s13_jade");
+    expect(cafeAt({ catch_target: "jade" })).toBe("n_s13_mia");
+    expect(cafeAt({})).toBe("n_s13_both");
 
     const paths = walkChoiceIndexPaths(compiled);
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);

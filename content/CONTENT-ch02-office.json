@@ -16,6 +16,8 @@
       "n_s13_mia",
       "n_s13_jade",
       "n_s13_both",
+      "n_s13_mia_caught",
+      "n_s13_mia_partner",
       "n_s13_after",
       "n_s14_office",
       "n_s14_silk",
@@ -136,13 +138,125 @@
           "playerVisible": false,
           "text": "（食堂点名路由）",
           "advanceByFlag": {
-            "stood_up_mia==true && stood_up_jade==true": "n_s13_both",
-            "stood_up_jade==true && stood_up_mia!=true": "n_s13_jade",
-            "default": "n_s13_mia"
+            "catch_target==mia && went_with==jade": "n_s13_mia_caught",
+            "catch_target==jade && went_with==mia": "n_s13_mia_partner",
+            "catch_target==mia": "n_s13_jade",
+            "catch_target==jade": "n_s13_mia",
+            "went_with==mia": "n_s13_jade",
+            "went_with==jade": "n_s13_mia",
+            "default": "n_s13_both"
           },
           "assetId": "assets/scenes/ch02/S13.webp",
           "artStatus": "ready",
           "characters": ["kai"]
+        },
+        {
+          "nodeId": "n_s13_mia_caught",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘沿顶到你胸口。Mia 坐下，声音压着，不当众骂。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：跟走 Jade 后上楼哄了 Mia；画面仍是 Mia",
+          "artStatus": "ready",
+          "characters": ["kai", "mia"],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "none"
+          },
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「群里那张，我知道是下午。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「……但她的合影位，你别再站。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「记下了。」",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": { "mia": { "affection": 1 } }
+              },
+              "setFlags": { "s13_reply": "ok", "cafe_creditor": "none" }
+            },
+            {
+              "choiceId": "c_s13_soft",
+              "text": "圆场：「……灯太亮了。」",
+              "next": "n_s13_after",
+              "setFlags": { "s13_reply": "soft", "cafe_creditor": "none" }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：低头看托盘。",
+              "next": "n_s13_after",
+              "delta": { "tension": 2 },
+              "setFlags": { "s13_reply": "dodge", "cafe_creditor": "none" }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_mia_partner",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘沿顶到你胸口。Mia 坐下，问的是另一个人。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：跟走 Mia、付费哄了 Jade；画面仍是 Mia",
+          "artStatus": "ready",
+          "characters": ["kai", "mia"],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "mia"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "邻桌有人把筷子停住。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。昨晚楼梯间那个——谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「是我的锅。」",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": { "mia": { "affection": 2 } }
+              },
+              "setFlags": { "s13_reply": "ok", "cafe_creditor": "mia" }
+            },
+            {
+              "choiceId": "c_s13_soft",
+              "text": "圆场：「……灯太亮了。」",
+              "next": "n_s13_after",
+              "setFlags": { "s13_reply": "soft", "cafe_creditor": "mia" }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：低头看托盘。",
+              "next": "n_s13_after",
+              "delta": { "tension": 2 },
+              "setFlags": { "s13_reply": "dodge", "cafe_creditor": "mia" }
+            }
+          ]
         },
         {
           "nodeId": "n_s13_mia",
