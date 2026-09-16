@@ -220,7 +220,12 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/半边名分|笨蛋/);
     expect(spoken).toMatch(/这下他们看清楚了/);
     expect(spoken).toMatch(/我没倒向你。——还没/);
-    expect(spoken).toMatch(/这一轮他赢/);
+    expect(spoken).toMatch(/这一轮 Troy 赢了/);
+    expect(spoken).toMatch(/雨巷那晚。Vanessa。我看见你了/);
+    expect(spoken).toMatch(/那天夜里。池面一条灯/);
+    expect(spoken).toMatch(/几天后，她又把你叫回教員室/);
+    expect(spoken).not.toMatch(/这一轮他赢/);
+    expect(spoken).not.toMatch(/群里那张门缝，和办公室那张，他都看见了/);
     expect(spoken).toMatch(/隔墙听不见了/);
     expect(spoken).toMatch(/楼是锁的/);
     expect(spoken).toMatch(/我还是你的讲师/);
@@ -242,6 +247,11 @@ describe("Ch04 名分 (DEV, not default)", () => {
     }
     for (const node of compiled.nodes.values()) {
       if (!node.assetId) continue;
+      if (node.nodeId === "n_ch04_open" || node.nodeId === "n_s22_router") {
+        expect(node.assetId).toBe("assets/scenes/ch03/S21.webp");
+        expect(existsSync(path.join(root, "public", node.assetId))).toBe(true);
+        continue;
+      }
       expect(node.assetId).toMatch(/^assets\/scenes\/ch04\//);
       const url = resolveAssetUrl(node.assetId);
       expect(url.startsWith("/assets/scenes/ch04/")).toBe(true);
