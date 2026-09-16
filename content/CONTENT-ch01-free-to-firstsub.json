@@ -80,16 +80,16 @@
       "assets/scenes/heat/S06c.webp",
       "assets/scenes/heat/S11.webp",
       "assets/scenes/heat/n_heat_pin_mia.webp",
-      "assets/scenes/heat/n_heat_sleep_legs.webp",
+      "assets/scenes/ch01/ch01-catch-mia.webp",
       "assets/scenes/heat/n_heat_kiss_mia.webp",
       "assets/scenes/heat/n_heat_straddle_jade.webp",
-      "assets/scenes/heat/n_heat_jade_cling.webp",
+      "assets/scenes/ch01/ch01-catch-jade.webp",
       "assets/scenes/heat/n_heat_kiss_jade.webp",
       "assets/scenes/heat/n_heat_hug_lina.webp",
-      "assets/scenes/heat/n_heat_wet_cling.webp",
+      "assets/scenes/ch01/ch01-catch-lina.webp",
       "assets/scenes/heat/n_heat_kiss_lina.webp",
       "assets/scenes/heat/n_heat_neck_rae.webp",
-      "assets/scenes/heat/n_heat_door_steam.webp",
+      "assets/scenes/ch01/ch01-catch-rae.webp",
       "assets/scenes/heat/n_heat_kiss_rae.webp",
       "assets/scenes/heat/n_heat_ot_rae.webp"
     ]
@@ -359,7 +359,7 @@
           "type": "dialogue",
           "speaker": "jade",
           "text": "「笑收了。下一张不是你。」",
-          "assetId": "assets/scenes/ch01/n_jade_desk.webp",
+          "assetId": "assets/scenes/ch01/n_open.webp",
           "artCue": "圆场：同一张迎新桌，Jade 开口",
           "artStatus": "ready",
           "characters": [
@@ -462,7 +462,7 @@
             {
               "choiceId": "c_mia_side",
               "text": "躲开：侧身。",
-              "next": "n_dorm_steam",
+              "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
               },
@@ -491,7 +491,7 @@
           "type": "dialogue",
           "speaker": "mia",
           "text": "「箱子会自己待着。」",
-          "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
+          "assetId": "assets/scenes/ch01/n_see_both.webp",
           "artCue": "圆场：同一轿厢，Mia 开口",
           "artStatus": "ready",
           "characters": [
@@ -1393,7 +1393,7 @@
           "gate": "first_sub",
           "speaker": "narrator",
           "text": "宿舍灯更暗。她没抬头。",
-          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-mia.webp",
           "artCue": "C1-08M Catch 亮着：她没抬头",
           "artStatus": "ready",
           "characters": [
@@ -1442,7 +1442,7 @@
           "gate": "first_sub",
           "speaker": "narrator",
           "text": "楼梯井。她的手已经伸下来。",
-          "assetId": "assets/scenes/heat/n_heat_jade_cling.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-jade.webp",
           "artCue": "C1-08J Catch 亮着：手还停在拉的中途",
           "artStatus": "ready",
           "characters": [
@@ -1491,7 +1491,7 @@
           "gate": "first_sub",
           "speaker": "narrator",
           "text": "灯还留着。她还站在水边。",
-          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-lina.webp",
           "artCue": "C1-08L Catch 亮着：她在看你下来没有",
           "artStatus": "ready",
           "characters": [
@@ -1540,7 +1540,7 @@
           "gate": "first_sub",
           "speaker": "narrator",
           "text": "门还开着。她回了头。",
-          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-rae.webp",
           "artCue": "C1-08R Catch 亮着：回了头还没准许你关",
           "artStatus": "ready",
           "characters": [
@@ -1720,7 +1720,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "你跨过门槛。她还是没立刻抬头。腿上那片屏光还热。腰却没退。",
-          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-mia.webp",
           "artCue": "S09 Mia catch：衣服相对 S06a 已变；床沿；非旧卫衣库存",
           "artStatus": "ready",
           "characters": [
@@ -1754,7 +1754,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "楼梯井。她的手已经伸下来。屏幕还是黑的。掌心发烫。",
-          "assetId": "assets/scenes/heat/n_heat_jade_cling.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-jade.webp",
           "artCue": "S09 Jade catch：干楼梯、灯更暗；禁止雨水",
           "artStatus": "ready",
           "characters": [
@@ -1788,7 +1788,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "灯还留着。池水凉，她手腕是热的。",
-          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-lina.webp",
           "artCue": "S09 Lina catch：室内夜池；非雨街啦啦队",
           "artStatus": "ready",
           "characters": [
@@ -1822,7 +1822,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "门还开着。她回了头。隔墙暂时没人经过。",
-          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
+          "assetId": "assets/scenes/ch01/ch01-catch-rae.webp",
           "artCue": "S09 Rae catch：水手门、拼贴之后；非湿 T",
           "artStatus": "ready",
           "characters": [

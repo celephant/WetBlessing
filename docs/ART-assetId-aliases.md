@@ -22,16 +22,16 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | 文件 | 内容 |
 |---|---|
 | `n_heat_pin_mia.webp` | Mia OT 压床（不复用 S06a） |
-| `n_heat_sleep_legs.webp` | Mia catch 床沿 |
+| `n_heat_sleep_legs.webp` | 旧 Mia catch heat；节点改挂 `ch01-catch-mia.webp` |
 | `n_heat_kiss_mia.webp` | Mia 宿舍完成吻 |
 | `n_heat_straddle_jade.webp` | Jade OT 干砖跨坐（不复用 S06b；离开 catch_b） |
-| `n_heat_jade_cling.webp` | Jade catch |
+| `n_heat_jade_cling.webp` | 旧 Jade catch heat；节点改挂 `ch01-catch-jade.webp` |
 | `n_heat_kiss_jade.webp` | Jade 完成吻 |
 | `n_heat_hug_lina.webp` | Lina OT 紧抱（不复用 S06c） |
-| `n_heat_wet_cling.webp` | Lina catch |
+| `n_heat_wet_cling.webp` | 旧 Lina catch heat；节点改挂 `ch01-catch-lina.webp` |
 | `n_heat_kiss_lina.webp` | Lina 完成吻 |
 | `n_heat_neck_rae.webp` | Rae 空楼道颈侧 `n_with_rae` |
-| `n_heat_door_steam.webp` | Rae catch（不复用 S04） |
+| `n_heat_door_steam.webp` | 旧 Rae catch heat；节点改挂 `ch01-catch-rae.webp` |
 | `n_heat_kiss_rae.webp` | Rae 完成吻（不复用 OT） |
 | `n_heat_ot_rae.webp` | Rae OT 关门吻 |
 | `n_heat_kiss_vanessa.webp` | 旧雨吻库存，**不再挂节点**（现用 S11） |
@@ -42,10 +42,10 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 
 | nodeId（夹具） | artStatus | 实际文件（assetId） | 说明 |
 |---|---|---|---|
-| `n_pay_01_catch_jade` | ready | `assets/scenes/heat/n_heat_jade_cling.webp` | 圆场 Jade，离开 catch_b；不复用 S06b |
-| `n_pay_01_catch_mia` | ready | `assets/scenes/heat/n_heat_sleep_legs.webp` | 圆场 Mia；不复用 S06a |
-| `n_pay_01_catch_lina` | ready | `assets/scenes/heat/n_heat_wet_cling.webp` | 圆场 Lina；不复用 S06c |
-| `n_pay_01_catch_rae` | ready | `assets/scenes/heat/n_heat_door_steam.webp` | 圆场 Rae；不复用 S04 |
+| `n_pay_01_catch_jade` / `n_ch01_catch_jade` | ready | `assets/scenes/ch01/ch01-catch-jade.webp` | KEEP C1-09J；离开 heat cling / catch_b |
+| `n_pay_01_catch_mia` / `n_ch01_catch_mia` | ready | `assets/scenes/ch01/ch01-catch-mia.webp` | KEEP C1-09M；离开 heat sleep_legs |
+| `n_pay_01_catch_lina` / `n_ch01_catch_lina` | ready | `assets/scenes/ch01/ch01-catch-lina.webp` | KEEP C1-09L；离开 heat wet_cling |
+| `n_pay_01_catch_rae` / `n_ch01_catch_rae` | ready | `assets/scenes/ch01/ch01-catch-rae.webp` | KEEP C1-09R；离开 heat door_steam |
 | `n_pay_02_router` | ready | `assets/scenes/ch01/n_pay_02_ot_a.webp` | 系统路由（玩家不可见）· 复用 ot 底 |
 | `n_pay_02_ot_mia` | ready | `assets/scenes/heat/n_heat_pin_mia.webp` | 赴约 Mia 加时 · 旧压床 |
 | `n_pay_02_ot_jade` | ready | `assets/scenes/heat/n_heat_straddle_jade.webp` | 赴约 Jade 加时 · 旧跨坐 |
@@ -73,8 +73,10 @@ Heat 上限：动漫 CG 擦边——完成吻、胸、乳沟、腿、脚/赤足�
 | `n_open` | ready | `assets/scenes/ch01/n_open.webp` |
 | `n_see_both` | ready | `assets/scenes/ch01/n_see_both.webp` |
 | `n_jade_desk` | ready | `assets/scenes/ch01/n_jade_desk.webp` |
+| `n_jade_desk_hold` | ready | `assets/scenes/ch01/n_open.webp` |
 | `n_dodge_corridor` | ready | `assets/scenes/ch01/n_dodge_corridor.webp` |
 | `n_mia_edge_1` / `n_mia_edge_2` | ready | `assets/scenes/ch01/n_mia_edge_1.webp` |
+| `n_mia_edge_hold` | ready | `assets/scenes/ch01/n_see_both.webp` |
 | `n_dorm_steam` | ready | `assets/scenes/heat/S04.webp` |
 | `n_with_mia` | ready | `assets/scenes/heat/S06a.webp` |
 | `n_with_jade` | ready | `assets/scenes/heat/S06b.webp` |

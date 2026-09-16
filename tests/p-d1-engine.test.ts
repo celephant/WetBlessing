@@ -91,10 +91,10 @@ describe("P-D5 asset aliases", () => {
   it("maps paid catch/ot nodes off their nodeIds", () => {
     const aliases = chapterAssetAliases();
     expect(aliases.n_pay_01_catch_mia).toBe(
-      "assets/scenes/heat/n_heat_sleep_legs.webp",
+      "assets/scenes/ch01/ch01-catch-mia.webp",
     );
     expect(aliases.n_pay_01_catch_jade).toBe(
-      "assets/scenes/heat/n_heat_jade_cling.webp",
+      "assets/scenes/ch01/ch01-catch-jade.webp",
     );
     expect(aliases.n_pay_02_ot_mia).toBe("assets/scenes/heat/n_heat_pin_mia.webp");
     expect(aliases.n_pay_02_ot_jade).toBe(

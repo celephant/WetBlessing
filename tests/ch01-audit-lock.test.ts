@@ -53,6 +53,10 @@ describe("Ch01 story + drift audit lock", () => {
     expect(desk.choices?.find((choice) => choice.choiceId === "c_jade_go")?.next).toBe(
       "n_dodge_corridor",
     );
+    expect(route.nodes.get("n_jade_desk_hold")?.assetId).not.toBe(desk.assetId);
+    expect(route.nodes.get("n_mia_edge_1")?.choices?.find((c) => c.choiceId === "c_mia_side")?.next).toBe(
+      "n_dodge_corridor",
+    );
     expect(route.nodes.has("n_mia_tease_auto")).toBe(false);
     const jade = playChoices(
       ["c_talk_jade", "c_jade_smirk"],

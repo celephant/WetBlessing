@@ -39,13 +39,13 @@ export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
   "assets/scenes/ch01/n_see_both.webp": "media/ch01-portrait/C1-07b-portrait.png",
   "assets/scenes/ch01/n_ch01_first_sub.webp":
     "media/ch01-portrait/C1-08-portrait.png",
-  "assets/scenes/heat/n_heat_sleep_legs.webp":
+  "assets/scenes/ch01/ch01-catch-mia.webp":
     "media/ch01-portrait/C1-09M-portrait.png",
-  "assets/scenes/heat/n_heat_jade_cling.webp":
+  "assets/scenes/ch01/ch01-catch-jade.webp":
     "media/ch01-portrait/C1-09J-portrait.png",
-  "assets/scenes/heat/n_heat_wet_cling.webp":
+  "assets/scenes/ch01/ch01-catch-lina.webp":
     "media/ch01-portrait/C1-09L-portrait.png",
-  "assets/scenes/heat/n_heat_door_steam.webp":
+  "assets/scenes/ch01/ch01-catch-rae.webp":
     "media/ch01-portrait/C1-09R-portrait.png",
   "assets/scenes/heat/n_heat_pin_mia.webp":
     "media/ch01-portrait/C1-10M-portrait.png",

@@ -24,6 +24,10 @@ export const SHIPPED_CH01_SCENE_WEBPS = [
   "n_free_soft_exit",
   "ch01-s05-party",
   "ch01-s06b-jade",
+  "ch01-catch-mia",
+  "ch01-catch-jade",
+  "ch01-catch-lina",
+  "ch01-catch-rae",
 ] as const;
 
 const SHIPPED_STEMS = new Set<string>(SHIPPED_CH01_SCENE_WEBPS);

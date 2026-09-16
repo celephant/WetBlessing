@@ -137,7 +137,7 @@ describe("hotter-cast Ch01", () => {
       "assets/scenes/heat/n_heat_kiss_jade.webp",
     );
     expect(route.nodes.get("n_pay_01_catch_jade")?.assetId).toBe(
-      "assets/scenes/heat/n_heat_jade_cling.webp",
+      "assets/scenes/ch01/ch01-catch-jade.webp",
     );
     expect(route.nodes.get("n_pay_02_ot_jade")?.assetId).toBe(
       "assets/scenes/heat/n_heat_straddle_jade.webp",
