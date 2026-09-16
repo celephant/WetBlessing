@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { detectIntimateBeat } from "@/lib/feel-density";
 import {
+  orientedStill,
+  PORTRAIT_SOURCE_MEDIA,
+  type StillPairKind,
+} from "@/lib/orientation-stills";
+import {
   cutDurationMs,
   isFreePathFeel,
   isNightGradeNode,
@@ -35,6 +40,8 @@ type SceneArtProps = {
 
 type Plate = {
   src: string;
+  portraitSrc: string | null;
+  pair: StillPairKind;
   failed: boolean;
 };
 
@@ -58,11 +65,17 @@ export function SceneArt({
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
-  const identity = sceneIdentity(assetId);
-  const src = identity.url;
+  // Portrait viewport uses a real 9:16 file when one is mapped; otherwise the
+  // landscape webp (contain, never cover-crop a two-shot).
+  const still = orientedStill(assetId);
   const alt = artAlt(artCue, nodeId);
 
-  const [plate, setPlate] = useState<Plate>({ src, failed: false });
+  const [plate, setPlate] = useState<Plate>({
+    src: still.landscapeUrl,
+    portraitSrc: still.portraitUrl,
+    pair: still.pair,
+    failed: false,
+  });
   const [outgoing, setOutgoing] = useState<Plate | null>(null);
   const [activeTransition, setActiveTransition] =
     useState<SceneTransitionName | null>(TRANSITION_FADE);
@@ -83,6 +96,8 @@ export function SceneArt({
     }),
   );
   const [holdCount, setHoldCount] = useState(0);
+
+  const identity = sceneIdentity(assetId);
 
   const identityRef = useRef(identity);
   const plateRef = useRef(plate);
@@ -181,11 +196,19 @@ export function SceneArt({
         : selectAssetChangeTransition({
             changeCount: changeCountRef.current,
           });
+      const nextStill = orientedStill(assetId);
       setOutgoing({
         src: plateRef.current.src,
+        portraitSrc: plateRef.current.portraitSrc,
+        pair: plateRef.current.pair,
         failed: plateFailedRef.current,
       });
-      setPlate({ src: next.url, failed: false });
+      setPlate({
+        src: nextStill.landscapeUrl,
+        portraitSrc: nextStill.portraitUrl,
+        pair: nextStill.pair,
+        failed: false,
+      });
       plateFailedRef.current = false;
       setActiveTransition(nextTransition);
       holdCountRef.current = 0;
@@ -220,6 +243,8 @@ export function SceneArt({
       className={`scene-art-pane z-0 overflow-hidden ${PLACEHOLDER_BG}`}
       data-scene-art={showImage ? "image" : "placeholder"}
       data-scene-src={plate.src}
+      data-scene-portrait={plate.portraitSrc ?? ""}
+      data-still-pair={plate.pair}
       data-scene-transition={activeTransition ?? "none"}
       data-scene-motion={motion}
       data-scene-fit="frame"
@@ -243,6 +268,7 @@ export function SceneArt({
       {outgoing ? (
         <ScenePlate
           src={outgoing.src}
+          portraitSrc={outgoing.portraitSrc}
           alt=""
           failed={outgoing.failed}
           layerClass={`scene-plate-out ${outgoingClass}`}
@@ -252,6 +278,7 @@ export function SceneArt({
       <ScenePlate
         key={`in-${plate.src}`}
         src={plate.src}
+        portraitSrc={plate.portraitSrc}
         alt={alt}
         failed={plate.failed}
         layerClass={`scene-plate-in ${incomingClass}`}
@@ -277,12 +304,14 @@ export function SceneArt({
 
 function ScenePlate({
   src,
+  portraitSrc,
   alt,
   failed,
   layerClass,
   onError,
 }: {
   src: string;
+  portraitSrc: string | null;
   alt: string;
   failed: boolean;
   layerClass: string;
@@ -303,13 +332,18 @@ function ScenePlate({
         </div>
       ) : (
         <div className="scene-still-hold absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            className="scene-still-fill"
-            onError={onError}
-          />
+          <picture>
+            {portraitSrc ? (
+              <source media={PORTRAIT_SOURCE_MEDIA} srcSet={portraitSrc} />
+            ) : null}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt}
+              className="scene-still-fill"
+              onError={onError}
+            />
+          </picture>
         </div>
       )}
     </div>

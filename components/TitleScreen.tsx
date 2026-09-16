@@ -4,9 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { content } from "@/lib/content";
 import { SAVE_STORAGE_KEY } from "@/lib/entitlement";
+import {
+  orientedStill,
+  PORTRAIT_SOURCE_MEDIA,
+  TITLE_LANDSCAPE_ASSET_ID,
+} from "@/lib/orientation-stills";
 
 export function TitleScreen() {
   const [hasSave, setHasSave] = useState(false);
+  const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
 
   useEffect(() => {
     setHasSave(Boolean(localStorage.getItem(SAVE_STORAGE_KEY)));
@@ -16,14 +22,23 @@ export function TitleScreen() {
     <main
       className="relative min-h-dvh overflow-hidden bg-void text-paper"
       data-title-idle=""
+      data-still-pair={titleStill.pair}
     >
       <div className="absolute inset-0" data-title-still="">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/scenes/ch01/n_open.webp"
-          alt="WetBlessing chapter 1"
-          className="scene-still-fill opacity-80"
-        />
+        <picture>
+          {titleStill.portraitUrl ? (
+            <source
+              media={PORTRAIT_SOURCE_MEDIA}
+              srcSet={titleStill.portraitUrl}
+            />
+          ) : null}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={titleStill.landscapeUrl}
+            alt="WetBlessing chapter 1"
+            className="scene-still-fill opacity-80"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-black/30" />
       </div>
 
