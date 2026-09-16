@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { compileRoute, content, route } from "../lib/content";
-import { walkChoiceIndexPaths } from "../lib/choice-index";
+import { isWallNode, walkChoiceIndexPaths } from "../lib/choice-index";
 import type { ContentFile, ContentNode } from "../lib/types";
 
 describe("all-path choiceIndex script", () => {
@@ -8,12 +8,14 @@ describe("all-path choiceIndex script", () => {
     const paths = walkChoiceIndexPaths(route);
     expect(paths.length).toBeGreaterThan(0);
     for (const path of paths) {
-      expect(path.nodes.at(-1)).toBe("n_ch01_first_sub");
+      const last = path.nodes.at(-1)!;
+      const node = route.nodes.get(last)!;
+      expect(isWallNode(node, route), last).toBe(true);
       expect(path.sawGate).toBe(true);
       expect(path.choiceIndex).toBeGreaterThan(0);
       expect(path.choiceIndex).toBeLessThanOrEqual(10);
     }
-    expect(Math.max(...paths.map((path) => path.choiceIndex))).toBe(6);
+    expect(Math.max(...paths.map((path) => path.choiceIndex))).toBe(7);
   });
 
   it("compiles default 0.4.8-feel-hot Ch01", () => {

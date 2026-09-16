@@ -31,7 +31,7 @@ import {
 } from "../lib/paywall-copy";
 import { applySeasonCarry, canPlayCh04, seasonContinueTarget } from "../lib/season-continue";
 
-const ch01Dodge = ["c_dodge_both", "c_dodge_party"] as const;
+const ch01Dodge = ["c_dodge_both", "c_dodge_party", "c_sms_shut"] as const;
 
 describe("entitlement scopes (fake-unlock only)", () => {
   it("keeps w1_continue, w2_office, and w3_edge_night distinct", () => {

@@ -22,6 +22,8 @@ export const SHIPPED_CH01_SCENE_WEBPS = [
   "n_pay_settle",
   "n_title",
   "n_free_soft_exit",
+  "ch01-s05-party",
+  "ch01-s06b-jade",
 ] as const;
 
 const SHIPPED_STEMS = new Set<string>(SHIPPED_CH01_SCENE_WEBPS);

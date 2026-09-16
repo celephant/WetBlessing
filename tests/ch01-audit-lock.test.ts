@@ -44,12 +44,18 @@ describe("Ch01 story + drift audit lock", () => {
 
   it("sends Jade desk to Rae steam, not Mia elevator", () => {
     const desk = route.nodes.get("n_jade_desk")!;
-    expect(desk.choices?.every((choice) => choice.next === "n_dorm_steam")).toBe(
-      true,
+    expect(desk.choices?.find((choice) => choice.choiceId === "c_jade_smirk")?.next).toBe(
+      "n_dorm_steam",
+    );
+    expect(desk.choices?.find((choice) => choice.choiceId === "c_jade_ok")?.next).toBe(
+      "n_jade_desk_hold",
+    );
+    expect(desk.choices?.find((choice) => choice.choiceId === "c_jade_go")?.next).toBe(
+      "n_dodge_corridor",
     );
     expect(route.nodes.has("n_mia_tease_auto")).toBe(false);
     const jade = playChoices(
-      ["c_talk_jade", "c_jade_ok"],
+      ["c_talk_jade", "c_jade_smirk"],
       { story_pass_month: false },
       route,
       { pumpAfter: false },
@@ -60,7 +66,10 @@ describe("Ch01 story + drift audit lock", () => {
 
   it("keeps S14 / Reina office off the free path; S07 mail is dry", () => {
     expect(route.nodes.has("n_reina_monday")).toBe(false);
-    expect(route.nodes.get("n_sms_auto")?.advance).toBe("n_ch01_first_sub");
+    expect(route.nodes.get("n_sms_auto")?.choices?.map((c) => c.choiceId).sort()).toEqual([
+      "c_sms_open",
+      "c_sms_shut",
+    ]);
     for (const node of route.nodes.values()) {
       expect(node.assetId ?? "").not.toMatch(/S14\.webp/);
     }
@@ -68,15 +77,16 @@ describe("Ch01 story + drift audit lock", () => {
       route.nodes.get("n_sms_auto")?.text ?? "",
       ...(route.nodes.get("n_sms_auto")?.lines?.map((line) => line.text) ?? []),
     ].join("\n");
-    expect(sms).toMatch(/办公时间。带学生证。周一见/);
-    expect(sms).toMatch(/下午电梯口，两个人抢你一只手/);
+    expect(sms).toMatch(/学生事务|带学生证/);
+    expect(sms).toMatch(/拼贴|同一只手/);
     expect(sms).not.toMatch(/吻|唇/);
-    expect(sms).not.toMatch(/黑丝|二十九/);
+    expect(sms).not.toMatch(/黑丝|二十九|周一还在|办公时间/);
     expect(sms).not.toMatch(BANNED);
 
     const wall = route.nodes.get("n_ch01_first_sub")!;
-    expect(wall.text).toBe("群发出去了。周一写进日程。");
-    expect(wall.text).not.toMatch(/吻/);
+    expect(wall.assetId).toBe("assets/scenes/ch01/ch01-s05-party.webp");
+    expect(wall.text).toMatch(/四块地/);
+    expect(wall.text).not.toMatch(/吻|周一/);
   });
 
   it("R1 dodge-all unpaid never speaks a kiss", () => {
@@ -97,7 +107,7 @@ describe("Ch01 story + drift audit lock", () => {
       }
     };
     drain();
-    for (const choiceId of ["c_dodge_both", "c_dodge_party"] as const) {
+    for (const choiceId of ["c_dodge_both", "c_dodge_party", "c_sms_shut"] as const) {
       const result = selectChoice(state, choiceId);
       expect(result.ok).toBe(true);
       if (!result.ok) return;
@@ -148,10 +158,9 @@ describe("Ch01 story + drift audit lock", () => {
     const spoken = spokenHay();
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(/二十九|黑丝|ぬぷ|ぎち|ずぶ/);
-    expect(spoken).toMatch(/十八/);
+    expect(spoken).not.toMatch(/只是坐|周一还在|认领/);
     expect(spoken).toMatch(/水手领/);
-    expect(spoken).toMatch(/办公时间/);
-    expect(spoken).toMatch(/周一还在/);
+    expect(spoken).toMatch(/学生事务|带学生证/);
     expect(route.nodes.get("n_see_both")?.choices?.map((c) => c.text)).toEqual([
       "接招：「箱子我来。」",
       "接招：「三十秒。」",

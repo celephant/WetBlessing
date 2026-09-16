@@ -88,9 +88,9 @@ describe("story-logic sign-off paths", () => {
   const ch04 = compileRoute(tryReadCh04Endings()!);
 
   it("R1 dodge-all unpaid never speaks a kiss", () => {
-    const hay = spokenAlong(["c_dodge_both", "c_dodge_party"]);
+    const hay = spokenAlong(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     expect(hay).not.toMatch(/吻|唇/);
-    const wall = playChoices(["c_dodge_both", "c_dodge_party"]);
+    const wall = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     expect(wall.nodeId).toBe("n_ch01_first_sub");
     expect(selectChoice(wall, "c_sub_round_mia").ok).toBe(false);
   });
@@ -148,7 +148,7 @@ describe("story-logic sign-off paths", () => {
       "c_s18_ok",
       "c_push",
       "c_s20_ok",
-      "c_s21_v_soft",
+      "c_s21_v_ok",
       "c_sms_sting",
     ]);
     const ending = continuePlay(ch04, night.flags, ["c_s22_ok", "c_s23_ok"]);
@@ -188,12 +188,24 @@ describe("story-logic sign-off paths", () => {
   });
 
   it("Ch01 paid kiss follows catch_target, not went_with", () => {
-    const state = playChoices(
-      ["c_help_mia", "c_mia_safe", "c_mia_box", "c_go_mia", "c_wm_ok", "c_sub_round_jade"],
+    const dodgeJade = playChoices(
+      ["c_dodge_both", "c_dodge_party", "c_sms_shut", "c_sub_round_jade"],
       { story_pass_month: true },
       route,
       { pumpAfter: false },
     );
-    expect(clickAdvance(state).nodeId).toBe("n_pay_02_ot_jade");
+    expect(dodgeJade.flags.went_with).toBe("none");
+    expect(dodgeJade.flags.catch_target).toBe("jade");
+    expect(clickAdvance(dodgeJade).nodeId).toBe("n_pay_02_ot_jade");
+
+    const followMia = playChoices(
+      ["c_help_mia", "c_mia_hugish", "c_mia_banter", "c_go_mia", "c_wm_close", "c_sms_shut", "c_sub_round_mia"],
+      { story_pass_month: true },
+      route,
+      { pumpAfter: false },
+    );
+    expect(followMia.flags.went_with).toBe("mia");
+    expect(followMia.flags.catch_target).toBe("mia");
+    expect(clickAdvance(followMia).nodeId).toBe("n_pay_02_ot_mia");
   });
 });
