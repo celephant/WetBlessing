@@ -128,6 +128,9 @@ describe("story-logic sign-off paths", () => {
     );
 
     const ending = continuePlay(ch04, night.flags, ["c_s23_ok"], w2);
+    expect(ending.visited).toContain("n_s23_empty");
+    expect(ending.visited).not.toContain("n_s22_mia");
+    expect(ending.visited).not.toContain("n_s23_mia");
     expect(ending.flags.ending).toBe("end_crash");
   });
 
@@ -140,6 +143,7 @@ describe("story-logic sign-off paths", () => {
       "c_sms_bind_mia",
     ]);
     const ending = continuePlay(ch04, night.flags, ["c_s22_ok", "c_s23_ok"]);
+    expect(ending.visited).toEqual(expect.arrayContaining(["n_s22_mia", "n_s23_mia", "n_s24_mia"]));
     expect(ending.flags.ending).toBe("end_mia");
   });
 
@@ -152,6 +156,9 @@ describe("story-logic sign-off paths", () => {
       "c_sms_sting",
     ]);
     const ending = continuePlay(ch04, night.flags, ["c_s22_ok", "c_s23_ok"]);
+    expect(ending.visited).toEqual(
+      expect.arrayContaining(["n_s22_jade", "n_s23_jade", "n_s24_jade"]),
+    );
     expect(ending.flags.ending).toBe("end_jade");
   });
 
@@ -164,6 +171,9 @@ describe("story-logic sign-off paths", () => {
       "c_sms_bind_lina",
     ]);
     const ending = continuePlay(ch04, night.flags, ["c_s22_ok", "c_s23_ok"]);
+    expect(ending.visited).toEqual(
+      expect.arrayContaining(["n_s22_lina", "n_s23_lina", "n_s24_lina"]),
+    );
     expect(ending.flags.ending).toBe("end_lina");
   });
 
@@ -175,6 +185,9 @@ describe("story-logic sign-off paths", () => {
     expect(night.flags.vanessa_crack).toBe(true);
     expect(night.flags.w4_sms_first).toBe("vanessa");
     const ending = continuePlay(ch04, night.flags, ["c_s23_ok"]);
+    expect(ending.visited).toContain("n_s23_vanessa");
+    expect(ending.visited).not.toContain("n_s22_mia");
+    expect(ending.visited).not.toContain("n_s23_mia");
     expect(ending.flags.ending).toBe("end_vanessa");
   });
 
@@ -184,6 +197,8 @@ describe("story-logic sign-off paths", () => {
       { ch3_bind: "none", reina_office_kiss: true, ch3_entered: false },
       ["c_s23_ok"],
     );
+    expect(ending.visited).toContain("n_s23_empty");
+    expect(ending.visited).not.toContain("n_s23_mia");
     expect(ending.flags.ending).toBe("end_reina");
   });
 

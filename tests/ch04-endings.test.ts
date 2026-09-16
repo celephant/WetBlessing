@@ -15,7 +15,7 @@ import {
   resolvePlayRoute,
 } from "../lib/dev-packs";
 import { tryReadCh04Endings } from "../lib/dev-packs.node";
-import { pumpToPrompt, selectChoice, startGame } from "../lib/engine";
+import { pumpToPrompt, resolveNext, selectChoice, startGame } from "../lib/engine";
 import { applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
@@ -116,16 +116,98 @@ describe("Ch04 名分 (DEV, not default)", () => {
     const compiled = compileRoute(tryReadCh04Endings(root)!);
     const opened = startGame({ story_pass_month: true, edge_lock: true }, compiled);
     expect(opened.flags.ch04_day).toBe(true);
-    expect(opened.flags.ch3_bind).toBeUndefined();
+    expect(opened.flags.ch3_bind).toBe("none");
     expect(opened.flags.edge_sleepover_mia).not.toBe(true);
-    expect(compiled.nodes.get("n_ch04_open")?.setFlags).toEqual({ ch04_day: true });
+    expect(compiled.nodes.get("n_ch04_open")?.setFlags).toEqual({
+      ch04_day: true,
+      ch3_bind: "none",
+    });
 
     const empty = playFrom(compiled, {}, ["c_s23_ok"]);
+    expect(empty.visited).toContain("n_s23_empty");
+    expect(empty.visited).not.toContain("n_s22_mia");
+    expect(empty.visited).not.toContain("n_s23_mia");
     expect(empty.flags.ending).toBe("end_crash");
+    expect(empty.flags.ch3_bind).toBe("none");
 
     const fold = playFrom(compiled, {}, ["c_s23_dodge"]);
+    expect(fold.visited).toContain("n_s23_empty");
+    expect(fold.visited).not.toContain("n_s23_mia");
     expect(fold.flags.ending).toBe("end_crash");
     expect(fold.flags.w4_stand).toBe("fold");
+  });
+
+  it("routes S22 / S23 / S24 off sleepover, bind none, and Vanessa — never default Mia hallway", () => {
+    const compiled = compileRoute(tryReadCh04Endings(root)!);
+    const s22 = compiled.nodes.get("n_s22_router")!;
+    const s23 = compiled.nodes.get("n_s23_router")!;
+    const s24 = compiled.nodes.get("n_s24_router")!;
+
+    expect(s22.advanceByFlag).toMatchObject({
+      "w4_sms_first==vanessa": "n_s23_router",
+      "edge_sleepover_rae==true": "n_s22_rae",
+      "edge_sleepover_lina==true": "n_s22_lina",
+      "edge_sleepover_jade==true": "n_s22_jade",
+      "edge_sleepover_mia==true": "n_s22_mia",
+      default: "n_s23_router",
+    });
+    expect(s23.advanceByFlag?.default).toBe("n_s23_empty");
+    expect(s23.advanceByFlag?.default).not.toBe("n_s23_mia");
+    expect(s23.advanceByFlag?.["ch3_bind==none"]).toBe("n_s23_empty");
+    expect(s23.assetId).toBe("assets/scenes/ch04/S23-empty.webp");
+    expect(s24.advanceByFlag).toMatchObject({
+      "w4_stand==fold": "n_s24_crash",
+      "edge_sleepover_mia==true": "n_s24_mia",
+      "edge_sleepover_jade==true": "n_s24_jade",
+      "edge_sleepover_lina==true": "n_s24_lina",
+      "edge_sleepover_rae==true": "n_s24_rae",
+      default: "n_s24_crash",
+    });
+    expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/s22_meet==ok/);
+    expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/w4_sms_first!=vanessa/);
+
+    expect(resolveNext(s22, {})).toBe("n_s23_router");
+    expect(resolveNext(s22, { edge_sleepover_mia: true })).toBe("n_s22_mia");
+    expect(resolveNext(s22, { edge_sleepover_mia: true, w4_sms_first: "vanessa" })).toBe(
+      "n_s23_router",
+    );
+    expect(resolveNext(s23, {})).toBe("n_s23_empty");
+    expect(resolveNext(s23, { ch3_bind: "none" })).toBe("n_s23_empty");
+    expect(resolveNext(s23, { ch3_bind: "mia" })).toBe("n_s23_empty");
+    expect(resolveNext(s23, { edge_sleepover_mia: true })).toBe("n_s23_mia");
+    expect(resolveNext(s23, { ch3_bind: "none", vanessa_crack: true })).toBe("n_s23_vanessa");
+
+    for (const who of ["jade", "lina", "rae"] as const) {
+      expect(compiled.nodes.get(`n_s23_${who}`)?.assetId).toBe(
+        "assets/scenes/ch04/S23-empty.webp",
+      );
+      expect(compiled.nodes.get(`n_s22_${who}`)?.assetId).toBe(
+        `assets/scenes/ch04/S22-${who}.webp`,
+      );
+    }
+    expect(compiled.nodes.get("n_s23_mia")?.assetId).toBe("assets/scenes/ch04/S23.webp");
+    expect(compiled.nodes.get("n_s22_mia")?.assetId).toBe("assets/scenes/ch04/S22-mia.webp");
+    expect(compiled.nodes.get("n_s23_empty")?.text).toMatch(/旁边没有她/);
+
+    const skipBed = playFrom(compiled, { ch3_bind: "mia" }, ["c_s23_ok"]);
+    expect(skipBed.visited).not.toContain("n_s22_mia");
+    expect(skipBed.visited).not.toContain("n_s23_mia");
+    expect(skipBed.visited).toContain("n_s23_empty");
+    expect(skipBed.flags.ending).toBe("end_crash");
+
+    const vanessaSkipBed = playFrom(
+      compiled,
+      {
+        ch3_bind: "mia",
+        edge_sleepover_mia: true,
+        vanessa_crack: true,
+        w4_sms_first: "vanessa",
+      },
+      ["c_s23_ok"],
+    );
+    expect(vanessaSkipBed.visited).not.toContain("n_s22_mia");
+    expect(vanessaSkipBed.visited).toContain("n_s23_vanessa");
+    expect(vanessaSkipBed.flags.ending).toBe("end_mia");
   });
 
   it("real continue keeps a Rae sleepover through morning, Troy, and the ending", () => {
@@ -159,6 +241,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
         edge_sleepover_jade: true,
       },
       ["c_s22_ok", "c_s23_ok"],
+    );
+    expect(jade.visited).toEqual(
+      expect.arrayContaining(["n_s22_jade", "n_s23_jade", "n_s24_jade"]),
     );
     expect(jade.nodeId).toBe("n_s24_tail");
     expect(jade.flags.ending).toBe("end_jade");
@@ -231,6 +316,11 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/我还是你的讲师/);
     expect(spoken).toMatch(/第一部完/);
     expect(spoken).toMatch(/没有下学期/);
+    expect(spoken).toMatch(/旁边没有她/);
+    expect(spoken).toMatch(/别替我答/);
+    expect(spoken).toMatch(/♡|♥/);
+    expect(spoken).toMatch(/……/);
+    expect(spoken).not.toMatch(/稍后再说/);
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/ぬぷ|ぎち|ずぶ/);
