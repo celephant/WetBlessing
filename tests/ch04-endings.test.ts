@@ -122,6 +122,13 @@ describe("Ch04 名分 (DEV, not default)", () => {
       ch04_day: true,
       ch3_bind: "none",
     });
+    const openHay = [
+      compiled.nodes.get("n_ch04_open")?.text ?? "",
+      ...(compiled.nodes.get("n_ch04_open")?.lines?.map((line) => line.text) ?? []),
+    ].join("\n");
+    expect(openHay).toMatch(/早晨/);
+    expect(openHay).toMatch(/群还没冷/);
+    expect(openHay).not.toMatch(/衣服还皱着|肩窝|称呼想好|皱衣/);
 
     const empty = playFrom(compiled, {}, ["c_s23_ok"]);
     expect(empty.visited).toContain("n_s23_empty");
