@@ -23,6 +23,10 @@ const MISSING_COPY: Record<MissingPlayPack, { pack: string; body: string }> = {
     pack: "ch04",
     body: "Ch04 名分夹具未进仓。默认仍是 0.4.8-feel-hot，不会改成结局关。",
   },
+  "missing-funnel": {
+    pack: "funnel",
+    body: "入学夜漏斗夹具未进仓。默认仍是 0.4.8-feel-hot，不会改成登录前钩子。",
+  },
 };
 
 export function PlayClient({
@@ -30,18 +34,20 @@ export function PlayClient({
   ch02,
   ch03 = null,
   ch04 = null,
+  funnel = null,
 }: {
   fourweek: ContentFile | null;
   ch02: ContentFile | null;
   ch03?: ContentFile | null;
   ch04?: ContentFile | null;
+  funnel?: ContentFile | null;
 }) {
   const params = useSearchParams();
   const resume = params.get("resume") === "1";
   const pack = params.get("content") ?? params.get("route");
   const resolved = useMemo(
-    () => resolvePlayRoute(pack, fourweek, ch02, ch03, ch04),
-    [pack, fourweek, ch02, ch03, ch04],
+    () => resolvePlayRoute(pack, fourweek, ch02, ch03, ch04, funnel),
+    [pack, fourweek, ch02, ch03, ch04, funnel],
   );
 
   if (typeof resolved === "string") {
@@ -55,6 +61,7 @@ export function PlayClient({
         data-ch02={which === "ch02" ? "blocked" : undefined}
         data-ch03={which === "ch03" ? "blocked" : undefined}
         data-ch04={which === "ch04" ? "blocked" : undefined}
+        data-funnel={which === "funnel" ? "blocked" : undefined}
       >
         <p className="font-display text-xs uppercase tracking-[0.3em] text-mint">
           DEV

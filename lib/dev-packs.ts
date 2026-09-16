@@ -15,6 +15,10 @@ export const CH03_NIGHT_ROUTE_ID = "route_kai_ch03";
 export const CH04_ENDINGS_PATH = "content/CONTENT-ch04-endings.json";
 export const CH04_ENDINGS_VERSION = "0.5.3-ch04-endings";
 export const CH04_ENDINGS_ROUTE_ID = "route_kai_ch04";
+/** Pre-login night-pool funnel. Never defaultAllow. Does not rewire Ch01 n_open. */
+export const LANDING_FUNNEL_PATH = "content/CONTENT-landing-funnel.json";
+export const LANDING_FUNNEL_VERSION = "0.5.4-landing-funnel";
+export const LANDING_FUNNEL_ROUTE_ID = "route_kai_funnel";
 export const FOURWEEK_WEEK_PATHS = [
   "content/CONTENT-w2-tug-draft.json",
   "content/CONTENT-w3-edge-draft.json",
@@ -70,9 +74,27 @@ export function isCh04Pack(pack?: string | null): boolean {
   );
 }
 
-export type PlayPackId = "fourweek" | "ch02" | "ch03" | "ch04" | "default";
+export function isFunnelPack(pack?: string | null): boolean {
+  const value = (pack ?? "").trim().toLowerCase();
+  return (
+    value === "funnel" ||
+    value === "landing" ||
+    value === "landing-funnel" ||
+    value === "0.5.4-landing-funnel" ||
+    value === "content-funnel"
+  );
+}
+
+export type PlayPackId =
+  | "fourweek"
+  | "ch02"
+  | "ch03"
+  | "ch04"
+  | "funnel"
+  | "default";
 
 export function playPackId(pack?: string | null): PlayPackId {
+  if (isFunnelPack(pack)) return "funnel";
   if (isCh04Pack(pack)) return "ch04";
   if (isCh03Pack(pack)) return "ch03";
   if (isCh02Pack(pack)) return "ch02";
@@ -126,7 +148,8 @@ export type MissingPlayPack =
   | "missing-fourweek"
   | "missing-ch02"
   | "missing-ch03"
-  | "missing-ch04";
+  | "missing-ch04"
+  | "missing-funnel";
 
 export function resolvePlayRoute(
   pack: string | null | undefined,
@@ -134,7 +157,12 @@ export function resolvePlayRoute(
   ch02: ContentFile | null = null,
   ch03: ContentFile | null = null,
   ch04: ContentFile | null = null,
+  funnel: ContentFile | null = null,
 ): CompiledRoute | MissingPlayPack {
+  if (isFunnelPack(pack)) {
+    if (!funnel) return "missing-funnel";
+    return compileRoute(funnel);
+  }
   if (isCh04Pack(pack)) {
     if (!ch04) return "missing-ch04";
     return compileRoute(ch04);

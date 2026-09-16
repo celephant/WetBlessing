@@ -6,6 +6,7 @@ import {
   CH04_ENDINGS_PATH,
   FOURWEEK_MINI_PATH,
   FOURWEEK_WEEK_PATHS,
+  LANDING_FUNNEL_PATH,
 } from "./dev-packs";
 import type { ContentFile } from "./types";
 
@@ -33,6 +34,11 @@ export function tryReadCh03Night(root = process.cwd()): ContentFile | null {
 /** DEV Ch04 名分 pack. Null when the fixture is not installed. */
 export function tryReadCh04Endings(root = process.cwd()): ContentFile | null {
   return tryReadJsonFile<ContentFile>(CH04_ENDINGS_PATH, root);
+}
+
+/** Pre-login funnel. Null when the fixture is not installed. */
+export function tryReadLandingFunnel(root = process.cwd()): ContentFile | null {
+  return tryReadJsonFile<ContentFile>(LANDING_FUNNEL_PATH, root);
 }
 
 export function listInstalledFourweekDrafts(root = process.cwd()): string[] {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { content } from "@/lib/content";
 import { SAVE_STORAGE_KEY } from "@/lib/entitlement";
+import { readFunnelCompleted } from "@/lib/funnel";
 import {
   orientedStill,
   PORTRAIT_SOURCE_MEDIA,
@@ -12,10 +13,12 @@ import {
 
 export function TitleScreen() {
   const [hasSave, setHasSave] = useState(false);
+  const [funnelDone, setFunnelDone] = useState(false);
   const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
 
   useEffect(() => {
     setHasSave(Boolean(localStorage.getItem(SAVE_STORAGE_KEY)));
+    setFunnelDone(readFunnelCompleted());
   }, []);
 
   return (
@@ -57,16 +60,33 @@ export function TitleScreen() {
         </p>
 
         <div className="mt-8 flex flex-col gap-2">
-          <Link
-            href="/play"
-            className="flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
-          >
-            开始入学周
-          </Link>
-          {hasSave ? (
+          {funnelDone ? (
             <Link
               href="/play?resume=1"
-              className="flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
+              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              data-title-start="resume"
+            >
+              继续入学夜
+            </Link>
+          ) : (
+            <Link
+              href="/play?content=funnel"
+              className="choice-press relative flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              data-title-start="funnel"
+            >
+              开始入学夜
+              <span
+                className="absolute right-3 rounded-full border border-white/20 bg-night/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
+                data-title-badge=""
+              >
+                约 3 分钟
+              </span>
+            </Link>
+          )}
+          {hasSave && !funnelDone ? (
+            <Link
+              href="/play?resume=1"
+              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
             >
               继续
             </Link>

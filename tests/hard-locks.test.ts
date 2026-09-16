@@ -39,6 +39,7 @@ describe("Slice-0 hard locks", () => {
       "CONTENT-ch03-night.json",
       "CONTENT-ch04-endings.json",
       "CONTENT-fourweek-mini-0.5.0.json",
+      "CONTENT-landing-funnel.json",
       "CONTENT-w2-tug-draft.json",
       "CONTENT-w3-edge-draft.json",
       "CONTENT-w4-close-draft.json",

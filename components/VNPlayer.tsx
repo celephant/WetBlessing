@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
+import { FunnelAuthDock } from "@/components/FunnelAuthDock";
+import { FunnelHud, funnelLookBeat } from "@/components/FunnelHud";
 import { PauseOverlay } from "@/components/PauseOverlay";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { SceneArt } from "@/components/SceneArt";
@@ -44,6 +46,11 @@ import {
 } from "@/lib/scene-presentation";
 import { NIGHT_PASS_DIALOG_DOCK_CSS } from "@/lib/tokens";
 import type { Choice, Entitlements, GameState } from "@/lib/types";
+import {
+  isFunnelAuthNode,
+  isFunnelLookNode,
+  type FunnelZone,
+} from "@/lib/funnel";
 
 function saveKey(packId: string) {
   return packId === "default" ? SAVE_STORAGE_KEY : `${SAVE_STORAGE_KEY}:${packId}`;
@@ -80,12 +87,13 @@ export function VNPlayer({
   const [locked, setLocked] = useState<Choice | null>(null);
   const [afterPurchase, setAfterPurchase] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [funnelLook, setFunnelLook] = useState<FunnelZone | null>(null);
   const pack = compiled.content;
 
   useEffect(() => {
     const entitlements = loadEntitlements();
-    if (resume) {
-      const saved = readSave(packId);
+    const saved = readSave(packId);
+    if (resume || (packId === "funnel" && saved)) {
       if (saved) {
         setState({
           ...saved,
@@ -104,6 +112,12 @@ export function VNPlayer({
     }
     setState(started);
   }, [resume, compiled, packId, seasonContinue]);
+
+  useEffect(() => {
+    if (!isFunnelLookNode(state?.nodeId ?? "")) {
+      setFunnelLook(null);
+    }
+  }, [state?.nodeId]);
 
   useEffect(() => {
     if (!afterPurchase) return;
@@ -125,6 +139,11 @@ export function VNPlayer({
   const snapshot = view(state, compiled);
   const beatKey = `${state.nodeId}:${state.beatIndex}`;
   const sceneHooks = presentationHooksForBeat(snapshot.node, state.beatIndex);
+  const lookBeat = isFunnelLookNode(state.nodeId) ? funnelLookBeat(funnelLook) : null;
+  const showFunnelChoices =
+    snapshot.choices.length > 0 &&
+    (!isFunnelLookNode(state.nodeId) || Boolean(funnelLook));
+  const authDock = isFunnelAuthNode(state.nodeId);
 
   const commit = (next: GameState) => {
     persistSave(next, packId);
@@ -249,6 +268,16 @@ export function VNPlayer({
         frozen={freezePlate}
       />
 
+      {packId === "funnel" ? (
+        <FunnelHud
+          nodeId={state.nodeId}
+          beatIndex={state.beatIndex}
+          flags={state.flags}
+          looked={funnelLook}
+          onLook={(zone) => setFunnelLook(zone)}
+        />
+      ) : null}
+
       <header className="absolute inset-x-0 top-0 z-[7] flex items-center justify-between px-3 pt-3">
         <div className="flex items-center gap-2">
           <Link
@@ -315,7 +344,7 @@ export function VNPlayer({
         </div>
       ) : (
         <>
-          {snapshot.choices.length > 0 ? (
+          {showFunnelChoices ? (
             <div
               className="choice-overlay z-[3] flex items-center justify-center px-3"
               data-choice-overlay=""
@@ -338,13 +367,21 @@ export function VNPlayer({
             data-night-pass-dock="28"
             style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
           >
-            <DialogBox
-              beat={snapshot.beat}
-              showCaret={snapshot.canClickAdvance && snapshot.choices.length === 0}
-              onAdvance={onDialogClick}
-              entranceKey={beatKey}
-              continueBeat={state.beatIndex > 0}
-            />
+            {authDock ? (
+              <FunnelAuthDock caption={snapshot.beat.text} state={state} />
+            ) : (
+              <DialogBox
+                beat={lookBeat ?? snapshot.beat}
+                showCaret={
+                  snapshot.canClickAdvance &&
+                  snapshot.choices.length === 0 &&
+                  !lookBeat
+                }
+                onAdvance={onDialogClick}
+                entranceKey={lookBeat ? `${beatKey}:${lookBeat.speaker}` : beatKey}
+                continueBeat={state.beatIndex > 0 || Boolean(lookBeat)}
+              />
+            )}
           </div>
         </>
       )}
