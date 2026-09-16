@@ -211,7 +211,7 @@ export function VNPlayer({
 
   return (
     <div
-      className="relative h-dvh w-full overflow-hidden bg-void text-paper"
+      className="vn-stage relative h-dvh w-full overflow-hidden bg-void text-paper"
       data-wall-rhythm={
         wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
       }
@@ -283,6 +283,7 @@ export function VNPlayer({
       {snapshot.isSettle ? (
         <div
           className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
+          data-settle-dock=""
           style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
         >
           <div className="flex h-full w-full flex-col items-center justify-center border-t border-white/10 bg-night/88 px-5 text-center backdrop-blur-xl">
@@ -313,22 +314,24 @@ export function VNPlayer({
         </div>
       ) : (
         <>
-          <div
-            className="absolute inset-x-0 z-[3] flex flex-col justify-end pb-2"
-            style={{ bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
-          >
-            <ChoiceList
-              key={snapshot.node.nodeId}
-              choices={snapshot.choices}
-              choiceEntitled={(choice) =>
-                !choice.requiresEntitlement ||
-                hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
-              }
-              entitled={passOn}
-              onSelect={onChoice}
-              enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
-            />
-          </div>
+          {snapshot.choices.length > 0 ? (
+            <div
+              className="choice-overlay z-[3] flex items-center justify-center px-3"
+              data-choice-overlay=""
+            >
+              <ChoiceList
+                key={snapshot.node.nodeId}
+                choices={snapshot.choices}
+                choiceEntitled={(choice) =>
+                  !choice.requiresEntitlement ||
+                  hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
+                }
+                entitled={passOn}
+                onSelect={onChoice}
+                enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
+              />
+            </div>
+          ) : null}
           <div
             className="absolute inset-x-0 bottom-0 z-[2]"
             data-night-pass-dock="28"
@@ -347,7 +350,7 @@ export function VNPlayer({
 
       {paused ? (
         <div
-          className="absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
+          className="pause-overlay absolute inset-0 z-[6] flex items-center justify-center bg-void/55 backdrop-blur-[2px]"
           data-pause-overlay=""
         >
           <div className="w-full max-w-xs rounded-dialog border border-white/15 bg-night/92 p-5 text-center">

@@ -83,7 +83,7 @@ describe("FEEL density + intimate FX", () => {
     expect(weighted.motion).toBe("hold");
   });
 
-  it("forces soft-zoom or dip on intimate beats and forbids fade-only", () => {
+  it("pins fade on intimate beats so the still does not zoom or dip", () => {
     expect(intimateAllowsFade()).toBe(false);
     expect(
       selectAssetChangeTransition({
@@ -92,33 +92,33 @@ describe("FEEL density + intimate FX", () => {
         intimateBeat: true,
         nodeId: "n_w2_almost_kiss",
       }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         explicit: "dip",
         changeCount: 0,
         intimateBeat: true,
       }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         explicit: "soft-zoom",
         changeCount: 0,
         intimateBeat: true,
       }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         changeCount: 0,
         intimateBeat: "door_lock",
       }),
-    ).toBe("dip-to-black");
+    ).toBe("fade");
     expect(
       selectAssetChangeTransition({
         changeCount: 0,
         intimateBeat: "near_miss",
       }),
-    ).toBe("soft-zoom");
+    ).toBe("fade");
 
     const kiss: ContentNode = {
       nodeId: "n_w2_almost_kiss",
@@ -133,8 +133,7 @@ describe("FEEL density + intimate FX", () => {
       holdCount: 0,
     });
     expect(resolved.intimateBeat).toBe("near_miss");
-    expect(resolved.transition).not.toBe("fade");
-    expect(["soft-zoom", "dip-to-black"]).toContain(resolved.transition);
+    expect(resolved.transition).toBe("fade");
     expect(resolved.fx).toBe("warm-tint");
     expect(resolved.motion).toBe("hold");
     expect(resolved.cropName).toBe("wide");
@@ -151,8 +150,7 @@ describe("FEEL density + intimate FX", () => {
         changeCount: 0,
         intimateBeat: id,
       });
-      expect(cut).not.toBe("fade");
-      expect(["soft-zoom", "dip-to-black"]).toContain(cut);
+      expect(cut).toBe("fade");
     }
 
     expect(
@@ -183,7 +181,7 @@ describe("FEEL density + intimate FX", () => {
       holdCount: 0,
     });
     expect(vanessaResolved.intimateBeat).toBe("vanessa_close");
-    expect(vanessaResolved.transition).not.toBe("fade");
+    expect(vanessaResolved.transition).toBe("fade");
     expect(vanessaResolved.fx).toBe("warm-tint");
   });
 
@@ -202,7 +200,7 @@ describe("FEEL density + intimate FX", () => {
         explicit: "softZoomCrop",
         changeCount: 1,
       }),
-    ).toBe(CROP_CUT_TRANSITION);
+    ).toBe("fade");
   });
 
   it("honors authored camera / transition / fx when they are valid", () => {

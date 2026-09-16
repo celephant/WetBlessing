@@ -3,8 +3,11 @@ import {
   CAMERA_CROPS,
   CROP_CYCLE,
   DEFAULT_CROP_LINE,
+  FULL_STILL_RECT,
   cropRect,
   cropSafeBottom,
+  cropToTransform,
+  fullStillTransform,
   parseCropName,
   selectCropName,
 } from "../lib/camera-crops";
@@ -49,6 +52,16 @@ describe("ART camera crops", () => {
     expect(parseCropName("close_hand")).toBe("close");
     expect(parseCropName("close_collar")).toBe("close");
     expect(selectCropName({ holdCount: 0, beforeChoices: true })).toBe("wide");
+  });
+
+  it("pins an identity full still instead of letterboxed thumbs", () => {
+    expect(FULL_STILL_RECT).toEqual({ x: 0, y: 0, w: 1, h: 1 });
+    expect(fullStillTransform()).toEqual({ scale: 1, tx: 0, ty: 0 });
+    expect(cropToTransform(FULL_STILL_RECT)).toEqual({
+      scale: 1,
+      tx: 0,
+      ty: 0,
+    });
   });
 
   it("keeps free-path plates frozen without a paid unlock", () => {

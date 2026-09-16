@@ -43,10 +43,9 @@ export type Choice = {
  * Optional player-presentation hooks (0.4.7-feel may set fx/camera).
  * See docs/scene-presentation.md.
  *
- * transition — when the resolved scene URL / assetId changes:
- *   "fade" | "soft-zoom" | "dip-to-black"
- * camera — same-asset multi-line motion:
- *   "hold" | "kenburns" | "breathe" | "kenburns-right" | "kenburns-left" | "kenburns-up"
+ * transition — JSON may still name fade / soft-zoom / dip-to-black;
+ *   the player pins a short fade when assetId changes.
+ * camera — JSON may still name Ken Burns words; the player always holds.
  * fx — overlay on the base image:
  *   "none" | "vignette" | "warm-tint" | "soft-light"
  */
