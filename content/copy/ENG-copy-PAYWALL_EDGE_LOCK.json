@@ -2,18 +2,18 @@
   "errorCode": "PAYWALL_EDGE_LOCK",
   "http": 402,
   "zh-CN": {
-    "title": "门还没开。锁还没转。今晚停在这一寸。",
-    "body": "免费只够停在门缝。想看锁合上之后——同一间屋，不是上床。开通通行证，或只解锁这一夜。明天群会响。",
+    "title": "缝里是她。",
+    "body": "手已经在门把上。锁还横着。……里面还亮着♡",
     "primary": "开通剧本通行证 · $8.99",
     "primaryOwned": "推门进去",
     "secondary": "只解锁这一夜 · $2.99",
-    "tertiary": "先离开"
+    "tertiary": "回标题"
   },
   "behavior": {
     "primaryAction": "checkout_sku:story_pass_month",
     "primaryOwnedAction": "continue_paid_edge",
     "secondaryAction": "checkout_sku:chapter_unlock|scope=w3_edge_night",
-    "tertiaryAction": "leave_door",
-    "tone": "门缝饥渴；金属与她的地；不提湿衣门缝克隆/上床/成人"
+    "tertiaryAction": "dismiss",
+    "tone": "缝是广告里面是货；主按钮推门进去；不提湿衣门缝克隆/尺度说明书/成人"
   }
 }

@@ -2,16 +2,18 @@
   "errorCode": "PAYWALL_HARD",
   "http": 402,
   "zh-CN": {
-    "title": "吻上了。拼贴发出了。周一还在。",
-    "body": "免费只够停在「嘴对上了，然后被打断」。想把话说完、把吻做完，开通通行证当场续读。周一的办公室不会取消。",
+    "title": "她还在自己的地上。",
+    "body": "没抬头。手还停在拉的中途。……还在看你下来没有♡",
     "primary": "开通剧本通行证 · $8.99",
+    "primaryOwned": "进去。",
     "secondary": "只续这一段 · $2.99",
-    "tertiary": "稍后再说"
+    "tertiary": "回标题"
   },
   "behavior": {
     "primaryAction": "checkout_sku:story_pass_month",
+    "primaryOwnedAction": "continue_paid_catch",
     "secondaryAction": "checkout_sku:chapter_unlock|scope=w1_continue",
     "tertiaryAction": "dismiss",
-    "tone": "完成吻被打断的续读钩；拼贴+周一办公室已落地；禁暗示开通后才开始暧昧；禁成人/AI女友"
+    "tone": "Catch冻帧；她还在自己的地上；主按钮进去；禁日历讲义与续读说明书；禁暗示开通后才开始暧昧；禁成人/AI女友"
   }
 }
