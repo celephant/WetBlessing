@@ -3,6 +3,7 @@
 import {
   CHAPTER_UNLOCK_PRICE,
   paywallCopyForGate,
+  scopeForGate,
 } from "@/lib/paywall-copy";
 import { PASS_PRICE } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
@@ -12,6 +13,7 @@ type PaywallOverlayProps = {
   gate?: string;
   entitled?: boolean;
   onDevUnlock: () => void;
+  onUnlockScope: () => void;
   onClose: () => void;
 };
 
@@ -20,11 +22,13 @@ export function PaywallOverlay({
   gate,
   entitled = false,
   onDevUnlock,
+  onUnlockScope,
   onClose,
 }: PaywallOverlayProps) {
   const pack = paywallCopyForGate(gate);
   const zh = pack["zh-CN"];
   const ownedPrimary = Boolean(entitled && zh.primaryOwned);
+  const scope = scopeForGate(gate);
 
   return (
     <div
@@ -32,6 +36,7 @@ export function PaywallOverlay({
       data-paywall-grade="night"
       data-phone-glow="off"
       data-paywall-code={pack.errorCode}
+      data-paywall-scope={scope}
     >
       <div className="mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 bg-night/95 p-5 shadow-[0_0_40px_rgba(232,197,106,0.2)]">
         <p className="font-display text-[11px] uppercase tracking-[0.22em] text-gold">
@@ -67,11 +72,13 @@ export function PaywallOverlay({
 
         <button
           type="button"
-          disabled
-          className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-white/10 bg-white/[0.04] font-ui text-[15px] text-paper/70"
+          onClick={onUnlockScope}
+          className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip border border-white/15 bg-white/[0.08] font-ui text-[15px] text-paper"
           data-sku="chapter_unlock"
+          data-dev-scope={scope}
         >
-          {zh.secondary}
+          {/* DEV fake-unlock of this wall only. Stripe stays later. */}
+          DEV · {zh.secondary}
         </button>
 
         <button
@@ -79,7 +86,7 @@ export function PaywallOverlay({
           onClick={onDevUnlock}
           className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip bg-mint/90 font-ui text-[15px] font-medium text-ink"
         >
-          DEV · 假开通，立刻接上这句
+          DEV · 假开通月卡，立刻接上这句
         </button>
 
         <button
@@ -89,7 +96,7 @@ export function PaywallOverlay({
         >
           {zh.tertiary}
         </button>
-        <p className="sr-only">{`story_pass_month ${PASS_PRICE} chapter_unlock ${CHAPTER_UNLOCK_PRICE}`}</p>
+        <p className="sr-only">{`story_pass_month ${PASS_PRICE} chapter_unlock ${CHAPTER_UNLOCK_PRICE} scope ${scope}`}</p>
       </div>
     </div>
   );

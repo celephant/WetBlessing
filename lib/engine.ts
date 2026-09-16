@@ -1,7 +1,20 @@
 import { countsTowardChoiceIndex } from "./choice-index";
 import { getNode, route, type CompiledRoute } from "./content";
+import { mintFullEntitle, mintScope, scopeFromSku } from "./entitlement";
 import { flagMatches, matchFlagExpr } from "./flag-expr";
-import { isWallGate, isWallSku, SKU_CHAPTER_UNLOCK, SKU_EDGE_LOCK } from "./paywall-copy";
+import {
+  GATE_CHAPTER_START,
+  GATE_EDGE_LOCK,
+  GATE_FIRST_SUB,
+  isWallGate,
+  isWallSku,
+  normalizeWallGate,
+  SCOPE_W1_CONTINUE,
+  SCOPE_W2_OFFICE,
+  SCOPE_W3_EDGE_NIGHT,
+  SKU_CHAPTER_UNLOCK,
+  SKU_EDGE_LOCK,
+} from "./paywall-copy";
 import { SKU_STORY_PASS_MONTH } from "./tokens";
 import {
   CAST_STAT_KEYS,
@@ -121,13 +134,45 @@ export function isChoiceVisible(choice: Choice, flags: Flags): boolean {
   );
 }
 
-export function hasEntitlement(state: GameState, sku: string): boolean {
-  const { story_pass_month, edge_lock, chapter_unlock } = state.entitlements;
-  if (sku === SKU_STORY_PASS_MONTH) return Boolean(story_pass_month);
-  if (sku === SKU_EDGE_LOCK) return Boolean(edge_lock || story_pass_month);
-  if (sku === SKU_CHAPTER_UNLOCK) {
-    return Boolean(chapter_unlock || story_pass_month || edge_lock);
+export function hasEntitlement(
+  state: GameState,
+  sku: string,
+  gate?: string | null,
+): boolean {
+  const e = state.entitlements;
+  const pass = Boolean(e.story_pass_month);
+  const w1 = Boolean(e.w1_continue);
+  const w2 = Boolean(e.w2_office);
+  const w3 = Boolean(e.w3_edge_night || e.edge_lock);
+  const g = normalizeWallGate(gate);
+
+  if (pass) {
+    return (
+      sku === SKU_STORY_PASS_MONTH ||
+      sku === SKU_CHAPTER_UNLOCK ||
+      sku === SKU_EDGE_LOCK ||
+      sku === SCOPE_W1_CONTINUE ||
+      sku === SCOPE_W2_OFFICE ||
+      sku === SCOPE_W3_EDGE_NIGHT
+    );
   }
+
+  if (sku === SCOPE_W1_CONTINUE) return w1;
+  if (sku === SCOPE_W2_OFFICE) return w2;
+  if (sku === SCOPE_W3_EDGE_NIGHT || sku === SKU_EDGE_LOCK) return w3;
+
+  if (sku === SKU_STORY_PASS_MONTH) {
+    // Ch01 JSON still requires story_pass_month on first_sub. w1_continue is that wall.
+    return g === GATE_FIRST_SUB && w1;
+  }
+
+  if (sku === SKU_CHAPTER_UNLOCK) {
+    if (g === GATE_FIRST_SUB) return w1;
+    if (g === GATE_CHAPTER_START) return w2;
+    if (g === GATE_EDGE_LOCK) return w3;
+    return false;
+  }
+
   return false;
 }
 
@@ -245,7 +290,10 @@ export function selectChoice(
     return { ok: false, reason: "invalid", message: `Choice not visible: ${choiceId}` };
   }
 
-  if (choice.requiresEntitlement && !hasEntitlement(state, choice.requiresEntitlement)) {
+  if (
+    choice.requiresEntitlement &&
+    !hasEntitlement(state, choice.requiresEntitlement, node.gate)
+  ) {
     return {
       ok: false,
       reason: "locked",
@@ -277,25 +325,25 @@ export function withEntitlement(
   if (sku === SKU_STORY_PASS_MONTH || sku === "full_entitle") {
     return {
       ...state,
-      entitlements: {
-        ...state.entitlements,
-        story_pass_month: granted,
-        edge_lock: granted,
-        chapter_unlock: granted,
-      },
+      entitlements: granted
+        ? mintFullEntitle(state.entitlements)
+        : {
+            story_pass_month: false,
+            edge_lock: false,
+            chapter_unlock: false,
+            w1_continue: false,
+            w2_office: false,
+            w3_edge_night: false,
+          },
     };
   }
-  if (sku === SKU_EDGE_LOCK) {
-    return {
-      ...state,
-      entitlements: { ...state.entitlements, edge_lock: granted },
-    };
+  const scope = scopeFromSku(sku);
+  if (scope && granted) {
+    return { ...state, entitlements: mintScope(state.entitlements, scope) };
   }
   if (sku === SKU_CHAPTER_UNLOCK) {
-    return {
-      ...state,
-      entitlements: { ...state.entitlements, chapter_unlock: granted },
-    };
+    // Unscoped leftover is not a season pass. Require a wall scope instead.
+    return state;
   }
   if (!isWallSku(sku)) return state;
   return state;
@@ -304,11 +352,13 @@ export function withEntitlement(
 /**
  * DEV fake-unlock then continue the locked in-dialogue line in place.
  * 开通后这一句立刻接上，不跳走.
+ * Default mints the month pass (all scopes). Pass a chapter scope to buy-one.
  */
 export function unlockNext(
   state: GameState,
   choiceId?: string,
   compiled: CompiledRoute = route,
+  sku: string = SKU_STORY_PASS_MONTH,
 ): SelectChoiceResult {
   const id = choiceId ?? state.pendingChoiceId;
   if (!id) {
@@ -319,10 +369,20 @@ export function unlockNext(
     };
   }
   const unlocked: GameState = {
-    ...withEntitlement(state, SKU_STORY_PASS_MONTH, true),
+    ...withEntitlement(state, sku, true),
     pendingChoiceId: null,
   };
   return selectChoice(unlocked, id, compiled);
+}
+
+/** DEV $2.99 fake-unlock of one chapter scope, then continue the locked line. */
+export function unlockScope(
+  state: GameState,
+  scope: string,
+  choiceId?: string,
+  compiled: CompiledRoute = route,
+): SelectChoiceResult {
+  return unlockNext(state, choiceId, compiled, scope);
 }
 
 /** @deprecated use unlockNext */

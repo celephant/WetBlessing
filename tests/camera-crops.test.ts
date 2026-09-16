@@ -13,6 +13,7 @@ import {
   CHAPTER_UNLOCK_PRICE,
   isWallGate,
   paywallCopyForGate,
+  PAYWALL_CHAPTER,
   PAYWALL_EDGE_LOCK,
   PAYWALL_HARD,
 } from "../lib/paywall-copy";
@@ -121,6 +122,10 @@ describe("edge_lock + paywall copy", () => {
     expect(PAYWALL_EDGE_LOCK["zh-CN"].primary).toContain("$8.99");
     expect(CHAPTER_UNLOCK_PRICE).toBe(2.99);
     expect(paywallCopyForGate("first_sub")).toBe(PAYWALL_HARD);
+    expect(paywallCopyForGate("chapter_start")).toBe(PAYWALL_CHAPTER);
     expect(paywallCopyForGate("edge_lock")).toBe(PAYWALL_EDGE_LOCK);
+    expect(PAYWALL_CHAPTER.behavior.secondaryAction).toBe(
+      "checkout_sku:chapter_unlock|scope=w2_office",
+    );
   });
 });

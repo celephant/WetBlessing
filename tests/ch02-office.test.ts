@@ -14,7 +14,7 @@ import {
   resolvePlayRoute,
 } from "../lib/dev-packs";
 import { tryReadCh02Office } from "../lib/dev-packs.node";
-import { playChoices, pumpToPrompt, startGame, view } from "../lib/engine";
+import { playChoices, pumpToPrompt, selectChoice, startGame, view } from "../lib/engine";
 import { walkChoiceIndexPaths } from "../lib/choice-index";
 
 const root = path.resolve(__dirname, "..");
@@ -78,9 +78,10 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
   it("plays S13 public shame then S14 office with 29 / stockings / lock", () => {
     const file = tryReadCh02Office(root)!;
     const compiled = compileRoute(file);
-    expect(compiled.entryNodeId).toBe("n_ch02_open");
-    expect(compiled.firstSubNodeId).toBe("n_s14_wall");
-    expect(compiled.nodes.get("n_s14_wall")?.gate).toBe("first_sub");
+    expect(compiled.entryNodeId).toBe("n_ch02_wall");
+    expect(compiled.firstSubNodeId).toBe("n_ch02_wall");
+    expect(compiled.nodes.get("n_ch02_wall")?.gate).toBe("chapter_start");
+    expect(compiled.nodes.get("n_s14_wall")?.gate).toBeUndefined();
 
     const spoken = spokenHay(file);
     expect(spoken).toMatch(/办公时间。带学生证。周一见/);
@@ -96,36 +97,48 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
 
     const started = startGame({ story_pass_month: false }, compiled);
     expect(started.stats.reina.affection).toBe(0);
-    expect(started.nodeId).toBe("n_ch02_open");
+    expect(started.nodeId).toBe("n_ch02_wall");
+    expect(view(started, compiled).isPaywall).toBe(true);
+    expect(selectChoice(started, "c_ch02_enter", compiled).ok).toBe(false);
 
-    const free = playChoices(["c_s13_ok", "c_s14_free"], { story_pass_month: false }, compiled);
+    const free = playChoices(
+      ["c_ch02_enter", "c_s13_ok", "c_s14_free"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+    );
     expect(free.nodeId).toBe("n_ch02_settle");
     expect(free.flags.cafe_creditor).toBe("mia");
     expect(free.flags.office_locked).toBe(true);
     expect(free.stats.mia.affection).toBeGreaterThan(0);
 
     const paid = playChoices(
-      ["c_s13_ok", "c_s14_kiss"],
-      { story_pass_month: true },
+      ["c_ch02_enter", "c_s13_ok", "c_s14_kiss"],
+      { story_pass_month: false, w2_office: true },
       compiled,
     );
     expect(paid.nodeId).toBe("n_ch02_settle");
+    expect(paid.flags.reina_office_kiss).toBe(true);
     expect(paid.stats.reina.desire).toBeGreaterThan(0);
     expect(paid.stats.reina.affection).toBeGreaterThan(0);
 
-    const locked = playChoices(["c_s13_ok"], { story_pass_month: false }, compiled, {
+    const inside = playChoices(
+      ["c_ch02_enter", "c_s13_ok"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+      {
       pumpAfter: true,
     });
-    expect(locked.nodeId).toBe("n_s14_wall");
-    const wallView = view(locked, compiled);
-    expect(wallView.choices.map((choice) => choice.choiceId)).toEqual([
+    expect(inside.nodeId).toBe("n_s14_wall");
+    const kissView = view(inside, compiled);
+    expect(kissView.choices.map((choice) => choice.choiceId)).toEqual([
       "c_s14_free",
       "c_s14_kiss",
       "c_s14_later",
     ]);
-    expect(wallView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement).toBe(
-      "story_pass_month",
-    );
+    expect(
+      kissView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement,
+    ).toBeUndefined();
+    expect(selectChoice(inside, "c_s14_kiss", compiled).ok).toBe(true);
   });
 
   it("routes cafeteria by Ch01 stand-up flags and stays under the choiceIndex cap", () => {
@@ -135,24 +148,32 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       "n_s13_mia",
     );
 
-    const mia = pumpToPrompt(startGame({ story_pass_month: false }, compiled), compiled);
+    const mia = playChoices(
+      ["c_ch02_enter"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+    );
     expect(mia.nodeId).toBe("n_s13_mia");
 
-    let jade = startGame({ story_pass_month: false }, compiled);
+    let jade = startGame({ story_pass_month: false, w2_office: true }, compiled);
     jade = {
       ...jade,
       flags: { ...jade.flags, stood_up_jade: true },
     };
-    jade = pumpToPrompt(jade, compiled);
-    expect(jade.nodeId).toBe("n_s13_jade");
+    const jadeEntered = selectChoice(pumpToPrompt(jade, compiled), "c_ch02_enter", compiled);
+    expect(jadeEntered.ok).toBe(true);
+    if (!jadeEntered.ok) return;
+    expect(pumpToPrompt(jadeEntered.state, compiled).nodeId).toBe("n_s13_jade");
 
-    let both = startGame({ story_pass_month: false }, compiled);
+    let both = startGame({ story_pass_month: false, w2_office: true }, compiled);
     both = {
       ...both,
       flags: { ...both.flags, stood_up_mia: true, stood_up_jade: true },
     };
-    both = pumpToPrompt(both, compiled);
-    expect(both.nodeId).toBe("n_s13_both");
+    const bothEntered = selectChoice(pumpToPrompt(both, compiled), "c_ch02_enter", compiled);
+    expect(bothEntered.ok).toBe(true);
+    if (!bothEntered.ok) return;
+    expect(pumpToPrompt(bothEntered.state, compiled).nodeId).toBe("n_s13_both");
 
     const paths = walkChoiceIndexPaths(compiled);
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);

@@ -1,0 +1,19 @@
+{
+  "errorCode": "PAYWALL_CHAPTER",
+  "http": 402,
+  "zh-CN": {
+    "title": "周一还在。食堂灯已经亮了。",
+    "body": "免费停在入学周尾巴。想走进食堂被点名、再进讲师锁上的办公室——开通通行证，或只解锁这一章。躲开亲吻仍是故事，不再收费。",
+    "primary": "开通剧本通行证 · $8.99",
+    "primaryOwned": "走进食堂",
+    "secondary": "只解锁这一章 · $2.99",
+    "tertiary": "稍后再说"
+  },
+  "behavior": {
+    "primaryAction": "checkout_sku:story_pass_month",
+    "primaryOwnedAction": "continue_paid_chapter",
+    "secondaryAction": "checkout_sku:chapter_unlock|scope=w2_office",
+    "tertiaryAction": "dismiss",
+    "tone": "周一还在；付费进食堂和办公室；躲开亲吻是故事不是第二SKU；禁成人/AI女友"
+  }
+}

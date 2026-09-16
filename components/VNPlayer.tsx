@@ -7,21 +7,32 @@ import { DialogBox } from "@/components/DialogBox";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { SceneArt } from "@/components/SceneArt";
 import { route, type CompiledRoute } from "@/lib/content";
+import type { PlayPackId } from "@/lib/dev-packs";
 import {
   clickAdvance,
+  hasEntitlement,
   selectChoice,
   startGame,
   unlockNext,
+  unlockScope,
   view,
   withEntitlement,
 } from "@/lib/engine";
 import {
   SAVE_STORAGE_KEY,
   grantFullEntitleDev,
+  grantScopeDev,
   isFullyEntitled,
   loadEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
+import { scopeForGate } from "@/lib/paywall-copy";
+import {
+  applySeasonCarry,
+  loadSeasonCarry,
+  saveSeasonCarry,
+  seasonContinueTarget,
+} from "@/lib/season-continue";
 import {
   isFreePathFeel,
   isNightGradeNode,
@@ -57,10 +68,12 @@ export function VNPlayer({
   resume = false,
   compiled = route,
   packId = "default",
+  seasonContinue = false,
 }: {
   resume?: boolean;
   compiled?: CompiledRoute;
-  packId?: string;
+  packId?: PlayPackId;
+  seasonContinue?: boolean;
 }) {
   const [state, setState] = useState<GameState | null>(null);
   const [locked, setLocked] = useState<Choice | null>(null);
@@ -84,8 +97,12 @@ export function VNPlayer({
         return;
       }
     }
-    setState(startGame(entitlements, compiled));
-  }, [resume, compiled, packId]);
+    let started = startGame(entitlements, compiled);
+    if (seasonContinue) {
+      started = applySeasonCarry(started, loadSeasonCarry());
+    }
+    setState(started);
+  }, [resume, compiled, packId, seasonContinue]);
 
   useEffect(() => {
     if (!afterPurchase) return;
@@ -98,6 +115,10 @@ export function VNPlayer({
 
   if (!state) {
     return <div className="h-dvh bg-void" />;
+  }
+
+  if (!compiled.nodes.has(state.nodeId)) {
+    return <div className="h-dvh bg-void" data-pack-switch="" />;
   }
 
   const snapshot = view(state, compiled);
@@ -139,6 +160,17 @@ export function VNPlayer({
     }
   };
 
+  const onUnlockScope = () => {
+    const scope = scopeForGate(snapshot.node.gate);
+    grantScopeDev(scope, state.entitlements);
+    const result = unlockScope(state, scope, undefined, compiled);
+    if (result.ok) {
+      setLocked(null);
+      setAfterPurchase(true);
+      commit(result.state);
+    }
+  };
+
   const toggleDevPass = () => {
     const nextGranted = !isFullyEntitled(state.entitlements);
     const entitlements: Entitlements = nextGranted
@@ -147,8 +179,20 @@ export function VNPlayer({
     commit(withEntitlement(state, "full_entitle", Boolean(entitlements.story_pass_month)));
   };
 
-  const wallsUnlocked =
-    state.entitlements.story_pass_month || Boolean(state.entitlements.edge_lock);
+  const passOn = isFullyEntitled(state.entitlements);
+  const w1On =
+    passOn || Boolean(state.entitlements.w1_continue);
+  const w2On = passOn || Boolean(state.entitlements.w2_office);
+  const w3On =
+    passOn ||
+    Boolean(state.entitlements.w3_edge_night) ||
+    Boolean(state.entitlements.edge_lock);
+  const continueTo = seasonContinueTarget(
+    packId,
+    snapshot.node.nodeId,
+    state.entitlements,
+    state.flags,
+  );
 
   const wallNode = isPaywallWallNode(
     snapshot.node.nodeId,
@@ -178,16 +222,15 @@ export function VNPlayer({
           : "off"
       }
       data-paused={paused ? "on" : "off"}
-      data-full-entitle={isFullyEntitled(state.entitlements) ? "on" : "off"}
+      data-full-entitle={passOn ? "on" : "off"}
       data-play-pack={packId}
       data-content-version={pack.contentVersion}
-      data-unlock-gates="first_sub,edge_lock"
-      data-entitle-first-sub={state.entitlements.story_pass_month ? "on" : "off"}
-      data-entitle-edge-lock={
-        state.entitlements.edge_lock || state.entitlements.story_pass_month
-          ? "on"
-          : "off"
-      }
+      data-unlock-gates="first_sub,chapter_start,edge_lock"
+      data-entitle-first-sub={w1On ? "on" : "off"}
+      data-entitle-w1={w1On ? "on" : "off"}
+      data-entitle-w2={w2On ? "on" : "off"}
+      data-entitle-w3={w3On ? "on" : "off"}
+      data-entitle-edge-lock={w3On ? "on" : "off"}
     >
       <SceneArt
         assetId={snapshot.node.assetId}
@@ -233,7 +276,7 @@ export function VNPlayer({
           onClick={toggleDevPass}
           className="rounded-full border border-white/10 bg-night/70 px-3 py-1.5 font-ui text-[10px] uppercase tracking-wide text-gold backdrop-blur"
         >
-          DEV {wallsUnlocked ? "PASS ON" : "PASS OFF"}
+          DEV {passOn ? "PASS ON" : "PASS OFF"}
         </button>
       </header>
 
@@ -246,9 +289,23 @@ export function VNPlayer({
             <p className="max-w-dialog font-ui text-[17px] leading-7 text-paper">
               {snapshot.node.text}
             </p>
+            {continueTo ? (
+              <Link
+                href={continueTo.href}
+                onClick={() => saveSeasonCarry(state)}
+                className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-chip bg-mint px-6 font-ui text-[15px] font-medium text-ink"
+                data-season-continue={continueTo.pack}
+              >
+                {continueTo.label}
+              </Link>
+            ) : null}
             <Link
               href="/"
-              className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-chip bg-mint px-6 font-ui text-[15px] font-medium text-ink"
+              className={`${continueTo ? "mt-2" : "mt-4"} inline-flex min-h-[52px] items-center justify-center rounded-chip ${
+                continueTo
+                  ? "border border-white/15 px-6 font-ui text-[15px] text-paper/80"
+                  : "bg-mint px-6 font-ui text-[15px] font-medium text-ink"
+              }`}
             >
               回到标题
             </Link>
@@ -263,7 +320,11 @@ export function VNPlayer({
             <ChoiceList
               key={snapshot.node.nodeId}
               choices={snapshot.choices}
-              entitled={wallsUnlocked}
+              choiceEntitled={(choice) =>
+                !choice.requiresEntitlement ||
+                hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
+              }
+              entitled={passOn}
               onSelect={onChoice}
               enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
             />
@@ -313,8 +374,9 @@ export function VNPlayer({
         <PaywallOverlay
           choice={locked}
           gate={snapshot.node.gate}
-          entitled={wallsUnlocked}
+          entitled={passOn}
           onDevUnlock={onDevUnlock}
+          onUnlockScope={onUnlockScope}
           onClose={() => setLocked(null)}
         />
       ) : null}
