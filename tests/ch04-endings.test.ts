@@ -15,7 +15,7 @@ import {
   resolvePlayRoute,
 } from "../lib/dev-packs";
 import { tryReadCh04Endings } from "../lib/dev-packs.node";
-import { pumpToPrompt, selectChoice, startGame } from "../lib/engine";
+import { pumpToPrompt, resolveNext, selectChoice, startGame } from "../lib/engine";
 import { applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
@@ -116,16 +116,105 @@ describe("Ch04 名分 (DEV, not default)", () => {
     const compiled = compileRoute(tryReadCh04Endings(root)!);
     const opened = startGame({ story_pass_month: true, edge_lock: true }, compiled);
     expect(opened.flags.ch04_day).toBe(true);
-    expect(opened.flags.ch3_bind).toBeUndefined();
+    expect(opened.flags.ch3_bind).toBe("none");
     expect(opened.flags.edge_sleepover_mia).not.toBe(true);
-    expect(compiled.nodes.get("n_ch04_open")?.setFlags).toEqual({ ch04_day: true });
+    expect(compiled.nodes.get("n_ch04_open")?.setFlags).toEqual({
+      ch04_day: true,
+      ch3_bind: "none",
+    });
+    const openHay = [
+      compiled.nodes.get("n_ch04_open")?.text ?? "",
+      ...(compiled.nodes.get("n_ch04_open")?.lines?.map((line) => line.text) ?? []),
+    ].join("\n");
+    expect(openHay).toMatch(/早晨/);
+    expect(openHay).toMatch(/群还没冷/);
+    expect(openHay).not.toMatch(/衣服还皱着|肩窝|称呼想好|皱衣/);
 
     const empty = playFrom(compiled, {}, ["c_s23_ok"]);
+    expect(empty.visited).toContain("n_s23_empty");
+    expect(empty.visited).not.toContain("n_s22_mia");
+    expect(empty.visited).not.toContain("n_s23_mia");
     expect(empty.flags.ending).toBe("end_crash");
+    expect(empty.flags.ch3_bind).toBe("none");
 
     const fold = playFrom(compiled, {}, ["c_s23_dodge"]);
+    expect(fold.visited).toContain("n_s23_empty");
+    expect(fold.visited).not.toContain("n_s23_mia");
     expect(fold.flags.ending).toBe("end_crash");
     expect(fold.flags.w4_stand).toBe("fold");
+  });
+
+  it("routes S22 / S23 / S24 off sleepover, bind none, and Vanessa — never default Mia hallway", () => {
+    const compiled = compileRoute(tryReadCh04Endings(root)!);
+    const s22 = compiled.nodes.get("n_s22_router")!;
+    const s23 = compiled.nodes.get("n_s23_router")!;
+    const s24 = compiled.nodes.get("n_s24_router")!;
+
+    expect(s22.advanceByFlag).toMatchObject({
+      "w4_sms_first==vanessa": "n_s23_router",
+      "edge_sleepover_rae==true": "n_s22_rae",
+      "edge_sleepover_lina==true": "n_s22_lina",
+      "edge_sleepover_jade==true": "n_s22_jade",
+      "edge_sleepover_mia==true": "n_s22_mia",
+      default: "n_s23_router",
+    });
+    expect(s23.advanceByFlag?.default).toBe("n_s23_empty");
+    expect(s23.advanceByFlag?.default).not.toBe("n_s23_mia");
+    expect(s23.advanceByFlag?.["ch3_bind==none"]).toBe("n_s23_empty");
+    expect(s23.assetId).toBe("assets/scenes/ch04/S23-empty.webp");
+    expect(s24.advanceByFlag).toMatchObject({
+      "w4_stand==fold": "n_s24_crash",
+      "edge_sleepover_mia==true": "n_s24_mia",
+      "edge_sleepover_jade==true": "n_s24_jade",
+      "edge_sleepover_lina==true": "n_s24_lina",
+      "edge_sleepover_rae==true": "n_s24_rae",
+      default: "n_s24_crash",
+    });
+    expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/s22_meet==ok/);
+    expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/w4_sms_first!=vanessa/);
+
+    expect(resolveNext(s22, {})).toBe("n_s23_router");
+    expect(resolveNext(s22, { edge_sleepover_mia: true })).toBe("n_s22_mia");
+    expect(resolveNext(s22, { edge_sleepover_mia: true, w4_sms_first: "vanessa" })).toBe(
+      "n_s23_router",
+    );
+    expect(resolveNext(s23, {})).toBe("n_s23_empty");
+    expect(resolveNext(s23, { ch3_bind: "none" })).toBe("n_s23_empty");
+    expect(resolveNext(s23, { ch3_bind: "mia" })).toBe("n_s23_empty");
+    expect(resolveNext(s23, { edge_sleepover_mia: true })).toBe("n_s23_mia");
+    expect(resolveNext(s23, { ch3_bind: "none", vanessa_crack: true })).toBe("n_s23_vanessa");
+
+    for (const who of ["jade", "lina", "rae"] as const) {
+      expect(compiled.nodes.get(`n_s23_${who}`)?.assetId).toBe(
+        "assets/scenes/ch04/S23-empty.webp",
+      );
+      expect(compiled.nodes.get(`n_s22_${who}`)?.assetId).toBe(
+        `assets/scenes/ch04/S22-${who}.webp`,
+      );
+    }
+    expect(compiled.nodes.get("n_s23_mia")?.assetId).toBe("assets/scenes/ch04/S23.webp");
+    expect(compiled.nodes.get("n_s22_mia")?.assetId).toBe("assets/scenes/ch04/S22-mia.webp");
+    expect(compiled.nodes.get("n_s23_empty")?.text).toMatch(/旁边没有她/);
+
+    const skipBed = playFrom(compiled, { ch3_bind: "mia" }, ["c_s23_ok"]);
+    expect(skipBed.visited).not.toContain("n_s22_mia");
+    expect(skipBed.visited).not.toContain("n_s23_mia");
+    expect(skipBed.visited).toContain("n_s23_empty");
+    expect(skipBed.flags.ending).toBe("end_crash");
+
+    const vanessaSkipBed = playFrom(
+      compiled,
+      {
+        ch3_bind: "mia",
+        edge_sleepover_mia: true,
+        vanessa_crack: true,
+        w4_sms_first: "vanessa",
+      },
+      ["c_s23_ok"],
+    );
+    expect(vanessaSkipBed.visited).not.toContain("n_s22_mia");
+    expect(vanessaSkipBed.visited).toContain("n_s23_vanessa");
+    expect(vanessaSkipBed.flags.ending).toBe("end_mia");
   });
 
   it("real continue keeps a Rae sleepover through morning, Troy, and the ending", () => {
@@ -159,6 +248,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
         edge_sleepover_jade: true,
       },
       ["c_s22_ok", "c_s23_ok"],
+    );
+    expect(jade.visited).toEqual(
+      expect.arrayContaining(["n_s22_jade", "n_s23_jade", "n_s24_jade"]),
     );
     expect(jade.nodeId).toBe("n_s24_tail");
     expect(jade.flags.ending).toBe("end_jade");
@@ -217,7 +309,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
 
   it("speaks ending cards without banned slogans or a Season 2 hook", () => {
     const spoken = spokenHay();
-    expect(spoken).toMatch(/半边名分|笨蛋/);
+    expect(spoken).toMatch(/笨蛋/);
     expect(spoken).toMatch(/这下他们看清楚了/);
     expect(spoken).toMatch(/我没倒向你。——还没/);
     expect(spoken).toMatch(/这一轮 Troy 赢了/);
@@ -230,10 +322,74 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/楼是锁的/);
     expect(spoken).toMatch(/我还是你的讲师/);
     expect(spoken).toMatch(/第一部完/);
-    expect(spoken).toMatch(/没有下学期/);
+    expect(spoken).toMatch(/旁边没有她/);
+    expect(spoken).toMatch(/别替我答/);
+    expect(spoken).toMatch(/这儿没有闪光/);
+    expect(spoken).toMatch(/♡|♥/);
+    expect(spoken).toMatch(/……/);
+    expect(spoken).toMatch(/～/);
+    expect(spoken).not.toMatch(/名分还没人给|半边名分/);
+    expect(spoken).not.toMatch(/皱衣/);
+    expect(spoken).not.toMatch(/这帧/);
+    expect(spoken).not.toMatch(/没有下学期/);
+    expect(spoken).not.toMatch(/证翻白|证在钩上|证还朝里|那张证/);
+    expect(spoken).not.toMatch(/稍后再说/);
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/ぬぷ|ぎち|ずぶ/);
+
+    const file = tryReadCh04Endings(root)!;
+    const byId = new Map(file.stages[0]!.nodes.map((node) => [node.nodeId, node]));
+    const nodeHay = (id: string) => {
+      const node = byId.get(id);
+      return [node?.text ?? "", ...(node?.lines?.map((line) => line.text) ?? [])].join("\n");
+    };
+    const stage1 = [
+      "n_ch04_open",
+      "n_s23_mia",
+      "n_s23_jade",
+      "n_s23_lina",
+      "n_s23_rae",
+      "n_s23_vanessa",
+      "n_s23_empty",
+      "n_s24_mia",
+      "n_s24_jade",
+      "n_s24_crash",
+      "n_s24_tail",
+    ];
+    for (const id of stage1) {
+      expect(nodeHay(id), id).not.toMatch(/♥|♡|～/);
+      expect(nodeHay(id), id).not.toMatch(/唔……|哈啊/);
+    }
+    const stage2 = ["n_s24_vanessa", "n_s24_reina"];
+    for (const id of stage2) {
+      expect(nodeHay(id), id).toMatch(/……|、/);
+      expect(nodeHay(id), id).not.toMatch(/♥|♡|～/);
+    }
+    expect(nodeHay("n_s24_vanessa")).toMatch(/哈啊|等、/);
+    const heat = [
+      "n_s22_mia",
+      "n_s22_jade",
+      "n_s22_lina",
+      "n_s22_rae",
+      "n_s24_lina",
+      "n_s24_rae",
+    ];
+    for (const id of heat) {
+      expect(nodeHay(id), id).toMatch(/唔|哈啊/);
+      expect(nodeHay(id), id).toMatch(/……/);
+      expect(nodeHay(id), id).toMatch(/♥|♡|～/);
+      expect(nodeHay(id), id).toMatch(/热|凉|湿|烫|呼吸|水声|腰|膝|脚|领|床单|快门/);
+    }
+    expect(nodeHay("n_s22_mia")).toMatch(/不要停|承认你留下来了/);
+    expect(spoken).not.toMatch(/魔物|触手|败犬|肮脏的魔物/);
+    expect(nodeHay("n_s22_jade") + nodeHay("n_s22_lina") + nodeHay("n_s22_rae")).not.toMatch(
+      /是……是你|现在是谁在要你/,
+    );
+    const buttons = file.stages[0]!.nodes.flatMap((node) =>
+      (node.choices ?? []).map((choice) => choice.text),
+    ).join("\n");
+    expect(buttons).not.toMatch(/♥|♡|～/);
   });
 
   it("stays under the choiceIndex cap and ships ch04 plates off the Ch01 remap", () => {

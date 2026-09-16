@@ -35,7 +35,7 @@
       "n_s24_tail"
     ],
     "artPlaceholder": [],
-    "changelog": "Ch04 S22–S24 名分。DEV via /play?content=ch04. Must-four endings + Rae/Lina/Reina nodes.",
+    "changelog": "Ch04 copy-only voice lock. Morning/hallway/cafeteria/合影 Stage 1. S22 beds and locked endings Stage 3–4: bark + sensory inner. Reina/Vanessa Stage 2. Routers and assets unchanged.",
     "scaleLock": "全员 18+；无生殖器；无性交静帧；无第三堵墙；Reina 不进 Troy 三人镜头"
   },
   "personas": {
@@ -75,7 +75,7 @@
           "nodeId": "n_ch04_open",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "早晨。群还没冷。名分还没人给。",
+          "text": "早晨。……群还没冷。",
           "assetId": "assets/scenes/ch03/S21.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -88,14 +88,15 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "衣服还皱着。Troy 不会等你先想好称呼。",
+              "text": "屏幕还烫。……Troy 已经在楼道那头。",
               "camera": "hold",
               "transition": "fade"
             }
           ],
           "advance": "n_s22_router",
           "setFlags": {
-            "ch04_day": true
+            "ch04_day": true,
+            "ch3_bind": "none"
           }
         },
         {
@@ -113,6 +114,7 @@
           ],
           "artCue": "hidden router",
           "advanceByFlag": {
+            "w4_sms_first==vanessa": "n_s23_router",
             "edge_sleepover_rae==true": "n_s22_rae",
             "edge_sleepover_lina==true": "n_s22_lina",
             "edge_sleepover_jade==true": "n_s22_jade",
@@ -125,7 +127,7 @@
           "nodeId": "n_s22_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "晨光。她的衣服皱着。不是卫衣。",
+          "text": "晨光切在肩上。吊带夜里皱成这样。床单还热。粉裤边陷着。牙关咬着，腰自己迎上去。",
           "assetId": "assets/scenes/ch04/S22-mia.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -139,7 +141,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「别先说话。叫了……我就得承认你留下来了。」",
+              "text": "「别先说话。腿别收回去。……唔……！」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「叫了……我、我就得承认你留下来了。不要停……♥」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -147,8 +155,8 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「叫你。」",
-              "next": "n_s23_router",
+              "text": "接招：「……叫你。」",
+              "next": "n_s23_mia",
               "delta": {
                 "stats": {
                   "mia": {
@@ -163,7 +171,7 @@
             {
               "choiceId": "c_s22_soft",
               "text": "圆场：「……先上课。」",
-              "next": "n_s23_router",
+              "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
                 "s22_meet": "soft"
@@ -171,8 +179,8 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「我先走。」",
-              "next": "n_s23_router",
+              "text": "躲开：「……我先走。」",
+              "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
                 "s22_meet": "dodge"
@@ -184,7 +192,7 @@
           "nodeId": "n_s22_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "窗帘没拉严。她把相机翻过去，镜头对着墙。",
+          "text": "窗帘没拉严。她把相机翻过去。镜头对着墙。快门还温。指腹停着没按。腿自己并紧。",
           "assetId": "assets/scenes/ch04/S22-jade.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -198,7 +206,13 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「这帧没有。出去那儿才有。」",
+              "text": "「别拍。……哈啊……」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "jade",
+              "text": "「这儿没有闪光。出去那儿才有。就坐会儿～」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -206,8 +220,8 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「那就出去。」",
-              "next": "n_s23_router",
+              "text": "接招：「……那就出去。」",
+              "next": "n_s23_jade",
               "delta": {
                 "stats": {
                   "jade": {
@@ -222,7 +236,7 @@
             {
               "choiceId": "c_s22_soft",
               "text": "圆场：「……先上课。」",
-              "next": "n_s23_router",
+              "next": "n_s23_jade",
               "delta": {},
               "setFlags": {
                 "s22_meet": "soft"
@@ -230,8 +244,8 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「我先走。」",
-              "next": "n_s23_router",
+              "text": "躲开：「……我先走。」",
+              "next": "n_s23_jade",
               "delta": {},
               "setFlags": {
                 "s22_meet": "dodge"
@@ -243,7 +257,7 @@
           "nodeId": "n_s22_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "晨光切过湿瓷砖。氯还贴在手腕上。",
+          "text": "晨光切过湿瓷砖。泳衣还贴着。水珠从锁骨往下滑。膝弯那层凉。水声很轻。她没让你松手。",
           "assetId": "assets/scenes/ch04/S22-lina.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -257,7 +271,13 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「别先问称呼。灯已经亮了。」",
+              "text": "「铃还没响。手别松开。……哈啊……」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "lina",
+              "text": "「你还坐着，是你自己选的。别松～」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -265,8 +285,8 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「我还在。」",
-              "next": "n_s23_router",
+              "text": "接招：「……我还在。」",
+              "next": "n_s23_lina",
               "delta": {
                 "stats": {
                   "lina": {
@@ -281,7 +301,7 @@
             {
               "choiceId": "c_s22_soft",
               "text": "圆场：「……先上课。」",
-              "next": "n_s23_router",
+              "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
                 "s22_meet": "soft"
@@ -289,8 +309,8 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「我先走。」",
-              "next": "n_s23_router",
+              "text": "躲开：「……我先走。」",
+              "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
                 "s22_meet": "dodge"
@@ -302,7 +322,7 @@
           "nodeId": "n_s22_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "烘筒停了。水手领皱着，证还朝里。",
+          "text": "烘筒停了。水手领还贴着锁骨。钩朝里。她脚没沾地。折叠台还留着体温。呼吸很浅。",
           "assetId": "assets/scenes/ch04/S22-rae.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -316,7 +336,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「隔墙这会儿听得见走路。别先说话。」",
+              "text": "「钩朝里。……唔……！」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "rae",
+              "text": "「隔墙这会儿，暂时听不见。轻。♥」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -324,8 +350,8 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「门还关着。」",
-              "next": "n_s23_router",
+              "text": "接招：「……门还关着。」",
+              "next": "n_s23_rae",
               "delta": {
                 "stats": {
                   "rae": {
@@ -340,7 +366,7 @@
             {
               "choiceId": "c_s22_soft",
               "text": "圆场：「……先上课。」",
-              "next": "n_s23_router",
+              "next": "n_s23_rae",
               "delta": {},
               "setFlags": {
                 "s22_meet": "soft"
@@ -348,8 +374,8 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「我先走。」",
-              "next": "n_s23_router",
+              "text": "躲开：「……我先走。」",
+              "next": "n_s23_rae",
               "delta": {},
               "setFlags": {
                 "s22_meet": "dodge"
@@ -362,7 +388,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "（Troy 选边）",
-          "assetId": "assets/scenes/ch04/S23.webp",
+          "assetId": "assets/scenes/ch04/S23-empty.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
@@ -374,11 +400,15 @@
           "advanceByFlag": {
             "w4_sms_first==vanessa": "n_s23_vanessa",
             "ch3_bind==none && vanessa_crack==true": "n_s23_vanessa",
+            "edge_sleepover_mia==true": "n_s23_mia",
             "ch3_bind==none": "n_s23_empty",
+            "edge_sleepover_rae==true": "n_s23_rae",
+            "edge_sleepover_lina==true": "n_s23_lina",
+            "edge_sleepover_jade==true": "n_s23_jade",
             "ch3_bind==rae": "n_s23_rae",
             "ch3_bind==lina": "n_s23_lina",
             "ch3_bind==jade": "n_s23_jade",
-            "default": "n_s23_mia"
+            "default": "n_s23_empty"
           },
           "playerVisible": false
         },
@@ -386,7 +416,7 @@
           "nodeId": "n_s23_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Mia 在你侧后，肩还皱着。",
+          "text": "Troy 堵住楼道。Mia 在你侧后。背心被风贴了一下。",
           "assetId": "assets/scenes/ch04/S23.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -397,7 +427,7 @@
             "mia",
             "troy"
           ],
-          "artCue": "S23 三人走廊日光：Troy / Kai / 主绑",
+          "artCue": "S23 三人走廊日光：Troy / Kai / Mia",
           "lines": [
             {
               "speaker": "troy",
@@ -410,12 +440,18 @@
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「别替我答。」",
+              "camera": "hold",
+              "transition": "fade"
             }
           ],
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡她。」",
+              "text": "接招：「……别挡她。」",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -427,7 +463,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -437,7 +473,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -453,25 +489,18 @@
           "nodeId": "n_s23_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Jade 把相机垂在腿侧，没举起来。",
-          "assetId": "assets/scenes/ch04/S23.webp",
+          "text": "Troy 堵住楼道。门牌 204。旁边空着。她还没拐过来。",
+          "assetId": "assets/scenes/ch04/S23-empty.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
           "fx": "afterimage",
           "characters": [
             "kai",
-            "jade",
             "troy"
           ],
-          "artCue": "S23 三人走廊 · Jade",
+          "artCue": "C4-23X 空廊 Troy，Jade 在结局卡上",
           "lines": [
-            {
-              "speaker": "narrator",
-              "text": "日光很白。他要问的那个人就站在你旁边。",
-              "camera": "hold",
-              "transition": "fade"
-            },
             {
               "speaker": "troy",
               "text": "「雨巷那晚。Vanessa。我看见你了。」",
@@ -483,12 +512,18 @@
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你今早才离开的那个人，还没走到这个转角。耳尖那点热还在。",
+              "camera": "hold",
+              "transition": "fade"
             }
           ],
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡她。」",
+              "text": "接招：「……别挡道。」",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -500,7 +535,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -510,7 +545,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -526,25 +561,18 @@
           "nodeId": "n_s23_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Lina 还带着一点氯，站在你侧后。",
-          "assetId": "assets/scenes/ch04/S23.webp",
+          "text": "Troy 堵住楼道。门牌 204。旁边空着。腕上那点水还没干。",
+          "assetId": "assets/scenes/ch04/S23-empty.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
           "fx": "afterimage",
           "characters": [
             "kai",
-            "lina",
             "troy"
           ],
-          "artCue": "S23 三人走廊 · Lina；日光，无雨",
+          "artCue": "C4-23X 空廊 Troy，Lina 在结局卡上",
           "lines": [
-            {
-              "speaker": "narrator",
-              "text": "她不解释水。他也不问水。他问的是边。",
-              "camera": "hold",
-              "transition": "fade"
-            },
             {
               "speaker": "troy",
               "text": "「雨巷那晚。Vanessa。我看见你了。」",
@@ -556,12 +584,18 @@
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你今早才离开的那个人，还没走到这个转角。池水那层凉还贴在小臂上。",
+              "camera": "hold",
+              "transition": "fade"
             }
           ],
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡她。」",
+              "text": "接招：「……别挡道。」",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -573,7 +607,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -583,7 +617,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -599,25 +633,18 @@
           "nodeId": "n_s23_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Rae 靠着墙，水手领扣好了，声很小。",
-          "assetId": "assets/scenes/ch04/S23.webp",
+          "text": "Troy 堵住楼道。门牌 204。旁边空着。水手领那点湿还贴在锁骨记忆里。",
+          "assetId": "assets/scenes/ch04/S23-empty.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
           "fx": "afterimage",
           "characters": [
             "kai",
-            "rae",
             "troy"
           ],
-          "artCue": "S23 三人走廊 · Rae",
+          "artCue": "C4-23X 空廊 Troy，Rae 在结局卡上",
           "lines": [
-            {
-              "speaker": "narrator",
-              "text": "隔墙这层听得见他的鞋。她没开口。",
-              "camera": "hold",
-              "transition": "fade"
-            },
             {
               "speaker": "troy",
               "text": "「雨巷那晚。Vanessa。我看见你了。」",
@@ -629,12 +656,18 @@
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "你今早才离开的那个人，还没走到这个转角。隔墙那层热还没散。",
+              "camera": "hold",
+              "transition": "fade"
             }
           ],
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡她。」",
+              "text": "接招：「……别挡道。」",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -646,7 +679,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -656,7 +689,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -672,7 +705,7 @@
           "nodeId": "n_s23_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "Troy 堵住楼道。Vanessa 站在他侧后，没往前。",
+          "text": "Troy 堵住楼道。Vanessa 站在他侧后。外套是干的，地面也是。",
           "assetId": "assets/scenes/ch04/S23-vanessa.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -686,12 +719,6 @@
           "artCue": "S23 Vanessa 在场：日光走廊，非雨巷",
           "lines": [
             {
-              "speaker": "narrator",
-              "text": "地面是干的。她看你，像在等你听没听见这句话。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
               "speaker": "troy",
               "text": "「雨巷那晚。Vanessa。我看见你了。」",
               "camera": "hold",
@@ -702,12 +729,18 @@
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
+            },
+            {
+              "speaker": "vanessa",
+              "text": "「听不听是一回事。别把我当奖品。」",
+              "camera": "hold",
+              "transition": "fade"
             }
           ],
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡她。」",
+              "text": "接招：「……别挡她。」",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -719,7 +752,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -729,7 +762,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -762,7 +795,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "他环顾一圈。门缝那张图还在他手机亮着。",
+              "text": "他环顾一圈。门缝那张图还在他手机亮着。你这边，空。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -782,7 +815,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「别挡道。」",
+              "text": "接招：「……别挡道。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -792,7 +825,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「别在这儿闹。」",
+              "text": "圆场：「……别在这儿闹。」",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -802,7 +835,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：不接。",
+              "text": "躲开：……不接。",
               "next": "n_s24_crash",
               "delta": {
                 "tension": 3
@@ -812,7 +845,10 @@
                 "s23_third": "none"
               }
             }
-          ]
+          ],
+          "setFlags": {
+            "ch3_bind": "none"
+          }
         },
         {
           "nodeId": "n_s24_router",
@@ -830,14 +866,10 @@
           "artCue": "hidden router",
           "advanceByFlag": {
             "w4_stand==fold": "n_s24_crash",
-            "edge_sleepover_mia==true && w4_sms_first!=vanessa": "n_s24_mia",
-            "edge_sleepover_jade==true && w4_sms_first!=vanessa": "n_s24_jade",
-            "edge_sleepover_lina==true && w4_sms_first!=vanessa": "n_s24_lina",
-            "edge_sleepover_rae==true && w4_sms_first!=vanessa": "n_s24_rae",
-            "ch3_bind==mia && s22_meet==ok && w4_sms_first!=vanessa": "n_s24_mia",
-            "ch3_bind==jade && s22_meet==ok && w4_sms_first!=vanessa": "n_s24_jade",
-            "ch3_bind==lina && s22_meet==ok && w4_sms_first!=vanessa": "n_s24_lina",
-            "ch3_bind==rae && s22_meet==ok && w4_sms_first!=vanessa": "n_s24_rae",
+            "edge_sleepover_mia==true": "n_s24_mia",
+            "edge_sleepover_jade==true": "n_s24_jade",
+            "edge_sleepover_lina==true": "n_s24_lina",
+            "edge_sleepover_rae==true": "n_s24_rae",
             "vanessa_crack==true && w4_sms_first==vanessa": "n_s24_vanessa",
             "vanessa_crack==true && s23_third==vanessa": "n_s24_vanessa",
             "reina_office_kiss==true && edge_sleepover_mia!=true && edge_sleepover_jade!=true && edge_sleepover_lina!=true && edge_sleepover_rae!=true": "n_s24_reina",
@@ -849,7 +881,7 @@
           "nodeId": "n_s24_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "食堂门口。她没躲别人的目光。肩还皱着。",
+          "text": "食堂门口。她没躲别人的目光。露肩被日光碰到。她还是拉着你的手。",
           "assetId": "assets/scenes/ch04/S24-mia.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -863,13 +895,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「……笨蛋。叫我一声。」",
+              "text": "「笨蛋。叫我一声。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "这一声她接住了。半边名分。不是安慰奖。",
+              "text": "这一声她接住了。指节还热。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -883,7 +915,7 @@
           "nodeId": "n_s24_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "合影位不空。她把你拉进框，闪光开着。",
+          "text": "合影位不空。她把你拉进框。闪光开着。裙边还在抖。",
           "assetId": "assets/scenes/ch04/S24-jade.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -903,7 +935,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "浅。真。",
+              "text": "浅。真。她没松那只袖。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -917,7 +949,7 @@
           "nodeId": "n_s24_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "檐下。地面是干的。雨已经下过了。",
+          "text": "檐下。地面是干的。雨已经下过了。风衣还潮。皮肤发凉，呼吸却热。",
           "assetId": "assets/scenes/ch04/S24-vanessa.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -931,13 +963,13 @@
           "lines": [
             {
               "speaker": "vanessa",
-              "text": "「我没倒向你。——还没。」",
+              "text": "「我没倒向你。——还没。等、先别靠近。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "裂了。Troy 的影还在。不是抢成。",
+              "text": "裂了。Troy 的影还在。唇还近。不是抢成。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -964,7 +996,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "这一轮 Troy 赢了。第一部仍完。",
+              "text": "这一轮 Troy 赢了。第一部仍完。……手机亮着，你没接。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -978,7 +1010,7 @@
           "nodeId": "n_s24_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "对门从里面关上。证在钩上，面向里。",
+          "text": "对门从里面关上。咔。水手领还没干。世界在门外。",
           "assetId": "assets/scenes/ch04/S24-rae.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -992,13 +1024,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「隔墙听不见了。」",
+              "text": "「隔墙听不见了。……唔……！」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "世界在门外。",
+              "text": "她背对着你带上门。指节还贴着那层领。呼吸比锁轻。♥",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1012,7 +1044,7 @@
           "nodeId": "n_s24_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "那天夜里。池面一条灯。大门从里面顶上。",
+          "text": "那天夜里。池面一条灯。大门从里面顶上。水声贴着小腿。膝盖不容拒绝地往前。",
           "assetId": "assets/scenes/ch04/S24-lina.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1026,13 +1058,13 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「水不会等。今晚它等了。」",
+              "text": "「水不会等。今晚它等了。手别松开。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "她还是不给称呼。楼是锁的。",
+              "text": "她还是不给称呼。楼是锁的。泳衣贴着呼吸。链子在门里发烫～",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1060,13 +1092,13 @@
           "lines": [
             {
               "speaker": "reina",
-              "text": "「出去。我还是你的讲师。——那天那一下，当没发生。」",
+              "text": "「出去。我还是你的讲师。——那天那一下，当没发生。等、先出去。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "她仍是问题。问题没有写完。",
+              "text": "她仍是问题。问题没有写完。黑丝还压在桌沿。门开着。嘴却偏开了。呼吸还乱。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1080,7 +1112,7 @@
           "nodeId": "n_s24_tail",
           "type": "settle",
           "speaker": "narrator",
-          "text": "第一部完。同一条报到路，可以换一边重量。没有下学期。",
+          "text": "第一部完。同一条报到路，可以换一边重量。",
           "assetId": "assets/scenes/ch04/S24-tail.webp",
           "artStatus": "ready",
           "camera": "hold",
