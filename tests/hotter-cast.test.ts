@@ -240,11 +240,11 @@ describe("hotter-cast Ch01", () => {
     expect(started.stats.reina.desire).toBe(0);
   });
 
-  it("keeps paywall copy interrupted-kiss plus Monday, not porn", () => {
-    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/吻|唇|水汽|嘴对上/);
-    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/周一/);
-    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/吻/);
-    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/办公室/);
+  it("sells the Catch freeze on the first-sub overlay, not Monday lecture", () => {
+    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/自己的地上/);
+    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/没抬头|拉的中途/);
+    expect(PAYWALL_HARD["zh-CN"].primaryOwned).toBe("进去。");
+    expect(JSON.stringify(PAYWALL_HARD["zh-CN"])).not.toMatch(/周一|把话说完|当场续读|稍后再说/);
     expect(PAYWALL_HARD.behavior.tone).not.toMatch(FORBIDDEN);
     expect(JSON.stringify(PAYWALL_HARD)).not.toMatch(FORBIDDEN);
   });
