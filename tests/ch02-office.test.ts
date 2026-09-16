@@ -87,6 +87,9 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(spoken).toMatch(/办公时间。带学生证。周一见/);
     expect(spoken).toMatch(/你鸽了我，Kai/);
     expect(spoken).toMatch(/二十九/);
+    expect(spoken).not.toMatch(/我二十九岁/);
+    expect(spoken).toMatch(/衬衫敞着，丝还在/);
+    expect(spoken).toMatch(/办公室的灯没关。拼贴还在她桌上/);
     expect(spoken).toMatch(/黑丝/);
     expect(spoken).toMatch(/锁/);
     expect(spoken).toMatch(/我还是你的讲师/);
@@ -109,7 +112,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(unpaid.flags.cafe_creditor).toBe("both");
 
     const free = playChoices(
-      ["c_s13_ok", "c_ch02_enter", "c_s14_free"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_free"],
       { story_pass_month: false, w2_office: true },
       compiled,
     );
@@ -119,7 +122,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(free.stats.mia.affection).toBeGreaterThan(0);
 
     const paid = playChoices(
-      ["c_s13_ok", "c_ch02_enter", "c_s14_kiss"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_kiss"],
       { story_pass_month: false, w2_office: true },
       compiled,
     );
@@ -129,7 +132,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(paid.stats.reina.affection).toBeGreaterThan(0);
 
     const inside = playChoices(
-      ["c_s13_ok", "c_ch02_enter"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok"],
       { story_pass_month: false, w2_office: true },
       compiled,
       {

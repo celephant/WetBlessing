@@ -467,7 +467,6 @@
           "artCue": "S14 仰坐学生位：拼贴在桌、门未锁、讲师口吻；黑丝桌沿占前 1/3",
           "artStatus": "ready",
           "characters": ["kai", "reina"],
-          "advance": "n_s14_silk",
           "camera": "hold",
           "transition": "fade",
           "fx": "warm_dust",
@@ -486,7 +485,13 @@
             },
             {
               "speaker": "reina",
-              "text": "「新生研讨。我二十九岁。这不是约会。」",
+              "text": "「新生研讨。这不是约会。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "工作证压在拼贴角上。二十九。讲师。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -495,6 +500,20 @@
               "text": "「解释。一句话。谁先谁后。」",
               "camera": "hold",
               "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「下午是抢箱子。晚上是我自己走的。」",
+              "next": "n_s14_silk",
+              "delta": {}
+            },
+            {
+              "choiceId": "c_s14_dodge",
+              "text": "躲开：「……没什么好解释。」",
+              "next": "n_s14_silk",
+              "delta": { "tension": 1 }
             }
           ]
         },
@@ -631,7 +650,7 @@
           "nodeId": "n_s14_kiss",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "嘴对上了。眼镜框磕到你额角。衬衫还扣着，丝还在。",
+          "text": "嘴对上了。眼镜框磕到你额角。衬衫敞着，丝还在。",
           "assetId": "assets/scenes/ch02/S14-kiss.webp",
           "artCue": "S14 付费：嘴对上，仍着衣，无生殖器；可阿黑颜",
           "artStatus": "ready",
@@ -665,7 +684,7 @@
           "nodeId": "n_ch02_settle",
           "type": "settle",
           "speaker": "narrator",
-          "text": "周一还在。办公室的灯没关。",
+          "text": "办公室的灯没关。拼贴还在她桌上。",
           "assetId": "assets/scenes/ch02/S14-abort.webp",
           "artCue": "S12/S14 结算：灯还亮，人已停",
           "artStatus": "ready",
