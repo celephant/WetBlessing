@@ -97,6 +97,8 @@ export function SceneArt({
   );
   const [holdCount, setHoldCount] = useState(0);
 
+  const identity = sceneIdentity(assetId);
+
   const identityRef = useRef(identity);
   const plateRef = useRef(plate);
   const plateFailedRef = useRef(false);

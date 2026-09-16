@@ -92,6 +92,7 @@ describe("orientation still pick (9:16 vs 16:9)", () => {
     expect(PORTRAIT_SOURCE_MEDIA).toBe("(orientation: portrait)");
     expect(sceneArt).toContain("<picture>");
     expect(sceneArt).toContain("PORTRAIT_SOURCE_MEDIA");
+    expect(sceneArt).toContain("const identity = sceneIdentity");
     expect(sceneArt).toContain("data-still-pair");
     expect(sceneArt).toContain("data-scene-portrait");
     expect(sceneArt).not.toMatch(/object-cover object-top/);
