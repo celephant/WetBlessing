@@ -43,16 +43,16 @@
       "stageId": "stage_ch02_office",
       "stageTitle": "周一 · 食堂到办公室",
       "order": 1,
-      "entryNodeId": "n_ch02_wall",
+      "entryNodeId": "n_ch02_open",
       "nodes": [
         {
           "nodeId": "n_ch02_wall",
           "type": "dialogue",
           "gate": "chapter_start",
           "speaker": "narrator",
-          "text": "周一还在。食堂的灯已经亮了。",
-          "assetId": "assets/scenes/ch02/S13.webp",
-          "artCue": "Ch02 章前墙：周一还在；付费走进食堂和办公室；复用 S13 静帧",
+          "text": "教員室的门开着。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "Ch02 章前墙：门开着的教員室；付费进去；S14 全亮不压黑",
           "artStatus": "ready",
           "characters": ["kai"],
           "camera": "hold",
@@ -61,7 +61,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "想被点名，再进那间锁上的办公室——开通通行证，或只解锁这一章。",
+              "text": "黑丝、开着的门、桌上那些脸。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -76,20 +76,13 @@
             },
             {
               "choiceId": "c_ch02_enter",
-              "text": "付费：走进食堂",
-              "next": "n_ch02_open",
+              "text": "付费：进去。",
+              "next": "n_s14_office",
               "delta": {},
               "cta": "w2_office",
               "gateChoice": "subscribe",
               "requiresEntitlement": "w2_office",
               "onLocked": "show_pass_chip"
-            },
-            {
-              "choiceId": "c_ch02_later",
-              "text": "稍后再说",
-              "next": "n_ch02_title",
-              "delta": {},
-              "gateChoice": "defer"
             }
           ]
         },
@@ -338,7 +331,7 @@
           "artCue": "S13 收场：公开点名结束，邮件仍在口袋",
           "artStatus": "ready",
           "characters": ["kai"],
-          "advance": "n_s14_office",
+          "advance": "n_ch02_wall",
           "camera": "hold",
           "transition": "fade",
           "fx": "warm_dust",

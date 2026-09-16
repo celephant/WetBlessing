@@ -113,7 +113,8 @@ describe("entitlement scopes (fake-unlock only)", () => {
     expect(scoped.state.entitlements.w3_edge_night).toBeFalsy();
 
     const ch02 = compileRoute(tryReadCh02Office()!);
-    const office = startGame(scoped.state.entitlements, ch02);
+    const office = playChoices(["c_s13_ok"], scoped.state.entitlements, ch02);
+    expect(office.nodeId).toBe("n_ch02_wall");
     expect(selectChoice(office, "c_ch02_enter", ch02).ok).toBe(false);
 
     const ch03 = compileRoute(tryReadCh03Night()!);
@@ -185,9 +186,11 @@ describe("season continue + bind none", () => {
       flags: state.flags,
       stats: state.stats,
     });
-    expect(continued.nodeId).toBe("n_ch02_wall");
+    expect(continued.nodeId).toBe("n_ch02_open");
     expect(continued.flags.stood_up_mia).toBe(true);
-    expect(selectChoice(continued, "c_ch02_enter", ch02).ok).toBe(false);
+    const atWall = playChoices(["c_s13_ok"], continued.entitlements, ch02);
+    expect(atWall.nodeId).toBe("n_ch02_wall");
+    expect(selectChoice(atWall, "c_ch02_enter", ch02).ok).toBe(false);
   });
 
   it("offers Ch01 paid coda → Ch02 and Ch02 → Ch03", () => {
