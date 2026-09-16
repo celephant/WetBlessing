@@ -39,7 +39,20 @@
       "n_dodge_corridor",
       "n_pay_settle",
       "n_title",
-      "n_free_soft_exit"
+      "n_free_soft_exit",
+      "n_dodge_deck",
+      "n_dodge_hall",
+      "n_jade_desk_hold",
+      "n_mia_edge_hold",
+      "n_with_mia_round",
+      "n_with_jade_round",
+      "n_ch01_wall_router",
+      "n_ch01_catch_mia",
+      "n_ch01_catch_jade",
+      "n_ch01_catch_lina",
+      "n_ch01_catch_rae",
+      "n_sms_open",
+      "n_pay_03_yes"
     ],
     "artPlaceholder": [],
     "changelog": "0.4.8-feel-hot audit-fix: fluent Chinese; S01 plays; Jade↛Mia elevator; S07 collage+dry mail; S08 wall; S14 off Ch01; static stills.",
@@ -129,7 +142,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "有人衣摆擦过你手背。她没回头。",
+              "text": "有人衣摆擦过你手背。她没回头。掌心还热着。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -281,7 +294,7 @@
             {
               "choiceId": "c_jade_ok",
               "text": "圆场：「……好。」",
-              "next": "n_dorm_steam",
+              "next": "n_jade_desk_hold",
               "delta": {
                 "stats": {
                   "jade": {
@@ -299,7 +312,7 @@
             {
               "choiceId": "c_jade_go",
               "text": "躲开：填完就走。",
-              "next": "n_dorm_steam",
+              "next": "n_dodge_corridor",
               "delta": {
                 "tension": 1
               },
@@ -329,7 +342,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "咔。闪光。笑收得很快。",
+              "text": "咔。闪光。笑收得很快。掌心还热。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -338,14 +351,32 @@
               "text": "「好了。下一张。」",
               "camera": "hold",
               "transition": "fade"
-            },
+            }
+          ]
+        },
+        {
+          "nodeId": "n_jade_desk_hold",
+          "type": "dialogue",
+          "speaker": "jade",
+          "text": "「笑收了。下一张不是你。」",
+          "assetId": "assets/scenes/ch01/n_jade_desk.webp",
+          "artCue": "圆场：同一张迎新桌，Jade 开口",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "lines": [
             {
               "speaker": "narrator",
               "text": "她已经转向别人。你掌心还热。",
               "camera": "hold",
               "transition": "fade"
             }
-          ]
+          ],
+          "advance": "n_dorm_steam",
+          "camera": "hold",
+          "transition": "fade"
         },
         {
           "nodeId": "n_dodge_corridor",
@@ -381,7 +412,7 @@
           "nodeId": "n_mia_edge_1",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "门一合，箱子卡在你们中间。她没换手。",
+          "text": "门一合，箱子卡在你们中间。她没换手。箱角顶着你胸口。",
           "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
           "artCue": "S03a 轿厢：纸箱卡在胸腹之间、肩带滑；非卫衣站桩",
           "artStatus": "ready",
@@ -413,7 +444,7 @@
             {
               "choiceId": "c_mia_safe",
               "text": "圆场：「……好久不见。」",
-              "next": "n_mia_edge_2",
+              "next": "n_mia_edge_hold",
               "delta": {
                 "stats": {
                   "mia": {
@@ -431,7 +462,7 @@
             {
               "choiceId": "c_mia_side",
               "text": "躲开：侧身。",
-              "next": "n_mia_edge_2",
+              "next": "n_dorm_steam",
               "delta": {
                 "tension": 2
               },
@@ -449,11 +480,35 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「你倒是会跟。」",
+              "text": "「你倒是会跟。手拿开。……不、别用那种眼神。」",
               "camera": "hold",
               "transition": "fade"
             }
           ]
+        },
+        {
+          "nodeId": "n_mia_edge_hold",
+          "type": "dialogue",
+          "speaker": "mia",
+          "text": "「箱子会自己待着。」",
+          "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
+          "artCue": "圆场：同一轿厢，Mia 开口",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「看完了？……不、嘴过来。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_mia_edge_2",
+          "camera": "hold",
+          "transition": "fade"
         },
         {
           "nodeId": "n_mia_edge_2",
@@ -488,27 +543,9 @@
               }
             },
             {
-              "choiceId": "c_mia_box",
-              "text": "圆场：「箱子到了。」",
-              "next": "n_dorm_steam",
-              "delta": {
-                "stats": {
-                  "mia": {
-                    "affection": 1
-                  }
-                }
-              },
-              "meta": {
-                "statusHint": {
-                  "axis": "steady",
-                  "delta": 1
-                }
-              }
-            },
-            {
               "choiceId": "c_mia_go",
               "text": "躲开：「……你先。」",
-              "next": "n_dorm_steam",
+              "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
               },
@@ -526,7 +563,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她把箱子往你胸口一顶。肩带滑下去，她看了一眼，没拉。",
+              "text": "她把箱子往你胸口一顶。肩带滑下去，她看了一眼，没拉。腰自己往前了半寸。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -569,31 +606,19 @@
             },
             {
               "speaker": "narrator",
-              "text": "她没把门拉开。水手领湿着。内侧钩上挂着州立学生证。",
+              "text": "她没把门拉开。水手领湿着。蒸汽贴着你的嘴。心跳被门缝夹住。",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "rae",
-              "text": "「你新来的？对门。领口——别一直看。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "证件照片。一年级。",
+              "text": "「领口——别一直看。先别出声。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "rae",
-              "text": "「十八。衣服是衣服。楼下在喊，门把松开。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "她抽手。门缝合上一条。掌心还热。",
+              "text": "「……唔。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -603,7 +628,7 @@
           "nodeId": "n_conflict",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "迎新会漏到泳池甲板。夜灯。侧门、台阶、跳台、楼道口——四块地。",
+          "text": "水还亮着。四块地，没人让。湿气贴着小臂。心跳已经先走了一步。",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 四分夜图：Mia 侧门 / Jade 台阶相机 / Lina 跳台 / Rae 水手楼道；无雨",
           "artStatus": "ready",
@@ -617,19 +642,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "（侧门，只够你听见）「电梯里没说完。回来。今晚别睡走廊。」",
+              "text": "（侧门，只够你听见）「还站中间干什么。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "（台阶，相机还亮）「Kai！站我旁边。就一张。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "跳台有人在收毛巾，没喊你。楼道口那扇门虚掩，下午的人抱臂站着。",
+              "text": "（台阶，相机没放下）「Kai。别动。就一张。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -637,7 +656,7 @@
           "choices": [
             {
               "choiceId": "c_go_mia",
-              "text": "赴 Mia",
+              "text": "接招：侧门。",
               "next": "n_with_mia",
               "delta": {
                 "stats": {
@@ -663,7 +682,7 @@
             },
             {
               "choiceId": "c_go_jade",
-              "text": "赴 Jade",
+              "text": "接招：上台阶。",
               "next": "n_with_jade",
               "delta": {
                 "stats": {
@@ -689,7 +708,7 @@
             },
             {
               "choiceId": "c_go_lina",
-              "text": "赴 Lina",
+              "text": "接招：走向跳台。",
               "next": "n_with_lina",
               "delta": {
                 "stats": {
@@ -715,7 +734,7 @@
             },
             {
               "choiceId": "c_go_rae",
-              "text": "赴 Rae",
+              "text": "接招：走向冒气的门。",
               "next": "n_with_rae",
               "delta": {
                 "stats": {
@@ -741,8 +760,8 @@
             },
             {
               "choiceId": "c_dodge_party",
-              "text": "躲开所有人",
-              "next": "n_sms_auto",
+              "text": "躲开：谁也不跟。",
+              "next": "n_dodge_deck",
               "delta": {
                 "tension": 3
               },
@@ -766,10 +785,55 @@
           "transition": "fade"
         },
         {
+          "nodeId": "n_dodge_deck",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "你没动。侧门关了一半。心跳还对着四块地。",
+          "assetId": "assets/scenes/ch01/ch01-s05-party.webp",
+          "artCue": "C1-D1 暗甲板 ch01-s05-party；无人朝你走",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "相机闪了一下，没喊第二声。跳台的人收回手臂。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "（远处，已经不想给你听）「……行。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_dodge_hall",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
+          "nodeId": "n_dodge_hall",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "楼道空了。手机还是亮了。掌心的热还没退。",
+          "assetId": "assets/scenes/ch01/n_free_soft_exit.webp",
+          "artCue": "C1-D2 空廊",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "lines": [],
+          "advance": "n_sms_auto",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
           "nodeId": "n_with_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "侧门一关。没开大灯。纸箱靠墙。",
+          "text": "侧门一关。灯只留床头那盏。滚烫顺着腰线。她膝盖不容拒绝地往前。",
           "assetId": "assets/scenes/heat/S06a.webp",
           "artCue": "S06a 俯压床：羞耻咬唇、腰侧手、腿脚砸镜头；非卫衣站桩",
           "artStatus": "ready",
@@ -780,7 +844,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：「就一下。」",
+              "text": "接招：「……不停。」",
               "next": "n_kiss_mia",
               "delta": {
                 "stats": {
@@ -798,8 +862,8 @@
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：「……我坐下。」",
-              "next": "n_kiss_mia",
+              "text": "圆场：看那排纸箱。",
+              "next": "n_with_mia_round",
               "delta": {
                 "stats": {
                   "mia": {
@@ -816,8 +880,8 @@
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：看枕边。",
-              "next": "n_kiss_mia",
+              "text": "躲开：「群在震。」",
+              "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               },
@@ -835,41 +899,53 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「坐下。这是我的床。你跟来这所学校，不是来做客。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "肩带滑下一肩。她把你的手按上自己的腰，又像要掀开。",
+              "text": "「唔……！手拿开。……不、别停。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "mia",
-              "text": "「……别叫那个。叫了我就推不开你。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "枕头陷下去。她还是凑近。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "mia",
-              "text": "「就一下。」",
+              "text": "「停了就去翻纸箱。别。」",
               "camera": "hold",
               "transition": "fade"
             }
           ]
         },
         {
+          "nodeId": "n_with_mia_round",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "门一合，箱子顶在胸口。肩带滑。她没拉。皮肤烫了一下。",
+          "assetId": "assets/scenes/ch01/n_mia_edge_1.webp",
+          "artCue": "C1-M1b 圆场才进：下午电梯",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「箱子会自己待着。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「看完了？……不、嘴过来。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_kiss_mia",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
           "nodeId": "n_with_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "台阶阴影。砖是干的。她把手机屏幕朝下扣在髋侧。",
+          "text": "台阶转进阴影。闪光关了。砖还凉，她小臂却热。",
           "assetId": "assets/scenes/heat/S06b.webp",
           "artCue": "S06b 干楼梯：金发运动 Jade、一腿踩砖、相机已关；禁止雨水",
           "artStatus": "ready",
@@ -898,8 +974,8 @@
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：「……闪光关了。」",
-              "next": "n_kiss_jade",
+              "text": "圆场：还是看了一眼她的手机。",
+              "next": "n_with_jade_round",
               "delta": {
                 "stats": {
                   "jade": {
@@ -916,8 +992,8 @@
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：看台阶。",
-              "next": "n_kiss_jade",
+              "text": "躲开：下楼。",
+              "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               },
@@ -935,41 +1011,47 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「闪光关了。别举你的。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "笑从脸上掉下去。一条腿踩上砖。",
+              "text": "「屏幕朝下。你的也是。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "「刚才那张是给迎新页的。这张——没有。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "她把你的手按回自己腰上。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "jade",
-              "text": "「进来。进了这儿，就别给别人看。」",
+              "text": "「刚才那张给迎新页。这张——没有。别、别举起来。」",
               "camera": "hold",
               "transition": "fade"
             }
           ]
         },
         {
+          "nodeId": "n_with_jade_round",
+          "type": "dialogue",
+          "speaker": "jade",
+          "text": "「亮了就扣上。」",
+          "assetId": "assets/scenes/ch01/ch01-s06b-jade.webp",
+          "artCue": "C1-J1b 圆场：腿压砖",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "lines": [
+            {
+              "speaker": "jade",
+              "text": "「进来。……别、别给别人看。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_kiss_jade",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
           "nodeId": "n_with_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "泳池侧门。她把毛巾砸进你怀里，挡住视线。",
+          "text": "你一走近跳台，毛巾砸进怀里。视线只剩她的眼睛。湿气从布边漏出来。腿侧发凉，掌心却热。",
           "assetId": "assets/scenes/heat/S06c.webp",
           "artCue": "S06c 毛巾 POV：金发 Lina、室内夜池、湿大腿；无雨",
           "artStatus": "ready",
@@ -988,20 +1070,8 @@
               "transition": "fade"
             },
             {
-              "speaker": "narrator",
-              "text": "湿大腿从布边露出来。金发还在滴水。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
               "speaker": "lina",
-              "text": "「别叫我名字。灯还亮着。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "氯味贴上你的嘴。她把你抱死，像在收最后一件器材。",
+              "text": "「别盯。……不、拿着就拿着。别碰那。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1009,7 +1079,7 @@
           "choices": [
             {
               "choiceId": "c_wl_close",
-              "text": "接招：把毛巾接住。",
+              "text": "接招：把毛巾扯开一点。",
               "next": "n_kiss_lina",
               "delta": {
                 "stats": {
@@ -1026,27 +1096,9 @@
               }
             },
             {
-              "choiceId": "c_wl_ok",
-              "text": "圆场：「……我拿着。」",
-              "next": "n_kiss_lina",
-              "delta": {
-                "stats": {
-                  "lina": {
-                    "affection": 1
-                  }
-                }
-              },
-              "meta": {
-                "statusHint": {
-                  "axis": "steady",
-                  "delta": 1
-                }
-              }
-            },
-            {
               "choiceId": "c_wl_phone",
-              "text": "躲开：看跳台。",
-              "next": "n_kiss_lina",
+              "text": "躲开：把毛巾还她。",
+              "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               },
@@ -1063,7 +1115,7 @@
           "nodeId": "n_with_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "楼道空了。水手领还湿。证还在钩上。",
+          "text": "楼道空了。水手领还湿。蒸汽贴着后颈。",
           "assetId": "assets/scenes/heat/n_heat_neck_rae.webp",
           "artCue": "S06d 过肩颈侧：水手领、湿砖脚尖、钩上学生证；非湿 T",
           "artStatus": "ready",
@@ -1077,19 +1129,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「小点声。他们能听见呼吸。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "她把后颈送到你嘴边，又停住。",
+              "text": "「小点声。他们能听见呼吸。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "rae",
-              "text": "「门缝还开着。……从里面关。」",
+              "text": "「门缝还开着。……从里面关。别、别出声。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1114,27 +1160,9 @@
               }
             },
             {
-              "choiceId": "c_wr_ok",
-              "text": "圆场：「……轻一点。」",
-              "next": "n_kiss_rae",
-              "delta": {
-                "stats": {
-                  "rae": {
-                    "affection": 1
-                  }
-                }
-              },
-              "meta": {
-                "statusHint": {
-                  "axis": "steady",
-                  "delta": 1
-                }
-              }
-            },
-            {
               "choiceId": "c_wr_phone",
-              "text": "躲开：看门缝。",
-              "next": "n_kiss_rae",
+              "text": "躲开：退回楼道。",
+              "next": "n_sms_auto",
               "delta": {
                 "tension": 1
               },
@@ -1151,7 +1179,7 @@
           "nodeId": "n_kiss_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "嘴对上了。枕头还陷着。她的胸随着呼吸压紧你。",
+          "text": "嘴对上了。枕头陷下去。齿关一软。水声很轻。腰自己迎上去。",
           "assetId": "assets/scenes/heat/n_heat_kiss_mia.webp",
           "artCue": "S06a 吻：嘴+她的房间；非卫衣坐吻",
           "artStatus": "ready",
@@ -1166,13 +1194,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「……凯。」",
+              "text": "「明明不该……唔……凯……♥」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "这一声不是那个旧名，是认栽。短信杀到。",
+              "text": "枕边的手机亮了。不是她的呼吸。那一下还没散。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1182,7 +1210,7 @@
           "nodeId": "n_kiss_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "唇碰上。砖还是干的。眼皮里还留着刚才合影的白。",
+          "text": "唇碰上。鞋底还抵着砖。鼻息烫。布料擦过砖。脚趾还是蜷了。",
           "assetId": "assets/scenes/heat/n_heat_kiss_jade.webp",
           "artCue": "S06b 干楼梯吻；禁止雨水",
           "artStatus": "ready",
@@ -1197,13 +1225,13 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「别睁眼。——当没拍。」",
+              "text": "「别睁眼。……哈啊……别拍。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "短信震在小腹之间。",
+              "text": "短信震在两个人中间。嘴还没离开。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1213,7 +1241,7 @@
           "nodeId": "n_kiss_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "氯、牙、湿衣贴上小臂。",
+          "text": "湿衣贴上小臂。牙关是凉的。水声从锁骨滑下来。她腰自己贴上来。",
           "assetId": "assets/scenes/heat/n_heat_kiss_lina.webp",
           "artCue": "S06c 泳池瓷砖吻、湿金发；无雨",
           "artStatus": "ready",
@@ -1228,13 +1256,13 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「水不会等。」",
+              "text": "「拿着的时候不是让你停。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "跳台还亮。手机在湿口袋里震。",
+              "text": "跳台还亮。湿口袋里的手机震了一下。唇上的水还没干。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1244,7 +1272,7 @@
           "nodeId": "n_kiss_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "吻又轻又密。像怕隔墙听见，又像故意让你听见呼吸。",
+          "text": "吻又轻又密。像怕隔墙听见。呼吸却热。水声被蒸汽捂住。后颈发烫，脚趾蜷在湿砖上。",
           "assetId": "assets/scenes/heat/n_heat_kiss_rae.webp",
           "artCue": "S06d 小声吻：水手领、证在钩上",
           "artStatus": "ready",
@@ -1259,13 +1287,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「脚别动。砖是湿的。」",
+              "text": "「脚别动。他们能听见。……唔♥」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "短信把嘴震开。证还在钩上。",
+              "text": "短信把嘴震开。隔墙那一步停了一下。领口还湿。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1275,29 +1303,283 @@
           "nodeId": "n_sms_auto",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "新生群。一张拼贴：下午电梯口，两个人抢你一只手。没有字。",
+          "text": "新生群。一张拼贴。没有字。心跳空了一拍。",
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "S07 手机近、拼贴剪影；勿烧聊天气泡；无办公室黑丝",
           "artStatus": "ready",
           "characters": [
             "kai"
           ],
-          "advance": "n_ch01_first_sub",
           "fx": "phone_glow",
           "camera": "hold",
           "transition": "dip",
           "lines": [
             {
               "speaker": "narrator",
-              "text": "学生事务。发件人 Reina：「办公时间。带学生证。周一见。」",
+              "text": "两张脸在抢同一只手。今天下午。",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "narrator",
-              "text": "没有照片。没有解释。",
+              "text": "另一条。学生事务。带学生证。没有照片。",
               "camera": "hold",
               "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_sms_open",
+              "text": "点开那张拼贴。",
+              "next": "n_sms_open",
+              "delta": {}
+            },
+            {
+              "choiceId": "c_sms_shut",
+              "text": "扣上。",
+              "next": "n_ch01_wall_router",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_sms_open",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "就是这一下。箱子带和夹板，同一只手腕。",
+          "assetId": "assets/scenes/ch01/n_see_both.webp",
+          "artCue": "C1-07b 点开才给：下午抢手全图",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia",
+            "jade"
+          ],
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "有人按了快门。你当时没听见。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_ch01_wall_router",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
+          "nodeId": "n_ch01_wall_router",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "（Catch 墙路由）",
+          "assetId": "assets/scenes/ch01/ch01-s05-party.webp",
+          "artCue": "hidden router: went_with → Catch still",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "playerVisible": false,
+          "advanceByFlag": {
+            "went_with==mia": "n_ch01_catch_mia",
+            "went_with==jade": "n_ch01_catch_jade",
+            "went_with==lina": "n_ch01_catch_lina",
+            "went_with==rae": "n_ch01_catch_rae",
+            "default": "n_ch01_first_sub"
+          }
+        },
+        {
+          "nodeId": "n_ch01_catch_mia",
+          "type": "dialogue",
+          "gate": "first_sub",
+          "speaker": "narrator",
+          "text": "宿舍灯更暗。她没抬头。",
+          "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
+          "artCue": "C1-08M Catch 亮着：她没抬头",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "fx": "tension_hold",
+          "camera": "hold",
+          "transition": "soft-zoom",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "屏幕照着她的腿。门口那个人还没被准许进来。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_sub_round_mia",
+              "text": "进去。",
+              "next": "n_pay_01_catch_mia",
+              "delta": {},
+              "cta": "story_pass_month",
+              "gateChoice": "subscribe",
+              "requiresEntitlement": "story_pass_month",
+              "onLocked": "show_pass_chip",
+              "setFlags": {
+                "catch_target": "mia"
+              }
+            },
+            {
+              "choiceId": "c_wall_title",
+              "text": "离开。",
+              "next": "n_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_ch01_catch_jade",
+          "type": "dialogue",
+          "gate": "first_sub",
+          "speaker": "narrator",
+          "text": "楼梯井。她的手已经伸下来。",
+          "assetId": "assets/scenes/heat/n_heat_jade_cling.webp",
+          "artCue": "C1-08J Catch 亮着：手还停在拉的中途",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "fx": "tension_hold",
+          "camera": "hold",
+          "transition": "soft-zoom",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "屏幕还是黑的。她还没把你拉完。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_sub_round_jade",
+              "text": "抓住。",
+              "next": "n_pay_01_catch_jade",
+              "delta": {},
+              "cta": "story_pass_month",
+              "gateChoice": "subscribe",
+              "requiresEntitlement": "story_pass_month",
+              "onLocked": "show_pass_chip",
+              "setFlags": {
+                "catch_target": "jade"
+              }
+            },
+            {
+              "choiceId": "c_wall_title",
+              "text": "离开。",
+              "next": "n_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_ch01_catch_lina",
+          "type": "dialogue",
+          "gate": "first_sub",
+          "speaker": "narrator",
+          "text": "灯还留着。她还站在水边。",
+          "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
+          "artCue": "C1-08L Catch 亮着：她在看你下来没有",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "lina"
+          ],
+          "fx": "tension_hold",
+          "camera": "hold",
+          "transition": "soft-zoom",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "她在看你下来没有。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_sub_round_lina",
+              "text": "下去。",
+              "next": "n_pay_01_catch_lina",
+              "delta": {},
+              "cta": "story_pass_month",
+              "gateChoice": "subscribe",
+              "requiresEntitlement": "story_pass_month",
+              "onLocked": "show_pass_chip",
+              "setFlags": {
+                "catch_target": "lina"
+              }
+            },
+            {
+              "choiceId": "c_wall_title",
+              "text": "离开。",
+              "next": "n_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_ch01_catch_rae",
+          "type": "dialogue",
+          "gate": "first_sub",
+          "speaker": "narrator",
+          "text": "门还开着。她回了头。",
+          "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
+          "artCue": "C1-08R Catch 亮着：回了头还没准许你关",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "rae"
+          ],
+          "fx": "tension_hold",
+          "camera": "hold",
+          "transition": "soft-zoom",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "隔墙暂时没人经过。你还在门外。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_sub_round_rae",
+              "text": "从里面关。",
+              "next": "n_pay_01_catch_rae",
+              "delta": {},
+              "cta": "story_pass_month",
+              "gateChoice": "subscribe",
+              "requiresEntitlement": "story_pass_month",
+              "onLocked": "show_pass_chip",
+              "setFlags": {
+                "catch_target": "rae"
+              }
+            },
+            {
+              "choiceId": "c_wall_title",
+              "text": "离开。",
+              "next": "n_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
             }
           ]
         },
@@ -1306,45 +1588,22 @@
           "type": "dialogue",
           "gate": "first_sub",
           "speaker": "narrator",
-          "text": "群发出去了。周一写进日程。",
-          "assetId": "assets/scenes/ch01/n_ch01_first_sub.webp",
-          "artCue": "S08 打断吻冻帧 + 拼贴残影；非 Kai 卫衣特写",
+          "text": "四块地还在。没人朝你走过来。",
+          "assetId": "assets/scenes/ch01/ch01-s05-party.webp",
+          "artCue": "C1-08D 躲开墙：暗甲板 ch01-s05-party；不是 Mia 廊嘴，不是拼贴",
           "artStatus": "ready",
           "characters": [
             "kai"
           ],
           "choices": [
             {
-              "choiceId": "c_free_read",
-              "text": "（已读不回）",
-              "next": "n_free_soft_exit",
-              "delta": {
-                "tension": 2
-              },
-              "gateChoice": "free"
-            },
-            {
-              "choiceId": "c_free_busy",
-              "text": "「忙。」",
-              "next": "n_free_soft_exit",
-              "delta": {
-                "tension": 1
-              },
-              "gateChoice": "free"
-            },
-            {
               "choiceId": "c_sub_round_mia",
-              "text": "付费 Mia：「刚才不是故意晾你。我上去。」",
+              "text": "进去。",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass_month",
               "gateChoice": "subscribe",
               "requiresEntitlement": "story_pass_month",
-              "requires": {
-                "flags": {
-                  "stood_up_mia": true
-                }
-              },
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "mia"
@@ -1352,17 +1611,12 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "付费 Jade：「合影那格我空了。楼梯间——我欠你。」",
+              "text": "抓住。",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass_month",
               "gateChoice": "subscribe",
               "requiresEntitlement": "story_pass_month",
-              "requires": {
-                "flags": {
-                  "stood_up_jade": true
-                }
-              },
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "jade"
@@ -1370,17 +1624,12 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "付费 Lina：「毛巾还在我手里。我下来。」",
+              "text": "下去。",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass_month",
               "gateChoice": "subscribe",
               "requiresEntitlement": "story_pass_month",
-              "requires": {
-                "flags": {
-                  "stood_up_lina": true
-                }
-              },
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "lina"
@@ -1388,35 +1637,46 @@
             },
             {
               "choiceId": "c_sub_round_rae",
-              "text": "付费 Rae：「门还开着。我想从里面关。」",
+              "text": "从里面关。",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass_month",
               "gateChoice": "subscribe",
               "requiresEntitlement": "story_pass_month",
-              "requires": {
-                "flags": {
-                  "stood_up_rae": true
-                }
-              },
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "rae"
               }
+            },
+            {
+              "choiceId": "c_wall_title",
+              "text": "离开。",
+              "next": "n_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
             }
           ],
           "fx": "tension_hold",
           "camera": "hold",
           "transition": "soft-zoom",
-          "lines": []
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "今晚还能进一张。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
         },
         {
           "nodeId": "n_free_soft_exit",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "已读。对面没有新气泡。拼贴还钉在群里。",
+          "text": "楼道空了。那封公事还在。",
           "assetId": "assets/scenes/ch01/n_free_soft_exit.webp",
-          "artCue": "S12 空走廊；周一还在",
+          "artCue": "S12 空走廊；不是日历墙",
           "artStatus": "ready",
           "characters": [
             "kai"
@@ -1440,7 +1700,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "今晚到此为止。周一还在。除非你改主意。",
+              "text": "灯管是白的。没有人朝你走过来。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1459,7 +1719,7 @@
           "nodeId": "n_pay_01_catch_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "宿舍灯更暗。她坐回床沿，卫衣拉过一点，没拉完。",
+          "text": "你跨过门槛。她还是没立刻抬头。腿上那片屏光还热。腰却没退。",
           "assetId": "assets/scenes/heat/n_heat_sleep_legs.webp",
           "artCue": "S09 Mia catch：衣服相对 S06a 已变；床沿；非旧卫衣库存",
           "artStatus": "ready",
@@ -1470,13 +1730,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「拼贴里有你。我来。」",
+              "text": "「……我上来了。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "mia",
-              "text": "「……那你倒是亲。脚不许假装没看见。」",
+              "text": "「脚。不许假装没看见。……唔。不、倒是亲。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1493,7 +1753,7 @@
           "nodeId": "n_pay_01_catch_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "灯在她头顶后面。砖还是干的。",
+          "text": "楼梯井。她的手已经伸下来。屏幕还是黑的。掌心发烫。",
           "assetId": "assets/scenes/heat/n_heat_jade_cling.webp",
           "artCue": "S09 Jade catch：干楼梯、灯更暗；禁止雨水",
           "artStatus": "ready",
@@ -1504,13 +1764,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「楼梯间那帧，我欠你。」",
+              "text": "「……抓到了。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "「还算会说话。进来。进了这帧，就不给任何人。」",
+              "text": "「还算会伸手。……上来。别碰那。别、别给别人看。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1527,7 +1787,7 @@
           "nodeId": "n_pay_01_catch_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "泳池边的氯还没散。她把毛巾重新塞进你手里。",
+          "text": "灯还留着。池水凉，她手腕是热的。",
           "assetId": "assets/scenes/heat/n_heat_wet_cling.webp",
           "artCue": "S09 Lina catch：室内夜池；非雨街啦啦队",
           "artStatus": "ready",
@@ -1538,13 +1798,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「水还没关。我下来。」",
+              "text": "「我下来了。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "lina",
-              "text": "「锁该落下。你还下来，是你自己选的。」",
+              "text": "「你还下来，是你自己选的。……手别松开。哈啊……」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1561,7 +1821,7 @@
           "nodeId": "n_pay_01_catch_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "又是那扇门。水手领还没干。证还在钩上。",
+          "text": "门还开着。她回了头。蒸汽贴着后颈。隔墙暂时没人经过。",
           "assetId": "assets/scenes/heat/n_heat_door_steam.webp",
           "artCue": "S09 Rae catch：水手门、拼贴之后；非湿 T",
           "artStatus": "ready",
@@ -1572,13 +1832,13 @@
           "lines": [
             {
               "speaker": "kai",
-              "text": "「隔墙的事，我想从里面关上。」",
+              "text": "「从里面关。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "rae",
-              "text": "「那就关。轻。」",
+              "text": "「那就关。轻。……唔。他们能听见。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1615,7 +1875,7 @@
           "nodeId": "n_pay_02_ot_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "这次没有短信。她把你按回枕头。",
+          "text": "她把你压回枕头。手机扣在远处。齿关一软。水声很轻。腰自己迎上去。",
           "assetId": "assets/scenes/heat/n_heat_pin_mia.webp",
           "artCue": "S10 Mia OT：拼贴之后的羞耻热；不复用 S06a / catch",
           "artStatus": "ready",
@@ -1629,14 +1889,14 @@
           "fx": "breath",
           "lines": [
             {
-              "speaker": "mia",
-              "text": "「认完就把嘴闭上。」",
+              "speaker": "kai",
+              "text": "「说。现在是谁在要你。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "mia",
-              "text": "「……这是我家的床。」",
+              "text": "「是……是你……别停。……要、要坏。♥」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1646,7 +1906,7 @@
           "nodeId": "n_pay_02_ot_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "砖还是干的。",
+          "text": "吻变长。砖还凉，她大腿却热。鞋底抵着。布料擦过砖。脚趾还是蜷了。",
           "assetId": "assets/scenes/heat/n_heat_straddle_jade.webp",
           "artCue": "S10 Jade OT：干砖；禁止雨水",
           "artStatus": "ready",
@@ -1661,13 +1921,13 @@
           "lines": [
             {
               "speaker": "jade",
-              "text": "「砖还是干的。……腿站不稳。」",
+              "text": "「闪光关着。你也是。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "「别拍。拍了我就裁你。」",
+              "text": "「别拍。拍了我就裁你。……不要停。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1677,7 +1937,7 @@
           "nodeId": "n_pay_02_ot_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "跳台只留一条灯。",
+          "text": "湿吻拉长。水声贴着牙。她把你抱在灯边。膝盖往前，不容拒绝。",
           "assetId": "assets/scenes/heat/n_heat_hug_lina.webp",
           "artCue": "S10 Lina OT：室内池；无雨",
           "artStatus": "ready",
@@ -1692,13 +1952,13 @@
           "lines": [
             {
               "speaker": "lina",
-              "text": "「灯只留一条。」",
+              "text": "「灯只留一条。……哈啊……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "lina",
-              "text": "「只吻。只抱。不许再往下讲。」",
+              "text": "「留一条不是让你松手。……再、再给。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1708,7 +1968,7 @@
           "nodeId": "n_pay_02_ot_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "门从里面扣上。吻又轻又密。",
+          "text": "吻贴在门框里。水声被蒸汽捂着。后颈发烫，脚趾蜷着。",
           "assetId": "assets/scenes/heat/n_heat_ot_rae.webp",
           "artCue": "S10 Rae OT：关门后的长吻；不复用免费吻文件",
           "artStatus": "ready",
@@ -1723,13 +1983,13 @@
           "lines": [
             {
               "speaker": "rae",
-              "text": "「领口湿了也别往下看。」",
+              "text": "「领口湿了也别往下看。……唔……」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "rae",
-              "text": "「会被截进去。——只一下。」",
+              "text": "「会被截进去。……只一下。轻。～」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1739,9 +1999,9 @@
           "nodeId": "n_pay_02_double_empty",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "两场都没赴。走廊是空的。周一还在。",
+          "text": "走廊是空的。四块地都没走进去。",
           "assetId": "assets/scenes/ch01/n_pay_02_ot_a.webp",
-          "artCue": "S12 空走廊 / 双鸽；非沙发卫衣",
+          "artCue": "S12 空走廊 / 双鸽；非日历讲义",
           "artStatus": "ready",
           "characters": [
             "kai"
@@ -1753,7 +2013,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "圆场说完了。空档得自己扛。办公室不会取消。",
+              "text": "那封公事还在口袋里。没有人朝你走过来。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1763,7 +2023,7 @@
           "nodeId": "n_pay_03_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "她没问你要不要进来。风衣已经湿了。巷口有人影。",
+          "text": "风衣已经湿了。雨声贴着她的腿。巷口有人影。皮肤发凉，呼吸却热。",
           "assetId": "assets/scenes/heat/S11.webp",
           "artCue": "S11 唯一雨：风衣画框、Troy 影；禁止四人雨吻",
           "artStatus": "ready",
@@ -1771,49 +2031,69 @@
             "kai",
             "vanessa"
           ],
-          "advance": "n_pay_settle",
           "fx": "magenta-mist",
           "camera": "mid",
           "transition": "dip",
           "lines": [
             {
               "speaker": "vanessa",
-              "text": "「群里那张图，你周旋得挺干净。」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "narrator",
-              "text": "你没接话。",
+              "text": "「雨。那个人还没走。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "vanessa",
-              "text": "「Troy。他会来问你听没听见。——别把我当奖品。」",
+              "text": "「过来就过来。……慢一点。别回头跟他对上。」",
               "camera": "hold",
               "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_vanessa_ok",
+              "text": "接招：吻（慢）。",
+              "next": "n_pay_03_yes",
+              "delta": {},
+              "setFlags": {
+                "vanessa_rain": true
+              }
             },
             {
-              "speaker": "narrator",
-              "text": "风衣从肩滑下一寸。雨打在她小腿上。",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "vanessa",
-              "text": "「吻可以。慢一点。我没倒向你。——还没。」",
-              "camera": "hold",
-              "transition": "fade"
+              "choiceId": "c_vanessa_dodge",
+              "text": "躲开：不进巷。",
+              "next": "n_pay_settle",
+              "delta": {
+                "tension": 1
+              }
             }
           ]
         },
         {
+          "nodeId": "n_pay_03_yes",
+          "type": "dialogue",
+          "speaker": "vanessa",
+          "text": "「吻可以。……慢一点。——唔。我没倒向你。还没。」",
+          "assetId": "assets/scenes/heat/S11.webp",
+          "artCue": "C1-11 接招末句；同一雨巷",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "vanessa"
+          ],
+          "lines": [],
+          "advance": "n_pay_settle",
+          "setFlags": {
+            "vanessa_rain": true
+          },
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
           "nodeId": "n_pay_settle",
           "type": "settle",
-          "text": "今晚到此为止。周一还在。",
+          "text": "今晚到此为止。那封公事还在。",
           "assetId": "assets/scenes/ch01/n_pay_settle.webp",
-          "artCue": "S12 结算空走廊；静帧",
+          "artCue": "S12 结算空走廊；不是日历钩子",
           "artStatus": "ready",
           "characters": []
         }

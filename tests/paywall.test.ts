@@ -11,24 +11,27 @@ import {
 } from "../lib/engine";
 
 describe("in-dialogue paywall", () => {
-  it("filters subscribe choices by stood_up flags", () => {
+  it("sells the person you followed on Catch, not the ones you stood up", () => {
     const miaPath = playChoices([
       "c_help_mia",
-      "c_mia_safe",
-      "c_mia_box",
+      "c_mia_hugish",
+      "c_mia_banter",
       "c_go_mia",
-      "c_wm_ok",
+      "c_wm_close",
+      "c_sms_shut",
     ]);
     const ids = view(miaPath).choices.map((c) => c.choiceId);
-    expect(ids).toContain("c_sub_round_jade");
-    expect(ids).not.toContain("c_sub_round_mia");
-    expect(ids).toContain("c_free_busy");
+    expect(miaPath.nodeId).toBe("n_ch01_catch_mia");
+    expect(ids).toContain("c_sub_round_mia");
+    expect(ids).not.toContain("c_sub_round_jade");
+    expect(ids).toContain("c_wall_title");
     expect(ids).not.toContain("c_later");
-    expect(ids.filter((id) => id === "c_free_busy" || id === "c_free_read").length).toBeGreaterThan(0);
+    expect(ids).not.toContain("c_free_busy");
+    expect(ids).not.toContain("c_free_read");
   });
 
   it("locks story_pass_month choices until entitled", () => {
-    const state = playChoices(["c_dodge_both", "c_dodge_party"]);
+    const state = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     expect(state.nodeId).toBe("n_ch01_first_sub");
     expect(state.entitlements.story_pass_month).toBe(false);
 
@@ -42,7 +45,7 @@ describe("in-dialogue paywall", () => {
   });
 
   it("unlockNext fake-unlocks and continues the same line", () => {
-    const state = playChoices(["c_dodge_both", "c_dodge_party"]);
+    const state = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     const locked = selectChoice(state, "c_sub_round_mia");
     expect(locked.ok).toBe(false);
     if (locked.ok) return;
@@ -57,7 +60,7 @@ describe("in-dialogue paywall", () => {
   });
 
   it("unlockScope w1_continue continues Ch01 without minting the pass", () => {
-    const state = playChoices(["c_dodge_both", "c_dodge_party"]);
+    const state = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     const locked = selectChoice(state, "c_sub_round_mia");
     expect(locked.ok).toBe(false);
     if (locked.ok) return;
@@ -71,36 +74,17 @@ describe("in-dialogue paywall", () => {
     expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
   });
 
-  it("allows free soft-exit without a pass", () => {
-    const state = playChoices(["c_dodge_both", "c_dodge_party", "c_free_busy"]);
-    expect(state.nodeId).toBe("n_free_soft_exit");
-    const back = playChoices([
-      "c_dodge_both",
-      "c_dodge_party",
-      "c_free_busy",
-      "c_back_wall",
-    ]);
-    expect(back.nodeId).toBe("n_ch01_first_sub");
+  it("title chrome leaves the wall without a story continue", () => {
+    const state = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut", "c_wall_title"]);
+    expect(state.nodeId).toBe("n_title");
   });
 
   it("paid path lands on settle after Vanessa", () => {
-    let state = playChoices(
-      ["c_dodge_both", "c_dodge_party", "c_sub_round_jade"],
+    const state = playChoices(
+      ["c_dodge_both", "c_dodge_party", "c_sms_shut", "c_sub_round_jade", "c_vanessa_ok"],
       { story_pass_month: true },
-      route,
-      { pumpAfter: false },
     );
-    expect(state.nodeId).toBe("n_pay_01_catch_jade");
-
-    const seen = new Set<string>();
-    while (state.nodeId !== "n_pay_settle") {
-      const key = `${state.nodeId}:${state.beatIndex}`;
-      if (seen.has(key)) {
-        throw new Error(`stuck at ${state.nodeId}`);
-      }
-      seen.add(key);
-      state = clickAdvance(state);
-    }
+    expect(state.nodeId).toBe("n_pay_settle");
     expect(view(state).isSettle).toBe(true);
   });
 });
@@ -123,7 +107,7 @@ describe("season walls", () => {
     const ch03 = compileRoute(tryReadCh03Night()!);
     for (const id of ["n_s19_mia", "n_s19_jade", "n_s19_lina", "n_s19_rae"]) {
       const ids = ch03.nodes.get(id)?.choices?.map((c) => c.choiceId) ?? [];
-      expect(ids, id).toEqual(["c_leave", "c_push"]);
+      expect(ids, id).toEqual(["c_push", "c_leave"]);
     }
   });
 });

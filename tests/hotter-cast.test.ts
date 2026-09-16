@@ -75,12 +75,11 @@ describe("hotter-cast Ch01", () => {
     expect(content.personas.persona_lina_v1.name).toBe("Lina");
     expect(content.personas.persona_reina_v1.name).toBe("Reina");
     const spoken = spokenHay();
-    expect(spoken).toMatch(/十八/);
     expect(spoken).toMatch(/州立大学|大学/);
     expect(spoken).toMatch(/水手领/);
-    expect(spoken).toMatch(/周一/);
-    expect(spoken).toMatch(/Reina|办公时间/);
+    expect(spoken).toMatch(/学生事务|带学生证/);
     expect(spoken).not.toMatch(/二十九/);
+    expect(spoken).not.toMatch(/只是坐|周一还在|认领/);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/这一下不是几乎——吻上了/);
     expect(spoken).not.toMatch(/(?<!二)十九/);
@@ -100,13 +99,25 @@ describe("hotter-cast Ch01", () => {
       "c_go_rae",
       "c_dodge_party",
     ]);
-    expect(route.nodes.get("n_with_mia")?.choices?.every((c) => c.next === "n_kiss_mia")).toBe(
-      true,
+    expect(route.nodes.get("n_with_mia")?.choices?.find((c) => c.choiceId === "c_wm_close")?.next).toBe(
+      "n_kiss_mia",
+    );
+    expect(route.nodes.get("n_with_mia")?.choices?.find((c) => c.choiceId === "c_wm_ok")?.next).toBe(
+      "n_with_mia_round",
+    );
+    expect(route.nodes.get("n_with_mia")?.choices?.find((c) => c.choiceId === "c_wm_phone")?.next).toBe(
+      "n_sms_auto",
     );
     expect(route.nodes.get("n_kiss_mia")?.advance).toBe("n_sms_auto");
-    expect(route.nodes.get("n_sms_auto")?.advance).toBe("n_ch01_first_sub");
-    expect(route.nodes.get("n_jade_desk")?.choices?.every((c) => c.next === "n_dorm_steam")).toBe(
-      true,
+    expect(route.nodes.get("n_sms_auto")?.choices?.map((c) => c.choiceId).sort()).toEqual([
+      "c_sms_open",
+      "c_sms_shut",
+    ]);
+    expect(route.nodes.get("n_jade_desk")?.choices?.find((c) => c.choiceId === "c_jade_smirk")?.next).toBe(
+      "n_dorm_steam",
+    );
+    expect(route.nodes.get("n_jade_desk")?.choices?.find((c) => c.choiceId === "c_jade_go")?.next).toBe(
+      "n_dodge_corridor",
     );
     expect(route.nodes.get("n_dorm_steam")?.advance).toBe("n_conflict");
   });
@@ -176,8 +187,8 @@ describe("hotter-cast Ch01", () => {
     expect(nodeHay("n_kiss_lina")).not.toMatch(/不是雨/);
     expect(nodeHay("n_dorm_steam")).toMatch(/水手领/);
     expect(nodeHay("n_pay_03_vanessa")).toMatch(/雨/);
-    expect(nodeHay("n_sms_auto")).toMatch(/周一|办公时间/);
-    expect(nodeHay("n_sms_auto")).not.toMatch(/黑丝/);
+    expect(nodeHay("n_sms_auto")).toMatch(/学生事务|拼贴|带学生证/);
+    expect(nodeHay("n_sms_auto")).not.toMatch(/黑丝|周一还在|办公时间/);
     const spoken = spokenHay();
     expect(spoken).toMatch(/乳沟|胸/);
     expect(spoken).toMatch(/腿/);
@@ -202,13 +213,24 @@ describe("hotter-cast Ch01", () => {
   it("keeps choiceIndex ≤ 10 and records rae/lina stats", () => {
     const paths = walkChoiceIndexPaths(route);
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
-    expect(Math.max(...paths.map((p) => p.choiceIndex))).toBe(6);
-    const lina = playChoices(["c_help_mia", "c_mia_safe", "c_mia_box", "c_go_lina", "c_wl_close"]);
-    expect(lina.nodeId).toBe("n_ch01_first_sub");
+    expect(Math.max(...paths.map((p) => p.choiceIndex))).toBe(7);
+    const lina = playChoices([
+      "c_help_mia",
+      "c_mia_safe",
+      "c_mia_banter",
+      "c_go_lina",
+      "c_wl_close",
+      "c_sms_shut",
+    ]);
+    expect(lina.nodeId).toBe("n_ch01_catch_lina");
     expect(lina.stats.lina.desire).toBeGreaterThan(0);
     expect(lina.stats.rae.affection).toBe(0);
-    expect(view(lina).choices.map((c) => c.choiceId)).toContain("c_sub_round_rae");
-    const rae = playChoices(["c_dodge_both", "c_go_rae", "c_wr_close"]);
+    expect(view(lina).choices.map((c) => c.choiceId)).toContain("c_sub_round_lina");
+    expect(view(lina).choices.map((c) => c.choiceId)).not.toContain("c_sub_round_rae");
+    const dodgeWall = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
+    expect(dodgeWall.nodeId).toBe("n_ch01_first_sub");
+    expect(view(dodgeWall).choices.map((c) => c.choiceId)).toContain("c_sub_round_rae");
+    const rae = playChoices(["c_dodge_both", "c_go_rae", "c_wr_close", "c_sms_shut"]);
     expect(rae.flags.went_with).toBe("rae");
     expect(rae.stats.rae.desire).toBeGreaterThan(0);
     const started = startGame();

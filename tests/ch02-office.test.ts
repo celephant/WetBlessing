@@ -25,6 +25,7 @@ const FORBIDDEN = /阴茎|阴道|阴蒂|性交|插入|口交|生殖器|高中生
 
 const CH02_WEBPS = [
   "assets/scenes/ch02/S13.webp",
+  "assets/scenes/ch02/S13-empty.webp",
   "assets/scenes/ch02/S14.webp",
   "assets/scenes/ch02/S14-lock.webp",
   "assets/scenes/ch02/S14-abort.webp",
@@ -50,7 +51,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("9395fb15b94adc4d6ee9efe2f06d9d34f5d6fe4412ed8777ce015766aa8021af");
+    ).toBe("7ee6e8239b8e8e8caeb5617849ee6671b078f2b606112120f1f44c8ffefc4946");
   });
 
   it("loads only via /play?content=ch02 and is denied as default", () => {
@@ -84,10 +85,9 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(compiled.nodes.get("n_s14_wall")?.gate).toBeUndefined();
 
     const spoken = spokenHay(file);
-    expect(spoken).toMatch(/办公时间。带学生证。周一见/);
-    expect(spoken).toMatch(/你鸽了我，Kai/);
-    expect(spoken).toMatch(/二十九/);
-    expect(spoken).not.toMatch(/我二十九岁/);
+    expect(spoken).not.toMatch(/办公时间。带学生证。周一见/);
+    expect(spoken).not.toMatch(/你鸽了我/);
+    expect(spoken).not.toMatch(/二十九/);
     expect(spoken).toMatch(/衬衫敞着，丝还在/);
     expect(spoken).toMatch(/办公室的灯没关。拼贴还在她桌上/);
     expect(spoken).toMatch(/黑丝/);
@@ -138,11 +138,11 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       {
       pumpAfter: true,
     });
-    expect(inside.nodeId).toBe("n_s14_wall");
+    expect(inside.nodeId).toBe("n_s14_lock");
     const kissView = view(inside, compiled);
     expect(kissView.choices.map((choice) => choice.choiceId)).toEqual([
-      "c_s14_free",
       "c_s14_kiss",
+      "c_s14_free",
     ]);
     expect(
       kissView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement,
@@ -176,6 +176,25 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(cafeAt({ went_with: "mia" })).toBe("n_s13_jade");
     expect(cafeAt({ catch_target: "jade" })).toBe("n_s13_mia");
     expect(cafeAt({})).toBe("n_s13_both");
+
+    const dodgeEmpty = playChoices(
+      ["c_s13_dodge"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+    );
+    expect(compiled.nodes.get("n_s13_empty")?.assetId).toBe("assets/scenes/ch02/S13-empty.webp");
+    expect(compiled.nodes.get("n_s13_both")?.choices?.find((c) => c.choiceId === "c_s13_dodge")?.next).toBe(
+      "n_s13_empty",
+    );
+    expect(dodgeEmpty.nodeId).toBe("n_ch02_wall");
+
+    const lock = playChoices(
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok"],
+      { story_pass_month: false, w2_office: true },
+      compiled,
+    );
+    expect(lock.nodeId).toBe("n_s14_lock");
+    expect(lock.flags.office_locked).toBe(true);
 
     const paths = walkChoiceIndexPaths(compiled);
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);

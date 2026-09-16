@@ -124,7 +124,10 @@ describe("first_sub wall", () => {
     expect(paths.length).toBeGreaterThan(0);
     for (const path of paths) {
       const wall = path[path.length - 1]!;
-      expect(wall.nodeId).toBe("n_ch01_first_sub");
+      expect(
+        wall.nodeId === "n_ch01_first_sub" || wall.nodeId.startsWith("n_ch01_catch_"),
+        wall.nodeId,
+      ).toBe(true);
       expect(wall.choiceIndex).toBeLessThanOrEqual(route.choiceIndexHardCap);
       expect(wall.choiceIndex).toBeLessThanOrEqual(10);
     }
@@ -137,26 +140,27 @@ describe("first_sub wall", () => {
       "c_mia_banter",
       "c_go_mia",
       "c_wm_close",
+      "c_sms_shut",
     ]);
-    expect(state.nodeId).toBe("n_ch01_first_sub");
-    expect(state.choiceIndex).toBe(5);
+    expect(state.nodeId).toBe("n_ch01_catch_mia");
+    expect(state.choiceIndex).toBe(6);
     expect(state.choiceIndex).toBeLessThanOrEqual(10);
   });
 });
 
 describe("advanceByFlag", () => {
-  it("routes the long kiss to whoever you paid to win back", () => {
+  it("routes the long kiss to the person you followed", () => {
     const state = playChoices(
-      ["c_help_mia", "c_mia_safe", "c_mia_box", "c_go_mia", "c_wm_ok", "c_sub_round_jade"],
+      ["c_help_mia", "c_mia_hugish", "c_mia_banter", "c_go_mia", "c_wm_close", "c_sms_shut", "c_sub_round_mia"],
       { story_pass_month: true },
       route,
       { pumpAfter: false },
     );
-    expect(state.nodeId).toBe("n_pay_01_catch_jade");
+    expect(state.nodeId).toBe("n_pay_01_catch_mia");
     expect(state.flags.went_with).toBe("mia");
-    expect(state.flags.catch_target).toBe("jade");
+    expect(state.flags.catch_target).toBe("mia");
     const after = clickAdvance(state);
-    expect(after.nodeId).toBe("n_pay_02_ot_jade");
+    expect(after.nodeId).toBe("n_pay_02_ot_mia");
     expect(after.nodeId).not.toBe("n_pay_02_router");
   });
 
@@ -169,7 +173,7 @@ describe("advanceByFlag", () => {
     } as const;
     for (const [who, choice] of Object.entries(paid)) {
       const state = playChoices(
-        ["c_dodge_both", "c_dodge_party", choice],
+        ["c_dodge_both", "c_dodge_party", "c_sms_shut", choice],
         { story_pass_month: true },
         route,
         { pumpAfter: false },
