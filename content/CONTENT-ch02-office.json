@@ -323,7 +323,7 @@
           "nodeId": "n_s13_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "托盘轻轻磕上桌沿。Jade 坐下，笑还在唇边，眼里没有。",
+          "text": "托盘对面是 Mia，没开口。Jade 从你身后坐下。",
           "assetId": "assets/scenes/ch02/S13.webp",
           "artCue": "S13 食堂公开点名 · Jade；托盘沿近，邻桌侧耳",
           "artStatus": "ready",
@@ -343,13 +343,13 @@
             },
             {
               "speaker": "jade",
-              "text": "「合影很好看。——空着的那一格呢？」",
+              "text": "（身后）「合影很好看。——空着的那一格呢？」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "「你鸽了我。笑还在迎新页上。」",
+              "text": "（身后）「你鸽了我。笑还在迎新页上。」",
               "camera": "hold",
               "transition": "fade"
             }

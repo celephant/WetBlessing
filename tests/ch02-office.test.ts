@@ -178,6 +178,16 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
   });
 
+  it("stages Jade's cafeteria lines from behind the Mia still", () => {
+    const jade = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_jade")!;
+    expect(jade.text).toMatch(/托盘对面是 Mia，没开口。Jade 从你身后坐下/);
+    expect(jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）"))).toBe(
+      true,
+    );
+    const both = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_both")!;
+    expect(both.lines?.[0]?.speaker).toBe("mia");
+  });
+
   it("ships ch02 plates and does not remap them onto Ch01", () => {
     for (const rel of CH02_WEBPS) {
       expect(existsSync(path.join(root, "public", rel)), rel).toBe(true);
