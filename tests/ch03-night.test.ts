@@ -118,10 +118,10 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
   });
 
   it("rewrites the door wall off the wet-T pack", () => {
-    expect(PAYWALL_EDGE_LOCK["zh-CN"].title).toMatch(/锁还没转/);
-    expect(PAYWALL_EDGE_LOCK["zh-CN"].body).toMatch(/同一间屋/);
+    expect(PAYWALL_EDGE_LOCK["zh-CN"].title).toMatch(/缝里是她/);
+    expect(PAYWALL_EDGE_LOCK["zh-CN"].body).toMatch(/门把|锁还横着|里面/);
     expect(PAYWALL_EDGE_LOCK["zh-CN"].primaryOwned).toBe("推门进去");
-    expect(JSON.stringify(PAYWALL_EDGE_LOCK)).not.toMatch(/湿T/);
+    expect(JSON.stringify(PAYWALL_EDGE_LOCK)).not.toMatch(/湿T|不是上床|明天群会响|稍后再说/);
   });
 
   it("DEV default with no save is the empty library, not Mia", () => {

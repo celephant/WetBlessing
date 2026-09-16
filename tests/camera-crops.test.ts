@@ -118,8 +118,10 @@ describe("edge_lock + paywall copy", () => {
     expect(isWallGate('"edge_lock"')).toBe(true);
   });
 
-  it("keeps wall1 interrupted-kiss hook and owned edge primary 推门进去", () => {
-    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/吻|唇|水汽/);
+  it("sells Catch / open 教員室 / seam stills, not lecture walls", () => {
+    expect(PAYWALL_HARD["zh-CN"].title).toMatch(/自己的地上/);
+    expect(PAYWALL_HARD["zh-CN"].body).toMatch(/没抬头|拉的中途|下来没有/);
+    expect(PAYWALL_HARD["zh-CN"].primaryOwned).toBe("进去。");
     expect(PAYWALL_HARD.behavior.tone).toMatch(/禁暗示开通后才开始暧昧/);
     expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass_month");
     expect(PAYWALL_HARD.behavior.secondaryAction).toBe(
@@ -127,6 +129,8 @@ describe("edge_lock + paywall copy", () => {
     );
     expect(PAYWALL_HARD["zh-CN"].primary).toContain("$8.99");
     expect(PAYWALL_HARD["zh-CN"].secondary).toContain("$2.99");
+    expect(PAYWALL_CHAPTER["zh-CN"].title).toMatch(/教員室/);
+    expect(PAYWALL_CHAPTER["zh-CN"].primaryOwned).toBe("进去。");
     expect(PAYWALL_EDGE_LOCK["zh-CN"].primaryOwned).toBe("推门进去");
     expect(PAYWALL_EDGE_LOCK.behavior.primaryOwnedAction).toBe("continue_paid_edge");
     expect(PAYWALL_EDGE_LOCK.behavior.secondaryAction).toBe(
@@ -140,5 +144,16 @@ describe("edge_lock + paywall copy", () => {
     expect(PAYWALL_CHAPTER.behavior.secondaryAction).toBe(
       "checkout_sku:chapter_unlock|scope=w2_office",
     );
+    const overlay = JSON.stringify({
+      hard: PAYWALL_HARD["zh-CN"],
+      chapter: PAYWALL_CHAPTER["zh-CN"],
+      edge: PAYWALL_EDGE_LOCK["zh-CN"],
+    });
+    expect(overlay).not.toMatch(/稍后再说/);
+    expect(overlay).not.toMatch(/周一还在/);
+    expect(overlay).not.toMatch(/走进食堂/);
+    expect(overlay).not.toMatch(/当场续读/);
+    expect(overlay).not.toMatch(/不是上床/);
+    expect(overlay).not.toMatch(/明天群会响/);
   });
 });
