@@ -315,11 +315,15 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/楼是锁的/);
     expect(spoken).toMatch(/我还是你的讲师/);
     expect(spoken).toMatch(/第一部完/);
-    expect(spoken).toMatch(/没有下学期/);
     expect(spoken).toMatch(/旁边没有她/);
     expect(spoken).toMatch(/别替我答/);
+    expect(spoken).toMatch(/这儿没有闪光/);
     expect(spoken).toMatch(/♡|♥/);
     expect(spoken).toMatch(/……/);
+    expect(spoken).not.toMatch(/名分还没人给/);
+    expect(spoken).not.toMatch(/这帧/);
+    expect(spoken).not.toMatch(/没有下学期/);
+    expect(spoken).not.toMatch(/证翻白|证在钩上|证还朝里|那张证/);
     expect(spoken).not.toMatch(/稍后再说/);
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(FORBIDDEN);
