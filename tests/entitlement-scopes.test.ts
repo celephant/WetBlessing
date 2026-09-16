@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { compileRoute, content, route } from "../lib/content";
 import { tryReadCh02Office, tryReadCh03Night, tryReadCh04Endings } from "../lib/dev-packs.node";
 import {
-  clickAdvance,
   hasEntitlement,
   playChoices,
   selectChoice,
@@ -167,19 +166,11 @@ describe("entitlement scopes (fake-unlock only)", () => {
 
 describe("season continue + bind none", () => {
   it("carries Ch01 flags into Ch02 without looking up n_pay_settle", () => {
-    let state = playChoices(
-      [...ch01Dodge, "c_sub_round_mia"],
+    const state = playChoices(
+      [...ch01Dodge, "c_sub_round_mia", "c_vanessa_dodge"],
       { story_pass_month: false, w1_continue: true },
-      route,
-      { pumpAfter: false },
     );
-    const seen = new Set<string>();
-    while (state.nodeId !== "n_pay_settle") {
-      const key = `${state.nodeId}:${state.beatIndex}`;
-      if (seen.has(key)) throw new Error(`stuck at ${state.nodeId}`);
-      seen.add(key);
-      state = clickAdvance(state);
-    }
+    expect(state.nodeId).toBe("n_pay_settle");
     const ch02 = compileRoute(tryReadCh02Office()!);
     expect(ch02.nodes.has("n_pay_settle")).toBe(false);
     const continued = applySeasonCarry(startGame(state.entitlements, ch02), {
