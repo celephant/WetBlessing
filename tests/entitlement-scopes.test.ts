@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { compileRoute, content, route } from "../lib/content";
-import { tryReadCh02Office, tryReadCh03Night } from "../lib/dev-packs.node";
+import { tryReadCh02Office, tryReadCh03Night, tryReadCh04Endings } from "../lib/dev-packs.node";
 import {
   clickAdvance,
   hasEntitlement,
@@ -10,6 +10,7 @@ import {
   unlockNext,
   unlockScope,
   withEntitlement,
+  pumpToPrompt,
 } from "../lib/engine";
 import {
   grantFullEntitleDev,
@@ -112,13 +113,28 @@ describe("entitlement scopes (fake-unlock only)", () => {
     expect(scoped.state.entitlements.w3_edge_night).toBeFalsy();
 
     const ch02 = compileRoute(tryReadCh02Office()!);
-    const office = startGame(scoped.state.entitlements, ch02);
+    const office = playChoices(["c_s13_ok"], scoped.state.entitlements, ch02);
+    expect(office.nodeId).toBe("n_ch02_wall");
     expect(selectChoice(office, "c_ch02_enter", ch02).ok).toBe(false);
 
     const ch03 = compileRoute(tryReadCh03Night()!);
-    const night = playChoices(["c_s18_ok"], scoped.state.entitlements, ch03);
-    expect(night.nodeId).toBe("n_s19_mia");
-    expect(selectChoice(night, "c_push", ch03).ok).toBe(false);
+    const emptyOpen = pumpToPrompt(startGame(scoped.state.entitlements, ch03), ch03);
+    expect(emptyOpen.nodeId).toBe("n_s21_vanessa");
+    expect(emptyOpen.flags.ch3_bind).toBe("none");
+    const continued = pumpToPrompt(
+      applySeasonCarry(startGame(scoped.state.entitlements, ch03), {
+        flags: scoped.state.flags,
+        stats: scoped.state.stats,
+      }),
+      ch03,
+    );
+    expect(continued.nodeId).toBe("n_s18_mia");
+    const door = selectChoice(continued, "c_s18_ok", ch03);
+    expect(door.ok).toBe(true);
+    if (!door.ok) return;
+    const lockedDoor = pumpToPrompt(door.state, ch03);
+    expect(lockedDoor.nodeId).toBe("n_s19_mia");
+    expect(selectChoice(lockedDoor, "c_push", ch03).ok).toBe(false);
   });
 
   it("full fake-unlock on Ch01 still mints the pass and continues the line", () => {
@@ -170,9 +186,11 @@ describe("season continue + bind none", () => {
       flags: state.flags,
       stats: state.stats,
     });
-    expect(continued.nodeId).toBe("n_ch02_wall");
+    expect(continued.nodeId).toBe("n_ch02_open");
     expect(continued.flags.stood_up_mia).toBe(true);
-    expect(selectChoice(continued, "c_ch02_enter", ch02).ok).toBe(false);
+    const atWall = playChoices(["c_s13_ok"], continued.entitlements, ch02);
+    expect(atWall.nodeId).toBe("n_ch02_wall");
+    expect(selectChoice(atWall, "c_ch02_enter", ch02).ok).toBe(false);
   });
 
   it("offers Ch01 paid coda → Ch02 and Ch02 → Ch03", () => {
@@ -226,8 +244,28 @@ describe("season continue + bind none", () => {
     const w2 = mintScope(undefined, SCOPE_W2_OFFICE);
     expect(canPlayCh04(w2, { ch3_bind: "none" })).toBe(true);
     expect(canPlayCh04(w2, { ch3_bind: "mia" })).toBe(false);
+    expect(canPlayCh04(w2, { ch3_bind: "mia", ch3_entered: false })).toBe(true);
+    expect(canPlayCh04(w2, { ch3_bind: "mia", ch3_entered: true })).toBe(false);
     expect(seasonContinueTarget("ch03", "n_ch03_settle", w2, { ch3_bind: "none" })?.pack).toBe(
       "ch04",
     );
+  });
+
+  it("lets the save win when chapter-open flags overlap carry", () => {
+    const ch04 = compileRoute(tryReadCh04Endings()!);
+    const started = startGame({ story_pass_month: true }, ch04);
+    const continued = applySeasonCarry(started, {
+      flags: {
+        went_with: "rae",
+        catch_target: "rae",
+        ch3_bind: "rae",
+        edge_sleepover_rae: true,
+      },
+      stats: started.stats,
+    });
+    expect(continued.flags.ch04_day).toBe(true);
+    expect(continued.flags.ch3_bind).toBe("rae");
+    expect(continued.flags.edge_sleepover_rae).toBe(true);
+    expect(continued.flags.edge_sleepover_mia).not.toBe(true);
   });
 });

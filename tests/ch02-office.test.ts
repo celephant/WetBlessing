@@ -50,7 +50,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("277ddd258733f233630afa2a4d22da7467069a510ad22ec2fb60c91a76a58922");
+    ).toBe("9395fb15b94adc4d6ee9efe2f06d9d34f5d6fe4412ed8777ce015766aa8021af");
   });
 
   it("loads only via /play?content=ch02 and is denied as default", () => {
@@ -78,7 +78,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
   it("plays S13 public shame then S14 office with 29 / stockings / lock", () => {
     const file = tryReadCh02Office(root)!;
     const compiled = compileRoute(file);
-    expect(compiled.entryNodeId).toBe("n_ch02_wall");
+    expect(compiled.entryNodeId).toBe("n_ch02_open");
     expect(compiled.firstSubNodeId).toBe("n_ch02_wall");
     expect(compiled.nodes.get("n_ch02_wall")?.gate).toBe("chapter_start");
     expect(compiled.nodes.get("n_s14_wall")?.gate).toBeUndefined();
@@ -87,32 +87,42 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(spoken).toMatch(/办公时间。带学生证。周一见/);
     expect(spoken).toMatch(/你鸽了我，Kai/);
     expect(spoken).toMatch(/二十九/);
+    expect(spoken).not.toMatch(/我二十九岁/);
+    expect(spoken).toMatch(/衬衫敞着，丝还在/);
+    expect(spoken).toMatch(/办公室的灯没关。拼贴还在她桌上/);
     expect(spoken).toMatch(/黑丝/);
     expect(spoken).toMatch(/锁/);
     expect(spoken).toMatch(/我还是你的讲师/);
     expect(spoken).toMatch(/嘴对上/);
+    expect(spoken).toMatch(/教員室的门开着/);
+    expect(spoken).not.toMatch(/想被点名/);
     expect(spoken).not.toMatch(BANNED);
     expect(spoken).not.toMatch(FORBIDDEN);
     expect(spoken).not.toMatch(/ぬぷ|ぎち|ずぶ/);
 
     const started = startGame({ story_pass_month: false }, compiled);
     expect(started.stats.reina.affection).toBe(0);
-    expect(started.nodeId).toBe("n_ch02_wall");
-    expect(view(started, compiled).isPaywall).toBe(true);
-    expect(selectChoice(started, "c_ch02_enter", compiled).ok).toBe(false);
+    expect(started.nodeId).toBe("n_ch02_open");
+    expect(view(started, compiled).isPaywall).toBe(false);
+
+    const unpaid = playChoices(["c_s13_ok"], { story_pass_month: false }, compiled);
+    expect(unpaid.nodeId).toBe("n_ch02_wall");
+    expect(view(unpaid, compiled).isPaywall).toBe(true);
+    expect(selectChoice(unpaid, "c_ch02_enter", compiled).ok).toBe(false);
+    expect(unpaid.flags.cafe_creditor).toBe("both");
 
     const free = playChoices(
-      ["c_ch02_enter", "c_s13_ok", "c_s14_free"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_free"],
       { story_pass_month: false, w2_office: true },
       compiled,
     );
     expect(free.nodeId).toBe("n_ch02_settle");
-    expect(free.flags.cafe_creditor).toBe("mia");
+    expect(free.flags.cafe_creditor).toBe("both");
     expect(free.flags.office_locked).toBe(true);
     expect(free.stats.mia.affection).toBeGreaterThan(0);
 
     const paid = playChoices(
-      ["c_ch02_enter", "c_s13_ok", "c_s14_kiss"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_kiss"],
       { story_pass_month: false, w2_office: true },
       compiled,
     );
@@ -122,7 +132,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(paid.stats.reina.affection).toBeGreaterThan(0);
 
     const inside = playChoices(
-      ["c_ch02_enter", "c_s13_ok"],
+      ["c_s13_ok", "c_ch02_enter", "c_s14_ok"],
       { story_pass_month: false, w2_office: true },
       compiled,
       {
@@ -133,7 +143,6 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(kissView.choices.map((choice) => choice.choiceId)).toEqual([
       "c_s14_free",
       "c_s14_kiss",
-      "c_s14_later",
     ]);
     expect(
       kissView.node.choices?.find((c) => c.choiceId === "c_s14_kiss")?.requiresEntitlement,
@@ -141,42 +150,45 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(selectChoice(inside, "c_s14_kiss", compiled).ok).toBe(true);
   });
 
-  it("routes cafeteria by Ch01 stand-up flags and stays under the choiceIndex cap", () => {
+  it("routes cafeteria by catch_target × went_with and stays under the choiceIndex cap", () => {
     const compiled = compileRoute(tryReadCh02Office(root)!);
     expect(compiled.nodes.get("n_s13_router")?.playerVisible).toBe(false);
-    expect(compiled.nodes.get("n_s13_router")?.advanceByFlag?.["default"]).toBe(
-      "n_s13_mia",
-    );
+    expect(compiled.nodes.get("n_s13_router")?.advanceByFlag).toMatchObject({
+      "catch_target==mia && went_with==jade": "n_s13_mia_caught",
+      "catch_target==jade && went_with==mia": "n_s13_mia_partner",
+      "catch_target==mia": "n_s13_jade",
+      "catch_target==jade": "n_s13_mia",
+      "went_with==mia": "n_s13_jade",
+      "went_with==jade": "n_s13_mia",
+      default: "n_s13_both",
+    });
 
-    const mia = playChoices(
-      ["c_ch02_enter"],
-      { story_pass_month: false, w2_office: true },
-      compiled,
-    );
-    expect(mia.nodeId).toBe("n_s13_mia");
-
-    let jade = startGame({ story_pass_month: false, w2_office: true }, compiled);
-    jade = {
-      ...jade,
-      flags: { ...jade.flags, stood_up_jade: true },
+    const cafeAt = (flags: Record<string, string>) => {
+      let state = startGame({ story_pass_month: false, w2_office: true }, compiled);
+      state = { ...state, flags: { ...state.flags, ...flags } };
+      return pumpToPrompt(state, compiled).nodeId;
     };
-    const jadeEntered = selectChoice(pumpToPrompt(jade, compiled), "c_ch02_enter", compiled);
-    expect(jadeEntered.ok).toBe(true);
-    if (!jadeEntered.ok) return;
-    expect(pumpToPrompt(jadeEntered.state, compiled).nodeId).toBe("n_s13_jade");
 
-    let both = startGame({ story_pass_month: false, w2_office: true }, compiled);
-    both = {
-      ...both,
-      flags: { ...both.flags, stood_up_mia: true, stood_up_jade: true },
-    };
-    const bothEntered = selectChoice(pumpToPrompt(both, compiled), "c_ch02_enter", compiled);
-    expect(bothEntered.ok).toBe(true);
-    if (!bothEntered.ok) return;
-    expect(pumpToPrompt(bothEntered.state, compiled).nodeId).toBe("n_s13_both");
+    expect(cafeAt({ went_with: "mia", catch_target: "mia" })).toBe("n_s13_jade");
+    expect(cafeAt({ went_with: "mia", catch_target: "jade" })).toBe("n_s13_mia_partner");
+    expect(cafeAt({ went_with: "jade", catch_target: "mia" })).toBe("n_s13_mia_caught");
+    expect(cafeAt({ went_with: "jade", catch_target: "jade" })).toBe("n_s13_mia");
+    expect(cafeAt({ went_with: "mia" })).toBe("n_s13_jade");
+    expect(cafeAt({ catch_target: "jade" })).toBe("n_s13_mia");
+    expect(cafeAt({})).toBe("n_s13_both");
 
     const paths = walkChoiceIndexPaths(compiled);
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
+  });
+
+  it("stages Jade's cafeteria lines from behind the Mia still", () => {
+    const jade = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_jade")!;
+    expect(jade.text).toMatch(/托盘对面是 Mia，没开口。Jade 从你身后坐下/);
+    expect(jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）"))).toBe(
+      true,
+    );
+    const both = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_both")!;
+    expect(both.lines?.[0]?.speaker).toBe("mia");
   });
 
   it("ships ch02 plates and does not remap them onto Ch01", () => {

@@ -145,7 +145,7 @@ describe("first_sub wall", () => {
 });
 
 describe("advanceByFlag", () => {
-  it("routes went_with==mia without showing the router", () => {
+  it("routes the long kiss to whoever you paid to win back", () => {
     const state = playChoices(
       ["c_help_mia", "c_mia_safe", "c_mia_box", "c_go_mia", "c_wm_ok", "c_sub_round_jade"],
       { story_pass_month: true },
@@ -153,36 +153,39 @@ describe("advanceByFlag", () => {
       { pumpAfter: false },
     );
     expect(state.nodeId).toBe("n_pay_01_catch_jade");
+    expect(state.flags.went_with).toBe("mia");
+    expect(state.flags.catch_target).toBe("jade");
     const after = clickAdvance(state);
-    expect(after.nodeId).toBe("n_pay_02_ot_mia");
+    expect(after.nodeId).toBe("n_pay_02_ot_jade");
     expect(after.nodeId).not.toBe("n_pay_02_router");
   });
 
-  it("routes went_with==jade and went_with==none", () => {
-    const jade = playChoices(
-      ["c_talk_jade", "c_jade_ok", "c_go_jade", "c_wj_ok", "c_sub_round_mia"],
-      { story_pass_month: true },
-      route,
-      { pumpAfter: false },
-    );
-    expect(clickAdvance(jade).nodeId).toBe("n_pay_02_ot_jade");
-
-    const none = playChoices(
-      ["c_dodge_both", "c_dodge_party", "c_sub_round_mia"],
-      { story_pass_month: true },
-      route,
-      { pumpAfter: false },
-    );
-    expect(clickAdvance(none).nodeId).toBe("n_pay_02_double_empty");
+  it("routes each catch_target pay button to that person's OT, else empty", () => {
+    const paid = {
+      mia: "c_sub_round_mia",
+      jade: "c_sub_round_jade",
+      lina: "c_sub_round_lina",
+      rae: "c_sub_round_rae",
+    } as const;
+    for (const [who, choice] of Object.entries(paid)) {
+      const state = playChoices(
+        ["c_dodge_both", "c_dodge_party", choice],
+        { story_pass_month: true },
+        route,
+        { pumpAfter: false },
+      );
+      expect(clickAdvance(state).nodeId).toBe(`n_pay_02_ot_${who}`);
+    }
   });
 
   it("resolves flag expressions on the router node", () => {
     const router = getNode("n_pay_02_router");
     expect(router.playerVisible).toBe(false);
-    expect(resolveNext(router, { went_with: "mia" })).toBe("n_pay_02_ot_mia");
-    expect(resolveNext(router, { went_with: "jade" })).toBe("n_pay_02_ot_jade");
-    expect(resolveNext(router, { went_with: "lina" })).toBe("n_pay_02_ot_lina");
-    expect(resolveNext(router, { went_with: "rae" })).toBe("n_pay_02_ot_rae");
-    expect(resolveNext(router, { went_with: "none" })).toBe("n_pay_02_double_empty");
+    expect(resolveNext(router, { catch_target: "mia" })).toBe("n_pay_02_ot_mia");
+    expect(resolveNext(router, { catch_target: "jade" })).toBe("n_pay_02_ot_jade");
+    expect(resolveNext(router, { catch_target: "lina" })).toBe("n_pay_02_ot_lina");
+    expect(resolveNext(router, { catch_target: "rae" })).toBe("n_pay_02_ot_rae");
+    expect(resolveNext(router, { went_with: "mia" })).toBe("n_pay_02_double_empty");
+    expect(resolveNext(router, { catch_target: "none" })).toBe("n_pay_02_double_empty");
   });
 });

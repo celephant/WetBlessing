@@ -76,7 +76,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "早晨。群还没冷。名分还没人给。",
-          "assetId": "assets/scenes/ch04/S22-mia.webp",
+          "assetId": "assets/scenes/ch03/S21.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
@@ -95,9 +95,7 @@
           ],
           "advance": "n_s22_router",
           "setFlags": {
-            "ch04_day": true,
-            "ch3_bind": "mia",
-            "edge_sleepover_mia": true
+            "ch04_day": true
           }
         },
         {
@@ -105,7 +103,7 @@
           "type": "dialogue",
           "speaker": "narrator",
           "text": "（晨光）",
-          "assetId": "assets/scenes/ch04/S22-mia.webp",
+          "assetId": "assets/scenes/ch03/S21.webp",
           "artStatus": "ready",
           "camera": "hold",
           "transition": "fade",
@@ -402,8 +400,8 @@
           "artCue": "S23 三人走廊日光：Troy / Kai / 主绑",
           "lines": [
             {
-              "speaker": "narrator",
-              "text": "他不是来聊天的。群里那张门缝，和办公室那张，他都看见了。",
+              "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -476,6 +474,12 @@
             },
             {
               "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "troy",
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
@@ -538,6 +542,12 @@
             {
               "speaker": "narrator",
               "text": "她不解释水。他也不问水。他问的是边。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -610,6 +620,12 @@
             },
             {
               "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "troy",
               "text": "「选边。现在。」",
               "camera": "hold",
               "transition": "fade"
@@ -672,6 +688,12 @@
             {
               "speaker": "narrator",
               "text": "地面是干的。她看你，像在等你听没听见这句话。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -741,6 +763,12 @@
             {
               "speaker": "narrator",
               "text": "他环顾一圈。门缝那张图还在他手机亮着。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "troy",
+              "text": "「雨巷那晚。Vanessa。我看见你了。」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -936,7 +964,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "这一轮他赢。第一部仍完。",
+              "text": "这一轮 Troy 赢了。第一部仍完。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -984,7 +1012,7 @@
           "nodeId": "n_s24_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "夜。池面一条灯。大门从里面顶上。",
+          "text": "那天夜里。池面一条灯。大门从里面顶上。",
           "assetId": "assets/scenes/ch04/S24-lina.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1018,7 +1046,7 @@
           "nodeId": "n_s24_reina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "教員室。打印的拼贴还在桌上。她把门打开。",
+          "text": "几天后，她又把你叫回教員室。打印的拼贴还在桌上。她把门打开。",
           "assetId": "assets/scenes/ch04/S24-reina.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1032,7 +1060,7 @@
           "lines": [
             {
               "speaker": "reina",
-              "text": "「出去。我还是你的讲师。——刚才那一下，当没发生。」",
+              "text": "「出去。我还是你的讲师。——那天那一下，当没发生。」",
               "camera": "hold",
               "transition": "fade"
             },

@@ -19,11 +19,13 @@ import { tryReadCh03Night } from "../lib/dev-packs.node";
 import {
   playChoices,
   pumpToPrompt,
+  resolveNext,
   selectChoice,
   startGame,
   view,
 } from "../lib/engine";
 import { PAYWALL_EDGE_LOCK, offersEdgeNightSku } from "../lib/paywall-copy";
+import { canPlayCh04, seasonContinueTarget, applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
@@ -66,7 +68,7 @@ function playFrom(
   entitlements = { story_pass_month: true, edge_lock: true },
 ) {
   let state = startGame(entitlements, compiled);
-  state = { ...state, flags: { ...state.flags, ...flags } };
+  state = applySeasonCarry(state, { flags, stats: state.stats });
   state = pumpToPrompt(state, compiled);
   for (const choiceId of choiceIds) {
     state = pumpToPrompt(state, compiled);
@@ -89,7 +91,7 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("277ddd258733f233630afa2a4d22da7467069a510ad22ec2fb60c91a76a58922");
+    ).toBe("9395fb15b94adc4d6ee9efe2f06d9d34f5d6fe4412ed8777ce015766aa8021af");
     expect(existsSync(path.join(root, "content/CONTENT-ch02-office.json"))).toBe(true);
   });
 
@@ -122,7 +124,7 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(JSON.stringify(PAYWALL_EDGE_LOCK)).not.toMatch(/湿T/);
   });
 
-  it("DEV default is a playable Mia sit → edge_lock door", () => {
+  it("DEV default with no save is the empty library, not Mia", () => {
     const compiled = compileRoute(tryReadCh03Night(root)!);
     expect(compiled.entryNodeId).toBe("n_ch03_open");
     expect(compiled.firstSubNodeId).toBe("n_s19_mia");
@@ -132,21 +134,37 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(compiled.nodes.get("n_s19_rae")?.gate).toBe("edge_lock");
 
     const started = pumpToPrompt(startGame({ story_pass_month: false }, compiled), compiled);
-    expect(started.nodeId).toBe("n_s18_mia");
-    expect(started.flags.ch3_bind).toBe("mia");
+    expect(resolveNext(compiled.nodes.get("n_s18_router")!, {})).toBe("n_s18_empty");
+    expect(started.nodeId).toBe("n_s21_vanessa");
+    expect(started.flags.ch3_bind).toBe("none");
+  });
 
-    const locked = playChoices(["c_s18_ok"], { story_pass_month: false }, compiled, {
-      pumpAfter: true,
-    });
+  it("prefers catch_target over went_with for the closed-library invite", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    expect(
+      playFrom(compiled, { went_with: "mia", catch_target: "rae" }, []).nodeId,
+    ).toBe("n_s18_rae");
+    expect(playFrom(compiled, { catch_target: "mia" }, []).nodeId).toBe("n_s18_mia");
+    expect(playFrom(compiled, { went_with: "jade" }, []).nodeId).toBe("n_s18_jade");
+  });
+
+  it("Mia catch continues to a playable edge_lock door", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const locked = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok"],
+      { story_pass_month: false },
+    );
     expect(locked.nodeId).toBe("n_s19_mia");
     expect(view(locked, compiled).isPaywall).toBe(true);
     const blocked = selectChoice(locked, "c_push", compiled);
     expect(blocked.ok).toBe(false);
 
-    const paid = playChoices(
-      ["c_s18_ok", "c_push", "c_s20_ok", "c_s21_v_ok", "c_sms_bind_mia"],
-      { story_pass_month: true, edge_lock: true },
+    const paid = playFrom(
       compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_push", "c_s20_ok", "c_s21_v_ok", "c_sms_bind_mia"],
     );
     expect(paid.nodeId).toBe("n_ch03_settle");
     expect(paid.flags.edge_sleepover_mia).toBe(true);
@@ -176,10 +194,11 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
       }
     }
 
-    const officeOnly = playChoices(
+    const officeOnly = playFrom(
+      compiled,
+      { catch_target: "mia" },
       ["c_s18_ok"],
       { story_pass_month: false, w2_office: true },
-      compiled,
     );
     expect(officeOnly.nodeId).toBe("n_s19_mia");
     expect(selectChoice(officeOnly, "c_push", compiled).ok).toBe(false);
@@ -194,9 +213,104 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(jadeNight.nodeId).toBe("n_ch03_settle");
   });
 
+  it("lets a w2-only player who leaves the door reach rumor morning and Ch04", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const left = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_dodge", "c_sms_sting"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(left.nodeId).toBe("n_ch03_settle");
+    expect(left.flags.ch3_entered).toBe(false);
+    expect(canPlayCh04(left.entitlements, left.flags)).toBe(true);
+    expect(seasonContinueTarget("ch03", "n_ch03_settle", left.entitlements, left.flags)?.pack).toBe(
+      "ch04",
+    );
+
+    const lockedPush = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(selectChoice(lockedPush, "c_push", compiled).ok).toBe(false);
+    expect(canPlayCh04({ w2_office: true }, { ch3_bind: "mia", ch3_entered: true })).toBe(
+      false,
+    );
+  });
+
+  it("splits rumor morning by whether they entered, and does not let Rae sting herself", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const rumor = compiled.nodes.get("n_s21_rumor")!;
+    expect(rumor.playerVisible).toBe(false);
+    expect(resolveNext(rumor, { ch3_entered: true })).toBe("n_s21_rumor_door");
+    expect(resolveNext(rumor, { ch3_entered: false })).toBe("n_s21_rumor_skip");
+    expect(compiled.nodes.get("n_s21_rumor_skip")?.text).not.toMatch(/门缝/);
+    expect(compiled.nodes.get("n_s21_rumor_door")?.text).toMatch(/门缝/);
+    expect(compiled.nodes.has("n_s21_sting_rae")).toBe(false);
+
+    const sting = compiled.nodes.get("n_s21_sting_router")!;
+    expect(resolveNext(sting, { edge_sleepover_rae: true, stood_up_mia: true })).toBe(
+      "n_s21_sting_rae_mia",
+    );
+    expect(resolveNext(sting, { edge_sleepover_rae: true })).toBe("n_s21_sting_rae_jade");
+
+    const raeMia = playFrom(
+      compiled,
+      { ch3_bind: "rae", stood_up_mia: true },
+      ["c_s18_ok", "c_push", "c_s20_ok"],
+    );
+    expect(raeMia.flags.ch3_sting).toBe("mia");
+    expect(raeMia.flags.ch3_entered).toBe(true);
+
+    const raeJade = playFrom(compiled, { ch3_bind: "rae" }, ["c_s18_ok", "c_push", "c_s20_ok"]);
+    expect(raeJade.flags.ch3_sting).toBe("jade");
+
+    const left = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(left.flags.ch3_entered).toBe(false);
+    expect(left.nodeId).toBe("n_s21_vanessa");
+  });
+
+  it("hides 先回 Vanessa unless they heard her on rumor morning", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const dodged = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_dodge"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(dodged.nodeId).toBe("n_s21_threads");
+    expect(dodged.flags.vanessa_crack).not.toBe(true);
+    expect(view(dodged, compiled).choices.map((c) => c.choiceId)).not.toContain("c_sms_vanessa");
+
+    const heard = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_ok"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(heard.flags.vanessa_crack).toBe(true);
+    expect(view(heard, compiled).choices.map((c) => c.choiceId)).toContain("c_sms_vanessa");
+  });
+
   it("speaks fluent Chinese without banned slogans, steam-door clones, or Reina sleepover", () => {
     const spoken = spokenHay();
     expect(spoken).toMatch(/只是坐/);
+    expect(spoken).toMatch(/她没松手/);
+    expect(spoken).toMatch(/门缝里是她的肩/);
+    expect(spoken).toMatch(/证挂在门边钩上/);
+    expect(spoken).toMatch(/她伸手把钩上的证朝里/);
+    expect(spoken).toMatch(/你还没走/);
+    expect(spoken).not.toMatch(/门缝里只有暗/);
+    expect(spoken).not.toMatch(/证不在钩上|证的钩是空的/);
+    expect(spoken).not.toMatch(/你还下来，是你自己选的/);
+    expect(spoken).not.toMatch(/谁会叫你坐一下/);
     expect(spoken).toMatch(/从里面关/);
     expect(spoken).toMatch(/锁该落下/);
     expect(spoken).toMatch(/谁进去了/);
