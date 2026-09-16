@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { route } from "../lib/content";
+import { compileRoute, route } from "../lib/content";
+import { tryReadCh02Office, tryReadCh03Night } from "../lib/dev-packs.node";
 import {
   clickAdvance,
   playChoices,
@@ -22,7 +23,8 @@ describe("in-dialogue paywall", () => {
     expect(ids).toContain("c_sub_round_jade");
     expect(ids).not.toContain("c_sub_round_mia");
     expect(ids).toContain("c_free_busy");
-    expect(ids).toContain("c_later");
+    expect(ids).not.toContain("c_later");
+    expect(ids.filter((id) => id === "c_free_busy" || id === "c_free_read").length).toBeGreaterThan(0);
   });
 
   it("locks story_pass_month choices until entitled", () => {
@@ -100,5 +102,28 @@ describe("in-dialogue paywall", () => {
       state = clickAdvance(state);
     }
     expect(view(state).isSettle).toBe(true);
+  });
+});
+
+describe("season walls", () => {
+  it("keeps only a paid enter and one free exit on each of the three walls", () => {
+    const ch01 = route.nodes.get("n_ch01_first_sub")!;
+    expect(ch01.choices?.map((c) => c.choiceId)).not.toContain("c_later");
+    expect(ch01.choices?.some((c) => c.gateChoice === "subscribe")).toBe(true);
+    expect(ch01.choices?.some((c) => c.gateChoice === "free")).toBe(true);
+    expect(JSON.stringify(ch01.lines ?? [])).not.toMatch(/免费只够停在/);
+
+    const ch02 = compileRoute(tryReadCh02Office()!);
+    const officeWall = ch02.nodes.get("n_ch02_wall")!;
+    expect(officeWall.choices?.map((c) => c.choiceId).sort()).toEqual([
+      "c_ch02_enter",
+      "c_ch02_leave",
+    ]);
+
+    const ch03 = compileRoute(tryReadCh03Night()!);
+    for (const id of ["n_s19_mia", "n_s19_jade", "n_s19_lina", "n_s19_rae"]) {
+      const ids = ch03.nodes.get(id)?.choices?.map((c) => c.choiceId) ?? [];
+      expect(ids, id).toEqual(["c_leave", "c_push"]);
+    }
   });
 });

@@ -528,13 +528,6 @@
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
-            },
-            {
-              "choiceId": "c_later",
-              "text": "稍后再说",
-              "next": "n_ch03_title",
-              "delta": {},
-              "gateChoice": "defer"
             }
           ],
           "gate": "edge_lock"
@@ -599,13 +592,6 @@
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
-            },
-            {
-              "choiceId": "c_later",
-              "text": "稍后再说",
-              "next": "n_ch03_title",
-              "delta": {},
-              "gateChoice": "defer"
             }
           ],
           "gate": "edge_lock"
@@ -670,13 +656,6 @@
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
-            },
-            {
-              "choiceId": "c_later",
-              "text": "稍后再说",
-              "next": "n_ch03_title",
-              "delta": {},
-              "gateChoice": "defer"
             }
           ],
           "gate": "edge_lock"
@@ -741,13 +720,6 @@
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
-            },
-            {
-              "choiceId": "c_later",
-              "text": "稍后再说",
-              "next": "n_ch03_title",
-              "delta": {},
-              "gateChoice": "defer"
             }
           ],
           "gate": "edge_lock"
