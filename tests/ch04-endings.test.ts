@@ -16,6 +16,7 @@ import {
 } from "../lib/dev-packs";
 import { tryReadCh04Endings } from "../lib/dev-packs.node";
 import { pumpToPrompt, selectChoice, startGame } from "../lib/engine";
+import { applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
@@ -52,17 +53,20 @@ function spokenHay(file = tryReadCh04Endings(root)!): string {
     .join("\n");
 }
 
+/** Real continue: startGame applies the chapter-open node, then the save wins. */
 function playFrom(
   compiled: CompiledRoute,
   flags: Flags,
   choiceIds: string[],
   entitlements = { story_pass_month: true, edge_lock: true },
 ) {
+  const visited: string[] = [];
   let state = startGame(entitlements, compiled);
-  state = { ...state, flags: { ...state.flags, ...flags } };
+  state = applySeasonCarry(state, { flags, stats: state.stats });
+  visited.push(state.nodeId);
   state = pumpToPrompt(state, compiled);
+  if (visited.at(-1) !== state.nodeId) visited.push(state.nodeId);
   for (const choiceId of choiceIds) {
-    state = pumpToPrompt(state, compiled);
     const result = selectChoice(state, choiceId, compiled);
     if (!result.ok) {
       throw new Error(
@@ -70,8 +74,11 @@ function playFrom(
       );
     }
     state = result.state;
+    if (visited.at(-1) !== state.nodeId) visited.push(state.nodeId);
+    state = pumpToPrompt(state, compiled);
+    if (visited.at(-1) !== state.nodeId) visited.push(state.nodeId);
   }
-  return pumpToPrompt(state, compiled);
+  return Object.assign(state, { visited });
 }
 
 describe("Ch04 名分 (DEV, not default)", () => {
@@ -105,15 +112,41 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(content.contentVersion).toBe("0.4.8-feel-hot");
   });
 
-  it("DEV default routes Mia morning → protect → 半公开, fold crashes", () => {
+  it("does not force a Mia sleepover on DEV open without a save", () => {
     const compiled = compileRoute(tryReadCh04Endings(root)!);
-    const mia = playFrom(compiled, {}, ["c_s22_ok", "c_s23_ok"]);
-    expect(mia.nodeId).toBe("n_s24_tail");
-    expect(mia.flags.ending).toBe("end_mia");
+    const opened = startGame({ story_pass_month: true, edge_lock: true }, compiled);
+    expect(opened.flags.ch04_day).toBe(true);
+    expect(opened.flags.ch3_bind).toBeUndefined();
+    expect(opened.flags.edge_sleepover_mia).not.toBe(true);
+    expect(compiled.nodes.get("n_ch04_open")?.setFlags).toEqual({ ch04_day: true });
 
-    const crash = playFrom(compiled, {}, ["c_s22_ok", "c_s23_dodge"]);
-    expect(crash.flags.ending).toBe("end_crash");
-    expect(crash.flags.w4_stand).toBe("fold");
+    const empty = playFrom(compiled, {}, ["c_s23_ok"]);
+    expect(empty.flags.ending).toBe("end_crash");
+
+    const fold = playFrom(compiled, {}, ["c_s23_dodge"]);
+    expect(fold.flags.ending).toBe("end_crash");
+    expect(fold.flags.w4_stand).toBe("fold");
+  });
+
+  it("real continue keeps a Rae sleepover through morning, Troy, and the ending", () => {
+    const compiled = compileRoute(tryReadCh04Endings(root)!);
+    const rae = playFrom(
+      compiled,
+      {
+        went_with: "rae",
+        catch_target: "rae",
+        ch3_bind: "rae",
+        edge_sleepover_rae: true,
+      },
+      ["c_s22_ok", "c_s23_ok"],
+    );
+    expect(rae.visited).toEqual(
+      expect.arrayContaining(["n_s22_rae", "n_s23_rae", "n_s24_rae"]),
+    );
+    expect(rae.nodeId).toBe("n_s24_tail");
+    expect(rae.flags.ending).toBe("end_rae");
+    expect(rae.flags.ch3_bind).toBe("rae");
+    expect(rae.flags.edge_sleepover_mia).not.toBe(true);
   });
 
   it("must-ship Jade / Vanessa-crack / crash, plus Rae / Lina / Reina when flagged", () => {
@@ -123,7 +156,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "jade",
-        edge_sleepover_mia: false,
         edge_sleepover_jade: true,
       },
       ["c_s22_ok", "c_s23_ok"],
@@ -135,7 +167,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "none",
-        edge_sleepover_mia: false,
         vanessa_crack: true,
         w4_sms_first: "vanessa",
       },
@@ -148,7 +179,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "none",
-        edge_sleepover_mia: false,
       },
       ["c_s23_ok"],
     );
@@ -158,7 +188,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "rae",
-        edge_sleepover_mia: false,
         edge_sleepover_rae: true,
       },
       ["c_s22_ok", "c_s23_ok"],
@@ -169,7 +198,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "lina",
-        edge_sleepover_mia: false,
         edge_sleepover_lina: true,
       },
       ["c_s22_ok", "c_s23_ok"],
@@ -180,7 +208,6 @@ describe("Ch04 名分 (DEV, not default)", () => {
       compiled,
       {
         ch3_bind: "none",
-        edge_sleepover_mia: false,
         reina_office_kiss: true,
       },
       ["c_s23_ok"],

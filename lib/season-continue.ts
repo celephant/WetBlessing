@@ -39,7 +39,7 @@ export function applySeasonCarry(state: GameState, carry: SeasonCarry | null): G
   if (!carry) return state;
   return {
     ...state,
-    flags: { ...carry.flags, ...state.flags },
+    flags: { ...state.flags, ...carry.flags },
     stats: carry.stats ?? state.stats,
   };
 }

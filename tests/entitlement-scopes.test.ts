@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { compileRoute, content, route } from "../lib/content";
-import { tryReadCh02Office, tryReadCh03Night } from "../lib/dev-packs.node";
+import { tryReadCh02Office, tryReadCh03Night, tryReadCh04Endings } from "../lib/dev-packs.node";
 import {
   clickAdvance,
   hasEntitlement,
@@ -229,5 +229,23 @@ describe("season continue + bind none", () => {
     expect(seasonContinueTarget("ch03", "n_ch03_settle", w2, { ch3_bind: "none" })?.pack).toBe(
       "ch04",
     );
+  });
+
+  it("lets the save win when chapter-open flags overlap carry", () => {
+    const ch04 = compileRoute(tryReadCh04Endings()!);
+    const started = startGame({ story_pass_month: true }, ch04);
+    const continued = applySeasonCarry(started, {
+      flags: {
+        went_with: "rae",
+        catch_target: "rae",
+        ch3_bind: "rae",
+        edge_sleepover_rae: true,
+      },
+      stats: started.stats,
+    });
+    expect(continued.flags.ch04_day).toBe(true);
+    expect(continued.flags.ch3_bind).toBe("rae");
+    expect(continued.flags.edge_sleepover_rae).toBe(true);
+    expect(continued.flags.edge_sleepover_mia).not.toBe(true);
   });
 });

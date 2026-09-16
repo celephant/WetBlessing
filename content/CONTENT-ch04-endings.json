@@ -95,9 +95,7 @@
           ],
           "advance": "n_s22_router",
           "setFlags": {
-            "ch04_day": true,
-            "ch3_bind": "mia",
-            "edge_sleepover_mia": true
+            "ch04_day": true
           }
         },
         {
