@@ -240,6 +240,43 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     );
   });
 
+  it("splits rumor morning by whether they entered, and does not let Rae sting herself", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const rumor = compiled.nodes.get("n_s21_rumor")!;
+    expect(rumor.playerVisible).toBe(false);
+    expect(resolveNext(rumor, { ch3_entered: true })).toBe("n_s21_rumor_door");
+    expect(resolveNext(rumor, { ch3_entered: false })).toBe("n_s21_rumor_skip");
+    expect(compiled.nodes.get("n_s21_rumor_skip")?.text).not.toMatch(/门缝/);
+    expect(compiled.nodes.get("n_s21_rumor_door")?.text).toMatch(/门缝/);
+    expect(compiled.nodes.has("n_s21_sting_rae")).toBe(false);
+
+    const sting = compiled.nodes.get("n_s21_sting_router")!;
+    expect(resolveNext(sting, { edge_sleepover_rae: true, stood_up_mia: true })).toBe(
+      "n_s21_sting_rae_mia",
+    );
+    expect(resolveNext(sting, { edge_sleepover_rae: true })).toBe("n_s21_sting_rae_jade");
+
+    const raeMia = playFrom(
+      compiled,
+      { ch3_bind: "rae", stood_up_mia: true },
+      ["c_s18_ok", "c_push", "c_s20_ok"],
+    );
+    expect(raeMia.flags.ch3_sting).toBe("mia");
+    expect(raeMia.flags.ch3_entered).toBe(true);
+
+    const raeJade = playFrom(compiled, { ch3_bind: "rae" }, ["c_s18_ok", "c_push", "c_s20_ok"]);
+    expect(raeJade.flags.ch3_sting).toBe("jade");
+
+    const left = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(left.flags.ch3_entered).toBe(false);
+    expect(left.nodeId).toBe("n_s21_vanessa");
+  });
+
   it("speaks fluent Chinese without banned slogans, steam-door clones, or Reina sleepover", () => {
     const spoken = spokenHay();
     expect(spoken).toMatch(/只是坐/);

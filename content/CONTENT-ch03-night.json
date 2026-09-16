@@ -27,12 +27,15 @@
       "n_s20_lina",
       "n_s20_rae",
       "n_s21_rumor",
+      "n_s21_rumor_door",
+      "n_s21_rumor_skip",
       "n_s21_sting_router",
       "n_s21_sting_mia",
       "n_s21_sting_jade",
       "n_s21_sting_lina_mia",
       "n_s21_sting_lina_jade",
-      "n_s21_sting_rae",
+      "n_s21_sting_rae_mia",
+      "n_s21_sting_rae_jade",
       "n_s21_sting_none",
       "n_s21_vanessa",
       "n_s21_threads",
@@ -1072,6 +1075,24 @@
           "nodeId": "n_s21_rumor",
           "type": "dialogue",
           "speaker": "narrator",
+          "text": "（谣言早晨）",
+          "assetId": "assets/scenes/ch03/S21.webp",
+          "artStatus": "ready",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "none",
+          "characters": ["kai"],
+          "artCue": "hidden router",
+          "playerVisible": false,
+          "advanceByFlag": {
+            "ch3_entered==true": "n_s21_rumor_door",
+            "default": "n_s21_rumor_skip"
+          }
+        },
+        {
+          "nodeId": "n_s21_rumor_door",
+          "type": "dialogue",
+          "speaker": "narrator",
           "text": "新生群。匿名先丢一张走廊门缝——肩线，没有脸。",
           "assetId": "assets/scenes/ch03/S21.webp",
           "artStatus": "ready",
@@ -1099,6 +1120,20 @@
           "advance": "n_s21_sting_router"
         },
         {
+          "nodeId": "n_s21_rumor_skip",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "新生群。有人把入学周的拼贴又转了一遍。下一条：「办公室那张呢。谁进去了。」",
+          "assetId": "assets/scenes/ch03/S21.webp",
+          "artStatus": "ready",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "vignette",
+          "characters": ["kai"],
+          "artCue": "S21 没进门：只有拼贴翻炒，没有门缝照片",
+          "advance": "n_s21_sting_router"
+        },
+        {
           "nodeId": "n_s21_sting_router",
           "type": "dialogue",
           "speaker": "narrator",
@@ -1117,7 +1152,8 @@
             "edge_sleepover_jade==true": "n_s21_sting_jade",
             "edge_sleepover_lina==true && stood_up_jade==true": "n_s21_sting_lina_jade",
             "edge_sleepover_lina==true": "n_s21_sting_lina_mia",
-            "edge_sleepover_rae==true": "n_s21_sting_rae",
+            "edge_sleepover_rae==true && stood_up_mia==true": "n_s21_sting_rae_mia",
+            "edge_sleepover_rae==true": "n_s21_sting_rae_jade",
             "default": "n_s21_sting_none"
           },
           "playerVisible": false
@@ -1231,10 +1267,10 @@
           }
         },
         {
-          "nodeId": "n_s21_sting_rae",
+          "nodeId": "n_s21_sting_rae_mia",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "拼贴里被裁过门口的人。私聊。",
+          "text": "Mia 私聊。对门两个字。",
           "assetId": "assets/scenes/ch03/S21.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1242,19 +1278,46 @@
           "fx": "vignette",
           "characters": [
             "kai",
-            "rae"
+            "mia"
           ],
           "lines": [
             {
-              "speaker": "rae",
-              "text": "「别把对门截进去。」",
+              "speaker": "mia",
+              "text": "「对门那个？门缝那张是你。」",
               "camera": "hold",
               "transition": "fade"
             }
           ],
           "advance": "n_s21_vanessa",
           "setFlags": {
-            "ch3_sting": "collage"
+            "ch3_sting": "mia"
+          }
+        },
+        {
+          "nodeId": "n_s21_sting_rae_jade",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "Jade 私聊。对门两个字。",
+          "assetId": "assets/scenes/ch03/S21.webp",
+          "artStatus": "ready",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "vignette",
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "lines": [
+            {
+              "speaker": "jade",
+              "text": "「对门那个？门缝那张是你。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_s21_vanessa",
+          "setFlags": {
+            "ch3_sting": "jade"
           }
         },
         {
