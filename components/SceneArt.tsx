@@ -269,7 +269,7 @@ export function SceneArt({
       ) : null}
 
       {showImage ? (
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-void via-void/25 to-black/20" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-16 bg-gradient-to-t from-void/90 to-transparent" />
       ) : null}
     </div>
   );

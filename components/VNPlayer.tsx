@@ -315,8 +315,8 @@ export function VNPlayer({
         <>
           {snapshot.choices.length > 0 ? (
             <div
-              className="absolute inset-x-0 z-[3] flex items-center justify-center pt-16"
-              style={{ top: 0, bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
+              className="absolute inset-x-0 z-[3] flex items-center justify-center px-3"
+              style={{ top: "3.25rem", bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
               data-choice-overlay=""
             >
               <ChoiceList
