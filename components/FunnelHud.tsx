@@ -74,7 +74,7 @@ export function FunnelHud({
     >
       {showClock ? (
         <p
-          className="pointer-events-none absolute left-1/2 top-14 z-[5] -translate-x-1/2 font-display text-[11px] tracking-[0.28em] text-paper/80"
+          className="pointer-events-none absolute left-4 top-20 z-[5] font-display text-[11px] tracking-[0.28em] text-paper/80"
           data-funnel-clock=""
         >
           23:47

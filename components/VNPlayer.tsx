@@ -346,7 +346,7 @@ export function VNPlayer({
         <>
           {showFunnelChoices ? (
             <div
-              className="choice-overlay z-[3] flex items-center justify-center px-3"
+              className="choice-overlay z-[5] flex items-center justify-center px-3"
               data-choice-overlay=""
             >
               <ChoiceList

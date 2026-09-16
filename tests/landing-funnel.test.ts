@@ -113,8 +113,11 @@ describe("landing funnel (pre-login, not default)", () => {
     expect(hay).toContain("点开那张拼贴。");
     expect(hay).not.toMatch(/箱子/);
     expect(FUNNEL_NOTICE).toContain("学生事务。带学生证。");
-    expect(Object.values(FUNNEL_ZONE_LINES).map((line) => line.text).join("")).toContain(
-      "挡道",
+    expect(readFileSync(path.join(root, "components/VNPlayer.tsx"), "utf8")).toContain(
+      "choice-overlay z-[5]",
+    );
+    expect(readFileSync(path.join(root, "components/FunnelHud.tsx"), "utf8")).toContain(
+      'data-funnel-hotspot={zone}',
     );
   });
 
