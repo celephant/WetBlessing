@@ -9,8 +9,8 @@ import {
 
 const root = path.resolve(__dirname, "..");
 
-describe("full stills (no crop / Ken Burns)", () => {
-  it("pins contain, fade-on-change, hold — never cover or Ken Burns", () => {
+describe("full stills (no Ken Burns / postage stamp)", () => {
+  it("covers the art pane above the dock, fade-on-change, hold", () => {
     const sceneArt = readFileSync(
       path.join(root, "components/SceneArt.tsx"),
       "utf8",
@@ -29,20 +29,26 @@ describe("full stills (no crop / Ken Burns)", () => {
       "utf8",
     );
 
-    expect(sceneArt).toContain("object-contain");
-    expect(sceneArt).not.toMatch(/object-cover/);
+    expect(sceneArt).toContain("scene-art-pane");
+    expect(sceneArt).toContain("scene-still-fill");
+    expect(sceneArt).not.toMatch(/object-contain/);
     expect(sceneArt).not.toMatch(/inset-\[-8%\]/);
     expect(sceneArt).not.toMatch(/cropToTransform|scene-crop-kenburns|breathe-layer/);
-    expect(sceneArt).toContain('data-scene-fit="contain"');
+    expect(sceneArt).toContain('data-scene-fit="cover"');
     expect(sceneArt).toContain('data-scene-crop="full"');
 
-    expect(title).toContain("object-contain");
-    expect(title).not.toMatch(/object-cover/);
+    expect(css).toContain(".scene-art-pane");
+    expect(css).toContain("bottom: var(--night-pass-dock, 28%)");
+    expect(css).toContain("object-fit: cover");
+    expect(css).toContain("object-position: center 30%");
+    expect(css).not.toMatch(/@keyframes scene-crop-kenburns|@keyframes scene-breathe/);
+
+    expect(title).toContain("scene-still-fill");
+    expect(title).not.toMatch(/object-contain/);
     expect(title).toContain("data-title-idle");
 
-    expect(css).not.toMatch(/@keyframes scene-crop-kenburns|@keyframes scene-breathe/);
-    expect(css).toContain(".pause-overlay");
-    expect(css).toContain(".paywall-overlay");
+    expect(pause).toContain("data-choice-overlay");
+    expect(pause).toMatch(/snapshot\.choices\.length > 0/);
     expect(pause).toContain("pause-overlay");
     expect(pause).toContain("data-pause-overlay");
     expect(paywall).toContain("paywall-overlay");

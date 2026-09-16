@@ -217,12 +217,12 @@ export function SceneArt({
 
   return (
     <div
-      className={`absolute inset-0 z-0 overflow-hidden ${PLACEHOLDER_BG}`}
+      className={`scene-art-pane z-0 overflow-hidden ${PLACEHOLDER_BG}`}
       data-scene-art={showImage ? "image" : "placeholder"}
       data-scene-src={plate.src}
       data-scene-transition={activeTransition ?? "none"}
       data-scene-motion={motion}
-      data-scene-fit="contain"
+      data-scene-fit="cover"
       data-scene-frozen={frozen || beforeChoices ? "on" : "off"}
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}
@@ -307,7 +307,7 @@ function ScenePlate({
           <img
             src={src}
             alt={alt}
-            className="h-full w-full object-contain object-center"
+            className="scene-still-fill"
             onError={onError}
           />
         </div>

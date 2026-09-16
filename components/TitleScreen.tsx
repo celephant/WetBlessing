@@ -22,7 +22,7 @@ export function TitleScreen() {
         <img
           src="/assets/scenes/ch01/n_open.webp"
           alt="WetBlessing chapter 1"
-          className="h-full w-full object-contain object-center opacity-80"
+          className="scene-still-fill opacity-80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-black/30" />
       </div>

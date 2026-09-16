@@ -8,7 +8,7 @@ Optional fields on a dialogue **node** or a **stage line**. Missing fields still
 | `camera` | node or line | JSON may name Ken Burns / breathe words | **hold** — no Ken Burns, breathe, or crop-cycle |
 | `fx` | node or line | `none` · `vignette` · `warm-tint` · `soft-light` | intimate `warm-tint` (warmVeil+magentaMist); night `vignette` on SMS / wall |
 
-Each still shows in full (`object-fit: contain`). Letterboxed thumbs, `object-cover` crops, and `wide→mid→close` hunting are off. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
+Each still **covers the art pane** above the 28% Night Pass dock (`object-fit: cover`, `object-position: center 30%` so faces stay in frame). No postage-stamp `contain`, no Ken Burns, no `wide→mid→close` hunting. Choices overlay the **center of the still** and mount only when a node has choices. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
 
 Image errors still use `resolveAssetUrl` + the SceneArt placeholder.
 
@@ -31,9 +31,9 @@ Sourced from `content/UI-tokens.json` **v1.1** (`motion` / `transitions` / `grad
 | Same-node continue | 140ms · `translateY(6px)` |
 | Nameplate | delay 60ms · fade 120ms |
 | Choice chips | 160ms · stagger 48ms · Y(8) + scale(0.98) |
-| Scene still | **fade 320ms** on asset change, then static contain |
+| Scene still | **fade 320ms** on asset change, then static cover of the art pane |
 | Grade | warmVeil+magentaMist on intimate nodes; night vignette on SMS / first-sub wall |
 | Wall rhythm | chips + gold yuan **once** (plate stays a still) |
 | PhoneGlow | **off** on SMS + paywall |
 
-Forbidden: bounce springs, confetti, heartbeat bars, shake >2px, flash-white >80ms, adult red/black neon (`#FF0033`), looping Ken Burns / breathe, crop-cycle, letterboxed thumbs.
+Forbidden: bounce springs, confetti, heartbeat bars, shake >2px, flash-white >80ms, adult red/black neon (`#FF0033`), looping Ken Burns / breathe, crop-cycle, postage-stamp letterbox thumbs.

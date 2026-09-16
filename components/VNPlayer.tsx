@@ -313,22 +313,25 @@ export function VNPlayer({
         </div>
       ) : (
         <>
-          <div
-            className="absolute inset-x-0 z-[3] flex flex-col justify-end pb-2"
-            style={{ bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
-          >
-            <ChoiceList
-              key={snapshot.node.nodeId}
-              choices={snapshot.choices}
-              choiceEntitled={(choice) =>
-                !choice.requiresEntitlement ||
-                hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
-              }
-              entitled={passOn}
-              onSelect={onChoice}
-              enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
-            />
-          </div>
+          {snapshot.choices.length > 0 ? (
+            <div
+              className="absolute inset-x-0 z-[3] flex items-center justify-center pt-16"
+              style={{ top: 0, bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
+              data-choice-overlay=""
+            >
+              <ChoiceList
+                key={snapshot.node.nodeId}
+                choices={snapshot.choices}
+                choiceEntitled={(choice) =>
+                  !choice.requiresEntitlement ||
+                  hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
+                }
+                entitled={passOn}
+                onSelect={onChoice}
+                enterDelayMs={wallNode ? WALL_RHYTHM.chipEnterDelayMs : 0}
+              />
+            </div>
+          ) : null}
           <div
             className="absolute inset-x-0 bottom-0 z-[2]"
             data-night-pass-dock="28"

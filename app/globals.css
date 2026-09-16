@@ -24,8 +24,23 @@ body {
 }
 
 /* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon.
-   Stills pin the whole drawing (object-fit contain). Motion is a one-shot
-   fade when assetId changes, then hold. No Ken Burns / breathe / crop. */
+   Art pane is the region above the 28% dock. Stills cover that pane
+   (Douyin/phone full-bleed) with a face-biased object-position. Motion is a
+   one-shot fade when assetId changes, then hold. No Ken Burns / breathe. */
+.scene-art-pane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: var(--night-pass-dock, 28%);
+}
+
+.scene-still-fill {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
 .scene-plate-in,
 .scene-plate-out {
   will-change: opacity;
