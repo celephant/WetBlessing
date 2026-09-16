@@ -13,7 +13,7 @@ import { resolveAssetPath, resolveAssetUrl } from "./assets";
  * C2-13E / C2-14E (hall reuse; Ch02 nodes still use S13 / S14-abort).
  */
 export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
-  // Title + hall-open (current entry). Not the new-spine C1-01 night-pool hook.
+  // Ch01 hall-open node only. Funnel title hook is S06a, not this cardboard plate.
   "assets/scenes/ch01/n_open.webp": "media/ch01-portrait/title-portrait.png",
 
   // C1-01 night pool — later beat on the current graph (n_conflict).
@@ -104,7 +104,9 @@ export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
     "media/ch04-portrait/C4-24tail-portrait.png",
 };
 
-export const TITLE_LANDSCAPE_ASSET_ID = "assets/scenes/ch01/n_open.webp";
+/** Pre-login title hook: KEEP bed pin (chest/waist/hip/leg/feet). Not hall cardboard. */
+export const TITLE_LANDSCAPE_ASSET_ID = "assets/scenes/heat/S06a.webp";
+export const HALL_OPEN_LANDSCAPE_ASSET_ID = "assets/scenes/ch01/n_open.webp";
 export const PORTRAIT_SOURCE_MEDIA = "(orientation: portrait)";
 
 export type ViewportOrient = "portrait" | "landscape";

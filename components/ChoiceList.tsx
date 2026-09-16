@@ -6,6 +6,7 @@ import {
   showsYuanGoldSweep,
   variantBarClass,
 } from "@/lib/choice-variant";
+import { funnelChipStyle } from "@/lib/funnel";
 import { MOTION_SPEC } from "@/lib/scene-presentation";
 import { PASS_PRICE } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
@@ -31,15 +32,17 @@ export function ChoiceList({
 
   return (
     <div
-      className="relative z-[3] mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
+      className="relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
       data-choice-stagger={MOTION_SPEC.choiceStaggerMs}
       data-wall-chips={enterDelayMs > 0 ? "after-dip" : "ready"}
     >
       {choices.map((choice, index) => {
-        const variant = choiceVariant(choice);
-        const passChip = showsPassChip(choice);
         const goldOnce = showsYuanGoldSweep(choice);
         const owned = choiceEntitled ? choiceEntitled(choice) : entitled;
+        const passChip = showsPassChip(choice);
+        const funnelChip = funnelChipStyle(choice.choiceId);
+        let variant = choiceVariant(choice);
+        if (funnelChip.variant) variant = funnelChip.variant;
         const locked =
           passChip &&
           Boolean(choice.requiresEntitlement) &&
@@ -52,14 +55,22 @@ export function ChoiceList({
             style={{
               animationDelay: `${enterDelayMs + index * MOTION_SPEC.choiceStaggerMs}ms`,
             }}
-            className={`choice-enter flex min-h-[52px] items-stretch overflow-hidden rounded-chip border border-white/15 bg-night/75 text-left backdrop-blur-md transition hover:bg-night/85 ${
+            className={`choice-enter choice-press flex min-h-[52px] items-stretch overflow-hidden rounded-chip border text-left backdrop-blur-md transition hover:bg-night/85 ${
+              variant === "ghost"
+                ? "border-white/10 bg-transparent"
+                : "border-white/15 bg-night/75"
+            } ${
               variant === "pass"
                 ? "shadow-[0_0_24px_rgba(232,197,106,0.18)]"
                 : ""
             }`}
           >
-            <span className={`w-1 shrink-0 ${variantBarClass(variant)}`} />
-            <span className="flex flex-1 items-center justify-between gap-3 px-4 py-3">
+            <span
+              className={`w-1 shrink-0 ${funnelChip.barClass ?? variantBarClass(variant)}`}
+            />
+            <span className={`flex flex-1 items-center justify-between gap-3 px-4 py-3 ${
+              variant === "ghost" ? "text-paper/70" : ""
+            }`}>
               <span className="font-ui text-[15px] leading-snug text-paper">
                 {choice.text}
               </span>
