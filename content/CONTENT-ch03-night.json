@@ -125,10 +125,15 @@
             "ch3_bind==lina": "n_s18_lina",
             "ch3_bind==jade": "n_s18_jade",
             "ch3_bind==mia": "n_s18_mia",
+            "catch_target==rae": "n_s18_rae",
+            "catch_target==lina": "n_s18_lina",
+            "catch_target==jade": "n_s18_jade",
+            "catch_target==mia": "n_s18_mia",
             "went_with==rae": "n_s18_rae",
             "went_with==lina": "n_s18_lina",
             "went_with==jade": "n_s18_jade",
-            "default": "n_s18_mia"
+            "went_with==mia": "n_s18_mia",
+            "default": "n_s18_empty"
           },
           "playerVisible": false
         },

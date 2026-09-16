@@ -19,11 +19,13 @@ import { tryReadCh03Night } from "../lib/dev-packs.node";
 import {
   playChoices,
   pumpToPrompt,
+  resolveNext,
   selectChoice,
   startGame,
   view,
 } from "../lib/engine";
 import { PAYWALL_EDGE_LOCK, offersEdgeNightSku } from "../lib/paywall-copy";
+import { applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
@@ -66,7 +68,7 @@ function playFrom(
   entitlements = { story_pass_month: true, edge_lock: true },
 ) {
   let state = startGame(entitlements, compiled);
-  state = { ...state, flags: { ...state.flags, ...flags } };
+  state = applySeasonCarry(state, { flags, stats: state.stats });
   state = pumpToPrompt(state, compiled);
   for (const choiceId of choiceIds) {
     state = pumpToPrompt(state, compiled);
@@ -122,7 +124,7 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(JSON.stringify(PAYWALL_EDGE_LOCK)).not.toMatch(/湿T/);
   });
 
-  it("DEV default is a playable Mia sit → edge_lock door", () => {
+  it("DEV default with no save is the empty library, not Mia", () => {
     const compiled = compileRoute(tryReadCh03Night(root)!);
     expect(compiled.entryNodeId).toBe("n_ch03_open");
     expect(compiled.firstSubNodeId).toBe("n_s19_mia");
@@ -132,21 +134,37 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(compiled.nodes.get("n_s19_rae")?.gate).toBe("edge_lock");
 
     const started = pumpToPrompt(startGame({ story_pass_month: false }, compiled), compiled);
-    expect(started.nodeId).toBe("n_s18_mia");
-    expect(started.flags.ch3_bind).toBe("mia");
+    expect(resolveNext(compiled.nodes.get("n_s18_router")!, {})).toBe("n_s18_empty");
+    expect(started.nodeId).toBe("n_s21_vanessa");
+    expect(started.flags.ch3_bind).toBe("none");
+  });
 
-    const locked = playChoices(["c_s18_ok"], { story_pass_month: false }, compiled, {
-      pumpAfter: true,
-    });
+  it("prefers catch_target over went_with for the closed-library invite", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    expect(
+      playFrom(compiled, { went_with: "mia", catch_target: "rae" }, []).nodeId,
+    ).toBe("n_s18_rae");
+    expect(playFrom(compiled, { catch_target: "mia" }, []).nodeId).toBe("n_s18_mia");
+    expect(playFrom(compiled, { went_with: "jade" }, []).nodeId).toBe("n_s18_jade");
+  });
+
+  it("Mia catch continues to a playable edge_lock door", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const locked = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok"],
+      { story_pass_month: false },
+    );
     expect(locked.nodeId).toBe("n_s19_mia");
     expect(view(locked, compiled).isPaywall).toBe(true);
     const blocked = selectChoice(locked, "c_push", compiled);
     expect(blocked.ok).toBe(false);
 
-    const paid = playChoices(
-      ["c_s18_ok", "c_push", "c_s20_ok", "c_s21_v_ok", "c_sms_bind_mia"],
-      { story_pass_month: true, edge_lock: true },
+    const paid = playFrom(
       compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_push", "c_s20_ok", "c_s21_v_ok", "c_sms_bind_mia"],
     );
     expect(paid.nodeId).toBe("n_ch03_settle");
     expect(paid.flags.edge_sleepover_mia).toBe(true);
@@ -176,10 +194,11 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
       }
     }
 
-    const officeOnly = playChoices(
+    const officeOnly = playFrom(
+      compiled,
+      { catch_target: "mia" },
       ["c_s18_ok"],
       { story_pass_month: false, w2_office: true },
-      compiled,
     );
     expect(officeOnly.nodeId).toBe("n_s19_mia");
     expect(selectChoice(officeOnly, "c_push", compiled).ok).toBe(false);

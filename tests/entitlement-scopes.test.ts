@@ -10,6 +10,7 @@ import {
   unlockNext,
   unlockScope,
   withEntitlement,
+  pumpToPrompt,
 } from "../lib/engine";
 import {
   grantFullEntitleDev,
@@ -116,9 +117,23 @@ describe("entitlement scopes (fake-unlock only)", () => {
     expect(selectChoice(office, "c_ch02_enter", ch02).ok).toBe(false);
 
     const ch03 = compileRoute(tryReadCh03Night()!);
-    const night = playChoices(["c_s18_ok"], scoped.state.entitlements, ch03);
-    expect(night.nodeId).toBe("n_s19_mia");
-    expect(selectChoice(night, "c_push", ch03).ok).toBe(false);
+    const emptyOpen = pumpToPrompt(startGame(scoped.state.entitlements, ch03), ch03);
+    expect(emptyOpen.nodeId).toBe("n_s21_vanessa");
+    expect(emptyOpen.flags.ch3_bind).toBe("none");
+    const continued = pumpToPrompt(
+      applySeasonCarry(startGame(scoped.state.entitlements, ch03), {
+        flags: scoped.state.flags,
+        stats: scoped.state.stats,
+      }),
+      ch03,
+    );
+    expect(continued.nodeId).toBe("n_s18_mia");
+    const door = selectChoice(continued, "c_s18_ok", ch03);
+    expect(door.ok).toBe(true);
+    if (!door.ok) return;
+    const lockedDoor = pumpToPrompt(door.state, ch03);
+    expect(lockedDoor.nodeId).toBe("n_s19_mia");
+    expect(selectChoice(lockedDoor, "c_push", ch03).ok).toBe(false);
   });
 
   it("full fake-unlock on Ch01 still mints the pass and continues the line", () => {
