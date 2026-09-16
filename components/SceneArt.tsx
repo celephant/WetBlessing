@@ -222,7 +222,7 @@ export function SceneArt({
       data-scene-src={plate.src}
       data-scene-transition={activeTransition ?? "none"}
       data-scene-motion={motion}
-      data-scene-fit="cover"
+      data-scene-fit="frame"
       data-scene-frozen={frozen || beforeChoices ? "on" : "off"}
       data-scene-fx={overlay}
       data-scene-hold={String(holdCount)}

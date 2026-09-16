@@ -7,6 +7,7 @@
   --night: #12141c;
   --paper: #f6f1e8;
   --night-pass-dock: 28%;
+  --scene-still-aspect: 16 / 9;
   --font-display: ui-sans-serif, system-ui, sans-serif;
   --font-ui: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
     ui-sans-serif, system-ui, sans-serif;
@@ -24,9 +25,14 @@ body {
 }
 
 /* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon.
-   Art pane is the region above the 28% dock. Stills cover that pane
-   (Douyin/phone full-bleed) with a face-biased object-position. Motion is a
-   one-shot fade when assetId changes, then hold. No Ken Burns / breathe. */
+   Landscape / desktop: cover the pane above the 28% dock.
+   Phone portrait: pin a complete 16:9 still to the top (no left/right crop).
+   Dialogue sits under that still. Fade on assetId change, then hold. */
+.vn-stage {
+  container-type: inline-size;
+  container-name: vn;
+}
+
 .scene-art-pane {
   position: absolute;
   left: 0;
@@ -40,6 +46,40 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+}
+
+.choice-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3.25rem;
+  bottom: var(--night-pass-dock, 28%);
+}
+
+@media (orientation: portrait) and (max-width: 719px) {
+  .scene-art-pane {
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--scene-still-aspect, 16 / 9);
+  }
+  .scene-art-pane .scene-still-fill {
+    object-fit: contain;
+    object-position: center center;
+  }
+  .choice-overlay {
+    bottom: auto;
+    height: calc(100cqw * 9 / 16 - 3.25rem);
+  }
+  [data-night-pass-dock],
+  [data-settle-dock] {
+    top: calc(100cqw * 9 / 16);
+    bottom: 0;
+    height: auto !important;
+  }
+  [data-night-pass-dock] [data-dialog-enter] {
+    justify-content: flex-start;
+  }
 }
 .scene-plate-in,
 .scene-plate-out {

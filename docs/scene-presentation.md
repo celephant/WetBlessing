@@ -8,7 +8,7 @@ Optional fields on a dialogue **node** or a **stage line**. Missing fields still
 | `camera` | node or line | JSON may name Ken Burns / breathe words | **hold** — no Ken Burns, breathe, or crop-cycle |
 | `fx` | node or line | `none` · `vignette` · `warm-tint` · `soft-light` | intimate `warm-tint` (warmVeil+magentaMist); night `vignette` on SMS / wall |
 
-Each still **covers the art pane** above the 28% Night Pass dock (`object-fit: cover`, `object-position: center 30%` so faces stay in frame). No postage-stamp `contain`, no Ken Burns, no `wide→mid→close` hunting. Choices overlay the **center of the still** and mount only when a node has choices. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
+Each still is a **complete frame**. Phone portrait pins a full 16:9 still to the top (`object-fit: contain` in an aspect-ratio pane — no left/right cover-crop, no vertically-centered postage stamp). Wide desktop covers the pane above the 28% dock (`object-fit: cover`, `object-position: center 30%`). Choices overlay the **center of the still** and mount only when a node has choices. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
 
 Image errors still use `resolveAssetUrl` + the SceneArt placeholder.
 
@@ -31,7 +31,7 @@ Sourced from `content/UI-tokens.json` **v1.1** (`motion` / `transitions` / `grad
 | Same-node continue | 140ms · `translateY(6px)` |
 | Nameplate | delay 60ms · fade 120ms |
 | Choice chips | 160ms · stagger 48ms · Y(8) + scale(0.98) |
-| Scene still | **fade 320ms** on asset change, then static cover of the art pane |
+| Scene still | **fade 320ms** on asset change, then hold. Portrait: complete 16:9 at top. Desktop: cover the art pane |
 | Grade | warmVeil+magentaMist on intimate nodes; night vignette on SMS / first-sub wall |
 | Wall rhythm | chips + gold yuan **once** (plate stays a still) |
 | PhoneGlow | **off** on SMS + paywall |

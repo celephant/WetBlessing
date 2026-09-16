@@ -211,7 +211,7 @@ export function VNPlayer({
 
   return (
     <div
-      className="relative h-dvh w-full overflow-hidden bg-void text-paper"
+      className="vn-stage relative h-dvh w-full overflow-hidden bg-void text-paper"
       data-wall-rhythm={
         wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
       }
@@ -283,6 +283,7 @@ export function VNPlayer({
       {snapshot.isSettle ? (
         <div
           className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
+          data-settle-dock=""
           style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
         >
           <div className="flex h-full w-full flex-col items-center justify-center border-t border-white/10 bg-night/88 px-5 text-center backdrop-blur-xl">
@@ -315,8 +316,7 @@ export function VNPlayer({
         <>
           {snapshot.choices.length > 0 ? (
             <div
-              className="absolute inset-x-0 z-[3] flex items-center justify-center px-3"
-              style={{ top: "3.25rem", bottom: NIGHT_PASS_DIALOG_DOCK_CSS }}
+              className="choice-overlay z-[3] flex items-center justify-center px-3"
               data-choice-overlay=""
             >
               <ChoiceList
