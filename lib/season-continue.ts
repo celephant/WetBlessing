@@ -60,10 +60,11 @@ function ownsW3(entitlements: Entitlements): boolean {
   );
 }
 
-/** Ch04 is part of 闭馆夜. Bind `none` may continue after Ch02 without buying a missing door. */
+/** Ch04 is part of 闭馆夜. Leave / dodge / bind none may continue after Ch02 without buying a missing door. */
 export function canPlayCh04(entitlements: Entitlements, flags: Flags): boolean {
   if (ownsW3(entitlements)) return true;
-  return flags.ch3_bind === "none" && ownsW2(entitlements);
+  if (!ownsW2(entitlements)) return false;
+  return flags.ch3_bind === "none" || flags.ch3_entered === false;
 }
 
 export function seasonContinueTarget(

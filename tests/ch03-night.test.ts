@@ -25,7 +25,7 @@ import {
   view,
 } from "../lib/engine";
 import { PAYWALL_EDGE_LOCK, offersEdgeNightSku } from "../lib/paywall-copy";
-import { applySeasonCarry } from "../lib/season-continue";
+import { canPlayCh04, seasonContinueTarget, applySeasonCarry } from "../lib/season-continue";
 import type { CompiledRoute, Flags } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
@@ -211,6 +211,33 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
     expect(jadeNight.flags.edge_sleepover_jade).toBe(true);
     expect(jadeNight.flags.w4_sms_first).toBe("sting");
     expect(jadeNight.nodeId).toBe("n_ch03_settle");
+  });
+
+  it("lets a w2-only player who leaves the door reach rumor morning and Ch04", () => {
+    const compiled = compileRoute(tryReadCh03Night(root)!);
+    const left = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok", "c_leave", "c_s21_v_dodge", "c_sms_sting"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(left.nodeId).toBe("n_ch03_settle");
+    expect(left.flags.ch3_entered).toBe(false);
+    expect(canPlayCh04(left.entitlements, left.flags)).toBe(true);
+    expect(seasonContinueTarget("ch03", "n_ch03_settle", left.entitlements, left.flags)?.pack).toBe(
+      "ch04",
+    );
+
+    const lockedPush = playFrom(
+      compiled,
+      { catch_target: "mia" },
+      ["c_s18_ok"],
+      { story_pass_month: false, w2_office: true },
+    );
+    expect(selectChoice(lockedPush, "c_push", compiled).ok).toBe(false);
+    expect(canPlayCh04({ w2_office: true }, { ch3_bind: "mia", ch3_entered: true })).toBe(
+      false,
+    );
   });
 
   it("speaks fluent Chinese without banned slogans, steam-door clones, or Reina sleepover", () => {

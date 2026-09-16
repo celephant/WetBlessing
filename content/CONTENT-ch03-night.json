@@ -501,11 +501,14 @@
             {
               "choiceId": "c_leave",
               "text": "离开",
-              "next": "n_ch03_soft_exit",
+              "next": "n_s21_rumor",
               "delta": {
                 "tension": 1
               },
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "setFlags": {
+                "ch3_entered": false
+              }
             },
             {
               "choiceId": "c_push",
@@ -569,11 +572,14 @@
             {
               "choiceId": "c_leave",
               "text": "离开",
-              "next": "n_ch03_soft_exit",
+              "next": "n_s21_rumor",
               "delta": {
                 "tension": 1
               },
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "setFlags": {
+                "ch3_entered": false
+              }
             },
             {
               "choiceId": "c_push",
@@ -637,11 +643,14 @@
             {
               "choiceId": "c_leave",
               "text": "离开",
-              "next": "n_ch03_soft_exit",
+              "next": "n_s21_rumor",
               "delta": {
                 "tension": 1
               },
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "setFlags": {
+                "ch3_entered": false
+              }
             },
             {
               "choiceId": "c_push",
@@ -705,11 +714,14 @@
             {
               "choiceId": "c_leave",
               "text": "离开",
-              "next": "n_ch03_soft_exit",
+              "next": "n_s21_rumor",
               "delta": {
                 "tension": 1
               },
-              "gateChoice": "free"
+              "gateChoice": "free",
+              "setFlags": {
+                "ch3_entered": false
+              }
             },
             {
               "choiceId": "c_push",

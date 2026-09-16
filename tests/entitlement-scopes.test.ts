@@ -241,6 +241,8 @@ describe("season continue + bind none", () => {
     const w2 = mintScope(undefined, SCOPE_W2_OFFICE);
     expect(canPlayCh04(w2, { ch3_bind: "none" })).toBe(true);
     expect(canPlayCh04(w2, { ch3_bind: "mia" })).toBe(false);
+    expect(canPlayCh04(w2, { ch3_bind: "mia", ch3_entered: false })).toBe(true);
+    expect(canPlayCh04(w2, { ch3_bind: "mia", ch3_entered: true })).toBe(false);
     expect(seasonContinueTarget("ch03", "n_ch03_settle", w2, { ch3_bind: "none" })?.pack).toBe(
       "ch04",
     );
