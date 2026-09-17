@@ -61,7 +61,7 @@ describe("landing funnel (pre-login, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("f9c0d4d573d24480577b2bb60b3a989fe3a6a5f12306ea1f791d3949cfe6b1c9");
+    ).toBe("540c23e561304021d5c22cee740e3527beff88b8710778106770e955986fd2f2");
   });
 
   it("loads only via /play?content=funnel", () => {
@@ -173,11 +173,11 @@ describe("landing funnel (pre-login, not default)", () => {
     expect(view(state, compiled).node.nodeId).toBe("n_funnel_07");
     const labels = view(state, compiled).choices.map((choice) => choice.text);
     expect(labels).toEqual([
-      "接招：侧门。灯只一盏。她等你进去，才肯抬头。",
-      "接招：上台阶。闪光关了。干砖上她把手伸下来了。",
-      "接招：走向跳台。池是空的。毛巾只挂在肩上，她看你下来没有。",
-      "接招：走向冒气的门。水手领湿着贴着胸口。她回了头。",
-      "躲开：谁也不跟。四块地还在。今晚你可以谁也不进。",
+      "接招：侧门。床头只剩一盏灯",
+      "接招：上台阶。砖还凉、她却热",
+      "接招：走向跳台。毛巾砸进怀里",
+      "接招：走向冒气的门。门缝还开着",
+      "躲开：谁也不跟。手机还是亮了",
     ]);
     const goMia = selectChoice(state, "c_f7_mia", compiled);
     expect(goMia.ok).toBe(true);

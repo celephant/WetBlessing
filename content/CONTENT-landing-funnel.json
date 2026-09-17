@@ -40,7 +40,7 @@
           "choices": [
             {
               "choiceId": "c_f1_enter",
-              "text": "走进派对。水还亮着。湿气已经贴上小臂。",
+              "text": "走进派对。点一块地",
               "next": "n_funnel_02"
             }
           ]
@@ -61,7 +61,7 @@
           "choices": [
             {
               "choiceId": "c_f2_seen",
-              "text": "看清她们。四块地，没人让。心跳已经先走了一步。",
+              "text": "看清她们。还站中间干什么",
               "next": "n_funnel_03"
             }
           ]
@@ -81,12 +81,12 @@
           "choices": [
             {
               "choiceId": "c_f3_take",
-              "text": "走近。她在侧门那儿。灯只一盏，等你进去。",
+              "text": "走近。她喊你过来",
               "next": "n_funnel_03_take"
             },
             {
               "choiceId": "c_f3_ask",
-              "text": "先不走近。她还站中间看你。今晚还可以谁也不跟。",
+              "text": "先不走近。她只说了行",
               "next": "n_funnel_03_ask"
             }
           ]
@@ -126,12 +126,12 @@
           "choices": [
             {
               "choiceId": "c_f4_take",
-              "text": "站近一步。闪光还没关。她不让你看她，只让你看镜头。",
+              "text": "站近一步。屏幕也要朝下",
               "next": "n_funnel_04_take"
             },
             {
               "choiceId": "c_f4_ask",
-              "text": "问她拍了什么。她把屏幕朝下。这张没有。",
+              "text": "问她拍了什么。这张她不给看",
               "next": "n_funnel_04_ask"
             }
           ]
@@ -171,12 +171,12 @@
           "choices": [
             {
               "choiceId": "c_f5_take",
-              "text": "走近跳台。池是空的。毛巾砸进怀里，湿气从布边漏出来。",
+              "text": "走近跳台。她叫你别盯",
               "next": "n_funnel_05_take"
             },
             {
               "choiceId": "c_f5_ask",
-              "text": "叫她名字。她不给称呼。跳台还亮着。",
+              "text": "叫她名字。跳台还亮着",
               "next": "n_funnel_05_ask"
             }
           ]
@@ -222,12 +222,12 @@
           "choices": [
             {
               "choiceId": "c_f6_take",
-              "text": "手不放。水手领还湿着。蒸汽贴着嘴，她没把门拉开。",
+              "text": "手不放。先别出声",
               "next": "n_funnel_06_take"
             },
             {
               "choiceId": "c_f6_ask",
-              "text": "松手。门缝还开着。热气会自己散。",
+              "text": "松手。他们能听见呼吸",
               "next": "n_funnel_06_ask"
             }
           ]
@@ -267,7 +267,7 @@
           "choices": [
             {
               "choiceId": "c_f7_mia",
-              "text": "接招：侧门。灯只一盏。她等你进去，才肯抬头。",
+              "text": "接招：侧门。床头只剩一盏灯",
               "next": "n_funnel_08_mia",
               "setFlags": {
                 "went_with": "mia"
@@ -275,7 +275,7 @@
             },
             {
               "choiceId": "c_f7_jade",
-              "text": "接招：上台阶。闪光关了。干砖上她把手伸下来了。",
+              "text": "接招：上台阶。砖还凉、她却热",
               "next": "n_funnel_08_jade",
               "setFlags": {
                 "went_with": "jade"
@@ -283,7 +283,7 @@
             },
             {
               "choiceId": "c_f7_lina",
-              "text": "接招：走向跳台。池是空的。毛巾只挂在肩上，她看你下来没有。",
+              "text": "接招：走向跳台。毛巾砸进怀里",
               "next": "n_funnel_08_lina",
               "setFlags": {
                 "went_with": "lina"
@@ -291,7 +291,7 @@
             },
             {
               "choiceId": "c_f7_rae",
-              "text": "接招：走向冒气的门。水手领湿着贴着胸口。她回了头。",
+              "text": "接招：走向冒气的门。门缝还开着",
               "next": "n_funnel_08_rae",
               "setFlags": {
                 "went_with": "rae"
@@ -299,7 +299,7 @@
             },
             {
               "choiceId": "c_f7_none",
-              "text": "躲开：谁也不跟。四块地还在。今晚你可以谁也不进。",
+              "text": "躲开：谁也不跟。手机还是亮了",
               "next": "n_funnel_08_none",
               "setFlags": {
                 "went_with": "none"
@@ -329,7 +329,7 @@
           "choices": [
             {
               "choiceId": "c_f8_mia",
-              "text": "再近。灯只一盏。她膝盖不容你退。",
+              "text": "再近。心跳空了一拍",
               "next": "n_funnel_09"
             }
           ]
@@ -356,7 +356,7 @@
           "choices": [
             {
               "choiceId": "c_f8_jade",
-              "text": "再近。闪光关了。砖还凉，她小臂却热。",
+              "text": "再近。一张拼贴没有字",
               "next": "n_funnel_09"
             }
           ]
@@ -383,7 +383,7 @@
           "choices": [
             {
               "choiceId": "c_f8_lina",
-              "text": "再近。毛巾还在怀里。湿气从布边漏出来。",
+              "text": "再近。两张脸在抢一只手",
               "next": "n_funnel_09"
             }
           ]
@@ -410,7 +410,7 @@
           "choices": [
             {
               "choiceId": "c_f8_rae",
-              "text": "再近。水手领还湿着。她要你从里面关。",
+              "text": "再近。今天下午那张图",
               "next": "n_funnel_09"
             }
           ]
@@ -430,7 +430,7 @@
           "choices": [
             {
               "choiceId": "c_f8_none",
-              "text": "再近。楼道空了。掌心的热还没退。",
+              "text": "再近。群里没有字",
               "next": "n_funnel_09"
             }
           ]
@@ -457,7 +457,7 @@
           "choices": [
             {
               "choiceId": "c_f9_open",
-              "text": "点开那张拼贴。两张脸在抢同一只手。今天下午。",
+              "text": "点开那张拼贴。已经走到图跟前",
               "next": "n_funnel_10"
             }
           ]

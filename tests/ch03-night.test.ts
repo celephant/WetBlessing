@@ -91,7 +91,7 @@ describe("Ch03 闭馆夜 (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("f9c0d4d573d24480577b2bb60b3a989fe3a6a5f12306ea1f791d3949cfe6b1c9");
+    ).toBe("540c23e561304021d5c22cee740e3527beff88b8710778106770e955986fd2f2");
     expect(existsSync(path.join(root, "content/CONTENT-ch02-office.json"))).toBe(true);
   });
 

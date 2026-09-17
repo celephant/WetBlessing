@@ -25,6 +25,10 @@ describe("player-facing choice labels", () => {
       hint: "灯只一盏。屏幕还热着贴在她腿间。",
     });
     expect(splitChoiceFace("离开。")).toEqual({ bark: "离开。", hint: null });
+    expect(splitChoiceFace("离开。今晚就到这里")).toEqual({
+      bark: "离开。",
+      hint: "今晚就到这里",
+    });
   });
 });
 
@@ -62,6 +66,7 @@ describe("private-interaction chrome contracts", () => {
     const player = readFileSync(path.join(root, "components/VNPlayer.tsx"), "utf8");
     const dialog = readFileSync(path.join(root, "components/DialogBox.tsx"), "utf8");
     const choices = readFileSync(path.join(root, "components/ChoiceList.tsx"), "utf8");
+    const cueFace = readFileSync(path.join(root, "components/ChoiceCueButton.tsx"), "utf8");
     const paywall = readFileSync(path.join(root, "components/PaywallOverlay.tsx"), "utf8");
     const title = readFileSync(path.join(root, "components/TitleScreen.tsx"), "utf8");
     const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
@@ -81,10 +86,14 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain("data-choice-armed");
     expect(choices).toContain('data-choice-weight="equal"');
     expect(choices).toContain("playerFacingChoiceText");
-    expect(choices).toContain("splitChoiceFace");
-    expect(choices).toContain("choice-hint");
-    expect(choices).toContain("choice-connector");
+    expect(choices).toContain("choiceCueFace");
+    expect(choices).toContain("ChoiceCueFace");
+    expect(cueFace).toContain("choice-hint");
+    expect(cueFace).toContain("choice-cue");
+    expect(cueFace).toContain("choice-connector");
+    expect(cueFace).toContain("›");
     expect(choices).toContain('data-choice-chain="on"');
+    expect(choices).toContain('data-choice-cue="on"');
     expect(choices).toContain("onClick={() => onSelect(choice.choiceId)}");
     expect(choices).toContain('data-chip-price="off"');
     expect(choices).not.toContain("PASS_PRICE");
@@ -126,7 +135,7 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain(".btn-choice:hover .choice-bar");
     expect(css).toContain(".btn-choice:hover .choice-connector");
     expect(css).toContain("translateX(2px)");
-    expect(css).toContain("max-width: 620px");
+    expect(css).toContain("max-width: 480px");
     expect(css).not.toContain(".btn-choice-pass");
     expect(css).not.toContain(".choice-bar.is-pass");
     expect(css).toContain("brightness(1.08)");

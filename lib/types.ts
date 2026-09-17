@@ -29,6 +29,12 @@ export type ChoiceRequires = {
 export type Choice = {
   choiceId: string;
   text: string;
+  /**
+   * Optional packed-face whisper. Prefer leaving this unset and packing
+   * `Choice。Cue` into `text` so historical story JSON stays loadable.
+   * UI maps this (or the split-from-text hint) onto ChoiceCue.
+   */
+  hint?: string;
   next: string;
   delta?: Delta;
   setFlags?: Record<string, FlagValue>;
