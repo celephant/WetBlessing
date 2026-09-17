@@ -34,7 +34,7 @@ export function PaywallOverlay({
 
   return (
     <div
-      className="paywall-overlay absolute inset-0 z-[5] flex items-end justify-center bg-void/70 p-4"
+      className="paywall-overlay absolute inset-0 z-[5] flex items-end justify-center p-4"
       data-paywall-grade="night"
       data-phone-glow="off"
       data-paywall-code={pack.errorCode}

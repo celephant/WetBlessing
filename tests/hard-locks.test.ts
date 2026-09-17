@@ -70,7 +70,7 @@ describe("Slice-0 hard locks", () => {
     expect(css).toContain("scene-fade-in");
     const paywall = readFileSync(path.join(root, "components/PaywallOverlay.tsx"), "utf8");
     expect(paywall).not.toMatch(/bg-black/);
-    expect(paywall).toContain("bg-void/70");
+    expect(paywall).toContain("paywall-overlay");
     const fixture = readFileSync(
       path.join(root, "content/CONTENT-ch01-free-to-firstsub.json"),
       "utf8",

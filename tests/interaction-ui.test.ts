@@ -113,7 +113,7 @@ describe("private-interaction chrome contracts", () => {
     expect(toolbar).toContain("历史");
     expect(toolbar).toContain("自动");
     expect(toolbar).toContain("data-pause-toggle");
-    expect(paywall).toContain("bg-void/70");
+    expect(paywall).toContain("paywall-overlay");
     expect(paywall).toContain("进度已保存");
     expect(paywall).toContain("zh.tertiary");
     expect(paywall).toContain("一次性通行证");
