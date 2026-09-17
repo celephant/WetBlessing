@@ -123,7 +123,7 @@ describe("edge_lock + paywall copy", () => {
     expect(PAYWALL_HARD["zh-CN"].body).toMatch(/没抬头|拉的中途|下来没有/);
     expect(PAYWALL_HARD["zh-CN"].primaryOwned).toBe("进去。");
     expect(PAYWALL_HARD.behavior.tone).toMatch(/禁暗示开通后才开始暧昧/);
-    expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass_month");
+    expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass");
     expect(PAYWALL_HARD.behavior.secondaryAction).toBe(
       "checkout_sku:chapter_unlock|scope=w1_continue",
     );

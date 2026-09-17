@@ -61,7 +61,7 @@ describe("landing funnel (pre-login, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("1344bcd9edb95aef6c779ef4d19f9eb125f04a89e4ba1cfeeb8295377dea2b8f");
+    ).toBe("d235a6e36476d37e0898585a7684461410a7faa196268ba0eb223851cbaf86b0");
   });
 
   it("loads only via /play?content=funnel", () => {

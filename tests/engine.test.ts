@@ -60,7 +60,7 @@ describe("content integrity", () => {
   it("marks first_sub on the paywall node and caps at 10", () => {
     const wall = getNode(route.firstSubNodeId);
     expect(wall.gate).toBe("first_sub");
-    expect(wall.choices?.some((c) => c.requiresEntitlement === "story_pass_month")).toBe(
+    expect(wall.choices?.some((c) => c.requiresEntitlement === "story_pass")).toBe(
       true,
     );
     expect(route.choiceIndexHardCap).toBeLessThanOrEqual(10);

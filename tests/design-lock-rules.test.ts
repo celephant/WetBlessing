@@ -222,13 +222,15 @@ describe("design-lock: overlay dismiss ≠ story leave", () => {
   });
 });
 
-describe("design-lock: buyout is policy, not a live SKU", () => {
-  it("keeps current prices and does not sell story_pass_month as 买断 or 月卡", () => {
+describe("design-lock: one-time buyout, not a month card", () => {
+  it("keeps current prices and sells 一次性通行证, never 月卡/订阅/本月", () => {
     expect(PASS_PRICE).toBe(8.99);
     expect(CHAPTER_UNLOCK_PRICE).toBe(2.99);
-    expect(PAYWALL_HARD["zh-CN"].primary).toBe("开通剧本通行证 · $8.99");
-    expect(JSON.stringify(PAYWALL_HARD["zh-CN"])).not.toMatch(/买断|月卡|订阅/);
-    expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass_month");
+    expect(PAYWALL_HARD["zh-CN"].primary).toBe("一次性通行证 · $8.99");
+    expect(PAYWALL_HARD["zh-CN"].tertiary).toBe("回标题");
+    expect(JSON.stringify(PAYWALL_HARD["zh-CN"])).toMatch(/一次性/);
+    expect(JSON.stringify(PAYWALL_HARD["zh-CN"])).not.toMatch(/月卡|订阅|本月/);
+    expect(PAYWALL_HARD.behavior.primaryAction).toBe("checkout_sku:story_pass");
   });
 });
 

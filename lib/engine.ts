@@ -1,12 +1,20 @@
 import { countsTowardChoiceIndex } from "./choice-index";
 import { getNode, route, type CompiledRoute } from "./content";
-import { mintFullEntitle, mintScope, scopeFromSku } from "./entitlement";
+import {
+  emptyEntitlements,
+  mintFullEntitle,
+  mintScope,
+  normalizeEntitlements,
+  ownsStoryPass,
+  scopeFromSku,
+} from "./entitlement";
 import { flagMatches, matchFlagExpr } from "./flag-expr";
 import {
   GATE_CHAPTER_START,
   GATE_EDGE_LOCK,
   GATE_FIRST_SUB,
   isWallGate,
+  isStoryPassSku,
   isWallSku,
   normalizeWallGate,
   SCOPE_W1_CONTINUE,
@@ -15,7 +23,7 @@ import {
   SKU_CHAPTER_UNLOCK,
   SKU_EDGE_LOCK,
 } from "./paywall-copy";
-import { SKU_STORY_PASS_MONTH } from "./tokens";
+import { SKU_STORY_PASS } from "./tokens";
 import {
   CAST_STAT_KEYS,
   type Beat,
@@ -46,7 +54,7 @@ const emptyStats = (): Stats => ({
 });
 
 export function createInitialState(
-  entitlements: Entitlements = { story_pass_month: false },
+  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
 ): GameState {
   return {
     nodeId: "",
@@ -54,13 +62,13 @@ export function createInitialState(
     choiceIndex: 0,
     flags: {},
     stats: emptyStats(),
-    entitlements,
+    entitlements: normalizeEntitlements(entitlements),
     pendingChoiceId: null,
   };
 }
 
 export function startGame(
-  entitlements: Entitlements = { story_pass_month: false },
+  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
   compiled: CompiledRoute = route,
 ): GameState {
   return enterNode(createInitialState(entitlements), compiled.entryNodeId, compiled);
@@ -140,7 +148,7 @@ export function hasEntitlement(
   gate?: string | null,
 ): boolean {
   const e = state.entitlements;
-  const pass = Boolean(e.story_pass_month);
+  const pass = ownsStoryPass(e);
   const w1 = Boolean(e.w1_continue);
   const w2 = Boolean(e.w2_office);
   const w3 = Boolean(e.w3_edge_night || e.edge_lock);
@@ -148,7 +156,7 @@ export function hasEntitlement(
 
   if (pass) {
     return (
-      sku === SKU_STORY_PASS_MONTH ||
+      isStoryPassSku(sku) ||
       sku === SKU_CHAPTER_UNLOCK ||
       sku === SKU_EDGE_LOCK ||
       sku === SCOPE_W1_CONTINUE ||
@@ -161,8 +169,8 @@ export function hasEntitlement(
   if (sku === SCOPE_W2_OFFICE) return w2;
   if (sku === SCOPE_W3_EDGE_NIGHT || sku === SKU_EDGE_LOCK) return w3;
 
-  if (sku === SKU_STORY_PASS_MONTH) {
-    // Ch01 JSON still requires story_pass_month on first_sub. w1_continue is that wall.
+  if (isStoryPassSku(sku)) {
+    // Ch01 Catch wall. w1_continue is that night only — not Ch02 / Ch03.
     return g === GATE_FIRST_SUB && w1;
   }
 
@@ -322,19 +330,12 @@ export function withEntitlement(
   sku: string,
   granted: boolean,
 ): GameState {
-  if (sku === SKU_STORY_PASS_MONTH || sku === "full_entitle") {
+  if (isStoryPassSku(sku) || sku === "full_entitle") {
     return {
       ...state,
       entitlements: granted
         ? mintFullEntitle(state.entitlements)
-        : {
-            story_pass_month: false,
-            edge_lock: false,
-            chapter_unlock: false,
-            w1_continue: false,
-            w2_office: false,
-            w3_edge_night: false,
-          },
+        : emptyEntitlements(),
     };
   }
   const scope = scopeFromSku(sku);
@@ -352,20 +353,20 @@ export function withEntitlement(
 /**
  * DEV fake-unlock then continue the locked in-dialogue line in place.
  * 开通后这一句立刻接上，不跳走.
- * Default mints the month pass (all scopes). Pass a chapter scope to buy-one.
+ * Default mints the one-time pass (all scopes). Pass a chapter scope to buy-one.
  */
 export function unlockNext(
   state: GameState,
   choiceId?: string,
   compiled: CompiledRoute = route,
-  sku: string = SKU_STORY_PASS_MONTH,
+  sku: string = SKU_STORY_PASS,
 ): SelectChoiceResult {
   const id = choiceId ?? state.pendingChoiceId;
   if (!id) {
     return {
       ok: false,
       reason: "invalid",
-      message: "unlockNext: no pending story_pass_month choice",
+      message: "unlockNext: no pending story_pass choice",
     };
   }
   const unlocked: GameState = {
@@ -455,7 +456,7 @@ export function walkAllPaths(
     visit(advanced, [...path, here]);
   };
 
-  visit(startGame({ story_pass_month: assumeEntitled }, compiled), []);
+  visit(startGame({ story_pass: assumeEntitled }, compiled), []);
   return paths;
 }
 
@@ -511,7 +512,7 @@ export function pumpBeats(
 
 export function playChoices(
   choiceIds: string[],
-  entitlements: Entitlements = { story_pass_month: false },
+  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
   compiled: CompiledRoute = route,
   options: { pumpAfter?: boolean } = {},
 ): GameState {

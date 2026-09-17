@@ -31,9 +31,9 @@ describe("P-D1 engine surface", () => {
     expect(wall.gate).toBe("first_sub");
     expect(getNode("n_pay_settle").type).toBe("settle");
     const locked = wall.choices?.find((c) => c.choiceId === "c_sub_round_mia");
-    expect(locked?.requiresEntitlement).toBe("story_pass_month");
+    expect(locked?.requiresEntitlement).toBe("story_pass");
     expect(locked?.onLocked).toBe("show_pass_chip");
-    expect(locked?.cta).toBe("story_pass_month");
+    expect(locked?.cta).toBe("story_pass");
     expect(showsPassChip(locked!)).toBe(true);
   });
 

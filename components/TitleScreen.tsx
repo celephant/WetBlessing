@@ -33,6 +33,7 @@ export function TitleScreen() {
       hasAnyRunSave() ||
         funnel ||
         Boolean(entitlements.w1_continue) ||
+        Boolean(entitlements.story_pass) ||
         Boolean(entitlements.story_pass_month),
     );
   }, []);
@@ -142,7 +143,7 @@ export function TitleScreen() {
           </Link>
           <br />
           {/* TODO(slice-1): Auth / account entitlements */}
-          {/* TODO(slice-1): Stripe Checkout for story_pass_month */}
+          {/* TODO(slice-1): Stripe Checkout for story_pass */}
           {/* TODO(slice-1): Railway production deploy */}
           Stripe / Auth / Railway 未接入 · 付费墙仅 DEV 假开通。
         </p>

@@ -1401,9 +1401,9 @@
               "text": "进去。",
               "next": "n_pay_01_catch_mia",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "mia"
@@ -1471,9 +1471,9 @@
               "text": "抓住。",
               "next": "n_pay_01_catch_jade",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "jade"
@@ -1541,9 +1541,9 @@
               "text": "下去。",
               "next": "n_pay_01_catch_lina",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "lina"
@@ -1611,9 +1611,9 @@
               "text": "从里面关。",
               "next": "n_pay_01_catch_rae",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "rae"
@@ -1669,9 +1669,9 @@
               "text": "进去。",
               "next": "n_pay_01_catch_mia",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "mia"
@@ -1682,9 +1682,9 @@
               "text": "抓住。",
               "next": "n_pay_01_catch_jade",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "jade"
@@ -1695,9 +1695,9 @@
               "text": "下去。",
               "next": "n_pay_01_catch_lina",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "lina"
@@ -1708,9 +1708,9 @@
               "text": "从里面关。",
               "next": "n_pay_01_catch_rae",
               "delta": {},
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
-              "requiresEntitlement": "story_pass_month",
+              "requiresEntitlement": "story_pass",
               "onLocked": "show_pass_chip",
               "setFlags": {
                 "catch_target": "rae"

@@ -11,9 +11,9 @@ Next.js App Router + TypeScript + Tailwind player wired to `content/CONTENT-ch01
 - After Ch01 paid coda, settle **继续 · 账单与办公室**. After Ch02, **继续 · 闭馆夜**. After Ch03 (pass / `w3_edge_night`, or bind `none` with Ch02), **继续 · 名分**. Default `/play` stays Ch01.
 - P-D2 default load allowlist: `content/compile-allowlist.json` (only `0.4.8-feel-hot` / `route_kai_ch01`; deny `route_li_*` / `stage_0*` / `persona_li_*` / 黎包 / fourweek drafts)
 - Click the dialogue box to advance lines
-- Engine: `advance` / `advanceByFlag` / `gate:first_sub` on dialogue / `settle` / `requiresEntitlement` / `onLocked: show_pass_chip` / `cta: story_pass_month`
+- Engine: `advance` / `advanceByFlag` / `gate:first_sub` on dialogue / `settle` / `requiresEntitlement` / `onLocked: show_pass_chip` / `cta: story_pass` (old `story_pass_month` still parses)
 - `choiceIndex`: nodes with ≥2 choices count; continue / `advance` do not; the first_sub wall counts; `>10` with no gate fails compile
-- In-dialogue walls: DEV `$2.99` fake-unlocks **one** scope (`w1_continue` / `w2_office` / `w3_edge_night`). Header **DEV PASS** still mints the month pass (all scopes). No Stripe.
+- In-dialogue walls: DEV `$2.99` fake-unlocks **one** scope (`w1_continue` / `w2_office` / `w3_edge_night`). Header **DEV PASS** mints the one-time pass (all scopes). No Stripe. Not a month card.
 - Night Pass dialog dock is 28% of the viewport
 - Paid CG aliases (do not key art by nodeId): [`docs/ART-assetId-aliases.md`](docs/ART-assetId-aliases.md)
 - Optional scene hooks (`fx` / `camera` / `transition`) and player motion: [`docs/scene-presentation.md`](docs/scene-presentation.md)
@@ -27,6 +27,6 @@ npm run dev
 
 ## TODOs (later slices)
 
-- Stripe Checkout for `story_pass_month`
+- Stripe Checkout for `story_pass`
 - Auth / account entitlements
 - Railway production deploy

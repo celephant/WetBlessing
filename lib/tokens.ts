@@ -5,6 +5,9 @@ export const tokens = uiTokens;
 export const UI_TOKENS_SHA256 =
   "452d7671f71c8b870242d00aa67cc8ac0e170f58ee842e352132b2a344102072";
 
+/** Canonical one-time season buyout SKU. Leftover `story_pass_month` still parses. */
+export const SKU_STORY_PASS = "story_pass";
+/** @deprecated month-card leftover; keep as save/JSON alias only. */
 export const SKU_STORY_PASS_MONTH = "story_pass_month";
 
 /** Night Pass reserved dialog dock. Art cue: 底栏28%留给对话框勿烧UI. */

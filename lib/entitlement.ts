@@ -3,6 +3,7 @@ import {
   SCOPE_W2_OFFICE,
   SCOPE_W3_EDGE_NIGHT,
   isChapterScope,
+  isStoryPassSku,
 } from "./paywall-copy";
 import type { ChapterScope, Entitlements } from "./types";
 
@@ -18,6 +19,7 @@ export function saveStorageKey(packId?: string | null): string {
 }
 
 export const emptyEntitlements = (): Entitlements => ({
+  story_pass: false,
   story_pass_month: false,
   edge_lock: false,
   chapter_unlock: false,
@@ -30,19 +32,35 @@ function asBool(value: unknown): boolean {
   return Boolean(value);
 }
 
+/** Canonical buyout flag. Old `story_pass_month` saves still count. */
+export function ownsStoryPass(entitlements: Entitlements): boolean {
+  return Boolean(entitlements.story_pass || entitlements.story_pass_month);
+}
+
+/**
+ * Coalesce leftover month-card keys into `story_pass`. Call on every load /
+ * startGame so tests and old localStorage keep working.
+ */
+export function normalizeEntitlements(
+  partial?: Partial<Entitlements> | Entitlements | null,
+): Entitlements {
+  const next = { ...emptyEntitlements(), ...(partial ?? {}) };
+  const pass = ownsStoryPass(next);
+  const w3 = asBool(next.w3_edge_night) || asBool(next.edge_lock);
+  return {
+    ...next,
+    story_pass: pass,
+    story_pass_month: pass,
+    edge_lock: w3,
+    w3_edge_night: w3,
+  };
+}
+
 export function parseEntitlements(raw: string | null): Entitlements {
   if (!raw) return emptyEntitlements();
   try {
     const parsed = JSON.parse(raw) as Partial<Entitlements>;
-    const w3 = asBool(parsed.w3_edge_night) || asBool(parsed.edge_lock);
-    return {
-      story_pass_month: asBool(parsed.story_pass_month),
-      edge_lock: w3,
-      chapter_unlock: asBool(parsed.chapter_unlock),
-      w1_continue: asBool(parsed.w1_continue),
-      w2_office: asBool(parsed.w2_office),
-      w3_edge_night: w3,
-    };
+    return normalizeEntitlements(parsed);
   } catch {
     return emptyEntitlements();
   }
@@ -55,27 +73,29 @@ export function loadEntitlements(): Entitlements {
 
 export function saveEntitlements(entitlements: Entitlements): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem(ENTITLEMENT_STORAGE_KEY, JSON.stringify(entitlements));
+  const next = normalizeEntitlements(entitlements);
+  localStorage.setItem(ENTITLEMENT_STORAGE_KEY, JSON.stringify(next));
 }
 
-/** Header DEV PASS / full fake-unlock: pass + both chapter flags + edge. */
+/** Header DEV PASS / full fake-unlock: one-time pass + both chapter flags + edge. */
 export function mintFullEntitle(current?: Entitlements): Entitlements {
-  return {
+  return normalizeEntitlements({
     ...(current ?? emptyEntitlements()),
+    story_pass: true,
     story_pass_month: true,
     edge_lock: true,
     chapter_unlock: true,
     w1_continue: true,
     w2_office: true,
     w3_edge_night: true,
-  };
+  });
 }
 
 export function mintScope(
   current: Entitlements | undefined,
   scope: ChapterScope,
 ): Entitlements {
-  const next: Entitlements = { ...(current ?? emptyEntitlements()) };
+  const next = normalizeEntitlements(current);
   if (scope === SCOPE_W1_CONTINUE) next.w1_continue = true;
   if (scope === SCOPE_W2_OFFICE) next.w2_office = true;
   if (scope === SCOPE_W3_EDGE_NIGHT) {
@@ -112,11 +132,12 @@ export function revokeStoryPassDev(current?: Entitlements): Entitlements {
 }
 
 export function isFullyEntitled(entitlements: Entitlements): boolean {
-  return Boolean(entitlements.story_pass_month);
+  return ownsStoryPass(entitlements);
 }
 
 export function scopeFromSku(sku?: string | null): ChapterScope | null {
   if (isChapterScope(sku)) return sku;
   if (sku === "edge_lock") return SCOPE_W3_EDGE_NIGHT;
+  if (isStoryPassSku(sku)) return null;
   return null;
 }

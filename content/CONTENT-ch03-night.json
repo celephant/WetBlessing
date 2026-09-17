@@ -514,7 +514,7 @@
               "setFlags": {
                 "ch3_entered": true
               },
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
@@ -578,7 +578,7 @@
               "setFlags": {
                 "ch3_entered": true
               },
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
@@ -642,7 +642,7 @@
               "setFlags": {
                 "ch3_entered": true
               },
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
@@ -706,7 +706,7 @@
               "setFlags": {
                 "ch3_entered": true
               },
-              "cta": "story_pass_month",
+              "cta": "story_pass",
               "gateChoice": "subscribe",
               "requiresEntitlement": "edge_lock",
               "onLocked": "show_pass_chip"
