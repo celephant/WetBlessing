@@ -36,7 +36,7 @@ export function FunnelHud({
   const forced = funnelZoneForNode(nodeId, flags);
   const active = looked ?? forced;
   const showClock = isFunnelClockNode(nodeId);
-  const showNotice = nodeId === "n_funnel_09" || nodeId === "n_funnel_10";
+  const showNotice = nodeId === "n_funnel_09";
 
   useEffect(() => {
     const media = window.matchMedia("(orientation: portrait)");
@@ -84,20 +84,20 @@ export function FunnelHud({
 
       {pool || look ? (
         <div className="absolute inset-0" data-funnel-zones={look ? "hot" : "scan"}>
-          {zones.map(([zone, box]) => (
+          {zones
+            .filter(([zone]) => look || active === zone)
+            .map(([zone, box]) => (
             <button
               key={zone}
               type="button"
               disabled={!look}
               onClick={() => onLook(zone)}
               style={box}
-              className={`funnel-hotspot absolute rounded-chip border ${
+              className={`funnel-hotspot absolute ${
                 look ? "pointer-events-auto cursor-pointer" : "pointer-events-none"
-              } ${
-                active === zone
-                  ? "funnel-hotspot-on border-paper/80"
-                  : "border-paper/25"
-              } ${look ? "funnel-hotspot-scan" : ""}`}
+              } ${active === zone ? "funnel-hotspot-on" : ""} ${
+                look ? "funnel-hotspot-scan" : ""
+              }`}
               data-funnel-hotspot={zone}
               aria-label={FUNNEL_ZONE_LINES[zone].text}
             />

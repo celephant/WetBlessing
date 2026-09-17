@@ -23,11 +23,11 @@ describe("immersive UI as frost on the still", () => {
 
     expect(css).toContain("--night-pass-dock: 28%");
     expect(player).toContain('data-night-pass-dock="28"');
-    expect(css).toContain("--glass-blur: 24px");
+    expect(css).toContain("--glass-blur: 32px");
     expect(css).toContain("--glass-blur-chip: 20px");
-    expect(css).toContain("blur(var(--glass-blur, 24px))");
+    expect(css).toContain("blur(var(--glass-blur, 32px))");
     expect(css).toContain("rgba(18, 20, 28, 0.34)");
-    expect(css).toContain("rgba(18, 20, 28, 0.42)");
+    expect(css).toContain("rgba(18, 20, 28, 0.26)");
     expect(css).not.toContain("rgba(25, 22, 32, 0.88)");
     expect(css).not.toContain("blur(12px)");
     expect(css).toContain("background: #ff4b6b");

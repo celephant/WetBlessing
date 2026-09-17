@@ -118,7 +118,7 @@ export function handoffFunnelToCh01(funnelState: GameState): GameState {
 }
 
 export const FUNNEL_NOTICE = "另一条。学生事务。带学生证。没有照片。";
-export const FUNNEL_AUTH_HINT = "注册后保存选择，看完整拼贴。约 10 秒完成。";
+export const FUNNEL_AUTH_HINT = "先把今晚记下。那张拼贴还没看完。";
 export const FUNNEL_AUTH_OK = "选择已保存。现在，打开那张照片。";
 export const FUNNEL_AUTH_ERR = "还没填完。";
 
