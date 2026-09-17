@@ -81,7 +81,7 @@ export function TitleScreen() {
               data-title-start="resume"
               data-title-resume-pack={resume.pack}
             >
-              继续上次进度
+              {resume.label}
             </Link>
           ) : (
             <Link
@@ -91,7 +91,7 @@ export function TitleScreen() {
             >
               开始入学夜
               <span
-                className="absolute right-3 rounded-full border border-white/20 bg-stage/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
+                className="absolute right-3 rounded-full border border-white/20 bg-night/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
                 data-title-badge=""
               >
                 约 3 分钟
@@ -101,7 +101,7 @@ export function TitleScreen() {
           {resume && !funnelDone ? (
             <Link
               href="/play?content=funnel"
-              className="btn-face btn-choice choice-press relative"
+              className="btn-face btn-choice-ghost choice-press"
               data-title-start="funnel"
             >
               开始入学夜
