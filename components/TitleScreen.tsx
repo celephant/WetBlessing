@@ -8,7 +8,6 @@ import { readFunnelCompleted } from "@/lib/funnel";
 import {
   clearRunProgress,
   hasAnyRunSave,
-  isChapterPackResume,
   readTitleResume,
   type TitleResume,
 } from "@/lib/new-run";
@@ -37,8 +36,6 @@ export function TitleScreen() {
         Boolean(entitlements.story_pass_month),
     );
   }, []);
-
-  const chapterResume = resume && isChapterPackResume(resume.pack);
 
   return (
     <main
@@ -77,20 +74,12 @@ export function TitleScreen() {
         </p>
 
         <div className="mt-8 flex flex-col gap-2">
-          {chapterResume && resume ? (
+          {resume ? (
             <Link
               href={resume.href}
               className="btn-face btn-primary choice-press"
               data-title-start="resume"
               data-title-resume-pack={resume.pack}
-            >
-              继续上次进度
-            </Link>
-          ) : funnelDone ? (
-            <Link
-              href={resume?.href ?? "/play?resume=1"}
-              className="btn-face btn-primary choice-press"
-              data-title-start="resume"
             >
               继续上次进度
             </Link>
@@ -109,22 +98,13 @@ export function TitleScreen() {
               </span>
             </Link>
           )}
-          {chapterResume && !funnelDone ? (
+          {resume && !funnelDone ? (
             <Link
               href="/play?content=funnel"
               className="btn-face btn-choice choice-press relative"
               data-title-start="funnel"
             >
               开始入学夜
-            </Link>
-          ) : null}
-          {resume && !funnelDone && !chapterResume ? (
-            <Link
-              href={resume.href}
-              className="btn-face btn-choice choice-press"
-              data-title-start="resume"
-            >
-              继续上次进度
             </Link>
           ) : null}
           {canNewRun ? (

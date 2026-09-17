@@ -32,9 +32,9 @@ body {
    Portrait + paired 9:16: contain the portrait file in that same pane (no cover-crop).
    Portrait + landscape-only: pin a complete 16:9 still to the top (PR #10 fallback).
    Fade on assetId change, then hold. */
-.vn-stage {
-  container-type: inline-size;
-  container-name: vn;
+[data-ui-hidden="on"] .scene-art-pane {
+  bottom: 0;
+  height: 100%;
 }
 
 .scene-art-pane {

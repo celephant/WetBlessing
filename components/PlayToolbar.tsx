@@ -52,6 +52,11 @@ export function PlayToolbar({
         >
           {paused ? "继续" : "暂停"}
         </button>
+      </div>
+      <p className="pointer-events-none hidden px-2 pt-1 text-center font-ui text-[11px] text-paper/45 sm:block">
+        {routeTitle}
+      </p>
+      <div className="flex flex-wrap items-center justify-end gap-1.5">
         <button
           type="button"
           onClick={onToggleHistory}
@@ -61,11 +66,6 @@ export function PlayToolbar({
         >
           历史
         </button>
-      </div>
-      <p className="pointer-events-none hidden px-2 pt-1 text-center font-ui text-[11px] text-paper/45 sm:block">
-        {routeTitle}
-      </p>
-      <div className="flex flex-wrap items-center justify-end gap-1.5">
         <button
           type="button"
           onClick={onToggleAuto}

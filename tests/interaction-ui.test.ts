@@ -88,7 +88,8 @@ describe("private-interaction chrome contracts", () => {
     expect(paywall).not.toMatch(/倒计时|失去她|bg-black/);
     expect(title).toContain("继续上次进度");
     expect(title).toContain('data-title-start="resume"');
-    expect(title.indexOf("btn-primary")).toBeLessThan(title.indexOf("新开一局"));
+    expect(title).toContain('data-title-start="funnel"');
+    expect(title.indexOf("继续上次进度")).toBeLessThan(title.indexOf("新开一局"));
     expect(css).toContain("--night-pass-dock: 28%");
     expect(css).toContain("--stage: #191620");
     expect(css).toContain("--rose: #eaa2ae");
