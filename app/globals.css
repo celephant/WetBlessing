@@ -5,7 +5,10 @@
 :root {
   --void: #07080c;
   --night: #12141c;
+  --stage: #191620;
+  --rose: #eaa2ae;
   --paper: #f6f1e8;
+  --paper-warm: #f4eef5;
   --night-pass-dock: 28%;
   --scene-still-aspect: 16 / 9;
   --font-display: ui-sans-serif, system-ui, sans-serif;
@@ -29,9 +32,9 @@ body {
    Portrait + paired 9:16: contain the portrait file in that same pane (no cover-crop).
    Portrait + landscape-only: pin a complete 16:9 still to the top (PR #10 fallback).
    Fade on assetId change, then hold. */
-.vn-stage {
-  container-type: inline-size;
-  container-name: vn;
+[data-ui-hidden="on"] .scene-art-pane {
+  bottom: 0;
+  height: 100%;
 }
 
 .scene-art-pane {
@@ -70,6 +73,9 @@ body {
   top: 3.25rem;
   bottom: var(--night-pass-dock, 28%);
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 @media (orientation: portrait) {
@@ -152,7 +158,7 @@ body {
 
 .pause-freeze-frame {
   box-shadow:
-    inset 0 0 0 2px rgba(232, 197, 106, 0.28),
+    inset 0 0 0 1px rgba(244, 238, 245, 0.12),
     inset 0 0 90px 24px rgba(7, 8, 12, 0.32);
 }
 
@@ -171,6 +177,168 @@ body {
 .choice-enter {
   animation: choice-enter var(--motion-choice-ms, 160ms)
     var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+.choice-group {
+  animation: choice-enter var(--motion-choice-ms, 160ms)
+    var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+
+.dialog-dock {
+  background: linear-gradient(
+    180deg,
+    rgba(25, 22, 32, 0) 0%,
+    rgba(25, 22, 32, 0.42) 18%,
+    rgba(25, 22, 32, 0.88) 100%
+  );
+  color: var(--paper-warm, #f4eef5);
+}
+
+.btn-face {
+  position: relative;
+  display: flex;
+  min-height: 54px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 14px;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: center;
+  transition:
+    transform 80ms ease,
+    box-shadow 80ms ease,
+    background-color 80ms ease,
+    border-color 80ms ease,
+    opacity 120ms ease;
+}
+.btn-face:disabled {
+  pointer-events: none;
+}
+.btn-primary {
+  border: 1px solid rgba(244, 238, 245, 0.55);
+  background: linear-gradient(180deg, #f7f1f8 0%, #efe6f0 100%);
+  color: #191620;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 6px 14px rgba(0, 0, 0, 0.28);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  border-color: rgba(234, 162, 174, 0.7);
+  background: linear-gradient(180deg, #fbf6fb 0%, #f3eaF3 100%);
+}
+.btn-choice {
+  justify-content: flex-start;
+  text-align: left;
+  border: 1px solid rgba(244, 238, 245, 0.22);
+  background: linear-gradient(180deg, rgba(40, 36, 46, 0.94), rgba(25, 22, 32, 0.96));
+  color: var(--paper-warm, #f4eef5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 10px rgba(0, 0, 0, 0.28);
+}
+.btn-choice:hover,
+.btn-choice:focus-visible {
+  border-color: rgba(234, 162, 174, 0.55);
+  background: linear-gradient(180deg, rgba(52, 46, 58, 0.96), rgba(32, 28, 40, 0.98));
+}
+.btn-choice-ghost {
+  border: 1px solid rgba(244, 238, 245, 0.16);
+  background: rgba(25, 22, 32, 0.35);
+  color: rgba(244, 238, 245, 0.78);
+  box-shadow: none;
+}
+.btn-choice.is-selected {
+  border-color: rgba(234, 162, 174, 0.72);
+  background: linear-gradient(180deg, rgba(58, 48, 58, 0.98), rgba(36, 30, 40, 1));
+}
+.btn-choice.is-fading {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.btn-face.is-pressed,
+.btn-face:active,
+.choice-press:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.btn-face-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 28%,
+    rgba(244, 238, 245, 0.2) 48%,
+    transparent 68%
+  );
+  animation: face-sweep 520ms ease-out 1;
+}
+.btn-tool {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 238, 245, 0.16);
+  background: rgba(25, 22, 32, 0.42);
+  padding: 0 12px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: rgba(244, 238, 245, 0.78);
+}
+.btn-tool:hover,
+.btn-tool:focus-visible,
+.btn-tool.is-active,
+.btn-tool[aria-pressed="true"] {
+  border-color: rgba(234, 162, 174, 0.45);
+  color: var(--paper-warm, #f4eef5);
+}
+.btn-tool:disabled {
+  opacity: 0.4;
+}
+.btn-tool-dev {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: rgba(234, 162, 174, 0.85);
+}
+.advance-caret {
+  animation: caret-nudge 700ms ease-out 1;
+}
+.settle-actions-in {
+  animation: dialog-continue var(--motion-dialog-continue-ms, 140ms)
+    var(--motion-dialog-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+@keyframes face-sweep {
+  from {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.55;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+@keyframes caret-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translateX(3px);
+    opacity: 1;
+  }
 }
 
 .pause-overlay,
@@ -247,11 +415,8 @@ body {
   }
 }
 
-.choice-press:active {
-  transform: scale(0.98);
-}
 .choice-press:active .w-1 {
-  filter: brightness(1.35);
+  filter: none;
 }
 
 .funnel-hotspot {
@@ -303,8 +468,33 @@ body {
   .dialog-continue,
   .dialog-nameplate,
   .choice-enter,
+  .choice-group,
   .funnel-hotspot-scan,
-  .funnel-flash {
+  .funnel-flash,
+  .btn-face-sweep::after,
+  .advance-caret,
+  .settle-actions-in {
     animation: none;
   }
+  .btn-choice.is-fading {
+    transform: none;
+  }
+}
+
+[data-reduce-motion="on"] .scene-in-fade,
+[data-reduce-motion="on"] .scene-out-fade,
+[data-reduce-motion="on"] .dialog-enter,
+[data-reduce-motion="on"] .dialog-continue,
+[data-reduce-motion="on"] .dialog-nameplate,
+[data-reduce-motion="on"] .choice-enter,
+[data-reduce-motion="on"] .choice-group,
+[data-reduce-motion="on"] .funnel-hotspot-scan,
+[data-reduce-motion="on"] .funnel-flash,
+[data-reduce-motion="on"] .btn-face-sweep::after,
+[data-reduce-motion="on"] .advance-caret,
+[data-reduce-motion="on"] .settle-actions-in {
+  animation: none;
+}
+[data-reduce-motion="on"] .btn-choice.is-fading {
+  transform: none;
 }

@@ -37,7 +37,7 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
 
   return (
     <div
-      className="flex h-full w-full flex-col justify-end overflow-y-auto border-t border-white/10 bg-night/88 px-5 py-2 backdrop-blur-xl"
+      className="dialog-dock flex h-full w-full flex-col justify-end overflow-y-auto px-5 py-2"
       data-funnel-auth=""
     >
       <div className="mx-auto flex w-full max-w-dialog flex-col gap-1.5">
@@ -72,7 +72,7 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
             ) : null}
             <button
               type="submit"
-              className="choice-press flex min-h-[44px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              className="btn-face btn-primary"
               data-funnel-auth-primary=""
             >
               {mode === "login" ? "登录" : "注册并继续"}
