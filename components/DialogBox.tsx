@@ -105,7 +105,7 @@ export function DialogBox({
             <p
               className={`${
                 nameplateEnter ? "dialog-nameplate" : ""
-              } mb-1 font-display text-[13px] font-semibold tracking-wide`}
+              } mb-1 font-display text-[13px] tracking-wide`}
               style={{ color }}
             >
               {name}

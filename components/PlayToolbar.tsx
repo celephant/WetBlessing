@@ -5,6 +5,7 @@ import Link from "next/link";
 type PlayToolbarProps = {
   paused: boolean;
   autoAdvance: boolean;
+  muted: boolean;
   uiHidden: boolean;
   canHide: boolean;
   historyOpen: boolean;
@@ -15,12 +16,14 @@ type PlayToolbarProps = {
   onToggleAuto: () => void;
   onToggleHistory: () => void;
   onToggleHide: () => void;
+  onToggleMute: () => void;
   onToggleDevPass: () => void;
 };
 
 export function PlayToolbar({
   paused,
   autoAdvance,
+  muted,
   uiHidden,
   canHide,
   historyOpen,
@@ -31,16 +34,18 @@ export function PlayToolbar({
   onToggleAuto,
   onToggleHistory,
   onToggleHide,
+  onToggleMute,
   onToggleDevPass,
 }: PlayToolbarProps) {
   if (uiHidden) return null;
 
   return (
     <header
-      className="play-chrome absolute inset-x-0 top-0 z-[7] flex items-start justify-between px-3 pt-3"
+      className="play-chrome absolute inset-x-0 top-0 z-[7] flex items-start justify-between gap-2 px-2 pt-2"
       data-play-toolbar=""
+      data-route-title={routeTitle}
     >
-      <div className="flex flex-wrap items-center gap-1.5">
+      <nav className="play-chrome-row" aria-label="播放">
         <Link href={onTitleHref} className="btn-tool">
           标题
         </Link>
@@ -52,11 +57,6 @@ export function PlayToolbar({
         >
           {paused ? "继续" : "暂停"}
         </button>
-      </div>
-      <p className="pointer-events-none hidden px-2 pt-1 text-center font-ui text-[11px] text-paper/45 sm:block">
-        {routeTitle}
-      </p>
-      <div className="flex flex-wrap items-center justify-end gap-1.5">
         <button
           type="button"
           onClick={onToggleHistory}
@@ -91,12 +91,21 @@ export function PlayToolbar({
         </button>
         <button
           type="button"
-          onClick={onToggleDevPass}
-          className="btn-tool btn-tool-dev"
+          onClick={onToggleMute}
+          className="btn-tool"
+          data-mute-toggle=""
+          aria-pressed={muted}
         >
-          DEV {passOn ? "PASS ON" : "PASS OFF"}
+          静音
         </button>
-      </div>
+      </nav>
+      <button
+        type="button"
+        onClick={onToggleDevPass}
+        className="btn-tool btn-tool-dev"
+      >
+        DEV {passOn ? "PASS ON" : "PASS OFF"}
+      </button>
     </header>
   );
 }

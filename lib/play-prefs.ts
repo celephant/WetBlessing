@@ -7,6 +7,7 @@ export type PlayPrefs = {
   autoAdvance: boolean;
   skipReadOnly: boolean;
   reduceMotion: boolean;
+  muted: boolean;
 };
 
 export const DEFAULT_PLAY_PREFS: PlayPrefs = {
@@ -14,6 +15,7 @@ export const DEFAULT_PLAY_PREFS: PlayPrefs = {
   autoAdvance: false,
   skipReadOnly: false,
   reduceMotion: false,
+  muted: false,
 };
 
 export const TEXT_SPEEDS: TextSpeed[] = ["instant", "fast", "normal", "slow"];
@@ -29,6 +31,7 @@ export function parsePlayPrefs(raw: unknown): PlayPrefs {
     autoAdvance: Boolean(value.autoAdvance),
     skipReadOnly: Boolean(value.skipReadOnly),
     reduceMotion: Boolean(value.reduceMotion),
+    muted: Boolean(value.muted),
   };
 }
 

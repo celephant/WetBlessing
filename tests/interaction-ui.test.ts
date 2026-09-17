@@ -56,6 +56,7 @@ describe("interaction timings", () => {
       autoAdvance: true,
       skipReadOnly: true,
       reduceMotion: true,
+      muted: false,
     });
     expect(JSON.stringify(prefs)).not.toMatch(/skipUnread/);
   });
@@ -106,7 +107,13 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).not.toMatch(/♥|♡/);
     expect(toolbar).toContain("data-hide-ui");
     expect(toolbar).toContain("看图");
-    expect(paywall).toContain("bg-void/70");
+    expect(toolbar).toContain("静音");
+    expect(toolbar).toContain("data-mute-toggle");
+    expect(toolbar).toContain("标题");
+    expect(toolbar).toContain("历史");
+    expect(toolbar).toContain("自动");
+    expect(toolbar).toContain("data-pause-toggle");
+    expect(paywall).toContain("paywall-overlay");
     expect(paywall).toContain("进度已保存");
     expect(paywall).toContain("zh.tertiary");
     expect(paywall).toContain("一次性通行证");
@@ -126,7 +133,11 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain("--rose: #eaa2ae");
     expect(css).toContain("min-height: 52px");
     expect(css).toContain("background: #ff4b6b");
-    expect(css).toContain("rgba(18, 20, 28, 0.75)");
+    expect(css).toContain("rgba(18, 20, 28, 0.34)");
+    expect(css).toContain("blur(var(--glass-blur, 32px))");
+    expect(css).toContain("blur(var(--glass-blur-chip, 20px))");
+    expect(css).not.toContain("rgba(18, 20, 28, 0.75)");
+    expect(css).not.toContain("rgba(25, 22, 32, 0.88)");
     expect(css).toContain("translateY(1px)");
     expect(css).toContain("scale(0.98)");
     expect(css).toContain(".btn-primary:hover");

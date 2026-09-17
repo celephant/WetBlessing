@@ -37,6 +37,7 @@ import {
 import { INTERACTION, shouldSkipMotion } from "@/lib/interaction";
 import { scopeForGate } from "@/lib/paywall-copy";
 import {
+  DEFAULT_PLAY_PREFS,
   loadPlayPrefs,
   savePlayPrefs,
   type PlayPrefs,
@@ -79,12 +80,7 @@ export function VNPlayer({
   const [afterPurchase, setAfterPurchase] = useState(false);
   const [paused, setPaused] = useState(false);
   const [funnelLook, setFunnelLook] = useState<FunnelZone | null>(null);
-  const [prefs, setPrefs] = useState<PlayPrefs>({
-    textSpeed: "normal",
-    autoAdvance: false,
-    skipReadOnly: false,
-    reduceMotion: false,
-  });
+  const [prefs, setPrefs] = useState<PlayPrefs>(DEFAULT_PLAY_PREFS);
   const [readyBeat, setReadyBeat] = useState("");
   const [echo, setEcho] = useState<{ text: string } | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -350,6 +346,7 @@ export function VNPlayer({
       }
       data-paused={paused ? "on" : "off"}
       data-ui-hidden={uiHidden ? "on" : "off"}
+      data-muted={prefs.muted ? "on" : "off"}
       data-reduce-motion={prefs.reduceMotion ? "on" : "off"}
       data-full-entitle={passOn ? "on" : "off"}
       data-play-pack={packId}
@@ -390,6 +387,7 @@ export function VNPlayer({
       <PlayToolbar
         paused={paused}
         autoAdvance={prefs.autoAdvance}
+        muted={prefs.muted}
         uiHidden={uiHidden}
         canHide={canHide}
         historyOpen={historyOpen}
@@ -404,6 +402,7 @@ export function VNPlayer({
           setHistoryOpen(false);
           setUiHidden(true);
         }}
+        onToggleMute={() => patchPrefs({ muted: !prefs.muted })}
         onToggleDevPass={toggleDevPass}
       />
 

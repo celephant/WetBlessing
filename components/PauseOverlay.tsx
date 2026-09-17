@@ -33,18 +33,18 @@ export function PauseOverlay({
         data-pause-letterbox=""
       >
         <div
-          className="absolute inset-x-0 top-0 h-[11%] border-b border-white/10 bg-gradient-to-b from-void via-void/92 to-transparent"
+          className="pause-letterbox-top absolute inset-x-0 top-0 h-[11%]"
           data-pause-letterbox-bar="top"
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-[22%] border-t border-white/10 bg-gradient-to-t from-void via-void/94 to-transparent"
+          className="pause-letterbox-bottom absolute inset-x-0 bottom-0 h-[22%]"
           data-pause-letterbox-bar="bottom"
         />
       </div>
 
       <div className="absolute inset-x-0 bottom-[7%] z-[1] flex justify-center px-4">
         <div
-          className="w-full max-w-xs rounded-dialog border border-white/12 bg-stage/92 px-5 py-4 text-center"
+          className="pause-card w-full max-w-xs rounded-dialog border border-white/12 px-5 py-4 text-center"
           data-pause-card=""
         >
           <p className="font-display text-[11px] uppercase tracking-[0.28em] text-paper/50">

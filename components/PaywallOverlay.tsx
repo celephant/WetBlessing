@@ -34,14 +34,14 @@ export function PaywallOverlay({
 
   return (
     <div
-      className="paywall-overlay absolute inset-0 z-[5] flex items-end justify-center bg-void/70 p-4"
+      className="paywall-overlay absolute inset-0 z-[5] flex items-end justify-center p-4"
       data-paywall-grade="night"
       data-phone-glow="off"
       data-paywall-code={pack.errorCode}
       data-paywall-scope={scope}
       data-paywall-owned={ownedPrimary ? "on" : "off"}
     >
-      <div className="mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 bg-night/95 p-5 shadow-[0_0_40px_rgba(232,197,106,0.2)]">
+      <div className="paywall-card mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 p-5">
         <p className="font-display text-[11px] uppercase tracking-[0.22em] text-gold">
           一次性通行证
         </p>
