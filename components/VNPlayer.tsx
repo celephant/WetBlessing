@@ -428,7 +428,7 @@ export function VNPlayer({
         <>
           {showChoices ? (
             <div
-              className="choice-overlay z-[5] flex items-end justify-center px-3"
+              className="choice-overlay z-[5] flex items-end justify-center overflow-hidden px-3"
               data-choice-overlay=""
             >
               <ChoiceList

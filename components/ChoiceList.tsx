@@ -50,7 +50,7 @@ export function ChoiceList({
 
   return (
     <div
-      className="choice-group relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
+      className="choice-group relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-1.5 overflow-y-auto px-3 pb-2 sm:gap-2"
       data-choice-stagger={MOTION_SPEC.choiceStaggerMs}
       data-wall-chips="ready"
       data-choice-armed={armed ? "on" : "off"}
@@ -85,7 +85,7 @@ export function ChoiceList({
             }`}
           >
             <span className={`choice-bar ${funnelChip.barClass ?? ""}`} />
-            <span className="relative z-[1] flex min-w-0 flex-1 flex-col items-start justify-center gap-0.5 px-4 py-3 text-left">
+            <span className="relative z-[1] flex min-w-0 flex-1 flex-col items-start justify-center gap-0.5 px-4 py-2 text-left sm:py-3">
               <span className="choice-bark font-ui text-[15px] leading-snug text-paper" data-choice-bark="">
                 {face.bark}
               </span>
