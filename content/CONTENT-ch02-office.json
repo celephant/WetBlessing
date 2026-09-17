@@ -575,7 +575,7 @@
           "speaker": "narrator",
           "text": "托盘还没放下。邻桌的勺子停了一拍。",
           "assetId": "assets/scenes/ch02/S13.webp",
-          "artCue": "S13 食堂：无人跟走；仍用 Mia 脸；拼贴是下午，不写失约"
+          "artCue": "S13 食堂：无人跟走；仍用 Mia 脸；拼贴是下午，不写失约",
           "artStatus": "ready",
           "characters": [
             "kai",
