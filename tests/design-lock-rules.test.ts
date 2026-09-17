@@ -23,6 +23,21 @@ describe("design-lock: went_with ≠ Catch ≠ OT", () => {
     expect(route.nodes.get("n_open")?.advance).toBe("n_see_both");
   });
 
+  it("states the collage as afternoon, not a night photograph", () => {
+    const sms = [
+      route.nodes.get("n_sms_auto")?.text ?? "",
+      ...(route.nodes.get("n_sms_auto")?.lines?.map((line) => line.text) ?? []),
+    ].join("\n");
+    expect(sms).toMatch(/今天下午/);
+    expect(sms).not.toMatch(/夜里拍|今晚拍的/);
+    const opened = [
+      route.nodes.get("n_sms_open")?.text ?? "",
+      ...(route.nodes.get("n_sms_open")?.lines?.map((line) => line.text) ?? []),
+    ].join("\n");
+    expect(opened).toMatch(/有人按了快门/);
+    expect(opened).not.toMatch(/Jade 发了|Troy 发/);
+  });
+
   it("lets the same run follow Mia then switch Catch to Jade; OT follows Catch", () => {
     const wall = playChoices([
       "c_help_mia",
@@ -166,6 +181,22 @@ describe("design-lock: Ch02 history and Ch04 empty endings", () => {
     expect(compiled.nodes.get("n_s14_ask_none")?.choices?.[0]?.text).toMatch(/谁也没跟/);
     expect(compiled.nodes.get("n_s14_office")?.text).toMatch(/电梯口两张脸/);
     expect(compiled.nodes.get("n_s14_office")?.text).not.toMatch(/派对里另一个人/);
+    expect(compiled.nodes.get("n_s13_jade")?.lines?.map((l) => l.text).join("\n")).toMatch(
+      /右边那张脸/,
+    );
+    expect(compiled.nodes.get("n_s13_none")?.lines?.map((l) => l.text).join("\n")).toMatch(
+      /群是下午/,
+    );
+    expect(compiled.nodes.get("n_s13_other")?.lines?.map((l) => l.text).join("\n")).toMatch(
+      /昨晚——不是这张下午的图/,
+    );
+    const cafeHay = ["n_s13_mia", "n_s13_jade", "n_s13_other", "n_s13_none", "n_s13_both"]
+      .map((id) => {
+        const node = compiled.nodes.get(id);
+        return [node?.text ?? "", ...(node?.lines?.map((l) => l.text) ?? [])].join("\n");
+      })
+      .join("\n");
+    expect(cafeHay).not.toMatch(/门口那一下|你鸽了|放鸽子/);
   });
 
   it("splits 中性独行 from 背约 on the same empty still", () => {
@@ -174,6 +205,10 @@ describe("design-lock: Ch02 history and Ch04 empty endings", () => {
       compiled.nodes.get("n_s24_crash")?.assetId,
     );
     expect(compiled.nodes.get("n_s24_solo")?.setFlags).toMatchObject({ ending: "end_solo" });
+    expect(compiled.nodes.get("n_s24_solo")?.text).toMatch(/那两张下午的图/);
+    expect(compiled.nodes.get("n_s24_solo")?.lines?.[0]?.text).toMatch(/他没有答应谁/);
+    expect(compiled.nodes.get("n_s24_crash")?.lines?.[0]?.text).toMatch(/该兑现的没有兑现/);
+    expect(compiled.nodes.get("n_s24_crash")?.lines?.[0]?.text).not.toMatch(/这一轮他赢|Troy 赢了/);
     expect(compiled.nodes.get("n_s23_empty")?.text).toMatch(/旁边没有她/);
     expect(
       [compiled.nodes.get("n_s23_empty")?.text, ...(compiled.nodes.get("n_s23_empty")?.lines?.map((l) => l.text) ?? [])].join(

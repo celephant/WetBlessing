@@ -306,7 +306,7 @@
           "speaker": "narrator",
           "text": "托盘还没放下。邻桌的勺子停了一拍。",
           "assetId": "assets/scenes/ch02/S13.webp",
-          "artCue": "S13 隔着托盘的双人中景：当众叫出鸽子的嘴→托盘→邻桌耳朵；公开羞红，衣服穿好",
+          "artCue": "S13 食堂：昨晚是其他人；仍用 Mia 脸；拼贴是下午，不写门口失约",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -327,7 +327,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「邻桌听得见。门口那一下——现在说。」",
+              "text": "「邻桌听得见。昨晚——不是这张下午的图。谁。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -367,36 +367,43 @@
           "nodeId": "n_s13_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "托盘对面是 Mia，没开口。Jade 从你身后坐下。",
+          "text": "托盘还没放下。邻桌的勺子停了一拍。Jade 从你身后坐下。",
           "assetId": "assets/scenes/ch02/S13.webp",
-          "artCue": "S13 食堂公开点名 · Jade；托盘沿近，邻桌侧耳",
+          "artCue": "S13 食堂：跟走过 Mia；仍用 Mia 脸；Jade 只在身后；拼贴是下午，不写失约",
           "artStatus": "ready",
           "characters": [
             "kai",
+            "mia",
             "jade"
           ],
           "camera": "hold",
           "transition": "fade",
           "fx": "afterimage",
           "setFlags": {
-            "cafe_creditor": "jade"
+            "cafe_creditor": "mia"
           },
           "lines": [
             {
               "speaker": "narrator",
-              "text": "邻桌有人把杯子放下。",
+              "text": "她俯身，呼吸扫过盘沿。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「别看托盘。看我。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。右边那张脸。谁。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "（身后）「合影很好看。——空着的那一格呢？」",
-              "camera": "hold",
-              "transition": "fade"
-            },
-            {
-              "speaker": "jade",
-              "text": "（身后）「邻桌听得见。你自己记得。」",
+              "text": "（身后）「下午那张。我在右边。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -408,14 +415,14 @@
               "next": "n_s13_after",
               "delta": {
                 "stats": {
-                  "jade": {
+                  "mia": {
                     "affection": 2
                   }
                 }
               },
               "setFlags": {
                 "s13_reply": "ok",
-                "cafe_creditor": "jade"
+                "cafe_creditor": "mia"
               }
             },
             {
@@ -427,7 +434,7 @@
               },
               "setFlags": {
                 "s13_reply": "dodge",
-                "cafe_creditor": "jade"
+                "cafe_creditor": "mia"
               }
             }
           ]
@@ -454,13 +461,13 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「邻桌听得见。门口那一下——现在说。」",
+              "text": "「邻桌听得见。右边那张脸。谁。」",
               "camera": "hold",
               "transition": "fade"
             },
             {
               "speaker": "jade",
-              "text": "（身后）「合影位也是。人会消失，页上的笑不会。」",
+              "text": "（身后）「下午那张。我在右边。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -526,7 +533,7 @@
             },
             {
               "speaker": "mia",
-              "text": "「邻桌听得见。晚上那个人——不是这张下午的图。」",
+              "text": "「邻桌听得见。昨晚——不是这张下午的图。谁。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -566,12 +573,13 @@
           "nodeId": "n_s13_none",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "一张空位子。邻桌还在传下午那张电梯口。没人坐过来点你的名。",
+          "text": "托盘还没放下。邻桌的勺子停了一拍。",
           "assetId": "assets/scenes/ch02/S13.webp",
-          "artCue": "S13 食堂：无人跟走、无 Catch；不写门口失约",
+          "artCue": "S13 食堂：无人跟走；仍用 Mia 脸；拼贴是下午，不写失约"
           "artStatus": "ready",
           "characters": [
-            "kai"
+            "kai",
+            "mia"
           ],
           "camera": "hold",
           "transition": "fade",
@@ -582,7 +590,19 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "拼贴证明不了夜里。托盘还烫。那封公事还在口袋里。",
+              "text": "她俯身，呼吸扫过盘沿。拼贴证明不了夜里。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「别看托盘。看我。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。群是下午。你夜里站在甲板中间。」",
               "camera": "hold",
               "transition": "fade"
             }
@@ -590,7 +610,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「看见了。」",
+              "text": "接招：「在看。」",
               "next": "n_s13_after",
               "delta": {},
               "setFlags": {

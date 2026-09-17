@@ -399,12 +399,12 @@
           ],
           "artCue": "hidden router",
           "advanceByFlag": {
-            "w4_sms_first==vanessa": "n_s23_vanessa",
-            "ch3_bind==none && vanessa_crack==true": "n_s23_vanessa",
-            "edge_sleepover_mia==true": "n_s23_mia",
             "edge_sleepover_rae==true": "n_s23_rae",
             "edge_sleepover_lina==true": "n_s23_lina",
             "edge_sleepover_jade==true": "n_s23_jade",
+            "edge_sleepover_mia==true": "n_s23_mia",
+            "w4_sms_first==vanessa": "n_s23_vanessa",
+            "vanessa_crack==true": "n_s23_vanessa",
             "ch3_bind==none": "n_s23_empty",
             "default": "n_s23_empty"
           },
@@ -980,7 +980,7 @@
           "nodeId": "n_s24_solo",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "楼道空着。群还在转下午那两张脸。",
+          "text": "楼道空着。群还在转那两张下午的图。",
           "assetId": "assets/scenes/ch04/S24-crash.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -993,7 +993,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "这边没有要守的约。第一部仍完。同一条报到路，可以换一边重量。",
+              "text": "他没有答应谁。第一部仍完。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1007,7 +1007,7 @@
           "nodeId": "n_s24_crash",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "楼道空着。群还在转下午那两张脸。",
+          "text": "楼道空着。群还在转那两张下午的图。",
           "assetId": "assets/scenes/ch04/S24-crash.webp",
           "artStatus": "ready",
           "camera": "hold",
@@ -1016,11 +1016,11 @@
           "characters": [
             "kai"
           ],
-          "artCue": "S24 背约：空廊同一张图；有明确答应后逃避",
+          "artCue": "S24 背约：空廊同一张图；仅明确答应后逃避",
           "lines": [
             {
               "speaker": "narrator",
-              "text": "这一轮 Troy 赢了。你没接那通该接的。第一部仍完。……手机亮着。",
+              "text": "该兑现的没有兑现。第一部仍完。",
               "camera": "hold",
               "transition": "fade"
             }

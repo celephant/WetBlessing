@@ -184,7 +184,11 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(resolveNext(s23, { ch3_bind: "none" })).toBe("n_s23_empty");
     expect(resolveNext(s23, { ch3_bind: "mia" })).toBe("n_s23_empty");
     expect(resolveNext(s23, { edge_sleepover_mia: true })).toBe("n_s23_mia");
+    expect(resolveNext(s23, { edge_sleepover_mia: true, w4_sms_first: "vanessa" })).toBe(
+      "n_s23_mia",
+    );
     expect(resolveNext(s23, { ch3_bind: "none", vanessa_crack: true })).toBe("n_s23_vanessa");
+    expect(resolveNext(s23, { ch3_bind: "mia", vanessa_crack: true })).toBe("n_s23_vanessa");
 
     for (const who of ["jade", "lina", "rae"] as const) {
       expect(compiled.nodes.get(`n_s23_${who}`)?.assetId).toBe(
@@ -326,7 +330,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/笨蛋/);
     expect(spoken).toMatch(/这下他们看清楚了/);
     expect(spoken).toMatch(/我没倒向你。——还没/);
-    expect(spoken).toMatch(/这一轮 Troy 赢了/);
+    expect(spoken).toMatch(/他没有答应谁/);
+    expect(spoken).toMatch(/该兑现的没有兑现/);
+    expect(spoken).not.toMatch(/这一轮 Troy 赢了/);
     expect(spoken).toMatch(/雨巷那晚。Vanessa。我看见你了/);
     expect(spoken).toMatch(/那天夜里。池面一条灯/);
     expect(spoken).toMatch(/几天后，她又把你叫回教員室/);

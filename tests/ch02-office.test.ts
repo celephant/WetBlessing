@@ -87,6 +87,10 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     const spoken = spokenHay(file);
     expect(spoken).not.toMatch(/办公时间。带学生证。周一见/);
     expect(spoken).not.toMatch(/你鸽了我/);
+    expect(spoken).not.toMatch(/门口那一下/);
+    expect(spoken).toMatch(/右边那张脸/);
+    expect(spoken).toMatch(/群是下午。你夜里站在甲板中间/);
+    expect(spoken).toMatch(/昨晚——不是这张下午的图/);
     expect(spoken).not.toMatch(/二十九/);
     expect(spoken).toMatch(/衬衫敞着，丝还在/);
     expect(spoken).toMatch(/办公室的灯没关。拼贴还在她桌上/);
@@ -203,14 +207,23 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
   });
 
-  it("stages Jade's cafeteria lines from behind the Mia still", () => {
+  it("covers Mia / other / none cafeteria questions without treating unused as 失约", () => {
     const jade = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_jade")!;
-    expect(jade.text).toMatch(/托盘对面是 Mia，没开口。Jade 从你身后坐下/);
-    expect(jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）"))).toBe(
+    expect(jade.text).toMatch(/Jade 从你身后坐下/);
+    expect(jade.lines?.some((line) => line.speaker === "mia" && /右边那张脸/.test(line.text))).toBe(
       true,
     );
+    expect(
+      jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）")),
+    ).toBe(true);
     const both = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_both")!;
     expect(both.lines?.[0]?.speaker).toBe("mia");
+    expect(both.lines?.[0]?.text).toMatch(/右边那张脸/);
+    const other = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_other")!;
+    expect(other.lines?.map((line) => line.text).join("\n")).toMatch(/昨晚——不是这张下午的图/);
+    const none = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_none")!;
+    expect(none.characters).toContain("mia");
+    expect(none.lines?.map((line) => line.text).join("\n")).toMatch(/群是下午/);
   });
 
   it("ships ch02 plates and does not remap them onto Ch01", () => {
