@@ -268,13 +268,6 @@ body {
   border-color: rgba(255, 255, 255, 0.18);
   color: rgba(246, 241, 232, 0.85);
 }
-.btn-choice-pass {
-  box-shadow: 0 0 24px rgba(232, 197, 106, 0.18);
-}
-.btn-choice-pass:hover,
-.btn-choice-pass:focus-visible {
-  box-shadow: 0 0 28px rgba(232, 197, 106, 0.28);
-}
 .btn-choice.is-selected {
   border-color: rgba(232, 197, 106, 0.55);
   background: rgba(18, 20, 28, 0.92);
@@ -289,9 +282,14 @@ body {
   flex-shrink: 0;
   align-self: stretch;
   background: transparent;
+  box-shadow: none;
 }
-.choice-bar.is-pass {
+.btn-choice:hover .choice-bar,
+.btn-choice:focus-visible .choice-bar,
+.btn-choice.is-pressed .choice-bar,
+.choice-press:active .choice-bar {
   background: #e8c56a;
+  box-shadow: 0 0 12px rgba(232, 197, 106, 0.55);
 }
 .paywall-overlay .btn-face:hover:not(:disabled),
 .paywall-overlay .btn-face:focus-visible:not(:disabled) {

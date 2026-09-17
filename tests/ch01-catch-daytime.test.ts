@@ -98,10 +98,10 @@ describe("E-C1-07 daytime 接招/圆场/躲开", () => {
     });
     const miaWall = route.nodes.get("n_ch01_catch_mia")!;
     expect(miaWall.choices?.map((c) => c.text)).toEqual([
-      "进去。",
-      "楼梯。",
-      "水边。",
-      "对门。",
+      "进去。（床。腿上还亮着那张图）跨进去，她才肯抬头。",
+      "楼梯。（干砖。闪光关了）她的手还停在拉的中途。",
+      "水边。（夜池。毛巾挂肩）她还站在水边看你。",
+      "对门。（蒸汽。水手领还湿）她回了头，门缝还开着。",
       "离开。",
     ]);
     expect(miaWall.choices?.some((c) => /♥|♡/.test(c.text))).toBe(false);

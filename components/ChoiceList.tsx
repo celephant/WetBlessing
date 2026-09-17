@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { playerFacingChoiceText } from "@/lib/choice-label";
-import { choiceVariant, showsPassChip } from "@/lib/choice-variant";
+import { choiceVariant } from "@/lib/choice-variant";
 import { funnelChipStyle } from "@/lib/funnel";
 import { INTERACTION } from "@/lib/interaction";
 import { MOTION_SPEC } from "@/lib/scene-presentation";
-import { PASS_PRICE } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
 
 type ChoiceListProps = {
@@ -56,14 +55,13 @@ export function ChoiceList({
       data-wall-chips="ready"
       data-choice-armed={armed ? "on" : "off"}
       data-choice-weight="equal"
+      data-chip-price="off"
     >
       {choices.map((choice) => {
         const owned = choiceEntitled ? choiceEntitled(choice) : entitled;
-        const passChip = showsPassChip(choice);
+        const gated = Boolean(choice.requiresEntitlement);
         const funnelChip = funnelChipStyle(choice.choiceId);
         const variant = funnelChip.variant ?? choiceVariant(choice);
-        const locked =
-          passChip && Boolean(choice.requiresEntitlement) && !owned;
         const selected = selectedId === choice.choiceId;
         const fading = confirming && selectedId !== null && !selected;
         const label = playerFacingChoiceText(choice.text);
@@ -75,31 +73,20 @@ export function ChoiceList({
             onClick={() => onSelect(choice.choiceId)}
             data-choice-id={choice.choiceId}
             data-choice-selected={selected ? "on" : "off"}
+            data-gated={gated ? (owned ? "owned" : "on") : "off"}
             className={`btn-face btn-choice choice-press ${
               !swept && !reduceMotion ? "btn-face-sweep" : ""
             } ${variant === "ghost" ? "btn-choice-ghost" : ""} ${
-              passChip ? "btn-choice-pass" : ""
-            } ${selected ? "is-selected" : ""} ${fading ? "is-fading" : ""} ${
+              selected ? "is-selected" : ""
+            } ${fading ? "is-fading" : ""} ${
               confirming && selected ? "is-pressed" : ""
             }`}
           >
-            <span
-              className={`choice-bar ${funnelChip.barClass ?? ""} ${
-                passChip && !funnelChip.barClass ? "is-pass" : ""
-              }`}
-            />
-            <span className="relative z-[1] flex flex-1 items-center justify-between gap-3 px-4 py-3">
+            <span className={`choice-bar ${funnelChip.barClass ?? ""}`} />
+            <span className="relative z-[1] flex flex-1 items-center px-4 py-3">
               <span className="font-ui text-[15px] leading-snug text-paper">
                 {label}
               </span>
-              {passChip ? (
-                <span
-                  data-gold-sweep="off"
-                  className="shrink-0 rounded-full bg-gradient-to-r from-[#E8C56A] via-[#F6F1E8] to-[#E8C56A] bg-[length:200%_100%] px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wide text-ink"
-                >
-                  {locked ? "锁 · " : ""}通行证 ${PASS_PRICE}
-                </span>
-              ) : null}
             </span>
           </button>
         );

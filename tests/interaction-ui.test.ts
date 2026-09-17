@@ -76,11 +76,14 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain("data-choice-armed");
     expect(choices).toContain('data-choice-weight="equal"');
     expect(choices).toContain("playerFacingChoiceText");
-    expect(choices).toContain("from-[#E8C56A]");
-    expect(choices).toContain("通行证 ${PASS_PRICE}");
+    expect(choices).toContain('data-chip-price="off"');
+    expect(choices).not.toContain("PASS_PRICE");
+    expect(choices).not.toContain("通行证");
+    expect(choices).not.toContain("from-[#E8C56A]");
     expect(choices).not.toContain("variantBarClass");
     expect(choices).not.toContain("bg-hot");
     expect(choices).not.toContain("animate-gold-sweep");
+    expect(choices).not.toContain("btn-choice-pass");
     expect(choices).not.toMatch(/♥|♡/);
     expect(toolbar).toContain("data-hide-ui");
     expect(toolbar).toContain("看图");
@@ -110,7 +113,9 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain(".btn-primary:hover");
     expect(css).toContain(".btn-choice:hover");
     expect(css).toContain(".btn-choice-ghost:hover");
-    expect(css).toContain(".btn-choice-pass:hover");
+    expect(css).toContain(".btn-choice:hover .choice-bar");
+    expect(css).not.toContain(".btn-choice-pass");
+    expect(css).not.toContain(".choice-bar.is-pass");
     expect(css).toContain("brightness(1.08)");
     expect(css).toContain("brightness(0.96)");
     expect(css).toContain(".paywall-overlay .btn-face:hover");
