@@ -16,7 +16,7 @@ export function HistoryDrawer({
 
   return (
     <div
-      className="absolute inset-0 z-[8] flex items-end justify-center bg-void/40 p-4"
+      className="history-veil absolute inset-0 z-[8] flex items-end justify-center p-4"
       data-history-drawer=""
     >
       <button
@@ -25,7 +25,7 @@ export function HistoryDrawer({
         aria-label="关闭历史"
         onClick={onClose}
       />
-      <div className="relative mb-[30%] max-h-[46%] w-full max-w-dialog overflow-y-auto rounded-dialog border border-white/10 bg-stage/95 p-4">
+      <div className="history-panel relative mb-[30%] max-h-[46%] w-full max-w-dialog overflow-y-auto rounded-dialog border border-white/10 p-4">
         <p className="font-display text-[11px] uppercase tracking-[0.22em] text-paper/50">
           刚才说过的
         </p>

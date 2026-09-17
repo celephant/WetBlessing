@@ -10,6 +10,12 @@
   --paper: #f6f1e8;
   --paper-warm: #f4eef5;
   --night-pass-dock: 28%;
+  --glass-blur: 24px;
+  --glass-blur-chip: 20px;
+  --glass-saturate: 1.35;
+  --glass-fill: rgba(18, 20, 28, 0.34);
+  --glass-fill-dock: rgba(18, 20, 28, 0.42);
+  --glass-stroke: rgba(255, 255, 255, 0.14);
   --scene-still-aspect: 16 / 9;
   --font-display: ui-sans-serif, system-ui, sans-serif;
   --font-ui: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
@@ -78,7 +84,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 3.25rem;
+  top: 2.4rem;
   bottom: var(--night-pass-dock, 28%);
   pointer-events: none;
   display: flex;
@@ -147,8 +153,36 @@ body {
 
 .pause-freeze-frame {
   box-shadow:
-    inset 0 0 0 1px rgba(244, 238, 245, 0.12),
-    inset 0 0 90px 24px rgba(7, 8, 12, 0.32);
+    inset 0 0 0 1px rgba(244, 238, 245, 0.08),
+    inset 0 0 70px 18px rgba(7, 8, 12, 0.18);
+}
+.pause-letterbox-top,
+.pause-letterbox-bottom {
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+.pause-letterbox-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(7, 8, 12, 0.42) 0%,
+    rgba(7, 8, 12, 0.12) 70%,
+    transparent 100%
+  );
+}
+.pause-letterbox-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    0deg,
+    rgba(7, 8, 12, 0.46) 0%,
+    rgba(7, 8, 12, 0.14) 70%,
+    transparent 100%
+  );
+}
+.history-veil {
+  background: rgba(7, 8, 12, 0.22);
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
 }
 
 .dialog-enter {
@@ -162,6 +196,9 @@ body {
 .dialog-nameplate {
   animation: dialog-nameplate var(--motion-nameplate-ms, 120ms) ease-out
     var(--motion-nameplate-delay-ms, 60ms) both;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 12px rgba(7, 8, 12, 0.7);
 }
 .choice-enter {
   animation: choice-enter var(--motion-choice-ms, 160ms)
@@ -175,11 +212,18 @@ body {
 .dialog-dock {
   background: linear-gradient(
     180deg,
-    rgba(25, 22, 32, 0) 0%,
-    rgba(25, 22, 32, 0.42) 18%,
-    rgba(25, 22, 32, 0.88) 100%
+    rgba(18, 20, 28, 0) 0%,
+    rgba(18, 20, 28, 0.18) 28%,
+    var(--glass-fill-dock, rgba(18, 20, 28, 0.42)) 100%
   );
+  backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-saturate, 1.35));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px))
+    saturate(var(--glass-saturate, 1.35));
   color: var(--paper-warm, #f4eef5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.dialog-dock p {
+  text-shadow: 0 1px 10px rgba(7, 8, 12, 0.58);
 }
 
 .btn-face {
@@ -233,13 +277,16 @@ body {
   min-height: 48px;
   height: 48px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--glass-stroke, rgba(255, 255, 255, 0.14));
   border-radius: 12px;
-  background: rgba(18, 20, 28, 0.75);
+  background: var(--glass-fill, rgba(18, 20, 28, 0.34));
   color: var(--paper, #f6f1e8);
   font-weight: 400;
-  backdrop-filter: blur(12px);
-  box-shadow: none;
+  backdrop-filter: blur(var(--glass-blur-chip, 20px))
+    saturate(var(--glass-saturate, 1.35));
+  -webkit-backdrop-filter: blur(var(--glass-blur-chip, 20px))
+    saturate(var(--glass-saturate, 1.35));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
@@ -248,7 +295,7 @@ body {
 }
 .btn-choice:hover,
 .btn-choice:focus-visible {
-  background: rgba(26, 28, 36, 0.88);
+  background: rgba(18, 20, 28, 0.48);
   border-color: rgba(255, 255, 255, 0.28);
   filter: brightness(1.05);
 }
@@ -270,13 +317,13 @@ body {
 }
 .btn-choice.btn-choice-ghost:hover,
 .btn-choice.btn-choice-ghost:focus-visible {
-  background: rgba(18, 20, 28, 0.82);
+  background: rgba(18, 20, 28, 0.42);
   border-color: rgba(255, 255, 255, 0.18);
   color: rgba(246, 241, 232, 0.85);
 }
 .btn-choice.is-selected {
   border-color: rgba(232, 197, 106, 0.55);
-  background: rgba(18, 20, 28, 0.92);
+  background: rgba(18, 20, 28, 0.5);
   box-shadow: 0 0 16px rgba(232, 197, 106, 0.14);
 }
 .btn-choice.is-fading {
@@ -415,18 +462,35 @@ body {
   );
   animation: face-sweep 520ms ease-out 1;
 }
+.play-chrome {
+  pointer-events: none;
+}
+.play-chrome a,
+.play-chrome button {
+  pointer-events: auto;
+}
+.play-chrome-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
 .btn-tool {
   display: inline-flex;
-  min-height: 36px;
+  min-height: 26px;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: 1px solid rgba(244, 238, 245, 0.16);
-  background: rgba(25, 22, 32, 0.42);
-  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 20, 28, 0.32);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  padding: 0 8px;
   font-family: var(--font-ui);
-  font-size: 12px;
-  color: rgba(244, 238, 245, 0.78);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(244, 238, 245, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .btn-tool:hover,
 .btn-tool:focus-visible,
@@ -441,8 +505,25 @@ body {
 .btn-tool-dev {
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-size: 10px;
-  color: rgba(234, 162, 174, 0.85);
+  font-size: 9px;
+  color: rgba(234, 162, 174, 0.72);
+  background: rgba(18, 20, 28, 0.22);
+}
+.paywall-overlay {
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+}
+.paywall-card,
+.history-panel,
+.pause-card {
+  background: rgba(18, 20, 28, 0.46);
+  backdrop-filter: blur(22px) saturate(1.3);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+[data-muted="on"] [data-funnel-sfx],
+[data-muted="on"] .funnel-flash {
+  display: none;
 }
 .advance-caret {
   animation: caret-nudge 700ms ease-out 1;
