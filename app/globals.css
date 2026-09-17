@@ -297,6 +297,11 @@ body {
 .paywall-overlay .btn-face:focus-visible:not(:disabled) {
   filter: brightness(1.08);
 }
+.paywall-overlay .btn-face.is-pressed,
+.paywall-overlay .btn-face:hover:not(:disabled).is-pressed,
+.paywall-overlay .btn-face:active:not(:disabled) {
+  filter: brightness(0.96);
+}
 .btn-face.is-pressed,
 .btn-face:active,
 .choice-press:active {
