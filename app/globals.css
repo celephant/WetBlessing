@@ -196,7 +196,7 @@ body {
 .btn-face {
   position: relative;
   display: flex;
-  min-height: 54px;
+  min-height: 52px;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -204,6 +204,7 @@ body {
   border-radius: 14px;
   font-family: var(--font-ui);
   font-size: 15px;
+  font-weight: 500;
   line-height: 1.35;
   text-align: center;
   transition:
@@ -211,60 +212,81 @@ body {
     box-shadow 80ms ease,
     background-color 80ms ease,
     border-color 80ms ease,
-    opacity 120ms ease;
+    opacity 120ms ease,
+    filter 80ms ease;
 }
 .btn-face:disabled {
   pointer-events: none;
 }
 .btn-primary {
-  border: 1px solid rgba(244, 238, 245, 0.55);
-  background: linear-gradient(180deg, #f7f1f8 0%, #efe6f0 100%);
-  color: #191620;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 6px 14px rgba(0, 0, 0, 0.28);
+  border: 1px solid transparent;
+  background: #ff4b6b;
+  color: var(--paper, #f6f1e8);
+  box-shadow: 0 6px 14px rgba(255, 75, 107, 0.28);
 }
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  border-color: rgba(234, 162, 174, 0.7);
-  background: linear-gradient(180deg, #fbf6fb 0%, #f3eaF3 100%);
+  background: #ff5d7a;
+  filter: brightness(1.04);
 }
 .btn-choice {
+  align-items: stretch;
   justify-content: flex-start;
   text-align: left;
-  border: 1px solid rgba(244, 238, 245, 0.22);
-  background: linear-gradient(180deg, rgba(40, 36, 46, 0.94), rgba(25, 22, 32, 0.96));
-  color: var(--paper-warm, #f4eef5);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 4px 10px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(18, 20, 28, 0.75);
+  color: var(--paper, #f6f1e8);
+  font-weight: 400;
+  backdrop-filter: blur(12px);
+  box-shadow: none;
 }
 .btn-choice:hover,
 .btn-choice:focus-visible {
-  border-color: rgba(234, 162, 174, 0.55);
-  background: linear-gradient(180deg, rgba(52, 46, 58, 0.96), rgba(32, 28, 40, 0.98));
+  background: rgba(18, 20, 28, 0.85);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 .btn-choice-ghost {
-  border: 1px solid rgba(244, 238, 245, 0.16);
-  background: rgba(25, 22, 32, 0.35);
-  color: rgba(244, 238, 245, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(246, 241, 232, 0.8);
+  font-weight: 400;
   box-shadow: none;
 }
+.btn-choice.btn-choice-ghost {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(246, 241, 232, 0.7);
+}
+.btn-choice-pass {
+  box-shadow: 0 0 24px rgba(232, 197, 106, 0.18);
+}
 .btn-choice.is-selected {
-  border-color: rgba(234, 162, 174, 0.72);
-  background: linear-gradient(180deg, rgba(58, 48, 58, 0.98), rgba(36, 30, 40, 1));
+  border-color: rgba(232, 197, 106, 0.55);
+  background: rgba(18, 20, 28, 0.92);
+  box-shadow: 0 0 16px rgba(232, 197, 106, 0.14);
 }
 .btn-choice.is-fading {
   opacity: 0;
   transform: translateY(6px);
 }
+.choice-bar {
+  width: 0.25rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  background: transparent;
+}
+.choice-bar.is-pass {
+  background: #e8c56a;
+}
 .btn-face.is-pressed,
 .btn-face:active,
 .choice-press:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.98);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.choice-press:active .choice-bar {
+  filter: brightness(1.35);
 }
 .btn-face-sweep::after {
   content: "";
@@ -274,7 +296,7 @@ body {
   background: linear-gradient(
     100deg,
     transparent 28%,
-    rgba(244, 238, 245, 0.2) 48%,
+    rgba(246, 241, 232, 0.18) 48%,
     transparent 68%
   );
   animation: face-sweep 520ms ease-out 1;
@@ -416,7 +438,7 @@ body {
 }
 
 .choice-press:active .w-1 {
-  filter: none;
+  filter: brightness(1.35);
 }
 
 .funnel-hotspot {

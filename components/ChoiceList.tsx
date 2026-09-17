@@ -78,21 +78,26 @@ export function ChoiceList({
             className={`btn-face btn-choice choice-press ${
               !swept && !reduceMotion ? "btn-face-sweep" : ""
             } ${variant === "ghost" ? "btn-choice-ghost" : ""} ${
-              selected ? "is-selected" : ""
-            } ${fading ? "is-fading" : ""} ${
+              passChip ? "btn-choice-pass" : ""
+            } ${selected ? "is-selected" : ""} ${fading ? "is-fading" : ""} ${
               confirming && selected ? "is-pressed" : ""
             }`}
           >
+            <span
+              className={`choice-bar ${funnelChip.barClass ?? ""} ${
+                passChip && !funnelChip.barClass ? "is-pass" : ""
+              }`}
+            />
             <span className="relative z-[1] flex flex-1 items-center justify-between gap-3 px-4 py-3">
               <span className="font-ui text-[15px] leading-snug text-paper">
                 {label}
               </span>
-              {passChip && locked ? (
+              {passChip ? (
                 <span
                   data-gold-sweep="off"
-                  className="shrink-0 rounded-full border border-white/15 px-2.5 py-1 font-display text-[11px] uppercase tracking-wide text-paper/70"
+                  className="shrink-0 rounded-full bg-gradient-to-r from-[#E8C56A] via-[#F6F1E8] to-[#E8C56A] bg-[length:200%_100%] px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wide text-ink"
                 >
-                  锁 · 通行证 ${PASS_PRICE}
+                  {locked ? "锁 · " : ""}通行证 ${PASS_PRICE}
                 </span>
               ) : null}
             </span>

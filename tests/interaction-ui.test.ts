@@ -76,6 +76,7 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain("data-choice-armed");
     expect(choices).toContain('data-choice-weight="equal"');
     expect(choices).toContain("playerFacingChoiceText");
+    expect(choices).toContain("from-[#E8C56A]");
     expect(choices).not.toContain("variantBarClass");
     expect(choices).not.toContain("bg-hot");
     expect(choices).not.toContain("animate-gold-sweep");
@@ -85,15 +86,21 @@ describe("private-interaction chrome contracts", () => {
     expect(paywall).toContain("bg-void/70");
     expect(paywall).toContain("进度已保存");
     expect(paywall).toContain("zh.tertiary");
+    expect(paywall).toContain("bg-gold");
     expect(paywall).not.toMatch(/倒计时|失去她|bg-black/);
-    expect(title).toContain("继续上次进度");
+    expect(title).toContain("{resume.label}");
+    expect(title).not.toContain("继续上次进度");
     expect(title).toContain('data-title-start="resume"');
     expect(title).toContain('data-title-start="funnel"');
-    expect(title.indexOf("继续上次进度")).toBeLessThan(title.indexOf("新开一局"));
+    expect(title).toContain("btn-primary");
+    expect(title).toContain("btn-choice-ghost");
+    expect(title.indexOf("resume.label")).toBeLessThan(title.indexOf("新开一局"));
     expect(css).toContain("--night-pass-dock: 28%");
     expect(css).toContain("--stage: #191620");
     expect(css).toContain("--rose: #eaa2ae");
-    expect(css).toContain("min-height: 54px");
+    expect(css).toContain("min-height: 52px");
+    expect(css).toContain("background: #ff4b6b");
+    expect(css).toContain("rgba(18, 20, 28, 0.75)");
     expect(css).toContain("translateY(1px)");
     expect(css).not.toMatch(/#ff0033|#FF0033/i);
     expect(css).toContain("[data-reduce-motion=\"on\"]");
@@ -101,9 +108,9 @@ describe("private-interaction chrome contracts", () => {
 
   it("does not paint jie/yuan as a correct-answer gold button", () => {
     const choices = readFileSync(path.join(root, "components/ChoiceList.tsx"), "utf8");
-    expect(choices).not.toContain("shadow-[0_0_24px_rgba(232,197,106");
-    expect(choices).not.toContain("bg-gold");
+    expect(choices).not.toContain("variantBarClass");
     expect(choices).not.toContain("好感");
     expect(choices).not.toContain("最佳选择");
+    expect(choices).not.toMatch(/接招|圆场|躲开/);
   });
 });

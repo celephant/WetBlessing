@@ -40,8 +40,11 @@ export function PaywallOverlay({
       data-paywall-scope={scope}
       data-paywall-owned={ownedPrimary ? "on" : "off"}
     >
-      <div className="mb-8 w-full max-w-dialog rounded-dialog border border-white/12 bg-stage/95 p-5">
-        <h2 className="font-display text-2xl font-bold text-paper">{zh.title}</h2>
+      <div className="mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 bg-night/95 p-5 shadow-[0_0_40px_rgba(232,197,106,0.2)]">
+        <p className="font-display text-[11px] uppercase tracking-[0.22em] text-gold">
+          Night Pass
+        </p>
+        <h2 className="mt-2 font-display text-2xl font-bold text-paper">{zh.title}</h2>
         <p className="mt-3 font-ui text-[17px] leading-7 text-paper/90">{zh.body}</p>
         <p className="mt-3 font-ui text-sm text-mute">
           {playerFacingChoiceText(choice.text)}
@@ -51,7 +54,7 @@ export function PaywallOverlay({
           <button
             type="button"
             onClick={onDevUnlock}
-            className="btn-face btn-primary mt-5 w-full"
+            className="btn-face mt-5 w-full bg-gold font-medium text-ink"
           >
             {zh.primaryOwned}
           </button>
@@ -60,7 +63,7 @@ export function PaywallOverlay({
             type="button"
             disabled
             data-sku="story_pass_month"
-            className="btn-face btn-primary mt-5 w-full opacity-80"
+            className="btn-face mt-5 w-full border border-gold/40 bg-gold/15 font-medium text-gold/80"
           >
             {/* TODO(slice-1): Stripe Checkout for story_pass_month */}
             {zh.primary}
@@ -71,7 +74,7 @@ export function PaywallOverlay({
           <button
             type="button"
             onClick={onUnlockScope}
-            className="btn-face btn-choice mt-2 w-full"
+            className="btn-face mt-2 w-full border border-white/15 bg-white/[0.08]"
             data-sku="chapter_unlock"
             data-dev-scope={scope}
           >
@@ -84,7 +87,7 @@ export function PaywallOverlay({
           <button
             type="button"
             onClick={onDevUnlock}
-            className="btn-face btn-choice mt-2 w-full"
+            className="btn-face mt-2 w-full bg-mint/90 font-medium text-ink"
           >
             DEV · 假开通通行证，立刻接上这句
           </button>
@@ -93,7 +96,7 @@ export function PaywallOverlay({
         <button
           type="button"
           onClick={onClose}
-          className="mt-3 w-full py-2 font-ui text-sm text-paper/70"
+          className="mt-2 w-full py-2 font-ui text-sm text-mute"
         >
           {zh.tertiary}
         </button>
