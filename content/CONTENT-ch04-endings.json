@@ -156,7 +156,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……叫你。」她在你侧后",
+              "text": "接招：「……叫你。」拉着她的手走进楼道",
               "next": "n_s23_mia",
               "delta": {
                 "stats": {
@@ -171,7 +171,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」背心被风贴了一下",
+              "text": "圆场：「……先上课。」她背心被风贴着跟出来",
               "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
@@ -180,7 +180,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」Troy 堵住楼道",
+              "text": "躲开：「……我先走。」Troy堵住楼道要你选边",
               "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
@@ -221,7 +221,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……那就出去。」她还没拐过来",
+              "text": "接招：「……那就出去。」她还没拐到这个转角",
               "next": "n_s23_jade",
               "delta": {
                 "stats": {
@@ -236,7 +236,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」耳尖那点热还在",
+              "text": "圆场：「……先上课。」她还没拐到楼道",
               "next": "n_s23_jade",
               "delta": {},
               "setFlags": {
@@ -286,7 +286,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……我还在。」腕上那点水还没干",
+              "text": "接招：「……我还在。」腕上的水还没干",
               "next": "n_s23_lina",
               "delta": {
                 "stats": {
@@ -301,7 +301,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」小臂还凉着",
+              "text": "圆场：「……先上课。」小臂还带着那层湿",
               "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
@@ -310,7 +310,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」Troy 堵住楼道",
+              "text": "躲开：「……我先走。」Troy堵住楼道要你选边",
               "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
@@ -351,7 +351,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……门还关着。」隔墙的热还没散",
+              "text": "接招：「……门还关着。」隔墙这会儿听不见",
               "next": "n_s23_rae",
               "delta": {
                 "stats": {
@@ -366,7 +366,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」水手领还贴着",
+              "text": "圆场：「……先上课。」水手领还贴着锁骨",
               "next": "n_s23_rae",
               "delta": {},
               "setFlags": {
@@ -449,7 +449,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「……别挡她。」背心被风贴了一下",
+              "text": "接招：「……别挡她。」拉着她的手往前走",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -461,7 +461,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「……别在这儿闹。」她还拉着你",
+              "text": "圆场：「……别在这儿闹。」她还拉着你的手",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -471,7 +471,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：……不接。群会自己写完",
+              "text": "躲开：……不接。群会自己写完后半句",
               "next": "n_s24_router",
               "delta": {
                 "tension": 3
@@ -521,7 +521,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「……别挡道。」耳尖那点热还在",
+              "text": "接招：「……别挡道。」合影位还空着等她",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -543,7 +543,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：……不接。群会自己写完",
+              "text": "躲开：……不接。群会自己写完后半句",
               "next": "n_s24_router",
               "delta": {
                 "tension": 3
@@ -585,7 +585,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "你今早才离开的那个人，还没走到这个转角。池水那层凉还贴在小臂上。",
+              "text": "你今早才离开的那个人，还没走到这个转角。腕上那层湿还贴在小臂上。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -605,7 +605,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「……别在这儿闹。」小臂还凉着",
+              "text": "圆场：「……别在这儿闹。」小臂还带着那层湿",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -615,7 +615,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：……不接。群会自己写完",
+              "text": "躲开：……不接。群会自己写完后半句",
               "next": "n_s24_router",
               "delta": {
                 "tension": 3
@@ -677,7 +677,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「……别在这儿闹。」隔墙的热还没散",
+              "text": "圆场：「……别在这儿闹。」隔墙这会儿听不见",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -687,7 +687,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：……不接。群会自己写完",
+              "text": "躲开：……不接。群会自己写完后半句",
               "next": "n_s24_router",
               "delta": {
                 "tension": 3
@@ -738,7 +738,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「……别挡她。」外套是干的",
+              "text": "接招：「……别挡她。」别把她当奖品",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -946,7 +946,7 @@
           "nodeId": "n_s24_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "檐下。地面是干的。雨已经下过了。风衣还潮。皮肤发凉，呼吸却热。",
+          "text": "檐下。地面是干的。雨已经下过了。风衣还潮。她呼吸贴上来，步子却慢。",
           "assetId": "assets/scenes/ch04/S24-vanessa.webp",
           "artStatus": "ready",
           "camera": "hold",

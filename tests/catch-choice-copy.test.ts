@@ -9,23 +9,23 @@ import { showsPassChip } from "../lib/choice-variant";
 const root = path.resolve(__dirname, "..");
 
 export const CATCH_CHIPS = {
-  miaPaid: "进去。屏幕还热着",
-  jadePaid: "抓住。手已经伸下来",
-  linaPaid: "下去。锁骨还湿",
-  raePaid: "从里面关。金属凉、后颈却热",
-  miaSwitch: "去宿舍。她没抬头",
-  jadeSwitch: "去楼梯。手已经伸下来",
-  linaSwitch: "去水边。她还在看你",
-  raeSwitch: "去对门。门缝还开着",
+  miaPaid: "进去。她没叫你，按住她腰",
+  jadePaid: "抓住。把她的手拉上来",
+  linaPaid: "下去。抓住她还湿的手腕",
+  raePaid: "从里面关。贴着她把缝带上",
+  miaSwitch: "去宿舍。她没抬头屏光照着腿",
+  jadeSwitch: "去楼梯。她正伸手等你抓",
+  linaSwitch: "去水边。空池边她还在看你",
+  raeSwitch: "去对门。她回了头缝还开着",
   leave: "离开。今晚就到这里",
 } as const;
 
-const CH02_ENTER = "进去。黑丝压着桌沿";
+const CH02_ENTER = "进去。把门带上她压着桌沿";
 const CH03_PUSH = {
-  n_s19_mia: "推门。膝盖往前一寸",
-  n_s19_jade: "推门。沙发陷下去",
-  n_s19_lina: "推门。水声贴着小腿",
-  n_s19_rae: "推门。烘筒还在转",
+  n_s19_mia: "推门。把她膝压进来",
+  n_s19_jade: "推门。把她按进沙发",
+  n_s19_lina: "推门。落锁后按住她腰",
+  n_s19_rae: "推门。从里面扣上吻她颈",
 } as const;
 
 const PRICE_ON_CHIP = /通行证|锁 ·|\$8\.99|\$2\.99/;
@@ -184,19 +184,19 @@ describe("Catch / wall chips: story only, money after tap", () => {
   it("splits a short bark from a serif whisper hint", () => {
     expect(splitChoiceFace(CATCH_CHIPS.miaPaid)).toEqual({
       bark: "进去。",
-      hint: "屏幕还热着",
+      hint: "她没叫你，按住她腰",
     });
     expect(splitChoiceFace(CATCH_CHIPS.leave)).toEqual({
       bark: "离开。",
       hint: "今晚就到这里",
     });
-    expect(splitChoiceFace("接招：「箱子我来。」她还等你接手")).toEqual({
+    expect(splitChoiceFace("接招：「箱子我来。」接过她胸口那只箱子")).toEqual({
       bark: "「箱子我来。」",
-      hint: "她还等你接手",
+      hint: "接过她胸口那只箱子",
     });
-    expect(splitChoiceFace("接招：「电梯口是 Mia。晚上也是。」黑丝还压着桌沿")).toEqual({
+    expect(splitChoiceFace("接招：「电梯口是 Mia。晚上也是。」她把腿压过桌沿")).toEqual({
       bark: "「电梯口是 Mia。晚上也是。」",
-      hint: "黑丝还压着桌沿",
+      hint: "她把腿压过桌沿",
     });
   });
 

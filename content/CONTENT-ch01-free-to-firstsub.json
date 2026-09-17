@@ -190,7 +190,7 @@
           "choices": [
             {
               "choiceId": "c_help_mia",
-              "text": "接招：「箱子我来。」她还等你接手",
+              "text": "接招：「箱子我来。」接过她胸口那只箱子",
               "next": "n_mia_edge_1",
               "delta": {
                 "stats": {
@@ -212,7 +212,7 @@
             },
             {
               "choiceId": "c_talk_jade",
-              "text": "接招：「三十秒。」闪光还没关",
+              "text": "接招：「三十秒。」她把笔拍进你掌心",
               "next": "n_jade_desk",
               "delta": {
                 "stats": {
@@ -234,7 +234,7 @@
             },
             {
               "choiceId": "c_dodge_both",
-              "text": "躲开：刷卡进门。晚上别装死",
+              "text": "躲开：刷卡进门。她在身后喊你别装死",
               "next": "n_dodge_corridor",
               "delta": {
                 "stats": {
@@ -274,7 +274,7 @@
           "choices": [
             {
               "choiceId": "c_jade_smirk",
-              "text": "接招：「看镜头。」对门涌出热气",
+              "text": "接招：「看镜头。」闪完光对门有人抓把手",
               "next": "n_dorm_steam",
               "delta": {
                 "stats": {
@@ -293,7 +293,7 @@
             },
             {
               "choiceId": "c_jade_ok",
-              "text": "圆场：「……好。」掌心还热",
+              "text": "圆场：「……好。」她已经转向下一个人",
               "next": "n_jade_desk_hold",
               "delta": {
                 "stats": {
@@ -311,7 +311,7 @@
             },
             {
               "choiceId": "c_jade_go",
-              "text": "躲开：填完就走。晚上别装死",
+              "text": "躲开：填完就走。她在身后喊你别装死",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 1
@@ -423,7 +423,7 @@
           "choices": [
             {
               "choiceId": "c_mia_hugish",
-              "text": "接招：「……我来了。」肩带滑了没拉",
+              "text": "接招：「……我来了。」她把箱子顶上你胸口",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -443,7 +443,7 @@
             },
             {
               "choiceId": "c_mia_safe",
-              "text": "圆场：「……好久不见。」箱子会自己待着",
+              "text": "圆场：「……好久不见。」她说箱子自己待着",
               "next": "n_mia_edge_hold",
               "delta": {
                 "stats": {
@@ -461,7 +461,7 @@
             },
             {
               "choiceId": "c_mia_side",
-              "text": "躲开：侧身。晚上别装死",
+              "text": "躲开：侧身。她在身后喊你别装死",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
@@ -525,7 +525,7 @@
           "choices": [
             {
               "choiceId": "c_mia_banter",
-              "text": "接招：「……我记得。」蒸汽贴着嘴",
+              "text": "接招：「……我记得。」上楼对门有人抓把手",
               "next": "n_dorm_steam",
               "delta": {
                 "stats": {
@@ -544,7 +544,7 @@
             },
             {
               "choiceId": "c_mia_go",
-              "text": "躲开：「……你先。」晚上别装死",
+              "text": "躲开：「……你先。」她在走廊喊你别装死",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
@@ -656,7 +656,7 @@
           "choices": [
             {
               "choiceId": "c_go_mia",
-              "text": "接招：侧门。床头只剩一盏灯",
+              "text": "接招：侧门。关上门按住她腰",
               "next": "n_with_mia",
               "delta": {
                 "stats": {
@@ -679,7 +679,7 @@
             },
             {
               "choiceId": "c_go_jade",
-              "text": "接招：上台阶。砖还凉、她却热",
+              "text": "接招：上台阶。她拉你进没闪光的阴影",
               "next": "n_with_jade",
               "delta": {
                 "stats": {
@@ -702,7 +702,7 @@
             },
             {
               "choiceId": "c_go_lina",
-              "text": "接招：走向跳台。毛巾砸进怀里",
+              "text": "接招：走向跳台。她把毛巾砸进你怀里",
               "next": "n_with_lina",
               "delta": {
                 "stats": {
@@ -725,7 +725,7 @@
             },
             {
               "choiceId": "c_go_rae",
-              "text": "接招：走向冒气的门。蒸汽贴着后颈",
+              "text": "接招：走向冒气的门。水手领湿着贴上门缝",
               "next": "n_with_rae",
               "delta": {
                 "stats": {
@@ -748,7 +748,7 @@
             },
             {
               "choiceId": "c_dodge_party",
-              "text": "躲开：谁也不跟。没喊第二声",
+              "text": "躲开：谁也不跟。侧门关了一半没人再喊",
               "next": "n_dodge_deck",
               "delta": {
                 "tension": 3
@@ -828,7 +828,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：「……不停。」嘴对上了",
+              "text": "接招：「……不停。」按住她腰吻上去",
               "next": "n_kiss_mia",
               "delta": {
                 "stats": {
@@ -846,7 +846,7 @@
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：看那排纸箱。箱子会自己待着",
+              "text": "圆场：看那排纸箱。她说看完了就嘴过来",
               "next": "n_with_mia_round",
               "delta": {
                 "stats": {
@@ -864,7 +864,7 @@
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：「群在震。」心跳空了一拍",
+              "text": "躲开：「群在震。」拼贴没有字心跳空了",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -929,7 +929,7 @@
           "nodeId": "n_with_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "台阶转进阴影。闪光关了。砖还凉，她小臂却热。",
+          "text": "台阶转进阴影。闪光关了。她把你按在干砖上，没给别人留空。",
           "assetId": "assets/scenes/heat/S06b.webp",
           "artCue": "S06b 干楼梯：金发运动 Jade、一腿踩砖、相机已关；禁止雨水",
           "artStatus": "ready",
@@ -940,7 +940,7 @@
           "choices": [
             {
               "choiceId": "c_wj_close",
-              "text": "接招：「进来。」鞋底还抵着砖",
+              "text": "接招：「进来。」把她按在台阶上吻",
               "next": "n_kiss_jade",
               "delta": {
                 "stats": {
@@ -958,7 +958,7 @@
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：看一眼手机。亮了就扣上",
+              "text": "圆场：看一眼手机。她按住你让你扣上",
               "next": "n_with_jade_round",
               "delta": {
                 "stats": {
@@ -976,7 +976,7 @@
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：下楼。心跳空了一拍",
+              "text": "躲开：下楼。拼贴没有字心跳空了",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1035,7 +1035,7 @@
           "nodeId": "n_with_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你一走近跳台，毛巾砸进怀里。视线只剩她的眼睛。湿气从布边漏出来。腿侧发凉，掌心却热。",
+          "text": "你一走近跳台，毛巾砸进怀里。视线只剩她的眼睛。湿气从布边漏出来。你掌心贴着她腰侧，她没躲开。",
           "assetId": "assets/scenes/heat/S06c.webp",
           "artCue": "S06c 毛巾 POV：金发 Lina、室内夜池、湿大腿；无雨",
           "artStatus": "ready",
@@ -1063,7 +1063,7 @@
           "choices": [
             {
               "choiceId": "c_wl_close",
-              "text": "接招：把毛巾扯开一点。湿衣贴上小臂",
+              "text": "接招：把毛巾扯开一点。湿衣贴上来吻她",
               "next": "n_kiss_lina",
               "delta": {
                 "stats": {
@@ -1081,7 +1081,7 @@
             },
             {
               "choiceId": "c_wl_phone",
-              "text": "躲开：把毛巾还她。心跳空了一拍",
+              "text": "躲开：把毛巾还她。拼贴没有字心跳空了",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1127,7 +1127,7 @@
           "choices": [
             {
               "choiceId": "c_wr_close",
-              "text": "接招：从里面关。吻又轻又密",
+              "text": "接招：从里面关。抵着门框吻她",
               "next": "n_kiss_rae",
               "delta": {
                 "stats": {
@@ -1145,7 +1145,7 @@
             },
             {
               "choiceId": "c_wr_phone",
-              "text": "躲开：退回楼道。心跳空了一拍",
+              "text": "躲开：退回楼道。拼贴没有字心跳空了",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1178,7 +1178,7 @@
           "lines": [
             {
               "speaker": "mia",
-              "text": "「明明不该……凯……♥」",
+              "text": "「明明不该……唔……凯……♥」",
               "camera": "hold",
               "transition": "fade"
             },
@@ -1256,7 +1256,7 @@
           "nodeId": "n_kiss_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "吻又轻又密。像怕隔墙听见。呼吸却热。水声被蒸汽捂住。后颈发烫，脚趾蜷在湿砖上。",
+          "text": "吻又轻又密。像怕隔墙听见。呼吸贴着领口。水声被蒸汽捂住。后颈发烫，脚趾蜷在湿砖上。",
           "assetId": "assets/scenes/heat/n_heat_kiss_rae.webp",
           "artCue": "S06d 小声吻：水手领、证在钩上",
           "artStatus": "ready",
@@ -1314,13 +1314,13 @@
           "choices": [
             {
               "choiceId": "c_sms_open",
-              "text": "点开那张拼贴。同一只手腕",
+              "text": "点开那张拼贴。两张脸在抢同一只手",
               "next": "n_sms_open",
               "delta": {}
             },
             {
               "choiceId": "c_sms_shut",
-              "text": "扣上。那两张脸还在",
+              "text": "扣上。她还在自己那块地上",
               "next": "n_ch01_wall_router",
               "delta": {}
             }
@@ -1390,7 +1390,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "屏幕照着她的腿。门口那个人还没被准许进来。",
+              "text": "屏光照着她的腿。你还在门口。她没叫你进来。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -1398,7 +1398,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。屏幕还热着",
+              "text": "进去。她没叫你，按住她腰",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1411,21 +1411,21 @@
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。手已经伸下来",
+              "text": "去楼梯。她正伸手等你抓",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。她还在看你",
+              "text": "去水边。空池边她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。门缝还开着",
+              "text": "去对门。她回了头缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1468,7 +1468,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。手已经伸下来",
+              "text": "抓住。把她的手拉上来",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1481,21 +1481,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头",
+              "text": "去宿舍。她没抬头屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。她还在看你",
+              "text": "去水边。空池边她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。门缝还开着",
+              "text": "去对门。她回了头缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1538,7 +1538,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。锁骨还湿",
+              "text": "下去。抓住她还湿的手腕",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1551,21 +1551,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头",
+              "text": "去宿舍。她没抬头屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。手已经伸下来",
+              "text": "去楼梯。她正伸手等你抓",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。门缝还开着",
+              "text": "去对门。她回了头缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1608,7 +1608,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。金属凉、后颈却热",
+              "text": "从里面关。贴着她把缝带上",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",
@@ -1621,21 +1621,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头",
+              "text": "去宿舍。她没抬头屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。手已经伸下来",
+              "text": "去楼梯。她正伸手等你抓",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。她还在看你",
+              "text": "去水边。空池边她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
@@ -1666,7 +1666,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。屏幕还热着",
+              "text": "进去。她没叫你，按住她腰",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1679,7 +1679,7 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。手已经伸下来",
+              "text": "抓住。把她的手拉上来",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1692,7 +1692,7 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。锁骨还湿",
+              "text": "下去。抓住她还湿的手腕",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1705,7 +1705,7 @@
             },
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。金属凉、后颈却热",
+              "text": "从里面关。贴着她把缝带上",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",
@@ -1752,13 +1752,13 @@
           "choices": [
             {
               "choiceId": "c_back_wall",
-              "text": "回到刚才。今晚还能进一张",
+              "text": "回到刚才。四块地还亮着",
               "next": "n_ch01_first_sub",
               "delta": {}
             },
             {
               "choiceId": "c_to_title",
-              "text": "离开。那封公事还在",
+              "text": "离开。那封公事还在口袋里",
               "next": "n_title",
               "delta": {}
             }
@@ -1855,7 +1855,7 @@
           "nodeId": "n_pay_01_catch_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "灯还留着。池水凉，她手腕是热的。",
+          "text": "灯还留着。空池边。她手腕还湿，你一碰她没松开。",
           "assetId": "assets/scenes/ch01/ch01-catch-lina.webp",
           "artCue": "S09 Lina catch：室内夜池；非雨街啦啦队",
           "artStatus": "ready",
@@ -1889,7 +1889,7 @@
           "nodeId": "n_pay_01_catch_rae",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "门还开着。她回了头。金属凉，后颈却热。隔墙暂时没人经过。",
+          "text": "门还开着。她回了头。门边的金属还没捂热。隔墙暂时没人经过。",
           "assetId": "assets/scenes/ch01/ch01-catch-rae.webp",
           "artCue": "S09 Rae catch：水手门、拼贴之后；非湿 T",
           "artStatus": "ready",
@@ -1974,7 +1974,7 @@
           "nodeId": "n_pay_02_ot_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "吻变长。砖还凉，她大腿却热。鞋底抵着。布料擦过砖。脚趾还是蜷了。",
+          "text": "吻变长。她大腿贴上来。鞋底抵着。布料擦过砖。脚趾还是蜷了。",
           "assetId": "assets/scenes/heat/n_heat_straddle_jade.webp",
           "artCue": "S10 Jade OT：干砖；禁止雨水",
           "artStatus": "ready",
@@ -2091,7 +2091,7 @@
           "nodeId": "n_pay_03_vanessa",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "风衣已经湿了。雨声贴着她的腿。巷口有人影。皮肤发凉，呼吸却热。",
+          "text": "风衣已经湿了。雨声贴着她的腿。巷口有人影。她呼吸贴上来，步子却慢。",
           "assetId": "assets/scenes/heat/S11.webp",
           "artCue": "S11 唯一雨：风衣画框、Troy 影；禁止四人雨吻",
           "artStatus": "ready",
@@ -2119,7 +2119,7 @@
           "choices": [
             {
               "choiceId": "c_vanessa_ok",
-              "text": "接招：吻。她还没倒向你",
+              "text": "接招：吻。慢一点贴上去她还没倒",
               "next": "n_pay_03_yes",
               "delta": {},
               "setFlags": {
@@ -2128,7 +2128,7 @@
             },
             {
               "choiceId": "c_vanessa_dodge",
-              "text": "躲开：不进巷。那封公事还在",
+              "text": "躲开：不进巷。那封公事还在口袋里",
               "next": "n_pay_settle",
               "delta": {
                 "tension": 1

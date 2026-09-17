@@ -153,7 +153,7 @@
           "lines": [
             {
               "speaker": "narrator",
-              "text": "她没松手。指尖按着你手背。滚烫，不容抽。",
+              "text": "她没松手。指尖按着你手背。你一抽，她按得更紧。",
               "camera": "hold",
               "transition": "fade"
             },
@@ -173,7 +173,7 @@
           "choices": [
             {
               "choiceId": "c_s18_ok",
-              "text": "接招：「走。」缝里她的嘴微张",
+              "text": "接招：「走。」把手放上门把她在缝里",
               "next": "n_s19_mia",
               "delta": {
                 "stats": {
@@ -189,7 +189,7 @@
             },
             {
               "choiceId": "c_s18_dodge",
-              "text": "躲开：「我回自己宿舍。」椅子是空的",
+              "text": "躲开：「我回自己宿舍。」椅子空着铃照样响",
               "next": "n_s18_left",
               "delta": {
                 "tension": 2
@@ -243,7 +243,7 @@
           "choices": [
             {
               "choiceId": "c_s18_ok",
-              "text": "接招：「走。」门缝里只剩呼吸",
+              "text": "接招：「走。」她关了走廊灯只剩呼吸",
               "next": "n_s19_jade",
               "delta": {
                 "stats": {
@@ -259,7 +259,7 @@
             },
             {
               "choiceId": "c_s18_dodge",
-              "text": "躲开：「我回自己宿舍。」椅子是空的",
+              "text": "躲开：「我回自己宿舍。」椅子空着铃照样响",
               "next": "n_s18_left",
               "delta": {
                 "tension": 2
@@ -313,7 +313,7 @@
           "choices": [
             {
               "choiceId": "c_s18_ok",
-              "text": "接招：「我下来了。」湿衣还在滴",
+              "text": "接招：「我下来了。」侧门还没落锁",
               "next": "n_s19_lina",
               "delta": {
                 "stats": {
@@ -329,7 +329,7 @@
             },
             {
               "choiceId": "c_s18_dodge",
-              "text": "躲开：「我回去。」椅子是空的",
+              "text": "躲开：「我回去。」椅子空着铃照样响",
               "next": "n_s18_left",
               "delta": {
                 "tension": 2
@@ -383,7 +383,7 @@
           "choices": [
             {
               "choiceId": "c_s18_ok",
-              "text": "接招：「我来帮你看门。」防火门还虚掩着",
+              "text": "接招：「我来帮你看门。」从里面带上防火门",
               "next": "n_s19_rae",
               "delta": {
                 "stats": {
@@ -399,7 +399,7 @@
             },
             {
               "choiceId": "c_s18_dodge",
-              "text": "躲开：「我上楼睡。」椅子是空的",
+              "text": "躲开：「我上楼睡。」椅子空着铃照样响",
               "next": "n_s18_left",
               "delta": {
                 "tension": 2
@@ -494,7 +494,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "你的手在门把上。金属先是凉的；她掌心刚离开，才有一点热。",
+              "text": "你的手在门把上。她掌心刚离开，门把上还留着她的温度。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -502,7 +502,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。膝盖往前一寸",
+              "text": "推门。把她膝压进来",
               "next": "n_s20_mia",
               "delta": {
                 "stats": {
@@ -566,7 +566,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。沙发陷下去",
+              "text": "推门。把她按进沙发",
               "next": "n_s20_jade",
               "delta": {
                 "stats": {
@@ -630,7 +630,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。水声贴着小腿",
+              "text": "推门。落锁后按住她腰",
               "next": "n_s20_lina",
               "delta": {
                 "stats": {
@@ -694,7 +694,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。烘筒还在转",
+              "text": "推门。从里面扣上吻她颈",
               "next": "n_s20_rae",
               "delta": {
                 "stats": {
@@ -758,7 +758,7 @@
           "choices": [
             {
               "choiceId": "c_s20_ok",
-              "text": "接招：「我不走。」膝盖往前一寸",
+              "text": "接招：「我不走。」按住她腿不让收回",
               "next": "n_s21_rumor",
               "delta": {
                 "stats": {
@@ -775,7 +775,7 @@
             },
             {
               "choiceId": "c_s20_dodge",
-              "text": "躲开：「我该走。」腿还没收回去",
+              "text": "躲开：「我该走。」她腿还顶着你",
               "next": "n_s21_rumor",
               "delta": {
                 "tension": 2
@@ -818,7 +818,7 @@
           "choices": [
             {
               "choiceId": "c_s20_ok",
-              "text": "接招：「那就不装。」大腿发烫",
+              "text": "接招：「那就不装。」按住她发烫的腿",
               "next": "n_s21_rumor",
               "delta": {
                 "stats": {
@@ -835,7 +835,7 @@
             },
             {
               "choiceId": "c_s20_dodge",
-              "text": "躲开：「我该走。」脚趾还是蜷了",
+              "text": "躲开：「我该走。」脚趾还蜷着不让走",
               "next": "n_s21_rumor",
               "delta": {
                 "tension": 2
@@ -870,7 +870,7 @@
             },
             {
               "speaker": "narrator",
-              "text": "她的嘴带着池水的味道。瓷砖冰，她的肩却热。",
+              "text": "瓷砖贴着她小腿。她肩往你这边送，没让你退。",
               "camera": "hold",
               "transition": "fade"
             }
@@ -878,7 +878,7 @@
           "choices": [
             {
               "choiceId": "c_s20_ok",
-              "text": "接招：「锁上了。」她没让你松手",
+              "text": "接招：「锁上了。」她按着你的手不放",
               "next": "n_s21_rumor",
               "delta": {
                 "stats": {
@@ -895,7 +895,7 @@
             },
             {
               "choiceId": "c_s20_dodge",
-              "text": "躲开：「我从消防通道走。」膝盖还顶着你",
+              "text": "躲开：「我从消防通道走。」她膝盖还顶着你",
               "next": "n_s21_rumor",
               "delta": {
                 "tension": 2
@@ -938,7 +938,7 @@
           "choices": [
             {
               "choiceId": "c_s20_ok",
-              "text": "接招：「门关了。」吻在颈侧",
+              "text": "接招：「门关了。」吻上她颈侧",
               "next": "n_s21_rumor",
               "delta": {
                 "stats": {
@@ -955,7 +955,7 @@
             },
             {
               "choiceId": "c_s20_dodge",
-              "text": "躲开：「我上楼。」世界在门外",
+              "text": "躲开：「我上楼。」世界还在门外",
               "next": "n_s21_rumor",
               "delta": {
                 "tension": 2
@@ -1272,7 +1272,7 @@
           "choices": [
             {
               "choiceId": "c_s21_v_ok",
-              "text": "接招：「我听。」三条线程同时亮",
+              "text": "接招：「我听。」先回其中一条私聊",
               "next": "n_s21_threads",
               "delta": {
                 "stats": {
@@ -1288,7 +1288,7 @@
             },
             {
               "choiceId": "c_s21_v_dodge",
-              "text": "躲开：「……我先上课。」你只能先回一个",
+              "text": "躲开：「……我先上课。」三条私聊还亮着",
               "next": "n_s21_threads",
               "delta": {},
               "setFlags": {
@@ -1321,7 +1321,7 @@
           "choices": [
             {
               "choiceId": "c_sms_bind_mia",
-              "text": "先回她。灯还亮着",
+              "text": "先回她。灯还亮着她问你在不在",
               "next": "n_ch03_settle",
               "delta": {},
               "setFlags": {
@@ -1335,7 +1335,7 @@
             },
             {
               "choiceId": "c_sms_bind_jade",
-              "text": "先回她。闪光还没灭",
+              "text": "先回她。她不让你亮屏幕",
               "next": "n_ch03_settle",
               "delta": {},
               "setFlags": {
@@ -1349,7 +1349,7 @@
             },
             {
               "choiceId": "c_sms_bind_lina",
-              "text": "先回她。水边还在等",
+              "text": "先回她。她不让你松手",
               "next": "n_ch03_settle",
               "delta": {},
               "setFlags": {
@@ -1363,7 +1363,7 @@
             },
             {
               "choiceId": "c_sms_bind_rae",
-              "text": "先回她。对门还虚掩着",
+              "text": "先回她。她让你轻一点",
               "next": "n_ch03_settle",
               "delta": {},
               "setFlags": {
@@ -1386,7 +1386,7 @@
             },
             {
               "choiceId": "c_sms_vanessa",
-              "text": "先回 Vanessa。她还没倒向你",
+              "text": "先回 Vanessa。她说别把她当奖品",
               "next": "n_ch03_settle",
               "delta": {},
               "setFlags": {
