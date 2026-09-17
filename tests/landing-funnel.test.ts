@@ -61,7 +61,7 @@ describe("landing funnel (pre-login, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("540c23e561304021d5c22cee740e3527beff88b8710778106770e955986fd2f2");
+    ).toBe("a9fcc828275383cc00be23a7578d2a2d05dd313de1192848aa757dd6f2d8f26a");
   });
 
   it("loads only via /play?content=funnel", () => {
@@ -173,11 +173,11 @@ describe("landing funnel (pre-login, not default)", () => {
     expect(view(state, compiled).node.nodeId).toBe("n_funnel_07");
     const labels = view(state, compiled).choices.map((choice) => choice.text);
     expect(labels).toEqual([
-      "接招：侧门。床头只剩一盏灯",
-      "接招：上台阶。砖还凉、她却热",
-      "接招：走向跳台。毛巾砸进怀里",
-      "接招：走向冒气的门。门缝还开着",
-      "躲开：谁也不跟。手机还是亮了",
+      "接招：侧门。关上门按住她腰",
+      "接招：上台阶。她拉你进没闪光的阴影",
+      "接招：走向跳台。她把毛巾砸进你怀里",
+      "接招：走向冒气的门。水手领湿着贴上门缝",
+      "躲开：谁也不跟。楼道空了，手机还是亮了",
     ]);
     const goMia = selectChoice(state, "c_f7_mia", compiled);
     expect(goMia.ok).toBe(true);

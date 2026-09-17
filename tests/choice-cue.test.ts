@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { choiceCueFace, inferCueMode, rewriteCue, validateChoiceCue, validateRouteChoiceCues } from "../lib/choice-cue";
+import {
+  choiceCueFace,
+  inferCueMode,
+  rewriteCue,
+  spokenChipLine,
+  validateChoiceCue,
+  validateRouteChoiceCues,
+} from "../lib/choice-cue";
 import { compileRoute, route } from "../lib/content";
 import {
   tryReadCh02Office,
@@ -10,19 +17,22 @@ import {
 
 describe("ChoiceCue mapping and rewrite", () => {
   it("maps existing hint onto cue without renaming story JSON", () => {
-    expect(choiceCueFace("进去。屏幕还热着")).toEqual({
+    expect(choiceCueFace("进去。她没叫你，按住她腰")).toEqual({
       choice: "进去。",
-      cue: "屏幕还热着",
-      hint: "屏幕还热着",
+      cue: "她没叫你，按住她腰",
+      hint: "她没叫你，按住她腰",
     });
     expect(
       choiceCueFace({
         choiceId: "c",
         text: "抓住。",
         next: "n",
-        hint: "她没躲",
+        hint: "把她的手拉上来",
       }),
-    ).toEqual({ choice: "抓住。", cue: "她没躲", hint: "她没躲" });
+    ).toEqual({ choice: "抓住。", cue: "把她的手拉上来", hint: "把她的手拉上来" });
+    expect(spokenChipLine("进去。", "她没叫你，按住她腰")).toBe(
+      "进去，她没叫你，按住她腰",
+    );
   });
 
   it("rewrites a long caption into one cut instead of CSS-truncating it", () => {
@@ -32,17 +42,17 @@ describe("ChoiceCue mapping and rewrite", () => {
     expect(rewriteCue("她被突然抓住以后并没有马上躲开……")).toBe(
       "她被突然抓住以后并没有马上躲开",
     );
-    expect(validateChoiceCue({
-      choice: "进去。",
-      cue: "屏幕还热着贴在她身上，她站在那里没有动……",
-      stage: 1,
-    }).map((issue) => issue.code)).toEqual(
-      expect.arrayContaining(["too-long", "narration"]),
-    );
     expect(
       validateChoiceCue({
         choice: "进去。",
-        cue: rewriteCue("屏幕还热着贴在她身上，她站在那里没有动"),
+        cue: "屏幕还热着贴在她身上，她站在那里没有动，灯还亮着",
+        stage: 1,
+      }).map((issue) => issue.code),
+    ).toEqual(expect.arrayContaining(["too-long", "narration", "banned"]));
+    expect(
+      validateChoiceCue({
+        choice: "进去。",
+        cue: rewriteCue("按住她腰把门带上，她还没抬头看你"),
         stage: 1,
       }).some((issue) => issue.code === "too-long"),
     ).toBe(false);
@@ -60,15 +70,22 @@ describe("ChoiceCue mapping and rewrite", () => {
         stage: 1,
       }).map((issue) => issue.code),
     ).toContain("price");
+    expect(
+      validateChoiceCue({
+        choice: "从里面关。",
+        cue: "金属凉、后颈却热",
+        stage: 1,
+      }).map((issue) => issue.code),
+    ).toContain("banned");
     expect(inferCueMode("砖凉、小臂却热")).toBe("dissonance");
-    expect(inferCueMode("屏幕还热着")).toBe("sensory");
+    expect(inferCueMode("按住她腰")).toBe("sensory");
     expect(inferCueMode("「……我上来了」")).toBe("voice");
     expect(inferCueMode("「手拿开」邻桌却听得见")).toBe("mixed");
   });
 });
 
 describe("live story packs: ChoiceCue validation", () => {
-  it("accepts compressed cues on Ch01–Ch04 and the funnel", () => {
+  it("accepts spoken Choice+Cue hooks on Ch01–Ch04 and the funnel", () => {
     const packs = [
       route,
       compileRoute(tryReadCh02Office()!),
@@ -82,7 +99,7 @@ describe("live story packs: ChoiceCue validation", () => {
 
   it("keeps live Choice/Cue copy grammatical and next-beat-true", () => {
     const broken =
-      /她不会装死|她还没准你看|她说停了就去翻|拼贴不是夜里|不容抽|不容你退|她不会当众追|灯那条|闪光那条|水边那条|对门那条|锁骨还记着湿|黑丝那层热|裙边掀着一截|唇近了、她还没倒|池水凉/;
+      /屏幕还热着|金属凉|池水凉|她还没准|砖还凉|她却热|锁骨还湿|点一块地|进最终拍|下一页|她不会装死|她说停了就去翻|拼贴不是夜里|不容抽|不容你退|她不会当众追|灯那条|闪光那条|水边那条|对门那条|锁骨还记着湿|黑丝那层热|裙边掀着一截|唇近了、她还没倒/;
     const packs = [
       route,
       compileRoute(tryReadCh02Office()!),
@@ -95,5 +112,7 @@ describe("live story packs: ChoiceCue validation", () => {
       .flatMap((node) => (node.choices ?? []).map((choice) => choice.text))
       .join("\n");
     expect(hay).not.toMatch(broken);
+    expect(hay).not.toMatch(/在水里|池水/);
+    expect(hay).not.toMatch(/凉[、，].{0,10}却热/);
   });
 });

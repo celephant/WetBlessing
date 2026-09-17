@@ -11,11 +11,21 @@
     "changelog": "Hook plates are KEEP wet-body stills, not hall cardboard. Does not rewire Ch01 n_open."
   },
   "personas": {
-    "persona_kai_v1": { "name": "Kai" },
-    "persona_mia_v1": { "name": "Mia" },
-    "persona_jade_v1": { "name": "Jade" },
-    "persona_lina_v1": { "name": "Lina" },
-    "persona_rae_v1": { "name": "Rae" }
+    "persona_kai_v1": {
+      "name": "Kai"
+    },
+    "persona_mia_v1": {
+      "name": "Mia"
+    },
+    "persona_jade_v1": {
+      "name": "Jade"
+    },
+    "persona_lina_v1": {
+      "name": "Lina"
+    },
+    "persona_rae_v1": {
+      "name": "Rae"
+    }
   },
   "stages": [
     {
@@ -32,15 +42,20 @@
           "assetId": "assets/scenes/heat/S06c.webp",
           "artCue": "S06c 夜池湿衣大腿毛巾 POV；漏斗第一剧情镜。不是大厅纸箱、不是四分站桩",
           "artStatus": "ready",
-          "characters": ["kai", "lina"],
-          "setFlags": { "funnel_step": 1 },
+          "characters": [
+            "kai",
+            "lina"
+          ],
+          "setFlags": {
+            "funnel_step": 1
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "none",
           "choices": [
             {
               "choiceId": "c_f1_enter",
-              "text": "走进派对。点一块地",
+              "text": "走进派对。走近才听得见",
               "next": "n_funnel_02"
             }
           ]
@@ -49,19 +64,27 @@
           "nodeId": "n_funnel_02",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "走近才听得见。点一块地。",
+          "text": "走近才听得见。四块地，没人让。",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 同一夜池整图；四热区描边，点谁谁开口；不 CSS 裁横图",
           "artStatus": "ready",
-          "characters": ["kai", "mia", "jade", "lina", "rae"],
-          "setFlags": { "funnel_step": 2 },
+          "characters": [
+            "kai",
+            "mia",
+            "jade",
+            "lina",
+            "rae"
+          ],
+          "setFlags": {
+            "funnel_step": 2
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "none",
           "choices": [
             {
               "choiceId": "c_f2_seen",
-              "text": "看清她们。还站中间干什么",
+              "text": "看清她们。她问你还站中间干什么",
               "next": "n_funnel_03"
             }
           ]
@@ -74,19 +97,25 @@
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 甲板扫视 Mia 侧门描边，不进床、不说白天纸箱",
           "artStatus": "ready",
-          "characters": ["kai", "mia"],
-          "setFlags": { "funnel_step": 3, "funnel_zone": "mia" },
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "setFlags": {
+            "funnel_step": 3,
+            "funnel_zone": "mia"
+          },
           "camera": "hold",
           "transition": "fade",
           "choices": [
             {
               "choiceId": "c_f3_take",
-              "text": "走近。她喊你过来",
+              "text": "过去。她开口喊你凯",
               "next": "n_funnel_03_take"
             },
             {
               "choiceId": "c_f3_ask",
-              "text": "先不走近。她只说了行",
+              "text": "先不过去。她只丢给你一句行",
               "next": "n_funnel_03_ask"
             }
           ]
@@ -97,7 +126,10 @@
           "speaker": "mia",
           "text": "「凯。过来。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "mia"],
+          "characters": [
+            "kai",
+            "mia"
+          ],
           "camera": "hold",
           "advance": "n_funnel_04"
         },
@@ -107,7 +139,10 @@
           "speaker": "mia",
           "text": "「……行。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "mia"],
+          "characters": [
+            "kai",
+            "mia"
+          ],
           "camera": "hold",
           "advance": "n_funnel_04"
         },
@@ -119,19 +154,25 @@
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 甲板扫视 Jade 台阶，不进干楼梯吻",
           "artStatus": "ready",
-          "characters": ["kai", "jade"],
-          "setFlags": { "funnel_step": 4, "funnel_zone": "jade" },
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "setFlags": {
+            "funnel_step": 4,
+            "funnel_zone": "jade"
+          },
           "camera": "hold",
           "transition": "fade",
           "choices": [
             {
               "choiceId": "c_f4_take",
-              "text": "站近一步。屏幕也要朝下",
+              "text": "别动。她要你把屏幕朝下",
               "next": "n_funnel_04_take"
             },
             {
               "choiceId": "c_f4_ask",
-              "text": "问她拍了什么。这张她不给看",
+              "text": "问她拍了什么。她说这张没有",
               "next": "n_funnel_04_ask"
             }
           ]
@@ -142,7 +183,10 @@
           "speaker": "jade",
           "text": "「屏幕朝下。你的也是。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "jade"],
+          "characters": [
+            "kai",
+            "jade"
+          ],
           "camera": "hold",
           "advance": "n_funnel_05"
         },
@@ -152,7 +196,10 @@
           "speaker": "jade",
           "text": "「刚才那张给迎新页。这张——没有。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "jade"],
+          "characters": [
+            "kai",
+            "jade"
+          ],
           "camera": "hold",
           "advance": "n_funnel_05"
         },
@@ -164,19 +211,25 @@
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 甲板扫视 Lina 跳台，不进毛巾特写",
           "artStatus": "ready",
-          "characters": ["kai", "lina"],
-          "setFlags": { "funnel_step": 5, "funnel_zone": "lina" },
+          "characters": [
+            "kai",
+            "lina"
+          ],
+          "setFlags": {
+            "funnel_step": 5,
+            "funnel_zone": "lina"
+          },
           "camera": "hold",
           "transition": "fade",
           "choices": [
             {
               "choiceId": "c_f5_take",
-              "text": "走近跳台。她叫你别盯",
+              "text": "还站着。她叫你别盯",
               "next": "n_funnel_05_take"
             },
             {
               "choiceId": "c_f5_ask",
-              "text": "叫她名字。跳台还亮着",
+              "text": "叫她名字。她不让你叫",
               "next": "n_funnel_05_ask"
             }
           ]
@@ -187,7 +240,10 @@
           "speaker": "lina",
           "text": "「别盯。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "lina"],
+          "characters": [
+            "kai",
+            "lina"
+          ],
           "camera": "hold",
           "advance": "n_funnel_06"
         },
@@ -197,7 +253,10 @@
           "speaker": "lina",
           "text": "「别叫我名字。跳台还亮着。」",
           "assetId": "assets/scenes/ch01/n_conflict.webp",
-          "characters": ["kai", "lina"],
+          "characters": [
+            "kai",
+            "lina"
+          ],
           "camera": "hold",
           "advance": "n_funnel_06"
         },
@@ -209,8 +268,14 @@
           "assetId": "assets/scenes/heat/S04.webp",
           "artCue": "S04 门缝窥视；18 证入画不普法",
           "artStatus": "ready",
-          "characters": ["kai", "rae"],
-          "setFlags": { "funnel_step": 6, "funnel_zone": "rae" },
+          "characters": [
+            "kai",
+            "rae"
+          ],
+          "setFlags": {
+            "funnel_step": 6,
+            "funnel_zone": "rae"
+          },
           "camera": "hold",
           "transition": "fade",
           "lines": [
@@ -222,12 +287,12 @@
           "choices": [
             {
               "choiceId": "c_f6_take",
-              "text": "手不放。先别出声",
+              "text": "手不放。她让你先别出声",
               "next": "n_funnel_06_take"
             },
             {
               "choiceId": "c_f6_ask",
-              "text": "松手。他们能听见呼吸",
+              "text": "松手。她说小点声他们听得见",
               "next": "n_funnel_06_ask"
             }
           ]
@@ -238,7 +303,10 @@
           "speaker": "rae",
           "text": "「先别出声。……唔。」",
           "assetId": "assets/scenes/heat/S04.webp",
-          "characters": ["kai", "rae"],
+          "characters": [
+            "kai",
+            "rae"
+          ],
           "camera": "hold",
           "advance": "n_funnel_07"
         },
@@ -248,7 +316,10 @@
           "speaker": "rae",
           "text": "「小点声。他们能听见呼吸。」",
           "assetId": "assets/scenes/heat/S04.webp",
-          "characters": ["kai", "rae"],
+          "characters": [
+            "kai",
+            "rae"
+          ],
           "camera": "hold",
           "advance": "n_funnel_07"
         },
@@ -260,14 +331,22 @@
           "assetId": "assets/scenes/ch01/n_conflict.webp",
           "artCue": "S05 夜池广角五键真选择；下一张必须换静帧",
           "artStatus": "ready",
-          "characters": ["kai", "mia", "jade", "lina", "rae"],
-          "setFlags": { "funnel_step": 7 },
+          "characters": [
+            "kai",
+            "mia",
+            "jade",
+            "lina",
+            "rae"
+          ],
+          "setFlags": {
+            "funnel_step": 7
+          },
           "camera": "hold",
           "transition": "fade",
           "choices": [
             {
               "choiceId": "c_f7_mia",
-              "text": "接招：侧门。床头只剩一盏灯",
+              "text": "接招：侧门。关上门按住她腰",
               "next": "n_funnel_08_mia",
               "setFlags": {
                 "went_with": "mia"
@@ -275,7 +354,7 @@
             },
             {
               "choiceId": "c_f7_jade",
-              "text": "接招：上台阶。砖还凉、她却热",
+              "text": "接招：上台阶。她拉你进没闪光的阴影",
               "next": "n_funnel_08_jade",
               "setFlags": {
                 "went_with": "jade"
@@ -283,7 +362,7 @@
             },
             {
               "choiceId": "c_f7_lina",
-              "text": "接招：走向跳台。毛巾砸进怀里",
+              "text": "接招：走向跳台。她把毛巾砸进你怀里",
               "next": "n_funnel_08_lina",
               "setFlags": {
                 "went_with": "lina"
@@ -291,7 +370,7 @@
             },
             {
               "choiceId": "c_f7_rae",
-              "text": "接招：走向冒气的门。门缝还开着",
+              "text": "接招：走向冒气的门。水手领湿着贴上门缝",
               "next": "n_funnel_08_rae",
               "setFlags": {
                 "went_with": "rae"
@@ -299,7 +378,7 @@
             },
             {
               "choiceId": "c_f7_none",
-              "text": "躲开：谁也不跟。手机还是亮了",
+              "text": "躲开：谁也不跟。楼道空了，手机还是亮了",
               "next": "n_funnel_08_none",
               "setFlags": {
                 "went_with": "none"
@@ -315,8 +394,13 @@
           "assetId": "assets/scenes/heat/S06a.webp",
           "artCue": "S06a 俯压床：羞耻咬唇、腰侧手、腿脚砸镜头；不是吻图",
           "artStatus": "ready",
-          "characters": ["kai", "mia"],
-          "setFlags": { "funnel_step": 8 },
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "setFlags": {
+            "funnel_step": 8
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "warm-tint",
@@ -329,7 +413,7 @@
           "choices": [
             {
               "choiceId": "c_f8_mia",
-              "text": "再近。心跳空了一拍",
+              "text": "手不拿开。群里弹出没字的拼贴",
               "next": "n_funnel_09"
             }
           ]
@@ -338,12 +422,17 @@
           "nodeId": "n_funnel_08_jade",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "台阶转进阴影。闪光关了。砖还凉，她小臂却热。",
+          "text": "台阶转进阴影。闪光关了。她把你按在干砖上，没给别人留空。",
           "assetId": "assets/scenes/heat/S06b.webp",
           "artCue": "S06b 干楼梯：一腿踩砖、相机已关；禁止雨水；不是吻图",
           "artStatus": "ready",
-          "characters": ["kai", "jade"],
-          "setFlags": { "funnel_step": 8 },
+          "characters": [
+            "kai",
+            "jade"
+          ],
+          "setFlags": {
+            "funnel_step": 8
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "warm-tint",
@@ -356,7 +445,7 @@
           "choices": [
             {
               "choiceId": "c_f8_jade",
-              "text": "再近。一张拼贴没有字",
+              "text": "不给别人看。群里弹出没字的拼贴",
               "next": "n_funnel_09"
             }
           ]
@@ -365,12 +454,17 @@
           "nodeId": "n_funnel_08_lina",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "你一走近跳台，毛巾砸进怀里。视线只剩她的眼睛。湿气从布边漏出来。腿侧发凉，掌心却热。",
+          "text": "你一走近跳台，毛巾砸进怀里。视线只剩她的眼睛。湿气从布边漏出来。你掌心贴着她腰侧，她没躲开。",
           "assetId": "assets/scenes/heat/S06c.webp",
           "artCue": "S06c 毛巾 POV：室内夜池、湿大腿；无雨；不是吻图",
           "artStatus": "ready",
-          "characters": ["kai", "lina"],
-          "setFlags": { "funnel_step": 8 },
+          "characters": [
+            "kai",
+            "lina"
+          ],
+          "setFlags": {
+            "funnel_step": 8
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "warm-tint",
@@ -383,7 +477,7 @@
           "choices": [
             {
               "choiceId": "c_f8_lina",
-              "text": "再近。两张脸在抢一只手",
+              "text": "毛巾还拿着。群里弹出没字的拼贴",
               "next": "n_funnel_09"
             }
           ]
@@ -396,8 +490,13 @@
           "assetId": "assets/scenes/heat/n_heat_neck_rae.webp",
           "artCue": "S06d 过肩颈侧：水手领、湿砖脚尖、钩上学生证；不是吻图",
           "artStatus": "ready",
-          "characters": ["kai", "rae"],
-          "setFlags": { "funnel_step": 8 },
+          "characters": [
+            "kai",
+            "rae"
+          ],
+          "setFlags": {
+            "funnel_step": 8
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "warm-tint",
@@ -410,7 +509,7 @@
           "choices": [
             {
               "choiceId": "c_f8_rae",
-              "text": "再近。今天下午那张图",
+              "text": "门还不关。群里弹出没字的拼贴",
               "next": "n_funnel_09"
             }
           ]
@@ -423,14 +522,18 @@
           "assetId": "assets/scenes/ch01/n_free_soft_exit.webp",
           "artCue": "C1-D2 空廊；不是大厅 n_open",
           "artStatus": "ready",
-          "characters": ["kai"],
-          "setFlags": { "funnel_step": 8 },
+          "characters": [
+            "kai"
+          ],
+          "setFlags": {
+            "funnel_step": 8
+          },
           "camera": "hold",
           "transition": "fade",
           "choices": [
             {
               "choiceId": "c_f8_none",
-              "text": "再近。群里没有字",
+              "text": "楼道空着。手机还是亮了那张图",
               "next": "n_funnel_09"
             }
           ]
@@ -443,8 +546,12 @@
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "S07 手机近、拼贴剪影；勿烧聊天气泡；公事条子 UI，Reina 不开口",
           "artStatus": "ready",
-          "characters": ["kai"],
-          "setFlags": { "funnel_step": 9 },
+          "characters": [
+            "kai"
+          ],
+          "setFlags": {
+            "funnel_step": 9
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "vignette",
@@ -457,7 +564,7 @@
           "choices": [
             {
               "choiceId": "c_f9_open",
-              "text": "点开那张拼贴。已经走到图跟前",
+              "text": "点开那张拼贴。两张脸在抢同一只手",
               "next": "n_funnel_10"
             }
           ]
@@ -470,8 +577,12 @@
           "assetId": "assets/scenes/ch01/n_sms_auto.webp",
           "artCue": "S07 拼贴下半被 28% 底栏挡住；注册表单在底栏",
           "artStatus": "ready",
-          "characters": ["kai"],
-          "setFlags": { "funnel_step": 10 },
+          "characters": [
+            "kai"
+          ],
+          "setFlags": {
+            "funnel_step": 10
+          },
           "camera": "hold",
           "transition": "fade",
           "fx": "vignette"

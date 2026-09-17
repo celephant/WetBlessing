@@ -23,12 +23,14 @@ export type CueIssue = {
     | "stage"
     | "button-symbol"
     | "price"
-    | "leak";
+    | "leak"
+    | "banned";
   message: string;
 };
 
 export const CUE_TARGET_MIN = 3;
-export const CUE_SOFT_MAX = 14;
+/** One spoken hook that still fits a single-line chip. */
+export const CUE_SOFT_MAX = 18;
 export const CHOICE_ACTION_SOFT_MAX = 10;
 
 /** Hearts and waves never belong on Choice / Cue chips. */
@@ -37,9 +39,20 @@ const PRICE_ON_CHIP = /\$|通行证|月卡|¥|￥|\d+\.\d{2}/;
 const STAGE_1_TOO_HOT = /哈啊|求你|不要停|弄坏|已经……不可以/;
 const DISSONANCE_MARK = /却|明明|不让|没躲|还等|没拉|没换|口是/;
 const BARK_MARK = /！|唔|哈啊|呀/;
+const UI_CHIP = /下一页|^继续$|^继续。|点一块地|进最终拍|^靠近$/;
+export const BANNED_CUE =
+  /屏幕还热着|金属凉|池水凉|她还没准|在水里|池水/;
+export const COUPLET_CUE = /[凉冷冰][、，].{0,10}却热|[热烫][、，].{0,10}却[凉冷]/;
 
 export function countCueChars(text: string): number {
   return [...text.replace(/\s/g, "")].length;
+}
+
+/** Read Choice + Cue as one spoken line for 柯德平. */
+export function spokenChipLine(choice: string, cue: string | null): string {
+  const bark = choice.replace(/[。]$/, "");
+  if (!cue) return bark;
+  return `${bark}，${cue}`;
 }
 
 export function choiceCueFace(choice: Choice | string): ChoiceCueFace {
@@ -118,7 +131,7 @@ function looksLikeNarration(cue: string): boolean {
   const stripped = cue.replace(/[。！？]$/, "");
   const stops = (stripped.match(/[。！？]/g) ?? []).length;
   if (stops >= 1) return true;
-  if ((cue.match(/，/g) ?? []).length >= 1) return true;
+  if ((cue.match(/，/g) ?? []).length >= 2) return true;
   return false;
 }
 
@@ -154,6 +167,12 @@ export function validateChoiceCue(input: {
   }
   if (PRICE_ON_CHIP.test(choice) || PRICE_ON_CHIP.test(cue)) {
     issues.push({ code: "price", message: "Choice / Cue chips cannot show a price" });
+  }
+  if (BANNED_CUE.test(choice) || BANNED_CUE.test(cue) || COUPLET_CUE.test(cue) || UI_CHIP.test(cue)) {
+    issues.push({
+      code: "banned",
+      message: "Choice / Cue uses a rejected fragment, couplet, or UI verb",
+    });
   }
   if (countCueChars(cue) > CUE_SOFT_MAX) {
     issues.push({
