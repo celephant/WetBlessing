@@ -31,16 +31,16 @@ describe("in-dialogue paywall", () => {
     expect(ids).not.toContain("c_free_read");
   });
 
-  it("locks story_pass_month choices until entitled", () => {
+  it("locks story_pass choices until entitled", () => {
     const state = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
     expect(state.nodeId).toBe("n_ch01_first_sub");
-    expect(state.entitlements.story_pass_month).toBe(false);
+    expect(state.entitlements.story_pass).toBe(false);
 
     const locked = selectChoice(state, "c_sub_round_mia");
     expect(locked.ok).toBe(false);
     if (locked.ok) return;
     expect(locked.reason).toBe("locked");
-    expect(locked.sku).toBe("story_pass_month");
+    expect(locked.sku).toBe("story_pass");
     expect(locked.state.pendingChoiceId).toBe("c_sub_round_mia");
     expect(locked.state.nodeId).toBe("n_ch01_first_sub");
   });
@@ -54,7 +54,7 @@ describe("in-dialogue paywall", () => {
     const result = unlockNext(locked.state);
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.state.entitlements.story_pass_month).toBe(true);
+    expect(result.state.entitlements.story_pass).toBe(true);
     expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
     expect(result.state.flags.catch_target).toBe("mia");
     expect(result.state.pendingChoiceId).toBeNull();
@@ -70,7 +70,7 @@ describe("in-dialogue paywall", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.state.entitlements.w1_continue).toBe(true);
-    expect(result.state.entitlements.story_pass_month).toBe(false);
+    expect(result.state.entitlements.story_pass).toBe(false);
     expect(result.state.entitlements.w2_office).toBeFalsy();
     expect(result.state.nodeId).toBe("n_pay_01_catch_mia");
   });

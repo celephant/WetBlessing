@@ -1,6 +1,7 @@
 import hard from "../content/copy/ENG-copy-PAYWALL_HARD.json";
 import chapter from "../content/copy/ENG-copy-PAYWALL_CHAPTER.json";
 import edge from "../content/copy/ENG-copy-PAYWALL_EDGE_LOCK.json";
+import { SKU_STORY_PASS, SKU_STORY_PASS_MONTH } from "./tokens";
 import type { ChapterScope, Flags } from "./types";
 
 export const SKU_CHAPTER_UNLOCK = "chapter_unlock";
@@ -47,11 +48,16 @@ export const CHAPTER_SCOPES = [
 ] as const;
 
 export const WALL_SKUS = [
-  "story_pass_month",
+  SKU_STORY_PASS,
+  SKU_STORY_PASS_MONTH,
   "chapter_unlock",
   SKU_EDGE_LOCK,
   ...CHAPTER_SCOPES,
 ] as const;
+
+export function isStoryPassSku(sku?: string | null): boolean {
+  return sku === SKU_STORY_PASS || sku === SKU_STORY_PASS_MONTH;
+}
 
 export type WallSku = (typeof WALL_SKUS)[number];
 
@@ -81,7 +87,7 @@ export function isChapterScope(sku?: string | null): sku is ChapterScope {
 
 export function isWallSku(sku?: string | null): boolean {
   return (
-    sku === "story_pass_month" ||
+    isStoryPassSku(sku) ||
     sku === "chapter_unlock" ||
     sku === SKU_EDGE_LOCK ||
     isChapterScope(sku)

@@ -4,13 +4,13 @@
   "zh-CN": {
     "title": "缝里是她。",
     "body": "手已经在门把上。锁还横着。……里面还亮着♡",
-    "primary": "开通剧本通行证 · $8.99",
+    "primary": "一次性通行证 · $8.99",
     "primaryOwned": "推门进去",
     "secondary": "只解锁这一夜 · $2.99",
     "tertiary": "回标题"
   },
   "behavior": {
-    "primaryAction": "checkout_sku:story_pass_month",
+    "primaryAction": "checkout_sku:story_pass",
     "primaryOwnedAction": "continue_paid_edge",
     "secondaryAction": "checkout_sku:chapter_unlock|scope=w3_edge_night",
     "tertiaryAction": "dismiss",

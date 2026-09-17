@@ -118,7 +118,7 @@ describe("reserved edge_lock sibling wall", () => {
     const unlocked = unlockNext(locked.state, undefined, compiled);
     expect(unlocked.ok).toBe(true);
     if (!unlocked.ok) return;
-    expect(unlocked.state.entitlements.story_pass_month).toBe(true);
+    expect(unlocked.state.entitlements.story_pass).toBe(true);
     expect(unlocked.state.entitlements.edge_lock).toBe(true);
     expect(unlocked.state.nodeId).toBe("n_end");
   });
@@ -127,17 +127,17 @@ describe("reserved edge_lock sibling wall", () => {
     const compiled = compileRoute(edgeLockStub());
     const granted = grantFullEntitleDev();
     expect(isFullyEntitled(granted)).toBe(true);
-    expect(granted.story_pass_month).toBe(true);
+    expect(granted.story_pass).toBe(true);
     expect(granted.edge_lock).toBe(true);
 
     const entitled = startGame(granted, compiled);
-    expect(hasEntitlement(entitled, "story_pass_month")).toBe(true);
+    expect(hasEntitlement(entitled, "story_pass")).toBe(true);
     expect(hasEntitlement(entitled, "edge_lock")).toBe(true);
     expect(selectChoice(entitled, "c_push", compiled).ok).toBe(true);
 
     const firstSubOnly = withEntitlement(
       startGame({ story_pass_month: false }, compiled),
-      "story_pass_month",
+      "story_pass",
       true,
     );
     expect(hasEntitlement(firstSubOnly, "edge_lock")).toBe(true);
@@ -148,7 +148,7 @@ describe("reserved edge_lock sibling wall", () => {
     const parsed = parseEntitlements(
       JSON.stringify({ story_pass_month: true, edge_lock: true }),
     );
-    expect(parsed.story_pass_month).toBe(true);
+    expect(parsed.story_pass).toBe(true);
     expect(parsed.edge_lock).toBe(true);
     expect(isFullyEntitled(parsed)).toBe(true);
   });

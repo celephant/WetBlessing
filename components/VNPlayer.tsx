@@ -30,6 +30,7 @@ import {
   grantScopeDev,
   isFullyEntitled,
   loadEntitlements,
+  normalizeEntitlements,
   revokeStoryPassDev,
 } from "@/lib/entitlement";
 import { INTERACTION, shouldSkipMotion } from "@/lib/interaction";
@@ -53,7 +54,7 @@ import {
   TRANSITION_MS,
 } from "@/lib/scene-presentation";
 import { NIGHT_PASS_DIALOG_DOCK_CSS } from "@/lib/tokens";
-import type { Beat, Choice, Entitlements, GameState } from "@/lib/types";
+import type { Beat, Choice, GameState } from "@/lib/types";
 import {
   isFunnelAuthNode,
   isFunnelLookNode,
@@ -109,10 +110,10 @@ export function VNPlayer({
       if (saved) {
         setState({
           ...saved,
-          entitlements: {
+          entitlements: normalizeEntitlements({
             ...saved.entitlements,
             ...entitlements,
-          },
+          }),
           pendingChoiceId: saved.pendingChoiceId ?? null,
         });
         return;
@@ -281,10 +282,12 @@ export function VNPlayer({
 
   const toggleDevPass = () => {
     const nextGranted = !isFullyEntitled(state.entitlements);
-    const entitlements: Entitlements = nextGranted
-      ? grantFullEntitleDev(state.entitlements)
-      : revokeStoryPassDev(state.entitlements);
-    commit(withEntitlement(state, "full_entitle", Boolean(entitlements.story_pass_month)));
+    if (nextGranted) {
+      grantFullEntitleDev(state.entitlements);
+    } else {
+      revokeStoryPassDev(state.entitlements);
+    }
+    commit(withEntitlement(state, "full_entitle", nextGranted));
   };
 
   const passOn = isFullyEntitled(state.entitlements);

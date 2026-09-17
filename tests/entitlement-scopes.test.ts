@@ -42,13 +42,14 @@ describe("entitlement scopes (fake-unlock only)", () => {
     expect(hasEntitlement(w1, SCOPE_W1_CONTINUE, "first_sub")).toBe(true);
     expect(hasEntitlement(w1, SCOPE_W2_OFFICE, GATE_CHAPTER_START)).toBe(false);
     expect(hasEntitlement(w1, "edge_lock", "edge_lock")).toBe(false);
-    expect(hasEntitlement(w1, "story_pass_month")).toBe(false);
+    expect(hasEntitlement(w1, "story_pass")).toBe(false);
+    expect(hasEntitlement(w1, "story_pass", "first_sub")).toBe(true);
     expect(hasEntitlement(w1, "story_pass_month", "first_sub")).toBe(true);
 
     expect(hasEntitlement(w2, SCOPE_W2_OFFICE, GATE_CHAPTER_START)).toBe(true);
     expect(hasEntitlement(w2, SCOPE_W1_CONTINUE, "first_sub")).toBe(false);
     expect(hasEntitlement(w2, "edge_lock", "edge_lock")).toBe(false);
-    expect(hasEntitlement(w2, "story_pass_month", "first_sub")).toBe(false);
+    expect(hasEntitlement(w2, "story_pass", "first_sub")).toBe(false);
 
     expect(hasEntitlement(w3, "edge_lock", "edge_lock")).toBe(true);
     expect(hasEntitlement(w3, SCOPE_W3_EDGE_NIGHT)).toBe(true);
@@ -56,8 +57,9 @@ describe("entitlement scopes (fake-unlock only)", () => {
     expect(hasEntitlement(w3, SCOPE_W2_OFFICE, GATE_CHAPTER_START)).toBe(false);
   });
 
-  it("lets the month pass satisfy every later wall", () => {
-    const pass = startGame({ story_pass_month: true });
+  it("lets the one-time pass satisfy every later wall", () => {
+    const pass = startGame({ story_pass: true });
+    expect(hasEntitlement(pass, "story_pass", "first_sub")).toBe(true);
     expect(hasEntitlement(pass, "story_pass_month", "first_sub")).toBe(true);
     expect(hasEntitlement(pass, SCOPE_W1_CONTINUE, "first_sub")).toBe(true);
     expect(hasEntitlement(pass, SCOPE_W2_OFFICE, GATE_CHAPTER_START)).toBe(true);
@@ -68,6 +70,7 @@ describe("entitlement scopes (fake-unlock only)", () => {
 
   it("mints pass + both chapter flags + edge on DEV full entitle", () => {
     const minted = mintFullEntitle();
+    expect(minted.story_pass).toBe(true);
     expect(minted.story_pass_month).toBe(true);
     expect(minted.w1_continue).toBe(true);
     expect(minted.w2_office).toBe(true);
@@ -78,6 +81,7 @@ describe("entitlement scopes (fake-unlock only)", () => {
     const parsed = parseEntitlements(
       JSON.stringify({ story_pass_month: true, w1_continue: true }),
     );
+    expect(parsed.story_pass).toBe(true);
     expect(parsed.story_pass_month).toBe(true);
     expect(parsed.w1_continue).toBe(true);
     expect(parsed.w2_office).toBe(false);
@@ -107,7 +111,7 @@ describe("entitlement scopes (fake-unlock only)", () => {
     if (!scoped.ok) return;
     expect(scoped.state.nodeId).toBe("n_pay_01_catch_mia");
     expect(scoped.state.entitlements.w1_continue).toBe(true);
-    expect(scoped.state.entitlements.story_pass_month).toBe(false);
+    expect(scoped.state.entitlements.story_pass).toBe(false);
     expect(scoped.state.entitlements.w2_office).toBeFalsy();
     expect(scoped.state.entitlements.w3_edge_night).toBeFalsy();
 
@@ -144,7 +148,7 @@ describe("entitlement scopes (fake-unlock only)", () => {
     const full = unlockNext(locked.state);
     expect(full.ok).toBe(true);
     if (!full.ok) return;
-    expect(full.state.entitlements.story_pass_month).toBe(true);
+    expect(full.state.entitlements.story_pass).toBe(true);
     expect(full.state.entitlements.w1_continue).toBe(true);
     expect(full.state.entitlements.w2_office).toBe(true);
     expect(full.state.entitlements.w3_edge_night).toBe(true);

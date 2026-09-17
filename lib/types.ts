@@ -157,7 +157,13 @@ export type Flags = Record<string, FlagValue>;
 export type ChapterScope = "w1_continue" | "w2_office" | "w3_edge_night";
 
 export type Entitlements = {
-  story_pass_month: boolean;
+  /** One-time buyout of this season's promised content + replay. Not a subscription. */
+  story_pass?: boolean;
+  /**
+   * Leftover month-card key. Parsed from old saves; mirrored on write so mixed
+   * checkouts still load. Engine truth is `story_pass`.
+   */
+  story_pass_month?: boolean;
   /** Sibling of first_sub. Local /play full-entitle grants both walls. */
   edge_lock?: boolean;
   /** Unscoped leftover. Not a season pass. Do not treat as all walls. */

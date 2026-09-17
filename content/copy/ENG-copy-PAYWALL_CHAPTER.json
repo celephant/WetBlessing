@@ -4,13 +4,13 @@
   "zh-CN": {
     "title": "教員室。门开着。",
     "body": "黑丝压着桌沿。桌上那些脸。……灯还没关♡",
-    "primary": "开通剧本通行证 · $8.99",
+    "primary": "一次性通行证 · $8.99",
     "primaryOwned": "进去。",
     "secondary": "只解锁这一章 · $2.99",
     "tertiary": "回标题"
   },
   "behavior": {
-    "primaryAction": "checkout_sku:story_pass_month",
+    "primaryAction": "checkout_sku:story_pass",
     "primaryOwnedAction": "continue_paid_chapter",
     "secondaryAction": "checkout_sku:chapter_unlock|scope=w2_office",
     "tertiaryAction": "dismiss",

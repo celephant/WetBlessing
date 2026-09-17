@@ -6,7 +6,7 @@ import {
   scopeForGate,
 } from "@/lib/paywall-copy";
 import { playerFacingChoiceText } from "@/lib/choice-label";
-import { PASS_PRICE } from "@/lib/tokens";
+import { PASS_PRICE, SKU_STORY_PASS } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
 
 type PaywallOverlayProps = {
@@ -42,7 +42,7 @@ export function PaywallOverlay({
     >
       <div className="mb-8 w-full max-w-dialog rounded-dialog border border-gold/30 bg-night/95 p-5 shadow-[0_0_40px_rgba(232,197,106,0.2)]">
         <p className="font-display text-[11px] uppercase tracking-[0.22em] text-gold">
-          Night Pass
+          一次性通行证
         </p>
         <h2 className="mt-2 font-display text-2xl font-bold text-paper">{zh.title}</h2>
         <p className="mt-3 font-ui text-[17px] leading-7 text-paper/90">{zh.body}</p>
@@ -62,10 +62,10 @@ export function PaywallOverlay({
           <button
             type="button"
             disabled
-            data-sku="story_pass_month"
+            data-sku={SKU_STORY_PASS}
             className="btn-face mt-5 w-full border border-gold/40 bg-gold/15 font-medium text-gold/80"
           >
-            {/* TODO(slice-1): Stripe Checkout for story_pass_month */}
+            {/* TODO(slice-1): Stripe Checkout for story_pass */}
             {zh.primary}
           </button>
         )}
@@ -89,7 +89,7 @@ export function PaywallOverlay({
             onClick={onDevUnlock}
             className="btn-face mt-2 w-full bg-mint/90 font-medium text-ink"
           >
-            DEV · 假开通通行证，立刻接上这句
+            DEV · 假开通一次性通行证，立刻接上这句
           </button>
         )}
 
@@ -101,7 +101,7 @@ export function PaywallOverlay({
           {zh.tertiary}
         </button>
         <p className="mt-1 text-center font-ui text-[11px] text-mute">进度已保存</p>
-        <p className="sr-only">{`story_pass_month ${PASS_PRICE} chapter_unlock ${CHAPTER_UNLOCK_PRICE} scope ${scope}`}</p>
+        <p className="sr-only">{`${SKU_STORY_PASS} ${PASS_PRICE} chapter_unlock ${CHAPTER_UNLOCK_PRICE} scope ${scope}`}</p>
       </div>
     </div>
   );

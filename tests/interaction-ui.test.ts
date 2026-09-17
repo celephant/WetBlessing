@@ -77,6 +77,7 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain('data-choice-weight="equal"');
     expect(choices).toContain("playerFacingChoiceText");
     expect(choices).toContain("from-[#E8C56A]");
+    expect(choices).toContain("通行证 ${PASS_PRICE}");
     expect(choices).not.toContain("variantBarClass");
     expect(choices).not.toContain("bg-hot");
     expect(choices).not.toContain("animate-gold-sweep");
@@ -86,6 +87,9 @@ describe("private-interaction chrome contracts", () => {
     expect(paywall).toContain("bg-void/70");
     expect(paywall).toContain("进度已保存");
     expect(paywall).toContain("zh.tertiary");
+    expect(paywall).toContain("一次性通行证");
+    expect(paywall).toContain("假开通一次性通行证");
+    expect(paywall).not.toMatch(/月卡|订阅|本月/);
     expect(paywall).toContain("bg-gold");
     expect(paywall).not.toMatch(/倒计时|失去她|bg-black/);
     expect(title).toContain("{resume.label}");
