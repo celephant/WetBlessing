@@ -178,7 +178,8 @@ describe("season continue + bind none", () => {
       stats: state.stats,
     });
     expect(continued.nodeId).toBe("n_ch02_open");
-    expect(continued.flags.stood_up_mia).toBe(true);
+    expect(continued.flags.catch_target).toBe("mia");
+    expect(continued.flags.stood_up_mia).not.toBe(true);
     const atWall = playChoices(["c_s13_ok"], continued.entitlements, ch02);
     expect(atWall.nodeId).toBe("n_ch02_wall");
     expect(selectChoice(atWall, "c_ch02_enter", ch02).ok).toBe(false);

@@ -95,18 +95,13 @@ export function readFunnelCompleted(): boolean {
   return window.localStorage.getItem(FUNNEL_COMPLETED_KEY) === "1";
 }
 
-function stoodUpFlags(wentWith: string): Flags {
-  const all = ["mia", "jade", "lina", "rae"] as const;
-  const flags: Flags = { went_with: wentWith, funnel_completed: true };
-  for (const who of all) {
-    if (who !== wentWith) flags[`stood_up_${who}`] = true;
-  }
-  return flags;
+function handoffOccurrenceFlags(wentWith: string): Flags {
+  return { went_with: wentWith, funnel_completed: true };
 }
 
 export function handoffFunnelToCh01(funnelState: GameState): GameState {
   const wentWith = String(funnelState.flags.went_with ?? "none");
-  const flags = stoodUpFlags(wentWith);
+  const flags = handoffOccurrenceFlags(wentWith);
   const started = startGame(loadEntitlements(), route);
   const handed = enterNode(
     { ...started, flags: { ...started.flags, ...flags } },

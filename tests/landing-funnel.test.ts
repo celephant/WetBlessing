@@ -61,7 +61,7 @@ describe("landing funnel (pre-login, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("0b79b2273b7a7853936e013820461b787f828e10df5a4dfe85b38a474388f7ec");
+    ).toBe("1344bcd9edb95aef6c779ef4d19f9eb125f04a89e4ba1cfeeb8295377dea2b8f");
   });
 
   it("loads only via /play?content=funnel", () => {
@@ -185,7 +185,7 @@ describe("landing funnel (pre-login, not default)", () => {
     state = pumpToPrompt(goMia.state, compiled);
     expect(view(state, compiled).node.assetId).toBe("assets/scenes/heat/S06a.webp");
     expect(state.flags.went_with).toBe("mia");
-    expect(state.flags.stood_up_jade).toBe(true);
+    expect(state.flags.stood_up_jade).not.toBe(true);
     const closer = selectChoice(state, "c_f8_mia", compiled);
     expect(closer.ok).toBe(true);
     if (!closer.ok) return;

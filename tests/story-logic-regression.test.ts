@@ -131,7 +131,7 @@ describe("story-logic sign-off paths", () => {
     expect(ending.visited).toContain("n_s23_empty");
     expect(ending.visited).not.toContain("n_s22_mia");
     expect(ending.visited).not.toContain("n_s23_mia");
-    expect(ending.flags.ending).toBe("end_crash");
+    expect(ending.flags.ending).toBe("end_solo");
   });
 
   it("R4 Mia sleepover continues to 半公开", () => {

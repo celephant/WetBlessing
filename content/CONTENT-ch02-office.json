@@ -27,10 +27,16 @@
       "n_s14_kiss",
       "n_ch02_settle",
       "n_ch02_title",
-      "n_s13_empty"
+      "n_s13_empty",
+      "n_s13_other",
+      "n_s13_none",
+      "n_s14_ask_router",
+      "n_s14_ask_mia",
+      "n_s14_ask_other",
+      "n_s14_ask_none"
     ],
     "artPlaceholder": [],
-    "changelog": "Ch02 paid chapter-start wall (w2_office). S13 cafeteria + S14 Reina office; 躲开 kiss is story abort, not a second SKU. DEV via /play?content=ch02. Default remains 0.4.8-feel-hot Ch01.",
+    "changelog": "Design-lock: cafeteria covers Mia / other / none; office print is afternoon faces; S14 reply is not a single locked night-other line. Paid chapter-start wall unchanged.",
     "scaleLock": "全员 18+；Reina 29 讲师；黑丝只办公室；章前墙付费进；躲开亲吻是故事；禁生殖器；禁性交静帧",
     "w1Hook": "接上 Ch01 公事邮件：办公时间。带学生证。周一见。"
   },
@@ -156,7 +162,11 @@
             "catch_target==jade": "n_s13_mia",
             "went_with==mia": "n_s13_jade",
             "went_with==jade": "n_s13_mia",
-            "default": "n_s13_both"
+            "catch_target==lina": "n_s13_other",
+            "catch_target==rae": "n_s13_other",
+            "went_with==lina": "n_s13_other",
+            "went_with==rae": "n_s13_other",
+            "default": "n_s13_none"
           },
           "assetId": "assets/scenes/ch02/S13.webp",
           "artStatus": "ready",
@@ -490,6 +500,119 @@
           ]
         },
         {
+          "nodeId": "n_s13_other",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘对面空着。邻桌还在传下午那张电梯口。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：晚上是其他人，不是 Mia/Jade 门口失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "other"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "邻桌有人把杯子放下。拼贴是下午的两张脸。夜里跟走的那个人不在这张桌上。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。晚上那个人——不是这张下午的图。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 1
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "other"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "other"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_none",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "一张空位子。邻桌还在传下午那张电梯口。没人坐过来点你的名。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：无人跟走、无 Catch；不写门口失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "none"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "拼贴证明不了夜里。托盘还烫。那封公事还在口袋里。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「看见了。」",
+              "next": "n_s13_after",
+              "delta": {},
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "none"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "none"
+              }
+            }
+          ]
+        },
+        {
           "nodeId": "n_s13_after",
           "type": "dialogue",
           "speaker": "narrator",
@@ -540,9 +663,9 @@
           "nodeId": "n_s14_office",
           "type": "dialogue",
           "speaker": "narrator",
-          "text": "教員室。打印的拼贴平摊在桌上——电梯口的人，和派对里另一个人。",
+          "text": "教員室。打印的拼贴平摊在桌上——电梯口两张脸。",
           "assetId": "assets/scenes/ch02/S14.webp",
-          "artCue": "S14 仰坐学生位：拼贴在桌、门未锁、讲师口吻；黑丝桌沿占前 1/3",
+          "artCue": "S14 仰坐学生位：下午人脸在桌、门未锁、讲师口吻；黑丝桌沿占前 1/3",
           "artStatus": "ready",
           "characters": [
             "kai",
@@ -569,18 +692,102 @@
               "text": "「桌上这些脸。这不是约会。」",
               "camera": "hold",
               "transition": "fade"
-            },
-            {
-              "speaker": "reina",
-              "text": "「解释。一句话。谁先谁后。」",
-              "camera": "hold",
-              "transition": "fade"
             }
           ],
+          "advance": "n_s14_ask_router"
+        },
+        {
+          "nodeId": "n_s14_ask_router",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "playerVisible": false,
+          "text": "（办公室解释按昨晚事实）",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "hidden router: Mia / 其他人 / 无人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "advanceByFlag": {
+            "catch_target==mia": "n_s14_ask_mia",
+            "catch_target==jade": "n_s14_ask_other",
+            "catch_target==lina": "n_s14_ask_other",
+            "catch_target==rae": "n_s14_ask_other",
+            "went_with==mia": "n_s14_ask_mia",
+            "went_with==jade": "n_s14_ask_other",
+            "went_with==lina": "n_s14_ask_other",
+            "went_with==rae": "n_s14_ask_other",
+            "default": "n_s14_ask_none"
+          }
+        },
+        {
+          "nodeId": "n_s14_ask_mia",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
           "choices": [
             {
               "choiceId": "c_s14_ok",
-              "text": "接招：「电梯口是 Mia。晚上是另一个人。」",
+              "text": "接招：「电梯口是 Mia。晚上也是。」",
+              "next": "n_s14_silk",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_ask_other",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「电梯口那张是下午。晚上是另一个人。」",
+              "next": "n_s14_silk",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_ask_none",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「电梯口那张是下午。晚上我谁也没跟。」",
               "next": "n_s14_silk",
               "delta": {}
             }

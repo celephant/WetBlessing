@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { content } from "@/lib/content";
-import { SAVE_STORAGE_KEY } from "@/lib/entitlement";
+import { SAVE_STORAGE_KEY, loadEntitlements } from "@/lib/entitlement";
 import { readFunnelCompleted } from "@/lib/funnel";
+import { clearRunProgress } from "@/lib/new-run";
 import {
   orientedStill,
   PORTRAIT_SOURCE_MEDIA,
@@ -14,11 +15,21 @@ import {
 export function TitleScreen() {
   const [hasSave, setHasSave] = useState(false);
   const [funnelDone, setFunnelDone] = useState(false);
+  const [canNewRun, setCanNewRun] = useState(false);
   const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
 
   useEffect(() => {
-    setHasSave(Boolean(localStorage.getItem(SAVE_STORAGE_KEY)));
-    setFunnelDone(readFunnelCompleted());
+    const saved = Boolean(localStorage.getItem(SAVE_STORAGE_KEY));
+    const funnel = readFunnelCompleted();
+    const entitlements = loadEntitlements();
+    setHasSave(saved);
+    setFunnelDone(funnel);
+    setCanNewRun(
+      saved ||
+        funnel ||
+        Boolean(entitlements.w1_continue) ||
+        Boolean(entitlements.story_pass_month),
+    );
   }, []);
 
   return (
@@ -91,6 +102,19 @@ export function TitleScreen() {
             >
               继续
             </Link>
+          ) : null}
+          {canNewRun ? (
+            <button
+              type="button"
+              data-title-start="new-run"
+              onClick={() => {
+                clearRunProgress();
+                window.location.assign("/");
+              }}
+              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-transparent font-ui text-[15px] text-paper/80"
+            >
+              新开一局
+            </button>
           ) : null}
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
@@ -51,6 +52,7 @@ import {
   isFunnelLookNode,
   type FunnelZone,
 } from "@/lib/funnel";
+import { dismissPaywallToTitle } from "@/lib/new-run";
 
 function saveKey(packId: string) {
   return packId === "default" ? SAVE_STORAGE_KEY : `${SAVE_STORAGE_KEY}:${packId}`;
@@ -88,6 +90,7 @@ export function VNPlayer({
   const [afterPurchase, setAfterPurchase] = useState(false);
   const [paused, setPaused] = useState(false);
   const [funnelLook, setFunnelLook] = useState<FunnelZone | null>(null);
+  const router = useRouter();
   const pack = compiled.content;
 
   useEffect(() => {
@@ -395,7 +398,13 @@ export function VNPlayer({
           entitled={passOn}
           onDevUnlock={onDevUnlock}
           onUnlockScope={onUnlockScope}
-          onClose={() => setLocked(null)}
+          onClose={() => {
+            const next = dismissPaywallToTitle(state);
+            persistSave(next, packId);
+            setState(next);
+            setLocked(null);
+            router.push("/");
+          }}
         />
       ) : null}
     </div>

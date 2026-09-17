@@ -90,7 +90,7 @@ export function ChoiceList({
                     goldOnce ? "animate-gold-sweep" : ""
                   }`}
                 >
-                  {locked ? "锁 · " : ""}月卡 ${PASS_PRICE}
+                  {locked ? "锁 · " : ""}通行证 ${PASS_PRICE}
                 </span>
               ) : null}
             </span>

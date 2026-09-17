@@ -11,7 +11,7 @@ import {
 } from "../lib/engine";
 
 describe("in-dialogue paywall", () => {
-  it("sells the person you followed on Catch, not the ones you stood up", () => {
+  it("defaults Catch still to the person you followed, with unpaid switches to other Catch walls", () => {
     const miaPath = playChoices([
       "c_help_mia",
       "c_mia_hugish",
@@ -24,6 +24,7 @@ describe("in-dialogue paywall", () => {
     expect(miaPath.nodeId).toBe("n_ch01_catch_mia");
     expect(ids).toContain("c_sub_round_mia");
     expect(ids).not.toContain("c_sub_round_jade");
+    expect(ids).toContain("c_catch_show_jade");
     expect(ids).toContain("c_wall_title");
     expect(ids).not.toContain("c_later");
     expect(ids).not.toContain("c_free_busy");
