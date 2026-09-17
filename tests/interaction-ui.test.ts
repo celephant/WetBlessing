@@ -109,6 +109,8 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain(".btn-choice-pass:hover");
     expect(css).toContain("brightness(1.08)");
     expect(css).toContain("brightness(0.96)");
+    expect(css).toContain(".paywall-overlay .btn-face:hover");
+    expect(css).toContain(".paywall-overlay .btn-face.is-pressed");
     expect(css).not.toContain("#ff5d7a");
     expect(css).not.toMatch(/#f7f1f8|#efe6f0|#fbf6fb/i);
     expect(css).not.toMatch(/font-style:\s*italic/);
