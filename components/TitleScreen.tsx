@@ -66,10 +66,7 @@ export function TitleScreen() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh max-w-dialog flex-col justify-end px-6 pb-12 pt-16">
-        <p className="font-display text-xs uppercase tracking-[0.35em] text-mint">
-          Night Pass · Slice 0
-        </p>
-        <h1 className="mt-3 font-display text-5xl font-extrabold tracking-tight text-paper">
+        <h1 className="font-display text-5xl font-extrabold tracking-tight text-paper">
           WetBlessing
         </h1>
         <p className="mt-3 font-ui text-base text-paper/80">
@@ -83,29 +80,29 @@ export function TitleScreen() {
           {chapterResume && resume ? (
             <Link
               href={resume.href}
-              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              className="btn-face btn-primary choice-press"
               data-title-start="resume"
               data-title-resume-pack={resume.pack}
             >
-              继续
+              继续上次进度
             </Link>
           ) : funnelDone ? (
             <Link
               href={resume?.href ?? "/play?resume=1"}
-              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              className="btn-face btn-primary choice-press"
               data-title-start="resume"
             >
-              继续入学夜
+              继续上次进度
             </Link>
           ) : (
             <Link
               href="/play?content=funnel"
-              className="choice-press relative flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              className="btn-face btn-primary choice-press relative"
               data-title-start="funnel"
             >
               开始入学夜
               <span
-                className="absolute right-3 rounded-full border border-white/20 bg-night/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
+                className="absolute right-3 rounded-full border border-white/20 bg-stage/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
                 data-title-badge=""
               >
                 约 3 分钟
@@ -115,7 +112,7 @@ export function TitleScreen() {
           {chapterResume && !funnelDone ? (
             <Link
               href="/play?content=funnel"
-              className="choice-press relative flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
+              className="btn-face btn-choice choice-press relative"
               data-title-start="funnel"
             >
               开始入学夜
@@ -124,10 +121,10 @@ export function TitleScreen() {
           {resume && !funnelDone && !chapterResume ? (
             <Link
               href={resume.href}
-              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
+              className="btn-face btn-choice choice-press"
               data-title-start="resume"
             >
-              继续
+              继续上次进度
             </Link>
           ) : null}
           {canNewRun ? (
@@ -138,7 +135,7 @@ export function TitleScreen() {
                 clearRunProgress();
                 window.location.assign("/");
               }}
-              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-transparent font-ui text-[15px] text-paper/80"
+              className="btn-face btn-choice-ghost choice-press"
             >
               新开一局
             </button>

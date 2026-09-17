@@ -1,12 +1,10 @@
 "use client";
 
-import {
-  choiceVariant,
-  showsPassChip,
-  showsYuanGoldSweep,
-  variantBarClass,
-} from "@/lib/choice-variant";
+import { useEffect, useState } from "react";
+import { playerFacingChoiceText } from "@/lib/choice-label";
+import { choiceVariant, showsPassChip } from "@/lib/choice-variant";
 import { funnelChipStyle } from "@/lib/funnel";
+import { INTERACTION } from "@/lib/interaction";
 import { MOTION_SPEC } from "@/lib/scene-presentation";
 import { PASS_PRICE } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
@@ -16,7 +14,9 @@ type ChoiceListProps = {
   choiceEntitled?: (choice: Choice) => boolean;
   entitled?: boolean;
   onSelect: (choiceId: string) => void;
-  enterDelayMs?: number;
+  selectedId?: string | null;
+  confirming?: boolean;
+  reduceMotion?: boolean;
 };
 
 export function ChoiceList({
@@ -24,73 +24,75 @@ export function ChoiceList({
   choiceEntitled,
   entitled = false,
   onSelect,
-  enterDelayMs = 0,
+  selectedId = null,
+  confirming = false,
+  reduceMotion = false,
 }: ChoiceListProps) {
-  if (choices.length === 0) return null;
+  const [armed, setArmed] = useState(reduceMotion);
+  const [swept, setSwept] = useState(reduceMotion);
 
-  const goldDelayMs = enterDelayMs + MOTION_SPEC.choiceMs + MOTION_SPEC.paywallChipDelayMs;
+  useEffect(() => {
+    if (reduceMotion) {
+      setArmed(true);
+      setSwept(true);
+      return;
+    }
+    setArmed(false);
+    setSwept(false);
+    const arm = window.setTimeout(() => setArmed(true), INTERACTION.choiceArmMs);
+    const sweep = window.setTimeout(() => setSwept(true), 560);
+    return () => {
+      window.clearTimeout(arm);
+      window.clearTimeout(sweep);
+    };
+  }, [choices.map((choice) => choice.choiceId).join("|"), reduceMotion]);
+
+  if (choices.length === 0) return null;
 
   return (
     <div
-      className="relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
+      className="choice-group relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
       data-choice-stagger={MOTION_SPEC.choiceStaggerMs}
-      data-wall-chips={enterDelayMs > 0 ? "after-dip" : "ready"}
+      data-wall-chips="ready"
+      data-choice-armed={armed ? "on" : "off"}
+      data-choice-weight="equal"
     >
-      {choices.map((choice, index) => {
-        const goldOnce = showsYuanGoldSweep(choice);
+      {choices.map((choice) => {
         const owned = choiceEntitled ? choiceEntitled(choice) : entitled;
         const passChip = showsPassChip(choice);
         const funnelChip = funnelChipStyle(choice.choiceId);
-        let variant = choiceVariant(choice);
-        if (funnelChip.variant) variant = funnelChip.variant;
+        const variant = funnelChip.variant ?? choiceVariant(choice);
         const locked =
-          passChip &&
-          Boolean(choice.requiresEntitlement) &&
-          !owned;
+          passChip && Boolean(choice.requiresEntitlement) && !owned;
+        const selected = selectedId === choice.choiceId;
+        const fading = confirming && selectedId !== null && !selected;
+        const label = playerFacingChoiceText(choice.text);
         return (
           <button
             key={choice.choiceId}
             type="button"
+            disabled={!armed || confirming}
             onClick={() => onSelect(choice.choiceId)}
-            style={{
-              animationDelay: `${enterDelayMs + index * MOTION_SPEC.choiceStaggerMs}ms`,
-            }}
-            className={`choice-enter choice-press flex min-h-[52px] items-stretch overflow-hidden rounded-chip border text-left backdrop-blur-md transition hover:bg-night/85 ${
-              variant === "ghost"
-                ? "border-white/10 bg-transparent"
-                : "border-white/15 bg-night/75"
-            } ${
-              variant === "pass"
-                ? "shadow-[0_0_24px_rgba(232,197,106,0.18)]"
-                : ""
+            data-choice-id={choice.choiceId}
+            data-choice-selected={selected ? "on" : "off"}
+            className={`btn-face btn-choice choice-press ${
+              !swept && !reduceMotion ? "btn-face-sweep" : ""
+            } ${variant === "ghost" ? "btn-choice-ghost" : ""} ${
+              selected ? "is-selected" : ""
+            } ${fading ? "is-fading" : ""} ${
+              confirming && selected ? "is-pressed" : ""
             }`}
           >
-            <span
-              className={`w-1 shrink-0 ${funnelChip.barClass ?? variantBarClass(variant)}`}
-            />
-            <span className={`flex flex-1 items-center justify-between gap-3 px-4 py-3 ${
-              variant === "ghost" ? "text-paper/70" : ""
-            }`}>
+            <span className="relative z-[1] flex flex-1 items-center justify-between gap-3 px-4 py-3">
               <span className="font-ui text-[15px] leading-snug text-paper">
-                {choice.text}
+                {label}
               </span>
-              {passChip ? (
+              {passChip && locked ? (
                 <span
-                  data-gold-sweep={goldOnce ? "once" : "off"}
-                  style={
-                    goldOnce
-                      ? {
-                          animationDelay: `${goldDelayMs}ms`,
-                          animationDuration: `${MOTION_SPEC.goldSweepMs}ms`,
-                          animationIterationCount: 1,
-                        }
-                      : undefined
-                  }
-                  className={`shrink-0 rounded-full bg-gradient-to-r from-[#E8C56A] via-[#F6F1E8] to-[#E8C56A] bg-[length:200%_100%] px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wide text-ink ${
-                    goldOnce ? "animate-gold-sweep" : ""
-                  }`}
+                  data-gold-sweep="off"
+                  className="shrink-0 rounded-full border border-white/15 px-2.5 py-1 font-display text-[11px] uppercase tracking-wide text-paper/70"
                 >
-                  {locked ? "锁 · " : ""}通行证 ${PASS_PRICE}
+                  锁 · 通行证 ${PASS_PRICE}
                 </span>
               ) : null}
             </span>
