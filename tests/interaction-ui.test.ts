@@ -102,8 +102,26 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain("background: #ff4b6b");
     expect(css).toContain("rgba(18, 20, 28, 0.75)");
     expect(css).toContain("translateY(1px)");
+    expect(css).toContain("scale(0.98)");
+    expect(css).toContain(".btn-primary:hover");
+    expect(css).toContain(".btn-choice:hover");
+    expect(css).toContain(".btn-choice-ghost:hover");
+    expect(css).toContain(".btn-choice-pass:hover");
+    expect(css).toContain("brightness(1.08)");
+    expect(css).toContain("brightness(0.96)");
+    expect(css).toContain(".paywall-overlay .btn-face:hover");
+    expect(css).toContain(".paywall-overlay .btn-face.is-pressed");
+    expect(css).not.toContain("#ff5d7a");
+    expect(css).not.toMatch(/#f7f1f8|#efe6f0|#fbf6fb/i);
+    expect(css).not.toMatch(/font-style:\s*italic/);
     expect(css).not.toMatch(/#ff0033|#FF0033/i);
     expect(css).toContain("[data-reduce-motion=\"on\"]");
+    const primaryHover = css.slice(
+      css.indexOf(".btn-primary:hover"),
+      css.indexOf(".btn-choice {"),
+    );
+    expect(primaryHover).not.toMatch(/background:/);
+    expect(primaryHover).toContain("filter: brightness(1.08)");
   });
 
   it("does not paint jie/yuan as a correct-answer gold button", () => {
