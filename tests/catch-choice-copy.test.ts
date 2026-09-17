@@ -11,7 +11,7 @@ const root = path.resolve(__dirname, "..");
 export const CATCH_CHIPS = {
   miaPaid: "进去。屏幕还热着",
   jadePaid: "抓住。手已经伸下来",
-  linaPaid: "下去。池水凉、腕却热",
+  linaPaid: "下去。锁骨还湿",
   raePaid: "从里面关。金属凉、后颈却热",
   miaSwitch: "去宿舍。她没抬头",
   jadeSwitch: "去楼梯。手已经伸下来",
@@ -201,10 +201,17 @@ describe("Catch / wall chips: story only, money after tap", () => {
   });
 
   it("keeps Lina on the empty pool, never 在水里", () => {
-    expect(CATCH_CHIPS.linaPaid).not.toMatch(/在水里/);
-    expect(CATCH_CHIPS.linaSwitch).not.toMatch(/在水里/);
-    expect(route.nodes.get("n_ch01_first_sub")?.choices?.map((c) => c.text).join("\n")).not.toMatch(
-      /在水里/,
-    );
+    expect(CATCH_CHIPS.linaPaid).not.toMatch(/在水里|池水/);
+    expect(CATCH_CHIPS.linaSwitch).not.toMatch(/在水里|池水/);
+    const catchHay = [
+      "n_ch01_first_sub",
+      "n_ch01_catch_mia",
+      "n_ch01_catch_jade",
+      "n_ch01_catch_lina",
+      "n_ch01_catch_rae",
+    ]
+      .flatMap((id) => route.nodes.get(id)?.choices?.map((c) => c.text) ?? [])
+      .join("\n");
+    expect(catchHay).not.toMatch(/在水里|池水/);
   });
 });

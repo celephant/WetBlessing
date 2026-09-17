@@ -1538,7 +1538,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。池水凉、腕却热",
+              "text": "下去。锁骨还湿",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1692,7 +1692,7 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。池水凉、腕却热",
+              "text": "下去。锁骨还湿",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
