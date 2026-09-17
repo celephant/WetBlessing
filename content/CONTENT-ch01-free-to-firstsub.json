@@ -190,7 +190,7 @@
           "choices": [
             {
               "choiceId": "c_help_mia",
-              "text": "接招：「箱子我来。」肩带滑着，她还等你接手。",
+              "text": "接招：「箱子我来。」她还等你接手",
               "next": "n_mia_edge_1",
               "delta": {
                 "stats": {
@@ -212,7 +212,7 @@
             },
             {
               "choiceId": "c_talk_jade",
-              "text": "接招：「三十秒。」笔按进掌心，闪光还没关。",
+              "text": "接招：「三十秒。」闪光还没关",
               "next": "n_jade_desk",
               "delta": {
                 "stats": {
@@ -234,7 +234,7 @@
             },
             {
               "choiceId": "c_dodge_both",
-              "text": "躲开：刷卡进门。今晚她不会当没看见。",
+              "text": "躲开：刷卡进门。她不会装死",
               "next": "n_dodge_corridor",
               "delta": {
                 "stats": {
@@ -274,7 +274,7 @@
           "choices": [
             {
               "choiceId": "c_jade_smirk",
-              "text": "接招：「看镜头。」闪光还没亮。她不让你看她，只让你看镜头。",
+              "text": "接招：「看镜头。」她不让你看她",
               "next": "n_dorm_steam",
               "delta": {
                 "stats": {
@@ -293,7 +293,7 @@
             },
             {
               "choiceId": "c_jade_ok",
-              "text": "圆场：「……好。」指尖还按在掌心上。笑很快就会收。",
+              "text": "圆场：「……好。」掌心还热",
               "next": "n_jade_desk_hold",
               "delta": {
                 "stats": {
@@ -311,7 +311,7 @@
             },
             {
               "choiceId": "c_jade_go",
-              "text": "躲开：填完就走。掌心还热。她已经转向下一个人。",
+              "text": "躲开：填完就走。她转向别人",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 1
@@ -423,7 +423,7 @@
           "choices": [
             {
               "choiceId": "c_mia_hugish",
-              "text": "接招：「……我来了。」箱角顶着胸口。她肩带滑了，没拉。",
+              "text": "接招：「……我来了。」肩带没拉",
               "next": "n_mia_edge_2",
               "delta": {
                 "stats": {
@@ -443,7 +443,7 @@
             },
             {
               "choiceId": "c_mia_safe",
-              "text": "圆场：「……好久不见。」门一合。箱子卡在你们中间，她没换手。",
+              "text": "圆场：「……好久不见。」她没换手",
               "next": "n_mia_edge_hold",
               "delta": {
                 "stats": {
@@ -461,7 +461,7 @@
             },
             {
               "choiceId": "c_mia_side",
-              "text": "躲开：侧身。箱角会擦过。她今晚不会当没这回事。",
+              "text": "躲开：侧身。她不会装没看见",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
@@ -525,7 +525,7 @@
           "choices": [
             {
               "choiceId": "c_mia_banter",
-              "text": "接招：「……我记得。」她把箱子往你胸口一顶。腰已经往前了半寸。",
+              "text": "接招：「……我记得。」腰往前半寸",
               "next": "n_dorm_steam",
               "delta": {
                 "stats": {
@@ -544,7 +544,7 @@
             },
             {
               "choiceId": "c_mia_go",
-              "text": "躲开：「……你先。」叮。门要开了。吻还没落地。",
+              "text": "躲开：「……你先。」吻还没落地",
               "next": "n_dodge_corridor",
               "delta": {
                 "tension": 2
@@ -656,7 +656,7 @@
           "choices": [
             {
               "choiceId": "c_go_mia",
-              "text": "接招：侧门。灯只一盏。她等你进去，才肯抬头。",
+              "text": "接招：侧门。她才肯抬头",
               "next": "n_with_mia",
               "delta": {
                 "stats": {
@@ -679,7 +679,7 @@
             },
             {
               "choiceId": "c_go_jade",
-              "text": "接招：上台阶。闪光关了。干砖上她把手伸下来了。",
+              "text": "接招：上台阶。她把手伸下来",
               "next": "n_with_jade",
               "delta": {
                 "stats": {
@@ -702,7 +702,7 @@
             },
             {
               "choiceId": "c_go_lina",
-              "text": "接招：走向跳台。池是空的。毛巾只挂在肩上，她看你下来没有。",
+              "text": "接招：走向跳台。她看你下来没有",
               "next": "n_with_lina",
               "delta": {
                 "stats": {
@@ -725,7 +725,7 @@
             },
             {
               "choiceId": "c_go_rae",
-              "text": "接招：走向冒气的门。水手领湿着贴着胸口。她回了头。",
+              "text": "接招：走向冒气的门。她回了头",
               "next": "n_with_rae",
               "delta": {
                 "stats": {
@@ -748,7 +748,7 @@
             },
             {
               "choiceId": "c_dodge_party",
-              "text": "躲开：谁也不跟。四块地还在。今晚你可以谁也不进。",
+              "text": "躲开：谁也不跟。四块地还在",
               "next": "n_dodge_deck",
               "delta": {
                 "tension": 3
@@ -828,7 +828,7 @@
           "choices": [
             {
               "choiceId": "c_wm_close",
-              "text": "接招：「……不停。」灯只一盏。她膝盖不容你退，滚烫顺着腰线。",
+              "text": "接招：「……不停。」膝盖不容你退",
               "next": "n_kiss_mia",
               "delta": {
                 "stats": {
@@ -846,7 +846,7 @@
             },
             {
               "choiceId": "c_wm_ok",
-              "text": "圆场：看那排纸箱。她说停了就去翻。门一合，箱子顶着胸口。",
+              "text": "圆场：看那排纸箱。她说停了就去翻",
               "next": "n_with_mia_round",
               "delta": {
                 "stats": {
@@ -864,7 +864,7 @@
             },
             {
               "choiceId": "c_wm_phone",
-              "text": "躲开：「群在震。」灯还亮着。她膝盖已经顶上来了。",
+              "text": "躲开：「群在震。」膝盖已经顶上来",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -940,7 +940,7 @@
           "choices": [
             {
               "choiceId": "c_wj_close",
-              "text": "接招：「进来。」闪光关了。砖还凉，她小臂却热。",
+              "text": "接招：「进来。」砖凉、小臂却热",
               "next": "n_kiss_jade",
               "delta": {
                 "stats": {
@@ -958,7 +958,7 @@
             },
             {
               "choiceId": "c_wj_ok",
-              "text": "圆场：看一眼手机。镜头对着墙。她还没准你看完。",
+              "text": "圆场：看一眼手机。她还没准你看",
               "next": "n_with_jade_round",
               "delta": {
                 "stats": {
@@ -976,7 +976,7 @@
             },
             {
               "choiceId": "c_wj_phone",
-              "text": "躲开：下楼。闪光关了她才给人看。你一走，今晚就到此为止。",
+              "text": "躲开：下楼。今晚就到此为止",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1063,7 +1063,7 @@
           "choices": [
             {
               "choiceId": "c_wl_close",
-              "text": "接招：把毛巾扯开一点。池是空的。毛巾只挂在肩上，锁骨还湿。",
+              "text": "接招：把毛巾扯开一点。锁骨还湿",
               "next": "n_kiss_lina",
               "delta": {
                 "stats": {
@@ -1081,7 +1081,7 @@
             },
             {
               "choiceId": "c_wl_phone",
-              "text": "躲开：把毛巾还她。她不给称呼。你一还，今晚就到此为止。",
+              "text": "躲开：把毛巾还她。今晚就到此为止",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1127,7 +1127,7 @@
           "choices": [
             {
               "choiceId": "c_wr_close",
-              "text": "接招：从里面关。水手领湿着贴着胸口。隔墙暂时没人经过。",
+              "text": "接招：从里面关。隔墙暂时没人",
               "next": "n_kiss_rae",
               "delta": {
                 "stats": {
@@ -1145,7 +1145,7 @@
             },
             {
               "choiceId": "c_wr_phone",
-              "text": "躲开：退回楼道。门缝还开着。热气会自己散。",
+              "text": "躲开：退回楼道。热气会自己散",
               "next": "n_sms_auto",
               "delta": {
                 "tension": 1
@@ -1314,13 +1314,13 @@
           "choices": [
             {
               "choiceId": "c_sms_open",
-              "text": "点开那张拼贴。两张脸，没有字。心跳空了一拍。",
+              "text": "点开那张拼贴。心跳空了一拍",
               "next": "n_sms_open",
               "delta": {}
             },
             {
               "choiceId": "c_sms_shut",
-              "text": "扣上。群还亮着。那两张脸不会自己消失。",
+              "text": "扣上。那两张脸还在",
               "next": "n_ch01_wall_router",
               "delta": {}
             }
@@ -1398,7 +1398,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。屏幕还热着贴在她腿间。",
+              "text": "进去。屏幕还热着",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1411,28 +1411,28 @@
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。闪光关了，裙边掀着一截。",
+              "text": "去楼梯。裙边掀着一截",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。毛巾挂着，她还在看你。",
+              "text": "去水边。她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。她回了头，门缝还开着。",
+              "text": "去对门。门缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",
-              "text": "离开。",
+              "text": "离开。今晚就到这里",
               "next": "n_title",
               "delta": {
                 "tension": 1
@@ -1468,7 +1468,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。闪光关了，裙边掀着一截。",
+              "text": "抓住。裙边掀着一截",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1481,28 +1481,28 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。灯只一盏，她没抬头。",
+              "text": "去宿舍。她没抬头",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。毛巾挂着，她还在看你。",
+              "text": "去水边。她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。她回了头，门缝还开着。",
+              "text": "去对门。门缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",
-              "text": "离开。",
+              "text": "离开。今晚就到这里",
               "next": "n_title",
               "delta": {
                 "tension": 1
@@ -1538,7 +1538,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。毛巾只挂肩上，锁骨还湿。",
+              "text": "下去。锁骨还湿",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1551,28 +1551,28 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。灯只一盏，她没抬头。",
+              "text": "去宿舍。她没抬头",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。闪光关了，裙边掀着一截。",
+              "text": "去楼梯。裙边掀着一截",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "去对门。她回了头，门缝还开着。",
+              "text": "去对门。门缝还开着",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",
-              "text": "离开。",
+              "text": "离开。今晚就到这里",
               "next": "n_title",
               "delta": {
                 "tension": 1
@@ -1608,7 +1608,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。水手领湿着贴着胸口。",
+              "text": "从里面关。水手领还湿",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",
@@ -1621,28 +1621,28 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。灯只一盏，她没抬头。",
+              "text": "去宿舍。她没抬头",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "去楼梯。闪光关了，裙边掀着一截。",
+              "text": "去楼梯。裙边掀着一截",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "去水边。毛巾挂着，她还在看你。",
+              "text": "去水边。她还在看你",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",
-              "text": "离开。",
+              "text": "离开。今晚就到这里",
               "next": "n_title",
               "delta": {
                 "tension": 1
@@ -1666,7 +1666,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。屏幕还热着贴在她腿间。",
+              "text": "进去。屏幕还热着",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1679,7 +1679,7 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。闪光关了，裙边掀着一截。",
+              "text": "抓住。裙边掀着一截",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1692,7 +1692,7 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。毛巾只挂肩上，锁骨还湿。",
+              "text": "下去。锁骨还湿",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1705,7 +1705,7 @@
             },
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。水手领湿着贴着胸口。",
+              "text": "从里面关。水手领还湿",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",
@@ -1718,7 +1718,7 @@
             },
             {
               "choiceId": "c_wall_title",
-              "text": "离开。",
+              "text": "离开。今晚就到这里",
               "next": "n_title",
               "delta": {
                 "tension": 1
@@ -1752,13 +1752,13 @@
           "choices": [
             {
               "choiceId": "c_back_wall",
-              "text": "回到刚才。墙还在。她还等你进去。",
+              "text": "回到刚才。她还等你进去",
               "next": "n_ch01_first_sub",
               "delta": {}
             },
             {
               "choiceId": "c_to_title",
-              "text": "离开。楼道空了。那封公事还在。",
+              "text": "离开。那封公事还在",
               "next": "n_title",
               "delta": {}
             }
@@ -2119,7 +2119,7 @@
           "choices": [
             {
               "choiceId": "c_vanessa_ok",
-              "text": "接招：吻。雨还在下。她没倒向你，唇却近了，要你慢。",
+              "text": "接招：吻。唇近了、她还没倒",
               "next": "n_pay_03_yes",
               "delta": {},
               "setFlags": {
@@ -2128,7 +2128,7 @@
             },
             {
               "choiceId": "c_vanessa_dodge",
-              "text": "躲开：不进巷。雨还在下。巷口那个人影还没走。",
+              "text": "躲开：不进巷。那个人影还没走",
               "next": "n_pay_settle",
               "delta": {
                 "tension": 1

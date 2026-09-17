@@ -220,8 +220,8 @@ body {
   box-shadow: 0 8px 18px rgba(255, 75, 107, 0.38);
 }
 .choice-group {
-  max-width: 620px;
-  gap: 9px;
+  max-width: 480px;
+  gap: 8px;
   max-height: 100%;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -230,29 +230,27 @@ body {
   align-items: stretch;
   justify-content: flex-start;
   text-align: left;
-  min-height: 58px;
-  height: 58px;
+  min-height: 48px;
+  height: 48px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
   background: rgba(18, 20, 28, 0.75);
   color: var(--paper, #f6f1e8);
   font-weight: 400;
   backdrop-filter: blur(12px);
   box-shadow: none;
   transition:
-    transform 200ms ease,
-    background-color 200ms ease,
-    border-color 200ms ease,
-    filter 200ms ease,
-    box-shadow 200ms ease;
+    background-color 180ms ease,
+    border-color 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
 }
 .btn-choice:hover,
 .btn-choice:focus-visible {
-  background: rgba(22, 24, 32, 0.88);
-  border-color: rgba(255, 255, 255, 0.32);
-  filter: brightness(1.06);
-  transform: translateY(-1px);
+  background: rgba(26, 28, 36, 0.88);
+  border-color: rgba(255, 255, 255, 0.28);
+  filter: brightness(1.05);
 }
 .btn-choice-ghost {
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -292,22 +290,24 @@ body {
   background: transparent;
   box-shadow: none;
 }
+.choice-cue-row,
 .choice-chain-row {
   display: grid;
-  grid-template-columns: minmax(7.25rem, max-content) 18px minmax(0, 1fr);
-  column-gap: 14px;
+  grid-template-columns: minmax(6.75rem, max-content) 14px minmax(0, 1fr);
+  column-gap: 10px;
   align-items: center;
   width: 100%;
   min-width: 0;
-  padding: 0 20px 0 18px;
+  padding: 0 16px 0 14px;
   position: relative;
   z-index: 1;
 }
+.choice-cue-row.is-solo,
 .choice-chain-row.is-solo {
   grid-template-columns: minmax(0, 1fr);
 }
 .choice-bark {
-  min-width: 7.25rem;
+  min-width: 6.75rem;
   overflow: hidden;
   font-family: var(--font-ui);
   font-size: 16.5px;
@@ -316,29 +316,33 @@ body {
   line-height: 1.2;
   white-space: nowrap;
   color: var(--paper, #f6f1e8);
+  transition: color 180ms ease;
 }
+.choice-cue-row.is-solo .choice-bark,
 .choice-chain-row.is-solo .choice-bark {
   min-width: 0;
 }
 .choice-connector {
   display: inline-flex;
-  width: 18px;
-  min-width: 18px;
-  max-width: 20px;
+  width: 14px;
+  min-width: 14px;
+  max-width: 16px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1;
-  color: rgba(246, 241, 232, 0.34);
+  color: rgba(246, 241, 232, 0.32);
+  opacity: 0.7;
   pointer-events: none;
   transition:
-    color 200ms ease,
-    transform 200ms ease,
-    opacity 200ms ease;
+    color 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
 }
+.choice-cue,
 .choice-hint {
   min-width: 0;
   overflow: hidden;
@@ -349,17 +353,24 @@ body {
   line-height: 1.2;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  color: rgba(246, 241, 232, 0.65);
-  transition: color 200ms ease;
+  color: var(--paper, #f6f1e8);
+  opacity: 0.65;
+  transition: opacity 180ms ease;
 }
+.btn-choice:hover .choice-bark,
+.btn-choice:focus-visible .choice-bark {
+  color: #fff8ee;
+}
+.btn-choice:hover .choice-cue,
 .btn-choice:hover .choice-hint,
+.btn-choice:focus-visible .choice-cue,
 .btn-choice:focus-visible .choice-hint {
-  color: rgba(246, 241, 232, 0.9);
+  opacity: 0.9;
 }
 .btn-choice:hover .choice-connector,
 .btn-choice:focus-visible .choice-connector {
   color: rgba(246, 241, 232, 0.55);
+  opacity: 1;
   transform: translateX(2px);
 }
 .btn-choice:hover .choice-bar,

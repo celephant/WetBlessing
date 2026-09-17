@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { playerFacingChoiceText, splitChoiceFace } from "@/lib/choice-label";
+import { ChoiceCueFace } from "@/components/ChoiceCueButton";
+import { choiceCueFace } from "@/lib/choice-cue";
+import { playerFacingChoiceText } from "@/lib/choice-label";
 import { choiceVariant } from "@/lib/choice-variant";
 import { funnelChipStyle } from "@/lib/funnel";
 import { INTERACTION } from "@/lib/interaction";
@@ -57,6 +59,7 @@ export function ChoiceList({
       data-choice-weight="equal"
       data-chip-price="off"
       data-choice-chain="on"
+      data-choice-cue="on"
     >
       {choices.map((choice) => {
         const owned = choiceEntitled ? choiceEntitled(choice) : entitled;
@@ -66,7 +69,7 @@ export function ChoiceList({
         const selected = selectedId === choice.choiceId;
         const fading = confirming && selectedId !== null && !selected;
         const label = playerFacingChoiceText(choice.text);
-        const face = splitChoiceFace(choice.text);
+        const face = choiceCueFace(choice);
         return (
           <button
             key={choice.choiceId}
@@ -77,7 +80,7 @@ export function ChoiceList({
             data-choice-selected={selected ? "on" : "off"}
             data-gated={gated ? (owned ? "owned" : "on") : "off"}
             data-choice-label={label}
-            data-choice-face={face.hint ? "chain" : "bark"}
+            data-choice-face={face.cue ? "cue" : "bark"}
             className={`btn-face btn-choice choice-press ${
               !swept && !reduceMotion ? "btn-face-sweep" : ""
             } ${variant === "ghost" ? "btn-choice-ghost" : ""} ${
@@ -87,27 +90,7 @@ export function ChoiceList({
             }`}
           >
             <span className={`choice-bar ${funnelChip.barClass ?? ""}`} />
-            <span
-              className={`choice-chain-row${face.hint ? "" : " is-solo"}`}
-            >
-              <span className="choice-bark font-ui" data-choice-bark="">
-                {face.bark}
-              </span>
-              {face.hint ? (
-                <>
-                  <span
-                    className="choice-connector"
-                    data-choice-connector=""
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
-                  <span className="choice-hint" data-choice-hint="">
-                    {face.hint}
-                  </span>
-                </>
-              ) : null}
-            </span>
+            <ChoiceCueFace choice={face.choice} cue={face.cue} />
           </button>
         );
       })}

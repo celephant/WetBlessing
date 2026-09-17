@@ -12,7 +12,8 @@ import { PauseOverlay } from "@/components/PauseOverlay";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { PlayToolbar } from "@/components/PlayToolbar";
 import { SceneArt } from "@/components/SceneArt";
-import { playerFacingChoiceText, splitChoiceFace } from "@/lib/choice-label";
+import { choiceCueFace } from "@/lib/choice-cue";
+import { playerFacingChoiceText } from "@/lib/choice-label";
 import { route, type CompiledRoute } from "@/lib/content";
 import type { PlayPackId } from "@/lib/dev-packs";
 import {
@@ -233,7 +234,7 @@ export function VNPlayer({
     markClick();
     setSelectedId(choiceId);
     setConfirming(true);
-    const spoken = splitChoiceFace(choice.text).bark || playerFacingChoiceText(choice.text);
+    const spoken = choiceCueFace(choice).choice || playerFacingChoiceText(choice.text);
     setHistory((lines) => [
       ...lines,
       { speaker: "kai", text: spoken },
