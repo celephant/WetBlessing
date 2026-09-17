@@ -90,7 +90,7 @@
           "choices": [
             {
               "choiceId": "c_ch02_enter",
-              "text": "进去。把门带上她压着桌沿",
+              "text": "进去。带上门，她压着桌沿",
               "next": "n_s14_office",
               "delta": {},
               "cta": "w2_office",

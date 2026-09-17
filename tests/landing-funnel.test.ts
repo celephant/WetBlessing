@@ -61,7 +61,7 @@ describe("landing funnel (pre-login, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("b5052f4568e44ef62c1506d471771b8aea0cd5caaef98bc6c7348eb60d2c2a80");
+    ).toBe("a9fcc828275383cc00be23a7578d2a2d05dd313de1192848aa757dd6f2d8f26a");
   });
 
   it("loads only via /play?content=funnel", () => {
@@ -177,7 +177,7 @@ describe("landing funnel (pre-login, not default)", () => {
       "接招：上台阶。她拉你进没闪光的阴影",
       "接招：走向跳台。她把毛巾砸进你怀里",
       "接招：走向冒气的门。水手领湿着贴上门缝",
-      "躲开：谁也不跟。楼道空了手机还是亮了",
+      "躲开：谁也不跟。楼道空了，手机还是亮了",
     ]);
     const goMia = selectChoice(state, "c_f7_mia", compiled);
     expect(goMia.ok).toBe(true);

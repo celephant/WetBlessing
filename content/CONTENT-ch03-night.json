@@ -173,7 +173,7 @@
           "choices": [
             {
               "choiceId": "c_s18_ok",
-              "text": "接招：「走。」把手放上门把她在缝里",
+              "text": "接招：「走。」把手放上门把，她在缝里",
               "next": "n_s19_mia",
               "delta": {
                 "stats": {

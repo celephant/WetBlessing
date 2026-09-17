@@ -378,7 +378,7 @@
             },
             {
               "choiceId": "c_f7_none",
-              "text": "躲开：谁也不跟。楼道空了手机还是亮了",
+              "text": "躲开：谁也不跟。楼道空了，手机还是亮了",
               "next": "n_funnel_08_none",
               "setFlags": {
                 "went_with": "none"

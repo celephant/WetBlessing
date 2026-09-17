@@ -1481,7 +1481,7 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头屏光照着腿",
+              "text": "去宿舍。她没抬头，屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
@@ -1551,7 +1551,7 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头屏光照着腿",
+              "text": "去宿舍。她没抬头，屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
@@ -1621,7 +1621,7 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "去宿舍。她没抬头屏光照着腿",
+              "text": "去宿舍。她没抬头，屏光照着腿",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"

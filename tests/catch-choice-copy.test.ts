@@ -13,14 +13,14 @@ export const CATCH_CHIPS = {
   jadePaid: "抓住。把她的手拉上来",
   linaPaid: "下去。抓住她还湿的手腕",
   raePaid: "从里面关。贴着她把缝带上",
-  miaSwitch: "去宿舍。她没抬头屏光照着腿",
+  miaSwitch: "去宿舍。她没抬头，屏光照着腿",
   jadeSwitch: "去楼梯。她正伸手等你抓",
   linaSwitch: "去水边。空池边她还在看你",
   raeSwitch: "去对门。她回了头缝还开着",
   leave: "离开。今晚就到这里",
 } as const;
 
-const CH02_ENTER = "进去。把门带上她压着桌沿";
+const CH02_ENTER = "进去。带上门，她压着桌沿";
 const CH03_PUSH = {
   n_s19_mia: "推门。把她膝压进来",
   n_s19_jade: "推门。把她按进沙发",
