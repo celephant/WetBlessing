@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { playerFacingChoiceText } from "@/lib/choice-label";
+import { playerFacingChoiceText, splitChoiceFace } from "@/lib/choice-label";
 import { choiceVariant } from "@/lib/choice-variant";
 import { funnelChipStyle } from "@/lib/funnel";
 import { INTERACTION } from "@/lib/interaction";
@@ -50,7 +50,7 @@ export function ChoiceList({
 
   return (
     <div
-      className="choice-group relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-2 px-3 pb-2"
+      className="choice-group relative z-[3] pointer-events-auto mx-auto flex w-full max-w-dialog flex-col gap-1.5 overflow-y-auto px-3 pb-2 sm:gap-2"
       data-choice-stagger={MOTION_SPEC.choiceStaggerMs}
       data-wall-chips="ready"
       data-choice-armed={armed ? "on" : "off"}
@@ -65,6 +65,7 @@ export function ChoiceList({
         const selected = selectedId === choice.choiceId;
         const fading = confirming && selectedId !== null && !selected;
         const label = playerFacingChoiceText(choice.text);
+        const face = splitChoiceFace(choice.text);
         return (
           <button
             key={choice.choiceId}
@@ -74,6 +75,7 @@ export function ChoiceList({
             data-choice-id={choice.choiceId}
             data-choice-selected={selected ? "on" : "off"}
             data-gated={gated ? (owned ? "owned" : "on") : "off"}
+            data-choice-label={label}
             className={`btn-face btn-choice choice-press ${
               !swept && !reduceMotion ? "btn-face-sweep" : ""
             } ${variant === "ghost" ? "btn-choice-ghost" : ""} ${
@@ -83,10 +85,15 @@ export function ChoiceList({
             }`}
           >
             <span className={`choice-bar ${funnelChip.barClass ?? ""}`} />
-            <span className="relative z-[1] flex flex-1 items-center px-4 py-3">
-              <span className="font-ui text-[15px] leading-snug text-paper">
-                {label}
+            <span className="relative z-[1] flex min-w-0 flex-1 flex-col items-start justify-center gap-0.5 px-4 py-2 text-left sm:py-3">
+              <span className="choice-bark font-ui text-[15px] leading-snug text-paper" data-choice-bark="">
+                {face.bark}
               </span>
+              {face.hint ? (
+                <span className="choice-hint" data-choice-hint="">
+                  {face.hint}
+                </span>
+              ) : null}
             </span>
           </button>
         );

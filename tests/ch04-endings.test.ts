@@ -89,7 +89,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("f64359e494e8382258649d71cde2f0a2dff4ad35c4deeae0c96c63d10a5aed42");
+    ).toBe("059d040ed75bee34468332378ef256140e55160c865ecbd9e1a1d2498d19e63a");
   });
 
   it("loads only via /play?content=ch04 and is denied as default", () => {

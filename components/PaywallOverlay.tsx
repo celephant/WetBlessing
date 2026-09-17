@@ -5,7 +5,7 @@ import {
   paywallCopyForGate,
   scopeForGate,
 } from "@/lib/paywall-copy";
-import { playerFacingChoiceText } from "@/lib/choice-label";
+import { playerFacingChoiceText, splitChoiceFace } from "@/lib/choice-label";
 import { PASS_PRICE, SKU_STORY_PASS } from "@/lib/tokens";
 import type { Choice } from "@/lib/types";
 
@@ -47,7 +47,7 @@ export function PaywallOverlay({
         <h2 className="mt-2 font-display text-2xl font-bold text-paper">{zh.title}</h2>
         <p className="mt-3 font-ui text-[17px] leading-7 text-paper/90">{zh.body}</p>
         <p className="mt-3 font-ui text-sm text-mute">
-          {playerFacingChoiceText(choice.text)}
+          {splitChoiceFace(choice.text).bark || playerFacingChoiceText(choice.text)}
         </p>
 
         {ownedPrimary ? (

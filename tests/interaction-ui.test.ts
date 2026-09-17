@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { playerFacingChoiceText } from "../lib/choice-label";
+import { playerFacingChoiceText, splitChoiceFace } from "../lib/choice-label";
 import {
   choicesAreArmed,
   INTERACTION,
@@ -20,6 +20,11 @@ describe("player-facing choice labels", () => {
     expect(playerFacingChoiceText("跟她上楼")).toBe("跟她上楼");
     expect(playerFacingChoiceText("接招：吻♥")).toBe("吻");
     expect(playerFacingChoiceText("进去。")).toBe("进去。");
+    expect(splitChoiceFace("进去。灯只一盏。屏幕还热着贴在她腿间。")).toEqual({
+      bark: "进去。",
+      hint: "灯只一盏。屏幕还热着贴在她腿间。",
+    });
+    expect(splitChoiceFace("离开。")).toEqual({ bark: "离开。", hint: null });
   });
 });
 
@@ -76,6 +81,8 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain("data-choice-armed");
     expect(choices).toContain('data-choice-weight="equal"');
     expect(choices).toContain("playerFacingChoiceText");
+    expect(choices).toContain("splitChoiceFace");
+    expect(choices).toContain("choice-hint");
     expect(choices).toContain('data-chip-price="off"');
     expect(choices).not.toContain("PASS_PRICE");
     expect(choices).not.toContain("通行证");

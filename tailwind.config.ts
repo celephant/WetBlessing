@@ -28,6 +28,14 @@ const config: Config = {
           "Microsoft YaHei",
           "sans-serif",
         ],
+        hint: [
+          "var(--font-hint)",
+          "Noto Serif SC",
+          "Songti SC",
+          "STSong",
+          "SimSun",
+          "serif",
+        ],
       },
       maxWidth: {
         dialog: "720px",

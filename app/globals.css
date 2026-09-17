@@ -14,6 +14,16 @@
   --font-display: ui-sans-serif, system-ui, sans-serif;
   --font-ui: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
     ui-sans-serif, system-ui, sans-serif;
+  --font-hint: "Noto Serif SC", "Songti SC", "STSong", "SimSun",
+    "Source Han Serif SC", "Noto Serif CJK SC", Georgia, serif;
+}
+
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/noto-serif-sc-hint.ttf") format("truetype");
 }
 
 html,
@@ -76,6 +86,7 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overflow: hidden;
 }
 
 @media (orientation: portrait) {
@@ -98,8 +109,23 @@ body {
     object-position: center center;
   }
   .vn-stage:not(:has([data-still-pair="paired"])) .choice-overlay {
-    bottom: auto;
-    height: calc(100cqw * 9 / 16 - 3.25rem);
+    top: calc(100cqw * 9 / 16);
+    bottom: 0;
+    height: auto;
+    align-items: flex-start;
+    padding-top: 0.4rem;
+    padding-bottom: 5.75rem;
+    overflow: hidden;
+  }
+  .vn-stage:not(:has([data-still-pair="paired"])) .choice-press {
+    min-height: 44px;
+  }
+  .vn-stage:not(:has([data-still-pair="paired"])) .choice-bark {
+    font-size: 14px;
+  }
+  .vn-stage:not(:has([data-still-pair="paired"])) .choice-hint {
+    font-size: 11.5px;
+    line-height: 1.35;
   }
   .vn-stage:not(:has([data-still-pair="paired"])) [data-night-pass-dock],
   .vn-stage:not(:has([data-still-pair="paired"])) [data-settle-dock] {
@@ -283,6 +309,35 @@ body {
   align-self: stretch;
   background: transparent;
   box-shadow: none;
+}
+.choice-bark {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.35;
+  color: var(--paper, #f6f1e8);
+}
+.choice-hint {
+  max-width: 100%;
+  font-family: var(--font-hint);
+  font-size: 12.5px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: rgba(246, 241, 232, 0.72);
+}
+.choice-group {
+  max-height: 100%;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 419px) {
+  .choice-hint {
+    font-size: 12px;
+    line-height: 1.4;
+  }
 }
 .btn-choice:hover .choice-bar,
 .btn-choice:focus-visible .choice-bar,

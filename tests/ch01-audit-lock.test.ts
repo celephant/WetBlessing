@@ -166,9 +166,9 @@ describe("Ch01 story + drift audit lock", () => {
     expect(spoken).toMatch(/水手领/);
     expect(spoken).toMatch(/学生事务|带学生证/);
     expect(route.nodes.get("n_see_both")?.choices?.map((c) => c.text)).toEqual([
-      "接招：「箱子我来。」",
-      "接招：「三十秒。」",
-      "躲开：刷卡进门。",
+      "接招：「箱子我来。」箱角顶着胸口。她肩带已经滑了一截，还看着你。",
+      "接招：「三十秒。」她把笔拍进掌心，指尖按着，闪光还没关。",
+      "躲开：刷卡进门。纸箱会落地。今晚她不会当没看见。",
     ]);
   });
 

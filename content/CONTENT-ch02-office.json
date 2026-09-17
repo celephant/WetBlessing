@@ -90,7 +90,7 @@
           "choices": [
             {
               "choiceId": "c_ch02_enter",
-              "text": "进去。教員室的门还开着，黑丝已经压在桌沿上。",
+              "text": "进去。门还开着。黑丝已经压过桌沿，近到你没法把眼睛抬回去。",
               "next": "n_s14_office",
               "delta": {},
               "cta": "w2_office",
@@ -209,7 +209,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「记下了。」",
+              "text": "接招：「记下了。」托盘沿顶着胸口。邻桌听得见，她声音压着。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -225,7 +225,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。食堂灯亮着。她不会当众追你。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -272,7 +272,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」她俯身，呼吸扫过盘沿。邻桌的勺子停了一拍。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -288,7 +288,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。邻桌还在传下午那张图。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -335,7 +335,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」她俯身，呼吸扫过盘沿。邻桌的勺子停了一拍。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -351,7 +351,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。邻桌还在传下午那张图。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -411,7 +411,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」她俯身，呼吸扫过盘沿。邻桌的勺子停了一拍。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -427,7 +427,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。邻桌还在传下午那张图。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -475,7 +475,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」一张桌子，两个人。托盘一响，邻桌安静半秒。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -494,7 +494,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。邻桌听得见。她不会当众追你。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -541,7 +541,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」她俯身，呼吸扫过盘沿。拼贴证明不了夜里。",
               "next": "n_s13_after",
               "delta": {
                 "stats": {
@@ -557,7 +557,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。邻桌还在传下午那张图。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -610,7 +610,7 @@
           "choices": [
             {
               "choiceId": "c_s13_ok",
-              "text": "接招：「在看。」",
+              "text": "接招：「在看。」托盘对面空着。邻桌还在传下午那张图。",
               "next": "n_s13_after",
               "delta": {},
               "setFlags": {
@@ -620,7 +620,7 @@
             },
             {
               "choiceId": "c_s13_dodge",
-              "text": "躲开：端盘走。",
+              "text": "躲开：端盘走。食堂灯亮着。没有人等你坐。",
               "next": "n_s13_empty",
               "delta": {
                 "tension": 2
@@ -759,7 +759,7 @@
           "choices": [
             {
               "choiceId": "c_s14_ok",
-              "text": "接招：「电梯口是 Mia。晚上也是。」",
+              "text": "接招：「电梯口是 Mia。晚上也是。」门还开着。黑丝压着桌沿，等你把话说完。",
               "next": "n_s14_silk",
               "delta": {}
             }
@@ -783,7 +783,7 @@
           "choices": [
             {
               "choiceId": "c_s14_ok",
-              "text": "接招：「电梯口那张是下午。晚上是另一个人。」",
+              "text": "接招：「电梯口那张是下午。晚上是另一个人。」门还开着。黑丝压着桌沿，等你把话说完。",
               "next": "n_s14_silk",
               "delta": {}
             }
@@ -807,7 +807,7 @@
           "choices": [
             {
               "choiceId": "c_s14_ok",
-              "text": "接招：「电梯口那张是下午。晚上我谁也没跟。」",
+              "text": "接招：「电梯口那张是下午。晚上我谁也没跟。」门还开着。黑丝压着桌沿，等你把话说完。",
               "next": "n_s14_silk",
               "delta": {}
             }
@@ -879,7 +879,7 @@
           "choices": [
             {
               "choiceId": "c_s14_kiss",
-              "text": "接招：站起来。",
+              "text": "接招：站起来。锁已经响了。黑丝压过桌沿的热还在。",
               "next": "n_s14_kiss",
               "delta": {
                 "stats": {
@@ -895,7 +895,7 @@
             },
             {
               "choiceId": "c_s14_free",
-              "text": "躲开：「我还是学生。」",
+              "text": "躲开：「我还是学生。」她仍是讲师。门可以重新打开。",
               "next": "n_s14_abort",
               "delta": {
                 "tension": 1
@@ -929,7 +929,7 @@
           "choices": [
             {
               "choiceId": "c_s14_free",
-              "text": "「我先走。」",
+              "text": "「我先走。」拼贴还摊着。锁已经响了，她仍是讲师。",
               "next": "n_s14_abort",
               "delta": {
                 "tension": 1
@@ -937,7 +937,7 @@
             },
             {
               "choiceId": "c_s14_kiss",
-              "text": "不说话。凑近。",
+              "text": "凑近。不说话。黑丝压过桌沿的热还在，百叶缝外还有人影。",
               "next": "n_s14_kiss",
               "delta": {
                 "stats": {

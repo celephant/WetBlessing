@@ -3,28 +3,29 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { compileRoute, route } from "../lib/content";
 import { tryReadCh02Office, tryReadCh03Night } from "../lib/dev-packs.node";
+import { splitChoiceFace } from "../lib/choice-label";
 import { showsPassChip } from "../lib/choice-variant";
 
 const root = path.resolve(__dirname, "..");
 
 export const CATCH_CHIPS = {
-  miaPaid: "进去。她坐在床上，那张图还亮在腿上，你一进去她才会抬头。",
-  jadePaid: "抓住。她在楼梯井里把手伸下来，闪光关了，等你接住。",
-  linaPaid: "下去。她站在池边，毛巾挂在肩上，看你下来没有。",
-  raePaid: "从里面关。她回了头，热气还往外涌，等你把门带上。",
-  miaSwitch: "去宿舍。灯只一盏，她没抬头，那张图还亮在腿上。",
-  jadeSwitch: "去楼梯。闪光关了，她把手伸下来了，还没拉完。",
-  linaSwitch: "去水边。毛巾挂在肩上，她还站在池边看你。",
-  raeSwitch: "去对门。水手领还湿着，她回了头，门缝还开着。",
+  miaPaid: "进去。灯只一盏。屏幕还热着贴在她腿间，领口歪着，她还没准你看。",
+  jadePaid: "抓住。闪光关了。干砖楼梯上她伸着手，裙边掀着一截，等你接住。",
+  linaPaid: "下去。池是空的。毛巾只挂在肩上，锁骨还湿，她看你下来没有。",
+  raePaid: "从里面关。水手领湿着贴着胸口。她回了头，热气还往外涌。",
+  miaSwitch: "去宿舍。灯只一盏。屏幕还热着贴在她腿间，她没抬头。",
+  jadeSwitch: "去楼梯。闪光关了。干砖上她伸着手，裙边掀着一截。",
+  linaSwitch: "去水边。池是空的。毛巾只挂在肩上，她还站在池边看你。",
+  raeSwitch: "去对门。水手领湿着贴着胸口。她回了头，门缝还开着。",
   leave: "离开。",
 } as const;
 
-const CH02_ENTER = "进去。教員室的门还开着，黑丝已经压在桌沿上。";
+const CH02_ENTER = "进去。门还开着。黑丝已经压过桌沿，近到你没法把眼睛抬回去。";
 const CH03_PUSH = {
-  n_s19_mia: "推门。锁还没转，缝里她微张着嘴，腰已经往前了。",
-  n_s19_jade: "推门。廊灯灭了，闪光也关着，只剩她的呼吸。",
-  n_s19_lina: "推门。侧门插销还没落下，湿衣还在滴，她站在缝里。",
-  n_s19_rae: "推门。防火门虚掩着，烘筒在转，她竖着指，隔墙听得见。",
+  n_s19_mia: "推门。锁还没转。缝里她微张着嘴，呼吸热，腰已经自己往前。",
+  n_s19_jade: "推门。廊灯灭了。闪光也关着，缝里只剩她贴过来的呼吸。",
+  n_s19_lina: "推门。插销还没落下。湿衣还在滴，她站在缝里看你锁不锁。",
+  n_s19_rae: "推门。防火门虚掩着。她竖着指，隔墙听得见你们贴得很近。",
 } as const;
 
 const PRICE_ON_CHIP = /通行证|锁 ·|\$8\.99|\$2\.99/;
@@ -149,5 +150,32 @@ describe("Catch / wall chips: story only, money after tap", () => {
     expect(css).toContain(".choice-bar {\n  width: 0.25rem;");
     expect(css).not.toContain(".choice-bar.is-pass");
     expect(css).not.toContain(".btn-choice-pass");
+    expect(css).toContain("--font-hint");
+    expect(css).toContain(".choice-hint {");
+    expect(css).toContain(".choice-bark {");
+    expect(css).toContain('url("/fonts/noto-serif-sc-hint.ttf")');
+    expect(css).not.toMatch(/font-style:\s*italic/);
+    expect(choices).toContain("splitChoiceFace");
+    expect(choices).toContain("data-choice-bark");
+    expect(choices).toContain("data-choice-hint");
+  });
+
+  it("splits a short bark from a serif whisper hint", () => {
+    expect(splitChoiceFace(CATCH_CHIPS.miaPaid)).toEqual({
+      bark: "进去。",
+      hint: "灯只一盏。屏幕还热着贴在她腿间，领口歪着，她还没准你看。",
+    });
+    expect(splitChoiceFace(CATCH_CHIPS.leave)).toEqual({
+      bark: "离开。",
+      hint: null,
+    });
+    expect(splitChoiceFace("接招：「箱子我来。」箱角顶着胸口。她肩带已经滑了一截，还看着你。")).toEqual({
+      bark: "「箱子我来。」",
+      hint: "箱角顶着胸口。她肩带已经滑了一截，还看着你。",
+    });
+    expect(splitChoiceFace("接招：「电梯口是 Mia。晚上也是。」门还开着。黑丝压着桌沿，等你把话说完。")).toEqual({
+      bark: "「电梯口是 Mia。晚上也是。」",
+      hint: "门还开着。黑丝压着桌沿，等你把话说完。",
+    });
   });
 });
