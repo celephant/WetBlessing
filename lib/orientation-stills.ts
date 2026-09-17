@@ -8,9 +8,9 @@ import { resolveAssetPath, resolveAssetUrl } from "./assets";
  * matched to the boards' 横 still and the webp the current JSON already
  * points at. Story JSON is not rewritten.
  *
- * Unwired KEEP portraits (no matching landscape webp in current JSON):
- * C1-D1 (ch01-s05-party), C1-J1b (ch01-s06b-jade),
- * C2-13E / C2-14E (hall reuse; Ch02 nodes still use S13 / S14-abort).
+ * Unwired KEEP portraits (no matching landscape webp in current JSON,
+ * so not copied — do not CSS-crop a 16:9 to fake them):
+ * C2-14E (empty-hall reuse; Ch02 abort still uses S14-abort / C2-14A).
  */
 export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
   // Ch01 hall-open node only. Funnel title hook is S06a, not this cardboard plate.
@@ -39,6 +39,11 @@ export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
   "assets/scenes/ch01/n_see_both.webp": "media/ch01-portrait/C1-07b-portrait.png",
   "assets/scenes/ch01/n_ch01_first_sub.webp":
     "media/ch01-portrait/C1-08-portrait.png",
+  // Catch dodge wall + dark deck. KEEP C1-D1 9:16 — not a 16:9 strip.
+  "assets/scenes/ch01/ch01-s05-party.webp":
+    "media/ch01-portrait/C1-D1-portrait.png",
+  "assets/scenes/ch01/ch01-s06b-jade.webp":
+    "media/ch01-portrait/C1-J1b-portrait.png",
   "assets/scenes/ch01/ch01-catch-mia.webp":
     "media/ch01-portrait/C1-09M-portrait.png",
   "assets/scenes/ch01/ch01-catch-jade.webp":
@@ -63,6 +68,8 @@ export const PORTRAIT_STILL_BY_LANDSCAPE: Record<string, string> = {
   "assets/scenes/ch01/n_title.webp": "media/ch01-portrait/C1-12-portrait.png",
 
   "assets/scenes/ch02/S13.webp": "media/ch02-portrait/C2-13-portrait.png",
+  "assets/scenes/ch02/S13-empty.webp":
+    "media/ch02-portrait/C2-13E-portrait.png",
   "assets/scenes/ch02/S14.webp": "media/ch02-portrait/C2-14-portrait.png",
   "assets/scenes/ch02/S14-lock.webp": "media/ch02-portrait/C2-14L-portrait.png",
   "assets/scenes/ch02/S14-kiss.webp": "media/ch02-portrait/C2-14K-portrait.png",
