@@ -12,7 +12,7 @@ import { PauseOverlay } from "@/components/PauseOverlay";
 import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { PlayToolbar } from "@/components/PlayToolbar";
 import { SceneArt } from "@/components/SceneArt";
-import { playerFacingChoiceText } from "@/lib/choice-label";
+import { playerFacingChoiceText, splitChoiceFace } from "@/lib/choice-label";
 import { route, type CompiledRoute } from "@/lib/content";
 import type { PlayPackId } from "@/lib/dev-packs";
 import {
@@ -233,9 +233,10 @@ export function VNPlayer({
     markClick();
     setSelectedId(choiceId);
     setConfirming(true);
+    const spoken = splitChoiceFace(choice.text).bark || playerFacingChoiceText(choice.text);
     setHistory((lines) => [
       ...lines,
-      { speaker: "kai", text: playerFacingChoiceText(choice.text) },
+      { speaker: "kai", text: spoken },
     ]);
     const skip = shouldSkipMotion(prefs.reduceMotion, sinceLast);
     const lockedChoice = Boolean(
@@ -243,7 +244,7 @@ export function VNPlayer({
         !hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate),
     );
     if (!lockedChoice) {
-      setEcho({ text: playerFacingChoiceText(choice.text) });
+      setEcho({ text: spoken });
     }
     const wait = skip
       ? 0

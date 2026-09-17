@@ -14,6 +14,16 @@
   --font-display: ui-sans-serif, system-ui, sans-serif;
   --font-ui: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
     ui-sans-serif, system-ui, sans-serif;
+  --font-hint: "Noto Serif SC", "Songti SC", "STSong", "SimSun",
+    "Source Han Serif SC", "Noto Serif CJK SC", Georgia, serif;
+}
+
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/noto-serif-sc-hint.ttf") format("truetype");
 }
 
 html,
@@ -283,6 +293,30 @@ body {
   align-self: stretch;
   background: transparent;
   box-shadow: none;
+}
+.choice-bark {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.35;
+  color: var(--paper, #f6f1e8);
+}
+.choice-hint {
+  max-width: 100%;
+  font-family: var(--font-hint);
+  font-size: 12.5px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: rgba(246, 241, 232, 0.72);
+}
+@media (max-width: 419px) {
+  .choice-hint {
+    font-size: 12px;
+    line-height: 1.4;
+  }
 }
 .btn-choice:hover .choice-bar,
 .btn-choice:focus-visible .choice-bar,
