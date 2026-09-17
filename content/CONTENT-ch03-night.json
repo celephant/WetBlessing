@@ -502,7 +502,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。（缝里她的嘴）锁还横着，腰已经自己往前了。",
+              "text": "推门。锁还没转，缝里她微张着嘴，腰已经往前了。",
               "next": "n_s20_mia",
               "delta": {
                 "stats": {
@@ -566,7 +566,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。（廊里。闪光关了）灯灭了，只剩她的呼吸。",
+              "text": "推门。廊灯灭了，闪光也关着，只剩她的呼吸。",
               "next": "n_s20_jade",
               "delta": {
                 "stats": {
@@ -630,7 +630,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。（池侧。插销未落）湿衣还在滴，她还站在缝里。",
+              "text": "推门。侧门插销还没落下，湿衣还在滴，她站在缝里。",
               "next": "n_s20_lina",
               "delta": {
                 "stats": {
@@ -694,7 +694,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。（防火门。烘筒在转）她竖着指，隔墙听得见。",
+              "text": "推门。防火门虚掩着，烘筒在转，她竖着指，隔墙听得见。",
               "next": "n_s20_rae",
               "delta": {
                 "stats": {
