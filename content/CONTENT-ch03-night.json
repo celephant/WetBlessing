@@ -502,7 +502,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。锁还没转。缝里她微张着嘴，呼吸热，腰已经自己往前。",
+              "text": "推门。缝里她微张着嘴，腰已经往前。",
               "next": "n_s20_mia",
               "delta": {
                 "stats": {
@@ -566,7 +566,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。廊灯灭了。闪光也关着，缝里只剩她贴过来的呼吸。",
+              "text": "推门。缝里只剩她贴过来的呼吸。",
               "next": "n_s20_jade",
               "delta": {
                 "stats": {
@@ -630,7 +630,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。插销还没落下。湿衣还在滴，她站在缝里看你锁不锁。",
+              "text": "推门。湿衣还在滴，她站在缝里。",
               "next": "n_s20_lina",
               "delta": {
                 "stats": {
@@ -694,7 +694,7 @@
           "choices": [
             {
               "choiceId": "c_push",
-              "text": "推门。防火门虚掩着。她竖着指，隔墙听得见你们贴得很近。",
+              "text": "推门。她竖着指，隔墙听得见。",
               "next": "n_s20_rae",
               "delta": {
                 "stats": {
