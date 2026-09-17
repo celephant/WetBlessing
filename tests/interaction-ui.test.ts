@@ -83,6 +83,9 @@ describe("private-interaction chrome contracts", () => {
     expect(choices).toContain("playerFacingChoiceText");
     expect(choices).toContain("splitChoiceFace");
     expect(choices).toContain("choice-hint");
+    expect(choices).toContain("choice-connector");
+    expect(choices).toContain('data-choice-chain="on"');
+    expect(choices).toContain("onClick={() => onSelect(choice.choiceId)}");
     expect(choices).toContain('data-chip-price="off"');
     expect(choices).not.toContain("PASS_PRICE");
     expect(choices).not.toContain("通行证");
@@ -121,6 +124,9 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain(".btn-choice:hover");
     expect(css).toContain(".btn-choice-ghost:hover");
     expect(css).toContain(".btn-choice:hover .choice-bar");
+    expect(css).toContain(".btn-choice:hover .choice-connector");
+    expect(css).toContain("translateX(2px)");
+    expect(css).toContain("max-width: 620px");
     expect(css).not.toContain(".btn-choice-pass");
     expect(css).not.toContain(".choice-bar.is-pass");
     expect(css).toContain("brightness(1.08)");

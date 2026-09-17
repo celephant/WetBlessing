@@ -9,23 +9,23 @@ import { showsPassChip } from "../lib/choice-variant";
 const root = path.resolve(__dirname, "..");
 
 export const CATCH_CHIPS = {
-  miaPaid: "进去。灯只一盏。屏幕还热着贴在她腿间，领口歪着，她还没准你看。",
-  jadePaid: "抓住。闪光关了。干砖楼梯上她伸着手，裙边掀着一截，等你接住。",
-  linaPaid: "下去。池是空的。毛巾只挂在肩上，锁骨还湿，她看你下来没有。",
-  raePaid: "从里面关。水手领湿着贴着胸口。她回了头，热气还往外涌。",
-  miaSwitch: "去宿舍。灯只一盏。屏幕还热着贴在她腿间，她没抬头。",
-  jadeSwitch: "去楼梯。闪光关了。干砖上她伸着手，裙边掀着一截。",
-  linaSwitch: "去水边。池是空的。毛巾只挂在肩上，她还站在池边看你。",
-  raeSwitch: "去对门。水手领湿着贴着胸口。她回了头，门缝还开着。",
+  miaPaid: "进去。屏幕还热着贴在她腿间。",
+  jadePaid: "抓住。闪光关了，裙边掀着一截。",
+  linaPaid: "下去。毛巾只挂肩上，锁骨还湿。",
+  raePaid: "从里面关。水手领湿着贴着胸口。",
+  miaSwitch: "去宿舍。灯只一盏，她没抬头。",
+  jadeSwitch: "去楼梯。闪光关了，裙边掀着一截。",
+  linaSwitch: "去水边。毛巾挂着，她还在看你。",
+  raeSwitch: "去对门。她回了头，门缝还开着。",
   leave: "离开。",
 } as const;
 
-const CH02_ENTER = "进去。门还开着。黑丝已经压过桌沿，近到你没法把眼睛抬回去。";
+const CH02_ENTER = "进去。黑丝已经压过桌沿。";
 const CH03_PUSH = {
-  n_s19_mia: "推门。锁还没转。缝里她微张着嘴，呼吸热，腰已经自己往前。",
-  n_s19_jade: "推门。廊灯灭了。闪光也关着，缝里只剩她贴过来的呼吸。",
-  n_s19_lina: "推门。插销还没落下。湿衣还在滴，她站在缝里看你锁不锁。",
-  n_s19_rae: "推门。防火门虚掩着。她竖着指，隔墙听得见你们贴得很近。",
+  n_s19_mia: "推门。缝里她微张着嘴，腰已经往前。",
+  n_s19_jade: "推门。缝里只剩她贴过来的呼吸。",
+  n_s19_lina: "推门。湿衣还在滴，她站在缝里。",
+  n_s19_rae: "推门。她竖着指，隔墙听得见。",
 } as const;
 
 const PRICE_ON_CHIP = /通行证|锁 ·|\$8\.99|\$2\.99/;
@@ -158,24 +158,45 @@ describe("Catch / wall chips: story only, money after tap", () => {
     expect(choices).toContain("splitChoiceFace");
     expect(choices).toContain("data-choice-bark");
     expect(choices).toContain("data-choice-hint");
+    expect(choices).toContain("data-choice-connector");
+    expect(choices).toContain('data-choice-chain="on"');
+    expect(choices).toContain("onClick={() => onSelect(choice.choiceId)}");
+    expect(choices).not.toMatch(/<button[\s\S]*<button/);
+    expect(css).toContain("max-width: 620px");
+    expect(css).toContain(".choice-connector {");
+    expect(css).toContain("width: 18px");
+    expect(css).toContain("max-width: 20px");
+    expect(css).toContain("translateX(2px)");
+    expect(css).toContain("white-space: nowrap");
+    expect(css).toContain("text-overflow: ellipsis");
+    expect(css).not.toContain("choice-connector-sweep");
+    expect(css).not.toMatch(/choice-connector[\s\S]{0,400}width:\s*(4[8-9]|[5-9]\d|[1-9]\d{2})px/);
   });
 
   it("splits a short bark from a serif whisper hint", () => {
     expect(splitChoiceFace(CATCH_CHIPS.miaPaid)).toEqual({
       bark: "进去。",
-      hint: "灯只一盏。屏幕还热着贴在她腿间，领口歪着，她还没准你看。",
+      hint: "屏幕还热着贴在她腿间。",
     });
     expect(splitChoiceFace(CATCH_CHIPS.leave)).toEqual({
       bark: "离开。",
       hint: null,
     });
-    expect(splitChoiceFace("接招：「箱子我来。」箱角顶着胸口。她肩带已经滑了一截，还看着你。")).toEqual({
+    expect(splitChoiceFace("接招：「箱子我来。」肩带滑着，她还等你接手。")).toEqual({
       bark: "「箱子我来。」",
-      hint: "箱角顶着胸口。她肩带已经滑了一截，还看着你。",
+      hint: "肩带滑着，她还等你接手。",
     });
     expect(splitChoiceFace("接招：「电梯口是 Mia。晚上也是。」门还开着。黑丝压着桌沿，等你把话说完。")).toEqual({
       bark: "「电梯口是 Mia。晚上也是。」",
       hint: "门还开着。黑丝压着桌沿，等你把话说完。",
     });
+  });
+
+  it("keeps Lina on the empty pool, never 在水里", () => {
+    expect(CATCH_CHIPS.linaPaid).not.toMatch(/在水里/);
+    expect(CATCH_CHIPS.linaSwitch).not.toMatch(/在水里/);
+    expect(route.nodes.get("n_ch01_first_sub")?.choices?.map((c) => c.text).join("\n")).not.toMatch(
+      /在水里/,
+    );
   });
 });

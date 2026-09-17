@@ -219,21 +219,40 @@ body {
   filter: brightness(1.08);
   box-shadow: 0 8px 18px rgba(255, 75, 107, 0.38);
 }
+.choice-group {
+  max-width: 620px;
+  gap: 9px;
+  max-height: 100%;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
 .btn-choice {
   align-items: stretch;
   justify-content: flex-start;
   text-align: left;
+  min-height: 58px;
+  height: 58px;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 13px;
   background: rgba(18, 20, 28, 0.75);
   color: var(--paper, #f6f1e8);
   font-weight: 400;
   backdrop-filter: blur(12px);
   box-shadow: none;
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    filter 200ms ease,
+    box-shadow 200ms ease;
 }
 .btn-choice:hover,
 .btn-choice:focus-visible {
-  background: rgba(18, 20, 28, 0.85);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(22, 24, 32, 0.88);
+  border-color: rgba(255, 255, 255, 0.32);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 .btn-choice-ghost {
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -273,34 +292,75 @@ body {
   background: transparent;
   box-shadow: none;
 }
+.choice-chain-row {
+  display: grid;
+  grid-template-columns: minmax(7.25rem, max-content) 18px minmax(0, 1fr);
+  column-gap: 14px;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0 20px 0 18px;
+  position: relative;
+  z-index: 1;
+}
+.choice-chain-row.is-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
 .choice-bark {
+  min-width: 7.25rem;
+  overflow: hidden;
   font-family: var(--font-ui);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16.5px;
+  font-weight: 600;
   font-style: normal;
-  line-height: 1.35;
+  line-height: 1.2;
+  white-space: nowrap;
   color: var(--paper, #f6f1e8);
 }
+.choice-chain-row.is-solo .choice-bark {
+  min-width: 0;
+}
+.choice-connector {
+  display: inline-flex;
+  width: 18px;
+  min-width: 18px;
+  max-width: 20px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(246, 241, 232, 0.34);
+  pointer-events: none;
+  transition:
+    color 200ms ease,
+    transform 200ms ease,
+    opacity 200ms ease;
+}
 .choice-hint {
-  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
   font-family: var(--font-hint);
-  font-size: 12.5px;
+  font-size: 14.5px;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.45;
+  line-height: 1.2;
   letter-spacing: 0.01em;
-  color: rgba(246, 241, 232, 0.72);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(246, 241, 232, 0.65);
+  transition: color 200ms ease;
 }
-.choice-group {
-  max-height: 100%;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+.btn-choice:hover .choice-hint,
+.btn-choice:focus-visible .choice-hint {
+  color: rgba(246, 241, 232, 0.9);
 }
-@media (max-width: 419px) {
-  .choice-hint {
-    font-size: 12px;
-    line-height: 1.4;
-  }
+.btn-choice:hover .choice-connector,
+.btn-choice:focus-visible .choice-connector {
+  color: rgba(246, 241, 232, 0.55);
+  transform: translateX(2px);
 }
 .btn-choice:hover .choice-bar,
 .btn-choice:focus-visible .choice-bar,
@@ -541,9 +601,13 @@ body {
     animation: none;
   }
   .btn-choice.is-fading,
+  .btn-choice:hover,
+  .btn-choice:focus-visible,
   .btn-face.is-pressed,
   .btn-face:active,
-  .choice-press:active {
+  .choice-press:active,
+  .btn-choice:hover .choice-connector,
+  .btn-choice:focus-visible .choice-connector {
     transform: none;
   }
 }
@@ -563,8 +627,12 @@ body {
   animation: none;
 }
 [data-reduce-motion="on"] .btn-choice.is-fading,
+[data-reduce-motion="on"] .btn-choice:hover,
+[data-reduce-motion="on"] .btn-choice:focus-visible,
 [data-reduce-motion="on"] .btn-face.is-pressed,
 [data-reduce-motion="on"] .btn-face:active,
-[data-reduce-motion="on"] .choice-press:active {
+[data-reduce-motion="on"] .choice-press:active,
+[data-reduce-motion="on"] .btn-choice:hover .choice-connector,
+[data-reduce-motion="on"] .btn-choice:focus-visible .choice-connector {
   transform: none;
 }

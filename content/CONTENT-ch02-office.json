@@ -90,7 +90,7 @@
           "choices": [
             {
               "choiceId": "c_ch02_enter",
-              "text": "进去。门还开着。黑丝已经压过桌沿，近到你没法把眼睛抬回去。",
+              "text": "进去。黑丝已经压过桌沿。",
               "next": "n_s14_office",
               "delta": {},
               "cta": "w2_office",
