@@ -51,7 +51,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("0b79b2273b7a7853936e013820461b787f828e10df5a4dfe85b38a474388f7ec");
+    ).toBe("1344bcd9edb95aef6c779ef4d19f9eb125f04a89e4ba1cfeeb8295377dea2b8f");
   });
 
   it("loads only via /play?content=ch02 and is denied as default", () => {
@@ -87,6 +87,10 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     const spoken = spokenHay(file);
     expect(spoken).not.toMatch(/办公时间。带学生证。周一见/);
     expect(spoken).not.toMatch(/你鸽了我/);
+    expect(spoken).not.toMatch(/门口那一下/);
+    expect(spoken).toMatch(/右边那张脸/);
+    expect(spoken).toMatch(/群是下午。你夜里站在甲板中间/);
+    expect(spoken).toMatch(/昨晚——不是这张下午的图/);
     expect(spoken).not.toMatch(/二十九/);
     expect(spoken).toMatch(/衬衫敞着，丝还在/);
     expect(spoken).toMatch(/办公室的灯没关。拼贴还在她桌上/);
@@ -109,7 +113,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(unpaid.nodeId).toBe("n_ch02_wall");
     expect(view(unpaid, compiled).isPaywall).toBe(true);
     expect(selectChoice(unpaid, "c_ch02_enter", compiled).ok).toBe(false);
-    expect(unpaid.flags.cafe_creditor).toBe("both");
+    expect(unpaid.flags.cafe_creditor).toBe("none");
 
     const free = playChoices(
       ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_free"],
@@ -117,9 +121,9 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       compiled,
     );
     expect(free.nodeId).toBe("n_ch02_settle");
-    expect(free.flags.cafe_creditor).toBe("both");
+    expect(free.flags.cafe_creditor).toBe("none");
     expect(free.flags.office_locked).toBe(true);
-    expect(free.stats.mia.affection).toBeGreaterThan(0);
+    expect(free.stats.mia.affection).toBe(0);
 
     const paid = playChoices(
       ["c_s13_ok", "c_ch02_enter", "c_s14_ok", "c_s14_kiss"],
@@ -160,7 +164,9 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       "catch_target==jade": "n_s13_mia",
       "went_with==mia": "n_s13_jade",
       "went_with==jade": "n_s13_mia",
-      default: "n_s13_both",
+      "catch_target==lina": "n_s13_other",
+      "catch_target==rae": "n_s13_other",
+      default: "n_s13_none",
     });
 
     const cafeAt = (flags: Record<string, string>) => {
@@ -175,7 +181,8 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(cafeAt({ went_with: "jade", catch_target: "jade" })).toBe("n_s13_mia");
     expect(cafeAt({ went_with: "mia" })).toBe("n_s13_jade");
     expect(cafeAt({ catch_target: "jade" })).toBe("n_s13_mia");
-    expect(cafeAt({})).toBe("n_s13_both");
+    expect(cafeAt({ catch_target: "lina" })).toBe("n_s13_other");
+    expect(cafeAt({})).toBe("n_s13_none");
 
     const dodgeEmpty = playChoices(
       ["c_s13_dodge"],
@@ -200,14 +207,23 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
     expect(Math.max(...paths.map((p) => p.choiceIndex))).toBeLessThanOrEqual(10);
   });
 
-  it("stages Jade's cafeteria lines from behind the Mia still", () => {
+  it("covers Mia / other / none cafeteria questions without treating unused as 失约", () => {
     const jade = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_jade")!;
-    expect(jade.text).toMatch(/托盘对面是 Mia，没开口。Jade 从你身后坐下/);
-    expect(jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）"))).toBe(
+    expect(jade.text).toMatch(/Jade 从你身后坐下/);
+    expect(jade.lines?.some((line) => line.speaker === "mia" && /右边那张脸/.test(line.text))).toBe(
       true,
     );
+    expect(
+      jade.lines?.every((line) => line.speaker !== "jade" || line.text.startsWith("（身后）")),
+    ).toBe(true);
     const both = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_both")!;
     expect(both.lines?.[0]?.speaker).toBe("mia");
+    expect(both.lines?.[0]?.text).toMatch(/右边那张脸/);
+    const other = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_other")!;
+    expect(other.lines?.map((line) => line.text).join("\n")).toMatch(/昨晚——不是这张下午的图/);
+    const none = tryReadCh02Office(root)!.stages[0]!.nodes.find((n) => n.nodeId === "n_s13_none")!;
+    expect(none.characters).toContain("mia");
+    expect(none.lines?.map((line) => line.text).join("\n")).toMatch(/群是下午/);
   });
 
   it("ships ch02 plates and does not remap them onto Ch01", () => {

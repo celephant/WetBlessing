@@ -89,7 +89,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("0b79b2273b7a7853936e013820461b787f828e10df5a4dfe85b38a474388f7ec");
+    ).toBe("1344bcd9edb95aef6c779ef4d19f9eb125f04a89e4ba1cfeeb8295377dea2b8f");
   });
 
   it("loads only via /play?content=ch04 and is denied as default", () => {
@@ -134,13 +134,13 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(empty.visited).toContain("n_s23_empty");
     expect(empty.visited).not.toContain("n_s22_mia");
     expect(empty.visited).not.toContain("n_s23_mia");
-    expect(empty.flags.ending).toBe("end_crash");
+    expect(empty.flags.ending).toBe("end_solo");
     expect(empty.flags.ch3_bind).toBe("none");
 
     const fold = playFrom(compiled, {}, ["c_s23_dodge"]);
     expect(fold.visited).toContain("n_s23_empty");
     expect(fold.visited).not.toContain("n_s23_mia");
-    expect(fold.flags.ending).toBe("end_crash");
+    expect(fold.flags.ending).toBe("end_solo");
     expect(fold.flags.w4_stand).toBe("fold");
   });
 
@@ -151,11 +151,11 @@ describe("Ch04 名分 (DEV, not default)", () => {
     const s24 = compiled.nodes.get("n_s24_router")!;
 
     expect(s22.advanceByFlag).toMatchObject({
-      "w4_sms_first==vanessa": "n_s23_router",
       "edge_sleepover_rae==true": "n_s22_rae",
       "edge_sleepover_lina==true": "n_s22_lina",
       "edge_sleepover_jade==true": "n_s22_jade",
       "edge_sleepover_mia==true": "n_s22_mia",
+      "w4_sms_first==vanessa": "n_s23_router",
       default: "n_s23_router",
     });
     expect(s23.advanceByFlag?.default).toBe("n_s23_empty");
@@ -163,12 +163,14 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(s23.advanceByFlag?.["ch3_bind==none"]).toBe("n_s23_empty");
     expect(s23.assetId).toBe("assets/scenes/ch04/S23-empty.webp");
     expect(s24.advanceByFlag).toMatchObject({
-      "w4_stand==fold": "n_s24_crash",
+      "w4_stand==fold && edge_sleepover_mia==true": "n_s24_crash",
       "edge_sleepover_mia==true": "n_s24_mia",
       "edge_sleepover_jade==true": "n_s24_jade",
       "edge_sleepover_lina==true": "n_s24_lina",
       "edge_sleepover_rae==true": "n_s24_rae",
-      default: "n_s24_crash",
+      "vanessa_crack==true": "n_s24_vanessa",
+      "reina_office_kiss==true": "n_s24_reina",
+      default: "n_s24_solo",
     });
     expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/s22_meet==ok/);
     expect(JSON.stringify(s24.advanceByFlag)).not.toMatch(/w4_sms_first!=vanessa/);
@@ -176,13 +178,17 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(resolveNext(s22, {})).toBe("n_s23_router");
     expect(resolveNext(s22, { edge_sleepover_mia: true })).toBe("n_s22_mia");
     expect(resolveNext(s22, { edge_sleepover_mia: true, w4_sms_first: "vanessa" })).toBe(
-      "n_s23_router",
+      "n_s22_mia",
     );
     expect(resolveNext(s23, {})).toBe("n_s23_empty");
     expect(resolveNext(s23, { ch3_bind: "none" })).toBe("n_s23_empty");
     expect(resolveNext(s23, { ch3_bind: "mia" })).toBe("n_s23_empty");
     expect(resolveNext(s23, { edge_sleepover_mia: true })).toBe("n_s23_mia");
+    expect(resolveNext(s23, { edge_sleepover_mia: true, w4_sms_first: "vanessa" })).toBe(
+      "n_s23_mia",
+    );
     expect(resolveNext(s23, { ch3_bind: "none", vanessa_crack: true })).toBe("n_s23_vanessa");
+    expect(resolveNext(s23, { ch3_bind: "mia", vanessa_crack: true })).toBe("n_s23_vanessa");
 
     for (const who of ["jade", "lina", "rae"] as const) {
       expect(compiled.nodes.get(`n_s23_${who}`)?.assetId).toBe(
@@ -200,9 +206,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(skipBed.visited).not.toContain("n_s22_mia");
     expect(skipBed.visited).not.toContain("n_s23_mia");
     expect(skipBed.visited).toContain("n_s23_empty");
-    expect(skipBed.flags.ending).toBe("end_crash");
+    expect(skipBed.flags.ending).toBe("end_solo");
 
-    const vanessaSkipBed = playFrom(
+    const vanessaAfterBed = playFrom(
       compiled,
       {
         ch3_bind: "mia",
@@ -210,11 +216,23 @@ describe("Ch04 名分 (DEV, not default)", () => {
         vanessa_crack: true,
         w4_sms_first: "vanessa",
       },
-      ["c_s23_ok"],
+      ["c_s22_ok", "c_s23_ok"],
     );
-    expect(vanessaSkipBed.visited).not.toContain("n_s22_mia");
-    expect(vanessaSkipBed.visited).toContain("n_s23_vanessa");
-    expect(vanessaSkipBed.flags.ending).toBe("end_mia");
+    expect(vanessaAfterBed.visited).toContain("n_s22_mia");
+    expect(vanessaAfterBed.visited).toContain("n_s23_mia");
+    expect(vanessaAfterBed.visited).not.toContain("n_s23_vanessa");
+    expect(vanessaAfterBed.flags.ending).toBe("end_mia");
+
+    const foldAfterBed = playFrom(
+      compiled,
+      {
+        ch3_bind: "mia",
+        edge_sleepover_mia: true,
+      },
+      ["c_s22_ok", "c_s23_dodge"],
+    );
+    expect(foldAfterBed.visited).toContain("n_s22_mia");
+    expect(foldAfterBed.flags.ending).toBe("end_crash");
   });
 
   it("real continue keeps a Rae sleepover through morning, Troy, and the ending", () => {
@@ -274,7 +292,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
       },
       ["c_s23_ok"],
     );
-    expect(emptyCrash.flags.ending).toBe("end_crash");
+    expect(emptyCrash.flags.ending).toBe("end_solo");
 
     const rae = playFrom(
       compiled,
@@ -312,7 +330,9 @@ describe("Ch04 名分 (DEV, not default)", () => {
     expect(spoken).toMatch(/笨蛋/);
     expect(spoken).toMatch(/这下他们看清楚了/);
     expect(spoken).toMatch(/我没倒向你。——还没/);
-    expect(spoken).toMatch(/这一轮 Troy 赢了/);
+    expect(spoken).toMatch(/他没有答应谁/);
+    expect(spoken).toMatch(/该兑现的没有兑现/);
+    expect(spoken).not.toMatch(/这一轮 Troy 赢了/);
     expect(spoken).toMatch(/雨巷那晚。Vanessa。我看见你了/);
     expect(spoken).toMatch(/那天夜里。池面一条灯/);
     expect(spoken).toMatch(/几天后，她又把你叫回教員室/);
@@ -355,6 +375,7 @@ describe("Ch04 名分 (DEV, not default)", () => {
       "n_s24_mia",
       "n_s24_jade",
       "n_s24_crash",
+      "n_s24_solo",
       "n_s24_tail",
     ];
     for (const id of stage1) {

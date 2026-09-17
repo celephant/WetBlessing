@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
@@ -22,7 +23,6 @@ import {
   withEntitlement,
 } from "@/lib/engine";
 import {
-  SAVE_STORAGE_KEY,
   grantFullEntitleDev,
   grantScopeDev,
   isFullyEntitled,
@@ -51,26 +51,7 @@ import {
   isFunnelLookNode,
   type FunnelZone,
 } from "@/lib/funnel";
-
-function saveKey(packId: string) {
-  return packId === "default" ? SAVE_STORAGE_KEY : `${SAVE_STORAGE_KEY}:${packId}`;
-}
-
-function persistSave(state: GameState, packId: string) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(saveKey(packId), JSON.stringify(state));
-}
-
-function readSave(packId: string): GameState | null {
-  if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(saveKey(packId));
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as GameState;
-  } catch {
-    return null;
-  }
-}
+import { dismissPaywallToTitle, persistPackSave, readPackSave } from "@/lib/new-run";
 
 export function VNPlayer({
   resume = false,
@@ -88,11 +69,12 @@ export function VNPlayer({
   const [afterPurchase, setAfterPurchase] = useState(false);
   const [paused, setPaused] = useState(false);
   const [funnelLook, setFunnelLook] = useState<FunnelZone | null>(null);
+  const router = useRouter();
   const pack = compiled.content;
 
   useEffect(() => {
     const entitlements = loadEntitlements();
-    const saved = readSave(packId);
+    const saved = readPackSave(packId);
     if (resume || (packId === "funnel" && saved)) {
       if (saved) {
         setState({
@@ -146,7 +128,7 @@ export function VNPlayer({
   const authDock = isFunnelAuthNode(state.nodeId);
 
   const commit = (next: GameState) => {
-    persistSave(next, packId);
+    persistPackSave(next, packId);
     setState(next);
   };
 
@@ -395,7 +377,13 @@ export function VNPlayer({
           entitled={passOn}
           onDevUnlock={onDevUnlock}
           onUnlockScope={onUnlockScope}
-          onClose={() => setLocked(null)}
+          onClose={() => {
+            const next = dismissPaywallToTitle(state);
+            persistPackSave(next, packId);
+            setState(next);
+            setLocked(null);
+            router.push("/");
+          }}
         />
       ) : null}
     </div>

@@ -270,10 +270,7 @@
               "text": "接招：侧门。",
               "next": "n_funnel_08_mia",
               "setFlags": {
-                "went_with": "mia",
-                "stood_up_jade": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "mia"
               }
             },
             {
@@ -281,10 +278,7 @@
               "text": "接招：上台阶。",
               "next": "n_funnel_08_jade",
               "setFlags": {
-                "went_with": "jade",
-                "stood_up_mia": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "jade"
               }
             },
             {
@@ -292,10 +286,7 @@
               "text": "接招：走向跳台。",
               "next": "n_funnel_08_lina",
               "setFlags": {
-                "went_with": "lina",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_rae": true
+                "went_with": "lina"
               }
             },
             {
@@ -303,10 +294,7 @@
               "text": "接招：走向冒气的门。",
               "next": "n_funnel_08_rae",
               "setFlags": {
-                "went_with": "rae",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_lina": true
+                "went_with": "rae"
               }
             },
             {
@@ -314,11 +302,7 @@
               "text": "躲开：谁也不跟。",
               "next": "n_funnel_08_none",
               "setFlags": {
-                "went_with": "none",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "none"
               }
             }
           ]

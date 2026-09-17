@@ -97,7 +97,13 @@ describe("E-C1-07 daytime 接招/圆场/躲开", () => {
       default: "n_ch01_first_sub",
     });
     const miaWall = route.nodes.get("n_ch01_catch_mia")!;
-    expect(miaWall.choices?.map((c) => c.text)).toEqual(["进去。", "离开。"]);
+    expect(miaWall.choices?.map((c) => c.text)).toEqual([
+      "进去。",
+      "楼梯。",
+      "水边。",
+      "对门。",
+      "离开。",
+    ]);
     expect(miaWall.choices?.some((c) => /♥|♡/.test(c.text))).toBe(false);
   });
 });

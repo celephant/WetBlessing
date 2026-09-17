@@ -55,7 +55,7 @@
       "n_pay_03_yes"
     ],
     "artPlaceholder": [],
-    "changelog": "0.4.8-feel-hot audit-fix: fluent Chinese; S01 plays; Jade↛Mia elevator; S07 collage+dry mail; S08 wall; S14 off Ch01; static stills.",
+    "changelog": "Design-lock B: unused is not stood-up; Catch walls allow unpaid still-switch before purchase; catch_target records the paid pick; went_with is not overwritten. Hall entry remains n_open.",
     "artPayDefault": "Bible plates + manga stills; S14 unwired (Ch02); Rae OT has its own file",
     "feelPatch": "FEEL-免费段必须够烫-出品补丁-0.4.8.md",
     "feelRules": "T-erotic tension only; no nudity; no sex acts; male-campus tease",
@@ -668,10 +668,7 @@
                 "tension": 1
               },
               "setFlags": {
-                "went_with": "mia",
-                "stood_up_jade": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "mia"
               },
               "meta": {
                 "statusHint": {
@@ -694,10 +691,7 @@
                 "tension": 1
               },
               "setFlags": {
-                "went_with": "jade",
-                "stood_up_mia": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "jade"
               },
               "meta": {
                 "statusHint": {
@@ -720,10 +714,7 @@
                 "tension": 1
               },
               "setFlags": {
-                "went_with": "lina",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_rae": true
+                "went_with": "lina"
               },
               "meta": {
                 "statusHint": {
@@ -746,10 +737,7 @@
                 "tension": 1
               },
               "setFlags": {
-                "went_with": "rae",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_lina": true
+                "went_with": "rae"
               },
               "meta": {
                 "statusHint": {
@@ -766,11 +754,7 @@
                 "tension": 3
               },
               "setFlags": {
-                "went_with": "none",
-                "stood_up_mia": true,
-                "stood_up_jade": true,
-                "stood_up_lina": true,
-                "stood_up_rae": true
+                "went_with": "none"
               },
               "meta": {
                 "statusHint": {
@@ -1426,6 +1410,27 @@
               }
             },
             {
+              "choiceId": "c_catch_show_jade",
+              "text": "楼梯。",
+              "next": "n_ch01_catch_jade",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_lina",
+              "text": "水边。",
+              "next": "n_ch01_catch_lina",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_rae",
+              "text": "对门。",
+              "next": "n_ch01_catch_rae",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
               "choiceId": "c_wall_title",
               "text": "离开。",
               "next": "n_title",
@@ -1473,6 +1478,27 @@
               "setFlags": {
                 "catch_target": "jade"
               }
+            },
+            {
+              "choiceId": "c_catch_show_mia",
+              "text": "宿舍。",
+              "next": "n_ch01_catch_mia",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_lina",
+              "text": "水边。",
+              "next": "n_ch01_catch_lina",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_rae",
+              "text": "对门。",
+              "next": "n_ch01_catch_rae",
+              "delta": {},
+              "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",
@@ -1524,6 +1550,27 @@
               }
             },
             {
+              "choiceId": "c_catch_show_mia",
+              "text": "宿舍。",
+              "next": "n_ch01_catch_mia",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_jade",
+              "text": "楼梯。",
+              "next": "n_ch01_catch_jade",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_rae",
+              "text": "对门。",
+              "next": "n_ch01_catch_rae",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
               "choiceId": "c_wall_title",
               "text": "离开。",
               "next": "n_title",
@@ -1571,6 +1618,27 @@
               "setFlags": {
                 "catch_target": "rae"
               }
+            },
+            {
+              "choiceId": "c_catch_show_mia",
+              "text": "宿舍。",
+              "next": "n_ch01_catch_mia",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_jade",
+              "text": "楼梯。",
+              "next": "n_ch01_catch_jade",
+              "delta": {},
+              "gateChoice": "free"
+            },
+            {
+              "choiceId": "c_catch_show_lina",
+              "text": "水边。",
+              "next": "n_ch01_catch_lina",
+              "delta": {},
+              "gateChoice": "free"
             },
             {
               "choiceId": "c_wall_title",

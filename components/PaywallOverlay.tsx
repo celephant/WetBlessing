@@ -86,7 +86,7 @@ export function PaywallOverlay({
           onClick={onDevUnlock}
           className="mt-2 flex min-h-[52px] w-full items-center justify-center rounded-chip bg-mint/90 font-ui text-[15px] font-medium text-ink"
         >
-          DEV · 假开通月卡，立刻接上这句
+          DEV · 假开通通行证，立刻接上这句
         </button>
 
         <button
