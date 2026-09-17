@@ -8,23 +8,23 @@ import { showsPassChip } from "../lib/choice-variant";
 const root = path.resolve(__dirname, "..");
 
 export const CATCH_CHIPS = {
-  miaPaid: "进去。（床。腿上还亮着那张图）跨进去，她才肯抬头。",
-  jadePaid: "抓住。（干楼梯。闪光关了）手已经伸下来，就差你接住。",
-  linaPaid: "下去。（池边。毛巾还挂肩）她在水里看你下来没有。",
-  raePaid: "从里面关。（蒸汽门。隔墙听得见）她回了头，就差你把门带上。",
-  miaSwitch: "宿舍。（床。灯只一盏）她没抬头，腿上那张图还亮着。",
-  jadeSwitch: "楼梯。（干砖。闪光关了）她的手还停在拉的中途。",
-  linaSwitch: "水边。（夜池。毛巾挂肩）她还站在水边看你。",
-  raeSwitch: "对门。（蒸汽。水手领还湿）她回了头，门缝还开着。",
+  miaPaid: "进去。她坐在床上，那张图还亮在腿上，你一进去她才会抬头。",
+  jadePaid: "抓住。她在楼梯井里把手伸下来，闪光关了，等你接住。",
+  linaPaid: "下去。她站在池边，毛巾挂在肩上，看你下来没有。",
+  raePaid: "从里面关。她回了头，热气还往外涌，等你把门带上。",
+  miaSwitch: "去宿舍。灯只一盏，她没抬头，那张图还亮在腿上。",
+  jadeSwitch: "去楼梯。闪光关了，她把手伸下来了，还没拉完。",
+  linaSwitch: "去水边。毛巾挂在肩上，她还站在池边看你。",
+  raeSwitch: "去对门。水手领还湿着，她回了头，门缝还开着。",
   leave: "离开。",
 } as const;
 
-const CH02_ENTER = "进去。（教員室。门还开着）黑丝已经压在桌沿上。";
+const CH02_ENTER = "进去。教員室的门还开着，黑丝已经压在桌沿上。";
 const CH03_PUSH = {
-  n_s19_mia: "推门。（缝里她的嘴）锁还横着，腰已经自己往前了。",
-  n_s19_jade: "推门。（廊里。闪光关了）灯灭了，只剩她的呼吸。",
-  n_s19_lina: "推门。（池侧。插销未落）湿衣还在滴，她还站在缝里。",
-  n_s19_rae: "推门。（防火门。烘筒在转）她竖着指，隔墙听得见。",
+  n_s19_mia: "推门。锁还没转，缝里她微张着嘴，腰已经往前了。",
+  n_s19_jade: "推门。廊灯灭了，闪光也关着，只剩她的呼吸。",
+  n_s19_lina: "推门。侧门插销还没落下，湿衣还在滴，她站在缝里。",
+  n_s19_rae: "推门。防火门虚掩着，烘筒在转，她竖着指，隔墙听得见。",
 } as const;
 
 const PRICE_ON_CHIP = /通行证|锁 ·|\$8\.99|\$2\.99/;
@@ -41,7 +41,7 @@ describe("Catch / wall chips: story only, money after tap", () => {
     expect(route.nodes.get("n_open")?.advance).toBe("n_see_both");
   });
 
-  it("writes Catch bark + paren + hint, no hearts, and keeps 离开 free", () => {
+  it("writes fluent Catch chips, no shot-list parens, no hearts, and keeps 离开 free", () => {
     const dodge = route.nodes.get("n_ch01_first_sub")!;
     expect(dodge.choices?.map((c) => c.text)).toEqual([
       CATCH_CHIPS.miaPaid,
@@ -52,15 +52,34 @@ describe("Catch / wall chips: story only, money after tap", () => {
     ]);
     expect(dodge.choices).toHaveLength(5);
 
-    expect(choiceOf("n_ch01_catch_jade", "c_sub_round_jade")?.text).toBe(
+    expect(route.nodes.get("n_ch01_catch_mia")?.choices?.map((c) => c.text)).toEqual([
+      CATCH_CHIPS.miaPaid,
+      CATCH_CHIPS.jadeSwitch,
+      CATCH_CHIPS.linaSwitch,
+      CATCH_CHIPS.raeSwitch,
+      CATCH_CHIPS.leave,
+    ]);
+    expect(route.nodes.get("n_ch01_catch_jade")?.choices?.map((c) => c.text)).toEqual([
       CATCH_CHIPS.jadePaid,
-    );
-    expect(choiceOf("n_ch01_catch_lina", "c_sub_round_lina")?.text).toBe(
+      CATCH_CHIPS.miaSwitch,
+      CATCH_CHIPS.linaSwitch,
+      CATCH_CHIPS.raeSwitch,
+      CATCH_CHIPS.leave,
+    ]);
+    expect(route.nodes.get("n_ch01_catch_lina")?.choices?.map((c) => c.text)).toEqual([
       CATCH_CHIPS.linaPaid,
-    );
-    expect(choiceOf("n_ch01_catch_rae", "c_sub_round_rae")?.text).toBe(
+      CATCH_CHIPS.miaSwitch,
+      CATCH_CHIPS.jadeSwitch,
+      CATCH_CHIPS.raeSwitch,
+      CATCH_CHIPS.leave,
+    ]);
+    expect(route.nodes.get("n_ch01_catch_rae")?.choices?.map((c) => c.text)).toEqual([
       CATCH_CHIPS.raePaid,
-    );
+      CATCH_CHIPS.miaSwitch,
+      CATCH_CHIPS.jadeSwitch,
+      CATCH_CHIPS.linaSwitch,
+      CATCH_CHIPS.leave,
+    ]);
 
     for (const nodeId of [
       "n_ch01_first_sub",
@@ -73,6 +92,7 @@ describe("Catch / wall chips: story only, money after tap", () => {
       expect(node.choices).toHaveLength(5);
       expect(node.choices?.some((c) => HEART_CHIP.test(c.text))).toBe(false);
       expect(node.choices?.some((c) => PRICE_ON_CHIP.test(c.text))).toBe(false);
+      expect(node.choices?.some((c) => /（|）/.test(c.text))).toBe(false);
       const leave = node.choices?.find((c) => c.choiceId === "c_wall_title");
       expect(leave?.text).toBe(CATCH_CHIPS.leave);
       expect(leave?.requiresEntitlement).toBeUndefined();
@@ -96,6 +116,7 @@ describe("Catch / wall chips: story only, money after tap", () => {
     expect(enter?.text).toBe(CH02_ENTER);
     expect(enter?.requiresEntitlement).toBe("w2_office");
     expect(PRICE_ON_CHIP.test(enter!.text)).toBe(false);
+    expect(enter!.text).not.toMatch(/（|）/);
 
     const ch03 = compileRoute(tryReadCh03Night()!);
     for (const [nodeId, text] of Object.entries(CH03_PUSH)) {
@@ -103,6 +124,7 @@ describe("Catch / wall chips: story only, money after tap", () => {
       expect(push?.text, nodeId).toBe(text);
       expect(push?.requiresEntitlement).toBe("edge_lock");
       expect(PRICE_ON_CHIP.test(push!.text)).toBe(false);
+      expect(push!.text).not.toMatch(/（|）/);
       const leave = ch03.nodes.get(nodeId)?.choices?.find((c) => c.choiceId === "c_leave");
       expect(leave?.text).toBe("离开。");
       expect(leave?.requiresEntitlement).toBeUndefined();

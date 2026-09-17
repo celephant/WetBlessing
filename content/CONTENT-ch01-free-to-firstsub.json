@@ -1398,7 +1398,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。（床。腿上还亮着那张图）跨进去，她才肯抬头。",
+              "text": "进去。她坐在床上，那张图还亮在腿上，你一进去她才会抬头。",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1411,21 +1411,21 @@
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "楼梯。（干砖。闪光关了）她的手还停在拉的中途。",
+              "text": "去楼梯。闪光关了，她把手伸下来了，还没拉完。",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "水边。（夜池。毛巾挂肩）她还站在水边看你。",
+              "text": "去水边。毛巾挂在肩上，她还站在池边看你。",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "对门。（蒸汽。水手领还湿）她回了头，门缝还开着。",
+              "text": "去对门。水手领还湿着，她回了头，门缝还开着。",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1468,7 +1468,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。（干楼梯。闪光关了）手已经伸下来，就差你接住。",
+              "text": "抓住。她在楼梯井里把手伸下来，闪光关了，等你接住。",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1481,21 +1481,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "宿舍。（床。灯只一盏）她没抬头，腿上那张图还亮着。",
+              "text": "去宿舍。灯只一盏，她没抬头，那张图还亮在腿上。",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "水边。（夜池。毛巾挂肩）她还站在水边看你。",
+              "text": "去水边。毛巾挂在肩上，她还站在池边看你。",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "对门。（蒸汽。水手领还湿）她回了头，门缝还开着。",
+              "text": "去对门。水手领还湿着，她回了头，门缝还开着。",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1538,7 +1538,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。（池边。毛巾还挂肩）她在水里看你下来没有。",
+              "text": "下去。她站在池边，毛巾挂在肩上，看你下来没有。",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1551,21 +1551,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "宿舍。（床。灯只一盏）她没抬头，腿上那张图还亮着。",
+              "text": "去宿舍。灯只一盏，她没抬头，那张图还亮在腿上。",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "楼梯。（干砖。闪光关了）她的手还停在拉的中途。",
+              "text": "去楼梯。闪光关了，她把手伸下来了，还没拉完。",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_rae",
-              "text": "对门。（蒸汽。水手领还湿）她回了头，门缝还开着。",
+              "text": "去对门。水手领还湿着，她回了头，门缝还开着。",
               "next": "n_ch01_catch_rae",
               "delta": {},
               "gateChoice": "free"
@@ -1608,7 +1608,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。（蒸汽门。隔墙听得见）她回了头，就差你把门带上。",
+              "text": "从里面关。她回了头，热气还往外涌，等你把门带上。",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",
@@ -1621,21 +1621,21 @@
             },
             {
               "choiceId": "c_catch_show_mia",
-              "text": "宿舍。（床。灯只一盏）她没抬头，腿上那张图还亮着。",
+              "text": "去宿舍。灯只一盏，她没抬头，那张图还亮在腿上。",
               "next": "n_ch01_catch_mia",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_jade",
-              "text": "楼梯。（干砖。闪光关了）她的手还停在拉的中途。",
+              "text": "去楼梯。闪光关了，她把手伸下来了，还没拉完。",
               "next": "n_ch01_catch_jade",
               "delta": {},
               "gateChoice": "free"
             },
             {
               "choiceId": "c_catch_show_lina",
-              "text": "水边。（夜池。毛巾挂肩）她还站在水边看你。",
+              "text": "去水边。毛巾挂在肩上，她还站在池边看你。",
               "next": "n_ch01_catch_lina",
               "delta": {},
               "gateChoice": "free"
@@ -1666,7 +1666,7 @@
           "choices": [
             {
               "choiceId": "c_sub_round_mia",
-              "text": "进去。（床。腿上还亮着那张图）跨进去，她才肯抬头。",
+              "text": "进去。她坐在床上，那张图还亮在腿上，你一进去她才会抬头。",
               "next": "n_pay_01_catch_mia",
               "delta": {},
               "cta": "story_pass",
@@ -1679,7 +1679,7 @@
             },
             {
               "choiceId": "c_sub_round_jade",
-              "text": "抓住。（干楼梯。闪光关了）手已经伸下来，就差你接住。",
+              "text": "抓住。她在楼梯井里把手伸下来，闪光关了，等你接住。",
               "next": "n_pay_01_catch_jade",
               "delta": {},
               "cta": "story_pass",
@@ -1692,7 +1692,7 @@
             },
             {
               "choiceId": "c_sub_round_lina",
-              "text": "下去。（池边。毛巾还挂肩）她在水里看你下来没有。",
+              "text": "下去。她站在池边，毛巾挂在肩上，看你下来没有。",
               "next": "n_pay_01_catch_lina",
               "delta": {},
               "cta": "story_pass",
@@ -1705,7 +1705,7 @@
             },
             {
               "choiceId": "c_sub_round_rae",
-              "text": "从里面关。（蒸汽门。隔墙听得见）她回了头，就差你把门带上。",
+              "text": "从里面关。她回了头，热气还往外涌，等你把门带上。",
               "next": "n_pay_01_catch_rae",
               "delta": {},
               "cta": "story_pass",

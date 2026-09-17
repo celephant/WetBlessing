@@ -90,7 +90,7 @@
           "choices": [
             {
               "choiceId": "c_ch02_enter",
-              "text": "进去。（教員室。门还开着）黑丝已经压在桌沿上。",
+              "text": "进去。教員室的门还开着，黑丝已经压在桌沿上。",
               "next": "n_s14_office",
               "delta": {},
               "cta": "w2_office",
