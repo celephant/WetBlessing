@@ -127,15 +127,14 @@ describe("landing funnel (pre-login, not default)", () => {
     expect(f2?.assetId).toBe("assets/scenes/ch01/n_conflict.webp");
     expect(f1?.assetId).not.toContain("n_open");
     expect(f2?.assetId).not.toContain("n_open");
-    expect(f2?.text).toBe("走近才听得见。她才肯开口。");
-    expect(f2?.text).not.toMatch(/四块地|点一块地/);
-    expect(FUNNEL_AUTH_HINT).toBe("先把今晚记下。那张拼贴还没看完。");
-    expect(FUNNEL_AUTH_HINT).not.toMatch(/约 10 秒|完成/);
+    expect(f2?.text).toBe("走近才听得见。四块地，没人让。");
+    expect(FUNNEL_AUTH_HINT).toBe("注册后保存选择，看完整拼贴。约 10 秒完成。");
     const css = readFileSync(path.join(root, "app/globals.css"), "utf8");
     expect(css).toMatch(/\.choice-overlay\s*\{[\s\S]*?pointer-events:\s*none/);
     expect(css).toContain(".funnel-hotspot");
     expect(css).toContain("background: transparent");
     expect(css).toContain(".funnel-auth-dock");
+    expect(css).not.toContain("grid-template-areas");
     const hud = readFileSync(path.join(root, "components/FunnelHud.tsx"), "utf8");
     expect(hud).toContain("data-funnel-hotspot={zone}");
     expect(hud).not.toContain("border-paper/25");
@@ -143,8 +142,17 @@ describe("landing funnel (pre-login, not default)", () => {
     const auth = readFileSync(path.join(root, "components/FunnelAuthDock.tsx"), "utf8");
     expect(auth).toContain("funnel-auth-dock");
     expect(auth).toContain("dialog-dock");
+    expect(auth).toContain('data-funnel-auth-primary="register"');
+    expect(auth).toContain('data-funnel-auth-secondary="login"');
+    expect(auth).toContain("注册并继续");
+    expect(auth).toContain("登录");
+    expect(auth).not.toContain('mode === "login" ? "登录"');
+    expect(auth).not.toContain('mode === "login" ? "注册并继续"');
     expect(auth).not.toContain("max-w-dialog");
-    expect(auth).not.toContain("约 10 秒");
+    expect(title).toContain("persistPlayerDevFlag");
+    expect(title).toContain("{showDev ?");
+    expect(title).toContain("DEV fourweek");
+    expect(title).toContain('data-title-dev={showDev ? "on" : "off"}');
   });
 
   it("walks night pool to collage then auth without blowing the cap", () => {

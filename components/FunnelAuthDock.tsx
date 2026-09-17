@@ -9,6 +9,8 @@ import {
 } from "@/lib/funnel";
 import type { GameState } from "@/lib/types";
 
+type AuthMode = "register" | "login";
+
 type FunnelAuthDockProps = {
   caption: string;
   state: GameState;
@@ -17,12 +19,12 @@ type FunnelAuthDockProps = {
 export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mode, setMode] = useState<"register" | "login">("register");
+  const [mode, setMode] = useState<AuthMode>("register");
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
 
-  const submit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const finish = (next: AuthMode) => {
+    setMode(next);
     if (!email.includes("@") || password.length < 4) {
       setError(FUNNEL_AUTH_ERR);
       return;
@@ -39,6 +41,7 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
     <div
       className="dialog-dock funnel-auth-dock flex h-full w-full flex-col justify-end overflow-hidden"
       data-funnel-auth=""
+      data-funnel-auth-mode={mode}
     >
       <div className="funnel-auth-strip">
         <p className="font-ui text-[15px] leading-5 text-paper">{caption}</p>
@@ -48,11 +51,17 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
             {FUNNEL_AUTH_OK}
           </p>
         ) : (
-          <form className="funnel-auth-form" onSubmit={submit}>
+          <form
+            className="funnel-auth-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              finish("register");
+            }}
+          >
             <div className="funnel-auth-fields">
               <input
                 type="email"
-                autoComplete="email"
+                autoComplete={mode === "login" ? "username" : "email"}
                 placeholder="邮箱"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -72,18 +81,18 @@ export function FunnelAuthDock({ caption, state }: FunnelAuthDockProps) {
             ) : null}
             <button
               type="submit"
-              className="btn-face btn-primary funnel-auth-primary"
-              data-funnel-auth-primary=""
+              className="btn-face btn-primary funnel-auth-primary choice-press"
+              data-funnel-auth-primary="register"
             >
-              {mode === "login" ? "登录" : "注册并继续"}
+              注册并继续
             </button>
             <button
               type="button"
-              onClick={() => setMode(mode === "login" ? "register" : "login")}
-              className="funnel-auth-secondary"
-              data-funnel-auth-secondary=""
+              className="funnel-auth-secondary choice-press"
+              data-funnel-auth-secondary="login"
+              onClick={() => finish("login")}
             >
-              {mode === "login" ? "注册并继续" : "登录"}
+              登录
             </button>
           </form>
         )}
