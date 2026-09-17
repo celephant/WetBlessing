@@ -9,11 +9,19 @@ import {
 } from "../lib/engine";
 import {
   ENTITLEMENT_STORAGE_KEY,
+  RESUME_PACK_KEY,
   SAVE_STORAGE_KEY,
   SEASON_CARRY_KEY,
 } from "../lib/entitlement";
 import { FUNNEL_COMPLETED_KEY } from "../lib/funnel";
-import { clearRunProgress, dismissPaywallToTitle } from "../lib/new-run";
+import {
+  clearRunProgress,
+  dismissPaywallToTitle,
+  persistPackSave,
+  readPackSave,
+  readTitleResume,
+  resolveResumePack,
+} from "../lib/new-run";
 import { PAYWALL_HARD, CHAPTER_UNLOCK_PRICE } from "../lib/paywall-copy";
 import { PASS_PRICE } from "../lib/tokens";
 
@@ -101,6 +109,23 @@ describe("design-lock: went_with ≠ Catch ≠ OT", () => {
   });
 });
 
+function installMemoryStore(store: Record<string, string>) {
+  const memory = {
+    getItem: (key: string) => store[key] ?? null,
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+  };
+  (globalThis as { window?: { localStorage: typeof memory } }).window = {
+    localStorage: memory,
+  };
+  (globalThis as { localStorage?: typeof memory }).localStorage = memory;
+  return store;
+}
+
 describe("design-lock: overlay dismiss ≠ story leave", () => {
   it("keeps the wall node and does not select 离开", () => {
     const wall = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
@@ -121,6 +146,80 @@ describe("design-lock: overlay dismiss ≠ story leave", () => {
     ]);
     expect(left.nodeId).toBe("n_title");
   });
+
+  it("title 继续 resumes the dismissed Ch02/Ch03 pack, not default Ch01", () => {
+    const store = installMemoryStore({
+      [SAVE_STORAGE_KEY]: JSON.stringify({
+        nodeId: "n_ch01_catch_jade",
+        pendingChoiceId: null,
+        flags: { went_with: "jade" },
+      }),
+      [FUNNEL_COMPLETED_KEY]: "1",
+    });
+    const ch02Wall = {
+      nodeId: "n_ch02_wall",
+      beatIndex: 0,
+      choiceIndex: 1,
+      flags: { went_with: "jade", catch_target: "jade" },
+      stats: {},
+      entitlements: { story_pass_month: false },
+      pendingChoiceId: "c_ch02_enter",
+    };
+    persistPackSave(
+      dismissPaywallToTitle(ch02Wall as never),
+      "ch02",
+    );
+    expect(store[RESUME_PACK_KEY]).toBe("ch02");
+    expect(readPackSave("ch02")?.nodeId).toBe("n_ch02_wall");
+    expect(readPackSave("ch02")?.pendingChoiceId).toBeNull();
+    expect(readPackSave("ch02")?.flags.catch_target).toBe("jade");
+    expect(readPackSave("default")?.nodeId).toBe("n_ch01_catch_jade");
+    expect(resolveResumePack()).toBe("ch02");
+    expect(readTitleResume(true)).toEqual({
+      pack: "ch02",
+      href: "/play?content=ch02&resume=1",
+      label: "继续",
+    });
+    delete store[RESUME_PACK_KEY];
+    expect(resolveResumePack()).toBe("ch02");
+    expect(readTitleResume(true)?.href).toBe("/play?content=ch02&resume=1");
+
+    persistPackSave(
+      {
+        nodeId: "n_s19_mia",
+        beatIndex: 0,
+        choiceIndex: 1,
+        flags: { ch3_bind: "mia" },
+        stats: {},
+        entitlements: { story_pass_month: false },
+        pendingChoiceId: null,
+      } as never,
+      "ch03",
+    );
+    expect(readTitleResume(true)).toEqual({
+      pack: "ch03",
+      href: "/play?content=ch03&resume=1",
+      label: "继续",
+    });
+  });
+
+  it("still resumes Ch01 Catch from title when that pack was last saved", () => {
+    installMemoryStore({});
+    const wall = playChoices(["c_dodge_both", "c_dodge_party", "c_sms_shut"]);
+    const locked = selectChoice(wall, "c_sub_round_mia");
+    expect(locked.ok).toBe(false);
+    if (locked.ok) return;
+    persistPackSave(dismissPaywallToTitle(locked.state), "default");
+    expect(resolveResumePack()).toBe("default");
+    expect(readTitleResume(false)).toEqual({
+      pack: "default",
+      href: "/play?resume=1",
+      label: "继续",
+    });
+    expect(readPackSave("default")?.nodeId).toBe("n_ch01_first_sub");
+    expect(readPackSave("default")?.pendingChoiceId).toBeNull();
+    expect(readPackSave("default")?.nodeId).not.toBe("n_title");
+  });
 });
 
 describe("design-lock: buyout is policy, not a live SKU", () => {
@@ -138,6 +237,7 @@ describe("design-lock: B6 new run is not same-run Catch switch", () => {
     const store: Record<string, string> = {
       [SAVE_STORAGE_KEY]: "{\"nodeId\":\"n_ch01_catch_mia\"}",
       [`${SAVE_STORAGE_KEY}:ch02`]: "{}",
+      [RESUME_PACK_KEY]: "ch02",
       [SEASON_CARRY_KEY]: "{\"flags\":{\"went_with\":\"mia\"}}",
       [FUNNEL_COMPLETED_KEY]: "1",
       [ENTITLEMENT_STORAGE_KEY]: JSON.stringify({
@@ -147,23 +247,12 @@ describe("design-lock: B6 new run is not same-run Catch switch", () => {
         w3_edge_night: false,
       }),
     };
-    const memory = {
-      getItem: (key: string) => store[key] ?? null,
-      setItem: (key: string, value: string) => {
-        store[key] = value;
-      },
-      removeItem: (key: string) => {
-        delete store[key];
-      },
-    };
-    (globalThis as { window?: { localStorage: typeof memory } }).window = {
-      localStorage: memory,
-    };
-    (globalThis as { localStorage?: typeof memory }).localStorage = memory;
+    installMemoryStore(store);
 
     clearRunProgress();
     expect(store[SAVE_STORAGE_KEY]).toBeUndefined();
     expect(store[`${SAVE_STORAGE_KEY}:ch02`]).toBeUndefined();
+    expect(store[RESUME_PACK_KEY]).toBeUndefined();
     expect(store[SEASON_CARRY_KEY]).toBeUndefined();
     expect(store[FUNNEL_COMPLETED_KEY]).toBeUndefined();
     expect(JSON.parse(store[ENTITLEMENT_STORAGE_KEY]!).w1_continue).toBe(true);

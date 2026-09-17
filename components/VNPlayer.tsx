@@ -23,7 +23,6 @@ import {
   withEntitlement,
 } from "@/lib/engine";
 import {
-  SAVE_STORAGE_KEY,
   grantFullEntitleDev,
   grantScopeDev,
   isFullyEntitled,
@@ -52,27 +51,7 @@ import {
   isFunnelLookNode,
   type FunnelZone,
 } from "@/lib/funnel";
-import { dismissPaywallToTitle } from "@/lib/new-run";
-
-function saveKey(packId: string) {
-  return packId === "default" ? SAVE_STORAGE_KEY : `${SAVE_STORAGE_KEY}:${packId}`;
-}
-
-function persistSave(state: GameState, packId: string) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(saveKey(packId), JSON.stringify(state));
-}
-
-function readSave(packId: string): GameState | null {
-  if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(saveKey(packId));
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as GameState;
-  } catch {
-    return null;
-  }
-}
+import { dismissPaywallToTitle, persistPackSave, readPackSave } from "@/lib/new-run";
 
 export function VNPlayer({
   resume = false,
@@ -95,7 +74,7 @@ export function VNPlayer({
 
   useEffect(() => {
     const entitlements = loadEntitlements();
-    const saved = readSave(packId);
+    const saved = readPackSave(packId);
     if (resume || (packId === "funnel" && saved)) {
       if (saved) {
         setState({
@@ -149,7 +128,7 @@ export function VNPlayer({
   const authDock = isFunnelAuthNode(state.nodeId);
 
   const commit = (next: GameState) => {
-    persistSave(next, packId);
+    persistPackSave(next, packId);
     setState(next);
   };
 
@@ -400,7 +379,7 @@ export function VNPlayer({
           onUnlockScope={onUnlockScope}
           onClose={() => {
             const next = dismissPaywallToTitle(state);
-            persistSave(next, packId);
+            persistPackSave(next, packId);
             setState(next);
             setLocked(null);
             router.push("/");

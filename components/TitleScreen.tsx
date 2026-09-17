@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { content } from "@/lib/content";
-import { SAVE_STORAGE_KEY, loadEntitlements } from "@/lib/entitlement";
+import { loadEntitlements } from "@/lib/entitlement";
 import { readFunnelCompleted } from "@/lib/funnel";
-import { clearRunProgress } from "@/lib/new-run";
+import {
+  clearRunProgress,
+  hasAnyRunSave,
+  isChapterPackResume,
+  readTitleResume,
+  type TitleResume,
+} from "@/lib/new-run";
 import {
   orientedStill,
   PORTRAIT_SOURCE_MEDIA,
@@ -13,24 +19,26 @@ import {
 } from "@/lib/orientation-stills";
 
 export function TitleScreen() {
-  const [hasSave, setHasSave] = useState(false);
   const [funnelDone, setFunnelDone] = useState(false);
   const [canNewRun, setCanNewRun] = useState(false);
+  const [resume, setResume] = useState<TitleResume | null>(null);
   const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
 
   useEffect(() => {
-    const saved = Boolean(localStorage.getItem(SAVE_STORAGE_KEY));
     const funnel = readFunnelCompleted();
     const entitlements = loadEntitlements();
-    setHasSave(saved);
+    const target = readTitleResume(funnel);
     setFunnelDone(funnel);
+    setResume(target);
     setCanNewRun(
-      saved ||
+      hasAnyRunSave() ||
         funnel ||
         Boolean(entitlements.w1_continue) ||
         Boolean(entitlements.story_pass_month),
     );
   }, []);
+
+  const chapterResume = resume && isChapterPackResume(resume.pack);
 
   return (
     <main
@@ -72,9 +80,18 @@ export function TitleScreen() {
         </p>
 
         <div className="mt-8 flex flex-col gap-2">
-          {funnelDone ? (
+          {chapterResume && resume ? (
             <Link
-              href="/play?resume=1"
+              href={resume.href}
+              className="choice-press flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
+              data-title-start="resume"
+              data-title-resume-pack={resume.pack}
+            >
+              继续
+            </Link>
+          ) : funnelDone ? (
+            <Link
+              href={resume?.href ?? "/play?resume=1"}
               className="choice-press flex min-h-[52px] items-center justify-center rounded-chip bg-hot font-ui text-[15px] font-medium text-paper"
               data-title-start="resume"
             >
@@ -95,10 +112,20 @@ export function TitleScreen() {
               </span>
             </Link>
           )}
-          {hasSave && !funnelDone ? (
+          {chapterResume && !funnelDone ? (
             <Link
-              href="/play?resume=1"
+              href="/play?content=funnel"
+              className="choice-press relative flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
+              data-title-start="funnel"
+            >
+              开始入学夜
+            </Link>
+          ) : null}
+          {resume && !funnelDone && !chapterResume ? (
+            <Link
+              href={resume.href}
               className="choice-press flex min-h-[52px] items-center justify-center rounded-chip border border-white/15 bg-white/10 font-ui text-[15px] text-paper"
+              data-title-start="resume"
             >
               继续
             </Link>

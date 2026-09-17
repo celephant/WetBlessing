@@ -1,6 +1,6 @@
 import { enterNode, startGame } from "./engine";
 import { route } from "./content";
-import { SAVE_STORAGE_KEY, loadEntitlements } from "./entitlement";
+import { RESUME_PACK_KEY, SAVE_STORAGE_KEY, loadEntitlements } from "./entitlement";
 import type { Beat, Flags, GameState } from "./types";
 
 export const LANDING_FUNNEL_PATH = "content/CONTENT-landing-funnel.json";
@@ -110,6 +110,7 @@ export function handoffFunnelToCh01(funnelState: GameState): GameState {
   );
   if (typeof window !== "undefined") {
     window.localStorage.setItem(SAVE_STORAGE_KEY, JSON.stringify(handed));
+    window.localStorage.setItem(RESUME_PACK_KEY, "default");
     window.localStorage.setItem(FUNNEL_COMPLETED_KEY, "1");
     window.localStorage.removeItem(`${SAVE_STORAGE_KEY}:funnel`);
   }

@@ -9,6 +9,13 @@ import type { ChapterScope, Entitlements } from "./types";
 export const ENTITLEMENT_STORAGE_KEY = "wb:slice0:entitlements";
 export const SAVE_STORAGE_KEY = "wb:slice0:save";
 export const SEASON_CARRY_KEY = "wb:slice0:season-carry";
+/** Last pack the player saved. Title 继续 reads this, not only the default Ch01 slot. */
+export const RESUME_PACK_KEY = "wb:slice0:resume-pack";
+
+export function saveStorageKey(packId?: string | null): string {
+  if (!packId || packId === "default") return SAVE_STORAGE_KEY;
+  return `${SAVE_STORAGE_KEY}:${packId}`;
+}
 
 export const emptyEntitlements = (): Entitlements => ({
   story_pass_month: false,
