@@ -48,10 +48,11 @@ describe("full stills (no Ken Burns / postage stamp)", () => {
     expect(css).toContain("object-fit: cover");
     expect(css).toContain("object-position: center 30%");
     expect(css).toMatch(/orientation:\s*portrait/);
-    expect(css).toContain("max-width: 719px");
     expect(css).toContain("object-fit: contain");
-    expect(css).toContain("aspect-ratio: var(--scene-still-aspect, 16 / 9)");
-    expect(css).toContain("100cqw");
+    expect(css).toContain(".scene-art-pane {");
+    expect(css).toContain("inset: 0");
+    expect(css).not.toContain("100cqw");
+    expect(css).not.toContain("aspect-ratio: var(--scene-still-aspect, 16 / 9)");
     expect(css).toContain(".scene-art-pane:not([data-still-pair=\"paired\"]) .scene-still-fill");
     expect(css).toContain(".scene-art-pane[data-still-pair=\"paired\"] .scene-still-fill");
     expect(css).toContain(".choice-overlay");

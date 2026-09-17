@@ -48,6 +48,18 @@ describe("orientation still pick (9:16 vs 16:9)", () => {
     expect(orientedStill("assets/scenes/ch01/n_open.webp").pair).toBe("paired");
     expect(orientedStill("assets/scenes/heat/S06a.webp").pair).toBe("paired");
     expect(orientedStill("assets/scenes/heat/S06c.webp").pair).toBe("paired");
+    expect(pickStillUrl("assets/scenes/ch01/ch01-s05-party.webp", "portrait")).toBe(
+      "/media/ch01-portrait/C1-D1-portrait.png",
+    );
+    expect(orientedStill("assets/scenes/ch01/ch01-s05-party.webp").pair).toBe(
+      "paired",
+    );
+    expect(pickStillUrl("assets/scenes/ch02/S14.webp", "portrait")).toBe(
+      "/media/ch02-portrait/C2-14-portrait.png",
+    );
+    expect(pickStillUrl("assets/scenes/ch03/S19.webp", "portrait")).toBe(
+      "/media/ch03-portrait/C3-19M-portrait.png",
+    );
   });
 
   it("leaves unmatched landscape webps landscape-only (no CSS-crop substitute)", () => {
@@ -116,5 +128,7 @@ describe("orientation still pick (9:16 vs 16:9)", () => {
     expect(css).toContain(":not([data-still-pair=\"paired\"])");
     expect(css).toContain("bottom: var(--night-pass-dock, 28%)");
     expect(css).toMatch(/orientation:\s*portrait/);
+    expect(css).not.toContain("100cqw");
+    expect(css).toContain(".scene-art-pane {\n  position: absolute;\n  inset: 0;");
   });
 });

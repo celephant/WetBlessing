@@ -8,7 +8,7 @@ Optional fields on a dialogue **node** or a **stage line**. Missing fields still
 | `camera` | node or line | JSON may name Ken Burns / breathe words | **hold** — no Ken Burns, breathe, or crop-cycle |
 | `fx` | node or line | `none` · `vignette` · `warm-tint` · `soft-light` | intimate `warm-tint` (warmVeil+magentaMist); night `vignette` on SMS / wall |
 
-Each still is a **complete frame**. SceneArt picks a real **9:16 portrait file** in a portrait viewport and the authored **16:9 landscape webp** in landscape (`<picture media="(orientation: portrait)">`). Do not CSS-crop a landscape two-shot into portrait. Unpaired beats keep the phone fallback: a full 16:9 still pinned to the top (`object-fit: contain`). Wide desktop covers the pane above the 28% Night Pass dock (`object-fit: cover`, `object-position: center 30%`). Choices overlay the **center of the still** and mount only when a node has choices. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
+Each still is a **complete frame**. SceneArt picks a real **9:16 portrait file** in a portrait viewport and the authored **16:9 landscape webp** in landscape (`<picture media="(orientation: portrait)">`). Do not CSS-crop a landscape two-shot into portrait. Paired portrait stills **full-bleed** the viewport; Night Pass 28% is glass over the picture. Unpaired beats contain the 16:9 file in that same full pane — never a top strip plus empty dock. Landscape covers the viewport (`object-fit: cover`, `object-position: center 30%`). Choices overlay the **lower still** and mount only when a node has choices. Pause, title idle, settle, and paywall wait as stopped design — no plate drift.
 
 Image errors still use `resolveAssetUrl` + the SceneArt placeholder. Portrait paths live under `public/media/…-portrait/` and are mapped from existing landscape `assetId`s — story JSON is not rewritten.
 
@@ -31,7 +31,7 @@ Sourced from `content/UI-tokens.json` **v1.1** (`motion` / `transitions` / `grad
 | Same-node continue | 140ms · `translateY(6px)` |
 | Nameplate | delay 60ms · fade 120ms |
 | Choice chips | 160ms · stagger 48ms · Y(8) + scale(0.98) |
-| Scene still | **fade 320ms** on asset change, then hold. Portrait: 9:16 file when paired, else complete 16:9 at top. Desktop: cover the art pane |
+| Scene still | **fade 320ms** on asset change, then hold. Portrait: 9:16 file full-bleed when paired, else contain 16:9 (no top-strip dock). Desktop: cover the viewport |
 | Grade | warmVeil+magentaMist on intimate nodes; night vignette on SMS / first-sub wall |
 | Wall rhythm | chips + gold yuan **once** (plate stays a still) |
 | PhoneGlow | **off** on SMS + paywall |

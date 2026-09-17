@@ -38,21 +38,19 @@ body {
 }
 
 /* SceneArt: Night Pass grade. Warm/magenta intimacy — not adult red/black neon.
-   Landscape / desktop: 16:9 covers the pane above the 28% dock.
-   Portrait + paired 9:16: contain the portrait file in that same pane (no cover-crop).
-   Portrait + landscape-only: pin a complete 16:9 still to the top (PR #10 fallback).
-   Fade on assetId change, then hold. */
+   Full-bleed plate. The 28% Night Pass dock is glass over the picture, not a hole.
+   Landscape / desktop: 16:9 covers the viewport (object-position center 30%).
+   Portrait + paired 9:16: cover the viewport. Chips overlay the lower picture.
+   Portrait + landscape-only: contain the 16:9 file (no cover-crop, no top-strip
+   + black well). Fade on assetId change, then hold. */
 [data-ui-hidden="on"] .scene-art-pane {
-  bottom: 0;
+  inset: 0;
   height: 100%;
 }
 
 .scene-art-pane {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: var(--night-pass-dock, 28%);
+  inset: 0;
 }
 
 .scene-still-hold picture {
@@ -92,51 +90,16 @@ body {
 @media (orientation: portrait) {
   .scene-art-pane[data-still-pair="paired"] .scene-still-fill,
   [data-title-idle][data-still-pair="paired"] .scene-still-fill {
+    object-fit: cover;
+    object-position: center center;
+  }
+  .scene-art-pane:not([data-still-pair="paired"]) .scene-still-fill,
+  [data-title-idle]:not([data-still-pair="paired"]) .scene-still-fill {
     object-fit: contain;
     object-position: center center;
   }
 }
 
-@media (orientation: portrait) and (max-width: 719px) {
-  .scene-art-pane:not([data-still-pair="paired"]) {
-    bottom: auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: var(--scene-still-aspect, 16 / 9);
-  }
-  .scene-art-pane:not([data-still-pair="paired"]) .scene-still-fill {
-    object-fit: contain;
-    object-position: center center;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) .choice-overlay {
-    top: calc(100cqw * 9 / 16);
-    bottom: 0;
-    height: auto;
-    align-items: flex-start;
-    padding-top: 0.4rem;
-    padding-bottom: 5.75rem;
-    overflow: hidden;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) .choice-press {
-    min-height: 44px;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) .choice-bark {
-    font-size: 14px;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) .choice-hint {
-    font-size: 11.5px;
-    line-height: 1.35;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) [data-night-pass-dock],
-  .vn-stage:not(:has([data-still-pair="paired"])) [data-settle-dock] {
-    top: calc(100cqw * 9 / 16);
-    bottom: 0;
-    height: auto !important;
-  }
-  .vn-stage:not(:has([data-still-pair="paired"])) [data-night-pass-dock] [data-dialog-enter] {
-    justify-content: flex-start;
-  }
-}
 .scene-plate-in,
 .scene-plate-out {
   will-change: opacity;

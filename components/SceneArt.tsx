@@ -65,8 +65,9 @@ export function SceneArt({
 }: SceneArtProps) {
   // Always `assetId` from JSON — never derive `${nodeId}.webp` (paid aliases differ).
   // Missing files remap to a shipped webp so investor play is never a black void.
-  // Portrait viewport uses a real 9:16 file when one is mapped; otherwise the
-  // landscape webp (contain, never cover-crop a two-shot).
+  // Portrait viewport uses a real 9:16 file when one is mapped (full bleed).
+  // Unpaired landscape webp stays contain — never cover-crop a two-shot, never
+  // letterbox a 16:9 plate into a black chip dock.
   const still = orientedStill(assetId);
   const alt = artAlt(artCue, nodeId);
 
