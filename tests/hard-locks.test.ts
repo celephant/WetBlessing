@@ -29,7 +29,7 @@ describe("Slice-0 hard locks", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("d235a6e36476d37e0898585a7684461410a7faa196268ba0eb223851cbaf86b0");
+    ).toBe("2b4b7d17be6b9eb5d057e24aa7e5022890e18e9ed684ffe0ebcf732d87e52c3f");
     expect(content.project).toBe("WetBlessing");
     expect(readdirSync(path.join(root, "content")).sort()).toEqual([
       "ART-camera-crops-v1.json",

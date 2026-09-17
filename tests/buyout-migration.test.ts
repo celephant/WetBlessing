@@ -96,7 +96,9 @@ describe("B5 one-time buyout migration", () => {
     expect(overlay).toContain("假开通一次性通行证");
     expect(overlay).toContain("zh.tertiary");
     expect(overlay).not.toMatch(MONTH_CARD);
-    expect(chips).toContain("通行证 ${PASS_PRICE}");
+    expect(chips).not.toContain("PASS_PRICE");
+    expect(chips).not.toContain("通行证");
+    expect(chips).not.toMatch(/\$8\.99|锁 ·/);
     expect(chips).not.toMatch(MONTH_CARD);
   });
 
