@@ -10,22 +10,22 @@ const root = path.resolve(__dirname, "..");
 
 export const CATCH_CHIPS = {
   miaPaid: "进去。屏幕还热着",
-  jadePaid: "抓住。裙边掀着一截",
-  linaPaid: "下去。锁骨还湿",
-  raePaid: "从里面关。水手领还湿",
+  jadePaid: "抓住。手已经伸下来",
+  linaPaid: "下去。池水凉、腕却热",
+  raePaid: "从里面关。金属凉、后颈却热",
   miaSwitch: "去宿舍。她没抬头",
-  jadeSwitch: "去楼梯。裙边掀着一截",
+  jadeSwitch: "去楼梯。手已经伸下来",
   linaSwitch: "去水边。她还在看你",
   raeSwitch: "去对门。门缝还开着",
   leave: "离开。今晚就到这里",
 } as const;
 
-const CH02_ENTER = "进去。黑丝压过桌沿";
+const CH02_ENTER = "进去。黑丝压着桌沿";
 const CH03_PUSH = {
-  n_s19_mia: "推门。腰已经往前",
-  n_s19_jade: "推门。呼吸贴过来",
-  n_s19_lina: "推门。湿衣还在滴",
-  n_s19_rae: "推门。隔墙听得见",
+  n_s19_mia: "推门。膝盖往前一寸",
+  n_s19_jade: "推门。沙发陷下去",
+  n_s19_lina: "推门。水声贴着小腿",
+  n_s19_rae: "推门。烘筒还在转",
 } as const;
 
 const PRICE_ON_CHIP = /通行证|锁 ·|\$8\.99|\$2\.99/;
@@ -165,7 +165,7 @@ describe("Catch / wall chips: story only, money after tap", () => {
     expect(cueFace).toContain("data-choice-connector");
     expect(cueFace).toContain("›");
     expect(choices).toContain('data-choice-chain="on"');
-    expect(choices).toContain('data-choice-cue="on"');
+    expect(choices).toContain("--choice-col");
     expect(choices).toContain("onClick={() => onSelect(choice.choiceId)}");
     expect(choices).not.toMatch(/<button[\s\S]*<button/);
     expect(css).toContain("max-width: 480px");

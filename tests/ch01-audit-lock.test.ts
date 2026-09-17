@@ -168,7 +168,7 @@ describe("Ch01 story + drift audit lock", () => {
     expect(route.nodes.get("n_see_both")?.choices?.map((c) => c.text)).toEqual([
       "接招：「箱子我来。」她还等你接手",
       "接招：「三十秒。」闪光还没关",
-      "躲开：刷卡进门。她不会装死",
+      "躲开：刷卡进门。晚上别装死",
     ]);
   });
 

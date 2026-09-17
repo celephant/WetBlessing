@@ -51,7 +51,7 @@ describe("Ch02 cafeteria + Reina office (DEV, not default)", () => {
       createHash("sha256")
         .update(readFileSync(path.join(root, "content/CONTENT-ch01-free-to-firstsub.json")))
         .digest("hex"),
-    ).toBe("0d92196c38fec1890d4fc5e7674133060d7035492ba266b720d22d42ce04fd86");
+    ).toBe("3a8d3d7dba49974eb5cacf28ab700c960335066d2384ec7336a6f7ffbf134783");
   });
 
   it("loads only via /play?content=ch02 and is denied as default", () => {

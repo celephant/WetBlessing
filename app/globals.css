@@ -293,7 +293,7 @@ body {
 .choice-cue-row,
 .choice-chain-row {
   display: grid;
-  grid-template-columns: minmax(6.75rem, max-content) 14px minmax(0, 1fr);
+  grid-template-columns: var(--choice-col, 7.25em) 14px minmax(0, 1fr);
   column-gap: 10px;
   align-items: center;
   width: 100%;
@@ -307,7 +307,8 @@ body {
   grid-template-columns: minmax(0, 1fr);
 }
 .choice-bark {
-  min-width: 6.75rem;
+  min-width: 0;
+  width: 100%;
   overflow: hidden;
   font-family: var(--font-ui);
   font-size: 16.5px;

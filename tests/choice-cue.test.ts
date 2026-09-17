@@ -79,4 +79,21 @@ describe("live story packs: ChoiceCue validation", () => {
     const issues = packs.flatMap((pack) => validateRouteChoiceCues(pack.nodes.values()));
     expect(issues, issues.map((issue) => issue.message).join("\n")).toEqual([]);
   });
+
+  it("keeps live Choice/Cue copy grammatical and next-beat-true", () => {
+    const broken =
+      /她不会装死|她还没准你看|她说停了就去翻|拼贴不是夜里|不容抽|不容你退|她不会当众追|灯那条|闪光那条|水边那条|对门那条|锁骨还记着湿|黑丝那层热|裙边掀着一截|唇近了、她还没倒/;
+    const packs = [
+      route,
+      compileRoute(tryReadCh02Office()!),
+      compileRoute(tryReadCh03Night()!),
+      compileRoute(tryReadCh04Endings()!),
+      compileRoute(tryReadLandingFunnel()!),
+    ];
+    const hay = packs
+      .flatMap((pack) => [...pack.nodes.values()])
+      .flatMap((node) => (node.choices ?? []).map((choice) => choice.text))
+      .join("\n");
+    expect(hay).not.toMatch(broken);
+  });
 });

@@ -60,6 +60,20 @@ export function ChoiceList({
       data-chip-price="off"
       data-choice-chain="on"
       data-choice-cue="on"
+      style={{
+        ["--choice-col" as string]: `${Math.min(
+          12,
+          Math.max(
+            6.5,
+            Math.max(
+              ...choices.map(
+                (choice) => [...choiceCueFace(choice).choice].length,
+              ),
+              6,
+            ) + 0.4,
+          ),
+        )}em`,
+      }}
     >
       {choices.map((choice) => {
         const owned = choiceEntitled ? choiceEntitled(choice) : entitled;

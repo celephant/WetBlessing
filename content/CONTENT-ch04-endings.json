@@ -156,7 +156,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……叫你。」床单还热",
+              "text": "接招：「……叫你。」她在你侧后",
               "next": "n_s23_mia",
               "delta": {
                 "stats": {
@@ -171,7 +171,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」群还没冷",
+              "text": "圆场：「……先上课。」背心被风贴了一下",
               "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
@@ -180,7 +180,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」床单还留着体温",
+              "text": "躲开：「……我先走。」Troy 堵住楼道",
               "next": "n_s23_mia",
               "delta": {},
               "setFlags": {
@@ -221,7 +221,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……那就出去。」腿自己并紧",
+              "text": "接招：「……那就出去。」她还没拐过来",
               "next": "n_s23_jade",
               "delta": {
                 "stats": {
@@ -236,7 +236,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」快门还温",
+              "text": "圆场：「……先上课。」耳尖那点热还在",
               "next": "n_s23_jade",
               "delta": {},
               "setFlags": {
@@ -245,7 +245,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」这儿没有闪光",
+              "text": "躲开：「……我先走。」楼道旁边空着",
               "next": "n_s23_jade",
               "delta": {},
               "setFlags": {
@@ -286,7 +286,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……我还在。」她没让你松手",
+              "text": "接招：「……我还在。」腕上那点水还没干",
               "next": "n_s23_lina",
               "delta": {
                 "stats": {
@@ -301,7 +301,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」水珠还在锁骨",
+              "text": "圆场：「……先上课。」小臂还凉着",
               "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
@@ -310,7 +310,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」锁骨还湿",
+              "text": "躲开：「……我先走。」Troy 堵住楼道",
               "next": "n_s23_lina",
               "delta": {},
               "setFlags": {
@@ -351,7 +351,7 @@
           "choices": [
             {
               "choiceId": "c_s22_ok",
-              "text": "接招：「……门还关着。」她脚没沾地",
+              "text": "接招：「……门还关着。」隔墙的热还没散",
               "next": "n_s23_rae",
               "delta": {
                 "stats": {
@@ -366,7 +366,7 @@
             },
             {
               "choiceId": "c_s22_soft",
-              "text": "圆场：「……先上课。」钩还朝里",
+              "text": "圆场：「……先上课。」水手领还贴着",
               "next": "n_s23_rae",
               "delta": {},
               "setFlags": {
@@ -375,7 +375,7 @@
             },
             {
               "choiceId": "c_s22_dodge",
-              "text": "躲开：「……我先走。」隔墙暂时听不见",
+              "text": "躲开：「……我先走。」楼道旁边空着",
               "next": "n_s23_rae",
               "delta": {},
               "setFlags": {
@@ -593,7 +593,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「……别挡道。」腕上水还没干",
+              "text": "接招：「……别挡道。」腕上的水还没干",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -605,7 +605,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「……别在这儿闹。」小臂还凉",
+              "text": "圆场：「……别在这儿闹。」小臂还凉着",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -665,7 +665,7 @@
           "choices": [
             {
               "choiceId": "c_s23_ok",
-              "text": "接招：「……别挡道。」锁骨还记着湿",
+              "text": "接招：「……别挡道。」水手领还贴着",
               "next": "n_s24_router",
               "delta": {
                 "tension": 1
@@ -677,7 +677,7 @@
             },
             {
               "choiceId": "c_s23_soft",
-              "text": "圆场：「……别在这儿闹。」隔墙那层热还没散",
+              "text": "圆场：「……别在这儿闹。」隔墙的热还没散",
               "next": "n_s24_router",
               "delta": {},
               "setFlags": {
@@ -760,7 +760,7 @@
             },
             {
               "choiceId": "c_s23_dodge",
-              "text": "躲开：……不接。雨巷还没写完",
+              "text": "躲开：……不接。雨巷那晚没完",
               "next": "n_s24_router",
               "delta": {
                 "tension": 3
