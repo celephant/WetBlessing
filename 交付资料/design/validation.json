@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-18T09:33:20.808Z",
+  "landscapeNodes": 83,
+  "beats": 177,
+  "thoughtsWithinBeats": 29,
+  "choicePoints": 8,
+  "choiceOptions": 22,
+  "conditionalBeatReplacements": 11,
+  "portraitLinks": 64,
+  "uniquePortraits": 63,
+  "portraitAssessments": {
+    "consistent": 61,
+    "composition-change": 2,
+    "action-mismatch": 1
+  },
+  "heatAssets": 22,
+  "exhaustiveDesignPaths": 192,
+  "endings": 4,
+  "routeStats": {
+    "jade": {
+      "paths": 48,
+      "minNodes": 46,
+      "maxNodes": 47,
+      "minBeats": 99,
+      "maxBeats": 101
+    },
+    "mia": {
+      "paths": 32,
+      "minNodes": 54,
+      "maxNodes": 56,
+      "minBeats": 116,
+      "maxBeats": 120
+    },
+    "vanessa": {
+      "paths": 96,
+      "minNodes": 52,
+      "maxNodes": 53,
+      "minBeats": 112,
+      "maxBeats": 114
+    },
+    "self": {
+      "paths": 16,
+      "minNodes": 48,
+      "maxNodes": 48,
+      "minBeats": 102,
+      "maxBeats": 102
+    }
+  },
+  "originalIntegrity": {
+    "images": 150,
+    "fonts": 1,
+    "result": "sha256-match"
+  },
+  "limitations": [
+    "Design graph checks assume proposed casting can be approved.",
+    "No image was newly visually reviewed for this draft.",
+    "Human identity and portrait review remain pending.",
+    "Narrative quality and conversion have not been playtested.",
+    "Runtime tests and production build were not run for this document-only change."
+  ]
+}

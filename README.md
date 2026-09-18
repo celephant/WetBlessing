@@ -2,6 +2,12 @@
 
 Campus romance VN web player. Suggestive / not adult. College characters 18+ (Kai, Mia, Jade, Rae 18 JK/sailor fashion, Lina, Vanessa, Reina 29 lecturer).
 
+## Current story manuscript
+
+The latest authored story lives in the local delivery folder: [`交付资料/design/MANUSCRIPT.md`](交付资料/design/MANUSCRIPT.md) (*明天见* tomorrow.1). That pack is the text source of truth. It is **not** wired into the player yet.
+
+Playable `/play` still uses `content/CONTENT-ch01-free-to-firstsub.json` and the Ch02–Ch04 packs. Do not treat older cloud notes under `docs/story-spine.md` as the current script if they disagree with `交付资料`.
+
 ## Slice-0
 
 Next.js App Router + TypeScript + Tailwind player wired to `content/CONTENT-ch01-free-to-firstsub.json` (0.4.8-feel-hot) and Night Pass tokens in `content/UI-tokens.json`. Those fixtures are the only default content source.
