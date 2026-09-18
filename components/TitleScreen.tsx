@@ -16,11 +16,13 @@ import {
   PORTRAIT_SOURCE_MEDIA,
   TITLE_LANDSCAPE_ASSET_ID,
 } from "@/lib/orientation-stills";
+import { persistPlayerDevFlag } from "@/lib/player-dev";
 
 export function TitleScreen() {
   const [funnelDone, setFunnelDone] = useState(false);
   const [canNewRun, setCanNewRun] = useState(false);
   const [resume, setResume] = useState<TitleResume | null>(null);
+  const [showDev, setShowDev] = useState(false);
   const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
 
   useEffect(() => {
@@ -36,12 +38,14 @@ export function TitleScreen() {
         Boolean(entitlements.story_pass) ||
         Boolean(entitlements.story_pass_month),
     );
+    setShowDev(persistPlayerDevFlag(window.location.search, window.localStorage));
   }, []);
 
   return (
     <main
       className="relative min-h-dvh overflow-hidden bg-void text-paper"
       data-title-idle=""
+      data-title-dev={showDev ? "on" : "off"}
       data-still-pair={titleStill.pair}
       data-title-asset={TITLE_LANDSCAPE_ASSET_ID}
     >
@@ -125,27 +129,47 @@ export function TitleScreen() {
 
         <p className="mt-6 font-ui text-[11px] leading-5 text-mute">
           content {content.contentVersion}
-          <br />
-          <Link href="/play?content=fourweek" className="text-gold/80 underline">
-            DEV fourweek
-          </Link>
-          {" · "}
-          <Link href="/play?content=ch02" className="text-gold/80 underline">
-            DEV ch02 办公室
-          </Link>
-          {" · "}
-          <Link href="/play?content=ch03" className="text-gold/80 underline">
-            DEV ch03 闭馆夜
-          </Link>
-          {" · "}
-          <Link href="/play?content=ch04" className="text-gold/80 underline">
-            DEV ch04 名分
-          </Link>
-          <br />
-          {/* TODO(slice-1): Auth / account entitlements */}
-          {/* TODO(slice-1): Stripe Checkout for story_pass */}
-          {/* TODO(slice-1): Railway production deploy */}
-          Stripe / Auth / Railway 未接入 · 付费墙仅 DEV 假开通。
+          {showDev ? (
+            <>
+              <br />
+              <Link
+                href="/play?content=fourweek"
+                className="text-gold/80 underline"
+                data-title-dev-jump="fourweek"
+              >
+                DEV fourweek
+              </Link>
+              {" · "}
+              <Link
+                href="/play?content=ch02"
+                className="text-gold/80 underline"
+                data-title-dev-jump="ch02"
+              >
+                DEV ch02 办公室
+              </Link>
+              {" · "}
+              <Link
+                href="/play?content=ch03"
+                className="text-gold/80 underline"
+                data-title-dev-jump="ch03"
+              >
+                DEV ch03 闭馆夜
+              </Link>
+              {" · "}
+              <Link
+                href="/play?content=ch04"
+                className="text-gold/80 underline"
+                data-title-dev-jump="ch04"
+              >
+                DEV ch04 名分
+              </Link>
+              <br />
+              {/* TODO(slice-1): Auth / account entitlements */}
+              {/* TODO(slice-1): Stripe Checkout for story_pass */}
+              {/* TODO(slice-1): Railway production deploy */}
+              Stripe / Auth / Railway 未接入 · 付费墙仅 DEV 假开通。
+            </>
+          ) : null}
         </p>
       </div>
     </main>

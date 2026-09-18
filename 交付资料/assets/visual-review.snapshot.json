@@ -1,0 +1,3240 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": "visual.1",
+  "assetManifestVersion": 1,
+  "method": {
+    "reviewer": "assistant",
+    "observationStatus": "assistant-reviewed",
+    "humanReviewStatus": "pending",
+    "previewFormat": "JPEG",
+    "previewQuality": 65,
+    "sceneThumbnailSize": [
+      416,
+      260
+    ],
+    "portraitThumbnailSize": [
+      150,
+      260
+    ],
+    "totalSheetEncodedBytes": 2053316,
+    "detailAssetKeys": [
+      "asset.image.060"
+    ],
+    "limitation": "低尺寸预览用于人物、服装、场景与主要动作比对；细节、姓名推定和构图差异仍需人工逐图确认。"
+  },
+  "nameEvidence": {
+    "mia": [
+      "asset.image.042",
+      "asset.image.047",
+      "asset.image.061",
+      "asset.image.072",
+      "asset.image.077"
+    ],
+    "reina": [
+      "asset.image.027",
+      "asset.image.057",
+      "asset.image.065"
+    ],
+    "rae": [
+      "asset.image.060"
+    ]
+  },
+  "images": [
+    {
+      "assetKey": "asset.image.001",
+      "sha256": "5c0cc1fe30fd813ccf8f1f6f8722fc15a184a5bb4560a67a38f7184dc02d0d6e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图内标注 Jade；棕色高马尾，白金上衣、粉裙、运动鞋。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Jade"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.001"
+        ],
+        "note": "参考图中的姓名可读；不自动证明其他场景同人。"
+      }
+    },
+    {
+      "assetKey": "asset.image.002",
+      "sha256": "520cdec7d666b9b718cbce377748d01a3b003e2d3f81e54fb01c4b51f00734fd",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图内标注 Kai、18+；黑色短发，深蓝连帽衫、黑裤。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Kai"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.002"
+        ],
+        "note": "参考图中的姓名可读；不自动证明其他场景同人。"
+      }
+    },
+    {
+      "assetKey": "asset.image.003",
+      "sha256": "ca106947bb99bbf4da73257fd27d3038d6f98c6edbf27b68923fdd8ebf40a907",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图内标注 Mia、18+；深棕长发，米色连帽衫、浅蓝牛仔裤。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.003"
+        ],
+        "note": "参考图中的姓名可读；不自动证明其他场景同人。"
+      }
+    },
+    {
+      "assetKey": "asset.image.004",
+      "sha256": "1eb6c10e001136e1895dbac5c1fb1a8f595cadbf84c05f46f8b2b049788ee382",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图内标注 Vanessa；黑色长发、侧边粉色发夹，黑色长外套、格裙、靴子。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Vanessa"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.004"
+        ],
+        "note": "参考图中的姓名可读；不自动证明其他场景同人。"
+      }
+    },
+    {
+      "assetKey": "asset.image.005",
+      "sha256": "90b5422e0e8a23d3fb549de5bb900dd08cb01f10499bac704a84844e34644109",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗砖墙楼梯；金发双马尾女生穿深蓝短袖裙装，伸手拉向前景的人。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.006",
+      "sha256": "fbd6824295d4b4ff1271524871a9b91ae69f03d613f634d6e06b288ce5d79720",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间室内泳池；金发女生穿深蓝泳装、披白毛巾，正面站立。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.007",
+      "sha256": "7b77e7c980a3f2eee4acdd4700a8e4af5dc33a671bdbf3368fdee03cd37806f2",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室与搬家纸箱；深棕长发女生坐床看手机，黑发男生在门口。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.008",
+      "sha256": "f3e6f5a2c615a9179013f555c6a9300c980c970c107bb6e5953503648caefd11",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "更衣柜旁；黑发高马尾女生穿白蓝水手式上衣，回头，旁有证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.009",
+      "sha256": "1e98e176b0c6b8973cfc3e9be35562b049ba634b7f30e1cc68dc49409a5d4546",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池入口多人物全景；左门棕发女生、中央金发女生、右门马尾女生。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.010",
+      "sha256": "9b32e10dca40772d45ae3f8db2d2272f861a60f293cd8642a2553c8ec8e5f28f",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗砖墙楼梯；金发女生倚墙，另一人的腿占据前景。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.011",
+      "sha256": "2d7592186be5821da94f37c9b902448aeb235b350224ff91e976cf5dd4bc63c2",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "走廊；黑发男生与棕发女生近距离面对面，背景有其他人物。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.012",
+      "sha256": "a61819d0ce69a73b2de356e3009241e0958fca779d399fed6443ab5dcad78d9e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池多人物入口；金发女生站桌边，棕发女生在左门，马尾女生在右门。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.013",
+      "sha256": "f9ea46c07af073b825b59d089fa4927eedb8fc25c918507454bab243d19f67ab",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天明亮走廊；左前景开箱与散落纸张，远处有金发人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.014",
+      "sha256": "2b80f83aa7c365e35a7fb182dd446c75bb19bf36d488b7978e73ec7b6526242d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊和储物柜，顶灯延伸至远处；没有清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.015",
+      "sha256": "b8617851182f9159be8d65d85470296e0d213e2e1e7c5bbcd0cb6f7191063d13",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "迎新会人群；金发女生笑着将笔递向前景的黑发男生。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.016",
+      "sha256": "01a74c659c72d3ac3fde8a03476f908328c8dd1964ca236ae21245abe8911a96",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "电梯内；棕发女生和穿蓝帽衫男生搬着纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.017",
+      "sha256": "c01de1bdd53746f4cb1d47f16056ced98ee274734c5eacfb4d4faae77a9bd596",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；大纸箱边缘胶带被扯起，前景伸手，旁有裙装人物的腿。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.018",
+      "sha256": "dc26af6faae4f47b25df0bdb2523206288943279f89d89461541cc44c5ed0c30",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨后夜间步道；金棕色高马尾女生穿白粉运动上衣。",
+      "visibleCharacterIds": [
+        "observed.sportswear"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.019",
+      "sha256": "2b80f83aa7c365e35a7fb182dd446c75bb19bf36d488b7978e73ec7b6526242d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗走廊空镜，无清晰人物；与多个走廊资产构图相同。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.020",
+      "sha256": "878b1ecd3232caee88ee278119a55adfccb699729722ed4a733775ca180001ac",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜雨后步道；黑色长发女生穿黑色外套，背景有紫色路灯反光。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.021",
+      "sha256": "2b80f83aa7c365e35a7fb182dd446c75bb19bf36d488b7978e73ec7b6526242d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊，储物柜与顶灯；无清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.022",
+      "sha256": "4704270d03f487d8c319359d64624e4cfc1fa75c2dc6e38499ea080bea4bff8d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "电梯外；棕发女生和金发女生各抓住前景人物手臂，金发女生夹着板夹。",
+      "visibleCharacterIds": [
+        "mia",
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.023",
+      "sha256": "5c7aad8939ecb574a79fd508f873acc600be02dfe1bd39912704b196c072c351",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "走廊前景破裂手机屏幕；屏幕中棕发女生和金发女生对峙。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.024",
+      "sha256": "2b80f83aa7c365e35a7fb182dd446c75bb19bf36d488b7978e73ec7b6526242d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊与储物柜；无清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.025",
+      "sha256": "bee2a063757cf895688e9b4741ae751793bbc94e8f31972e27fc58fe2b00c421",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊与储物柜；无清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.026",
+      "sha256": "48c330c9520ba8d740987ce6a5cb82bcd87650d3b5290408746688c4fa016289",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "明亮食堂；棕发女生在餐盘后开口说话，背景学生用餐。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.027",
+      "sha256": "33dc5851152ec29fffd665ea646bb52626d43e7993bddcfb82ccf1000c015ee3",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间办公室；戴眼镜的深色长发女性坐桌后，白衬衫，桌上有照片；画面文字标注 Reina。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.028",
+      "sha256": "fe315e4212166befd22c043786e58ccf37d94a63437d841675fdea79ab98975e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "同类办公室；戴眼镜女性与黑发男性接吻，人物服装与上一画面相似。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.029",
+      "sha256": "fb1a7c0399107d63b4b9ba281bb0243fd92c8cfb3d42f73e8f46648cc1919a92",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间办公室门口；戴眼镜女性回头，走廊前景还有一名背对镜头的长发人物。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.030",
+      "sha256": "e119a7f8d8edffe554fd490522837674bb0b9909ee5ff8cc02e4e98fa34450f3",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "办公室；戴眼镜女性坐在照片旁，白衬衫黑裙，暖色台灯。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.031",
+      "sha256": "4d1a878edf4d6703e7d15364fd5c4d9f321dd7dacc5d055a89426728364222c9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空图书馆；窗外蓝色夜光，阅览桌有一盏暖灯。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.032",
+      "sha256": "8ddeae5157f48e2a406a17eb2d84f906c16d104933405dc03f2a6a0af7256024",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图书馆；短绿发女生坐桌旁与黑发男生相对，手机平放前景。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.033",
+      "sha256": "b099989b00382d22384296956950fc72aeb058fbab3d25b526e99cd1304109ac",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图书馆台灯下；棕发女生手搭在黑发男生手上，手机在旁。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.034",
+      "sha256": "fc222f3c02f98b5e06eef0e39a52ea9cd83148a19acb09fa5c5f36f104870315",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；黑紫长发女生穿深色泳装，向前景白毛巾伸手。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.035",
+      "sha256": "0f0e7206d878fe25817ca73aabff74293f2a8decb6b3f4fbb09c4179e99a5008",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光洗衣房；黑发马尾女生穿白蓝上衣、深蓝裙，门边证卡有文字。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.036",
+      "sha256": "f7d398be7c1ed0f76a0ebfa10fec92d6a00eb7035c26ed99b47bfcf0c8211da7",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "昏暗门口；短绿发女生回头，前景是金属门把手。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.037",
+      "sha256": "7e390caafb1af92e7501cf8830e2b6e7541354f98af4fa08f27ba78073e6c815",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "半开房门；棕发女生从门缝看向前景握门把手的人。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.038",
+      "sha256": "29456f2d9b875d10e03defdf359bb9eb6d7919eab080f6f9403b081fa4e29b50",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "泳池侧门；黑紫长发泳装女生在门边，门闩在前景。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.039",
+      "sha256": "5371ca12914aa69ac14f054e9612e20a5b80e8f353404a6011f3c41ca7a23b60",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "洗衣房半开门；马尾女生从门缝看向门外，前景门把手。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.040",
+      "sha256": "9f1a0bacd1a1a5a4d49a7d3ba86694a31a649d628d8d23e425a6ee0b551ead4c",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间客厅；短绿发女生坐沙发，桌上有手机，窗外夜色。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.041",
+      "sha256": "ed265d349083e0926b02a7d0af5a2285cd6ddd81fcc3bc70e88ec63388fe7140",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池；黑紫长发女生抱膝坐在池边。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.042",
+      "sha256": "ad9526afbd7323a7121573d2d7c41386906d6ab15b088b6c680a1a71817f38ee",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间暖灯卧室；棕发女生坐床沿，纸箱与画面气泡可见 Mia 字样。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.043",
+      "sha256": "927f8f6b858869c2ab43a8838a1107e57065a5e8bba45a1421f16e5e96500f27",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间洗衣房；马尾女生坐桌边，滚筒机暖光，门边证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.044",
+      "sha256": "db823097f6e1d5b26e7f984abbb5d273459451f825abc01c67434669ac06e148",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；前景手持手机聊天界面，远处有人离开；文字不可读。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.045",
+      "sha256": "4cb85f4d306296380251055566232608672c65ee4679672934a10681d07bd0ca",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天客厅；短绿发女生坐沙发拿游戏手柄。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.046",
+      "sha256": "686e2efcc09bcd577e1d57dd6f2dd629e11edd28edf7232626dad91d64800aec",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光泳池；黑紫长发女生抱膝坐在池边，与夜间版本姿态相近。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.047",
+      "sha256": "ee88c02670a9b981bfc4c280021566009d03501a7adc7333015631b1804252c2",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光卧室；棕发女生坐床沿，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.048",
+      "sha256": "60adda5bbfa2ec1c10eebf597ef360fe0d43b3b23ff284296b7ded4c60fa740e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天洗衣房；马尾女生坐桌边，背景机器与地面水渍，前景证卡空白。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.049",
+      "sha256": "805f3d7edcce52d4bc54a63b9e509f1aec61bafdf558d3a15a642d1f23b0b08f",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；高个深色外套男生面对前景另一名黑发男生。",
+      "visibleCharacterIds": [
+        "observed.coat"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.050",
+      "sha256": "729a5df1fd220dd269f4db566b6a359cde4513b52455fb659761b306311d750e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；灰色短袖男生与深色长发女生并立，对面还有一个男生；竖版人物前后距离不同。",
+      "visibleCharacterIds": [
+        "observed.greyshirt",
+        "observed.longhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.051",
+      "sha256": "9a6fcf0aaea64bb3c039b06889b898973bdf471e37c0d986f1068e1aed2b1cc9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；蓝衬衫男生与棕发女生面对另一个男生；竖版人物前后距离不同。",
+      "visibleCharacterIds": [
+        "mia",
+        "observed.blueshirt"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.052",
+      "sha256": "9fd8b2d01a22f372a252539fcdf78456b76fa573e2d3662197c71a189b13f668",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光空走廊；窗边木桌放着手机，无近景人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.053",
+      "sha256": "023b37473266a642c65977dfe415f77da23cc91cf10da7875584c41d8302eeb8",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天樱花校园；绿发女生和黑发男生在 CAMPUS MEMORIES 相框后合照，前景有人拍摄。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.054",
+      "sha256": "8cddac7be9923cc69d164fa14808fc4e4be8ff76a6e437fa813f9f220f5fb6ed",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池；黑发男生与黑紫长发女生穿泳装并肩牵手。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.055",
+      "sha256": "ab0a5a5633a9e6581e99aca4450662e01a4c2011c91db255afaec492e3c01668",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天人群外；棕发女生牵着黑发男生的手。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.056",
+      "sha256": "1ff66ef31b4f5a5c0729e8ab8a814de7df696fd0ab2041c59b192f793143cc49",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光门口；马尾女生穿白蓝裙装从半开门回头，挂绳证卡空白。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.057",
+      "sha256": "0adc227385eb2ef49b952a33f1f3f8250601efd0a94c0bc2e4bcde6587b86126",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天办公室；戴眼镜女性站门口与黑发男生交谈，桌有照片，画面文字标注 Reina。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.058",
+      "sha256": "c3efd71e769e37a76ef5c2c26c22bd3dda8ec995ff3a1ddfb5c41021eecb5dfa",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暮色校园道路空镜；粉紫天空与道路尽头亮光，没有近景人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.059",
+      "sha256": "f19165ac5cfecb6f9b8636a0fb779efcbfeb4eadba08f5d47cd9ff504e62a915",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨天巷口；黑色长发女生戴黑色兜帽，身后巷子有远去人影。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.060",
+      "sha256": "91e2fdef4b959f574ee0ba5ba886117e1b1438095b55b2cc0a3ead5c47b6091d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光潮湿走廊；马尾女生回头，前景有带人物照片的证卡。 单图放大复核：证卡清楚标注 Rae、18，与画中马尾女生的照片一致。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.061",
+      "sha256": "2813aabc8166ea27f79f41782330e561b39b5ac701bd7856deeb74c1e351af42",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室；棕发女生躺在床上，前景是脚部，纸箱标记 Mia。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.062",
+      "sha256": "db91e60c6ddc1f289da41935d1d77a4b5f5a9a674ab924b7787de89c5161b46f",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯低机位；金发女生穿运动短袖短裤，拿着手机，鞋底靠近前景。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.063",
+      "sha256": "0c5c9fa2209ff876faaa66c9ed1a8c1c3add1098ed7ad83d2d6b2f5c36690fce",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生坐在水边，前景有人递出白毛巾。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.064",
+      "sha256": "b4e9a9fdc5ba5b87c2980e5257458701bc90f51067d427a1a6c6db0312cfdbb9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间大雨小巷；黑发女生披黑色外衣；横版为俯身近景，竖版为站姿，动作不一致。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.065",
+      "sha256": "995a43c230f80795d0af83e8d0b521492a4bd29adbd7049a1d8e9972044c4798",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "办公室；戴眼镜女性坐在照片旁，画面文字标注 Reina。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.066",
+      "sha256": "59d1e7f7bac33dc77b7e6cdc0fdfe7c2f8d949462e748d366555ed8650cb4da4",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "更衣柜旁；马尾女生回头，门边有证卡，与较早近景构图相近。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.067",
+      "sha256": "dde1386fe204a8cccecbc2d031eab162e03c585d20e9e2a7b505984922479994",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生与穿深色外套的黑发男生接吻。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.068",
+      "sha256": "abd2703da1fc0593175cdb1e0f8c0e4adecff8113f893fae2b2a966063ec2fe4",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗砖墙楼梯；金发女生伸手拉向前景，与第一节点构图相近。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.069",
+      "sha256": "66713b1a043a21b91784a47ea7e69a01511a3df67dbc5330e85a610f2b89fed3",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯；金发女生和黑发男生接吻，手机放在台阶，前景另有一只手。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.070",
+      "sha256": "14823dd5463dc32aeb904ac596ddde57f6378408ed8e52a6250e619370d2c76a",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生与深色外套男生接吻，与较早泳池吻戏构图相近。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.071",
+      "sha256": "67b60972fd9b5317f7a822accbc2bbcaee387b981f30b36387e4e2c83cfec3e4",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨夜近景；黑发女生与黑发男生接吻，紫蓝色雨光。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.072",
+      "sha256": "dd1fb95660017d51842e8cff021c0293995d0dcbd68be8e0297e9f2935da93c2",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室床上；棕发女生与蓝衬衫男生拥吻，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.073",
+      "sha256": "9b4dc385d5cc67931de4ae6813bc43254cf5e5dbd18fcfe642be3b9b87706bdd",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊门口；马尾女生与黑发男生接吻，前景挂着证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.074",
+      "sha256": "3c77f0b371a831ed3b925cb776562515aed1b3765a05d462634d442b85b85c57",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨夜路灯下；黑发女生与黑发男生相拥接吻。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.075",
+      "sha256": "e4e726d4b2e546a88f8b0de647b3b8f94df65a731085bf7864ad6ae2dc7e1ea1",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊；从后方看马尾女生和靠近她肩后的黑发男生，前景证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.076",
+      "sha256": "545621168759dbd63bdb67528e0182b8f0ae20347b02c3a6fdd10f58e8b13c38",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊门口；马尾女生与黑发男生接吻，前景门与证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.077",
+      "sha256": "267944f6e2d59d33ea48da6366e9fe7307f85958771724abc9d2e3e550c22297",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室床上；棕发女生与蓝衬衫男生拥吻，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "visible-label",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.078",
+      "sha256": "69ecde7f882fc75f004386df1fe93978f739b94a714e0e624bc971272a72971b",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室；棕发女生坐床看手机，黑发男生站在门口。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.079",
+      "sha256": "3cc34fa0425045ff783b1762ea850cf00d179ccd300d8a626695fc700dc25908",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯；金发女生与黑发男生接吻，手机在台阶，前景另有一只手。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.080",
+      "sha256": "bfd0e58610110aa3b73980671c04c1fe374f26a81184c13d40a15c99f89d8517",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜雨街巷；黑发女生与穿外套的黑发男生相拥。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.081",
+      "sha256": "fcaa220d835145bc1dadf31fcf2fcedc9119bc65dd1f1296bb53e148754032a9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池；金发女生穿深蓝泳装并披白毛巾。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.082",
+      "sha256": "6671f008caa7f2427d7483427c60a33808bd9fccaea087618277406f1d066cc8",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨夜近景；黑发女生与男生面对面靠近，中间可见呼气白雾。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.083",
+      "sha256": "4a50a14cd33a5ee4d5cc99e6510e14fc691e942b08c19f8e9a2311d64b596644",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "半开门口；棕发女生穿米色连帽衫，回头看向门外黑发男生。",
+      "visibleCharacterIds": [
+        "observed.brownhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.084",
+      "sha256": "bca108ec9cc6f42f3e1382e4d8c4a700cc63fad3740e7b183b957a0255d120a7",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "半开门近景；黑发女生穿紫色连帽外套靠在男生身旁，手握门把。",
+      "visibleCharacterIds": [
+        "unidentified.scene.080"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.085",
+      "sha256": "3923e284c4cdb45cb7788df67b6da29e6159a0a42eba32b990722a2551311d62",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间卧室；扎起深色头发的女生穿蓝色宽松上衣坐床边，男生背对镜头在门口。",
+      "visibleCharacterIds": [
+        "unidentified.scene.081"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.086",
+      "sha256": "07bdfa5fe8d1630b61867b5f9ecf201c65710f0b20660bf92885ec1d34f0dfe9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨夜街道；黑紫长发女生低头看手机，紫光照亮脸。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.087",
+      "sha256": "244dbf2b05b81a14b59781ff189b73003e13e1e7d11f29067b7efcdeb02ce1ff",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光卧室；棕发女生穿灰色连帽衫坐床边，侧头托腮。",
+      "visibleCharacterIds": [
+        "observed.brownhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.088",
+      "sha256": "a13e0958fed6c344cb8cda615511100821e1f6b125cbf0ce31a868e3a424e225",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池多人物入口；金发女生站桌边，棕发女生在左门，马尾女生在右门。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.089",
+      "sha256": "127024b221648e29f58c8d3b57c7c0027c5ccd01f56c327e791b3c8d123e02d0",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "走廊前景破裂手机屏幕；屏幕中棕发女生和金发女生对峙。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.090",
+      "sha256": "43a39b515ac8d505b3efff310b41a94ce7c6eff87a1996473de45739cba5e308",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "电梯外；棕发女生和金发女生各抓住前景人物手臂，金发女生夹着板夹。",
+      "visibleCharacterIds": [
+        "mia",
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.091",
+      "sha256": "2226b6e010b0f2431edc3e757530aee5deb4c5c160e33630f5badd51958db1c7",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "走廊；黑发男生与棕发女生近距离面对面，背景有其他人物。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.092",
+      "sha256": "a1fb0f0ca4b1e8333b2962437155305c66b08698bb24a45e508abd104607fe48",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗砖墙楼梯；金发双马尾女生穿深蓝短袖裙装，伸手拉向前景的人。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.093",
+      "sha256": "089b61d61cf0a9ea907cb244f74e9f1e266b320c568f7d5613a8701967673bf9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间室内泳池；金发女生穿深蓝泳装、披白毛巾，正面站立。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.094",
+      "sha256": "5fee66dadca701e566d13f53f302b9f4dbba7c47f8243ddc0df14c838727a851",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室与搬家纸箱；深棕长发女生坐床看手机，黑发男生在门口。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.095",
+      "sha256": "87d59ec5b24bff02e94e0b81319e183711beecbd71089aaabaf794a48ae0ec24",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "更衣柜旁；黑发高马尾女生穿白蓝水手式上衣，回头，旁有证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.096",
+      "sha256": "2bcf28b560ad62a51cced9eda5a0f6af43356a8b2b59028b87279e55c8365c30",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯；金发女生与黑发男生接吻，手机在台阶，前景另有一只手。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.097",
+      "sha256": "a0d6e05bc3c8cb22b3feb994f9a1308cf94c3c4ebd82d236e744a88c47a4bae6",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生与穿深色外套的黑发男生接吻。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.098",
+      "sha256": "574c6711989d165b2828577359aabe46a56d87fa6f24681c8d65850e0ecb3926",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室床上；棕发女生与蓝衬衫男生拥吻，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.099",
+      "sha256": "f98c20cf9a3a0c8e5fb3767cea94c37aefcdfcac09002b623e9ef11d35b82d3a",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊门口；马尾女生与黑发男生接吻，前景门与证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.100",
+      "sha256": "c211d3b8471f2e13fd4631f1a33be7f01f1eba1b0ae0fcae58bc57fcc6f427ec",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨夜小巷；黑发女生披黑色外衣站立，背景有霓虹灯与人影。相应横图为俯身近景，动作不一致。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.101",
+      "sha256": "efaa75511e4f846879bd1a96626dae0db0359daa48a185c83771d6fd43db9f72",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊，储物柜与顶灯；无清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.102",
+      "sha256": "81d9e2658e67aac8739dc989d16c5c7a1bc2c3298f837ce646dfeabdd552b6f5",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池入口多人物全景；左门棕发女生、中央金发女生、右门马尾女生。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.103",
+      "sha256": "efaa75511e4f846879bd1a96626dae0db0359daa48a185c83771d6fd43db9f72",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊和储物柜，顶灯延伸至远处；没有清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.104",
+      "sha256": "db74ca29dc9c39490aea6fe59101f96f823177837430ea43f451ecd2c35f85b3",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯低机位；金发女生穿运动短袖短裤，拿着手机，鞋底靠近前景。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.105",
+      "sha256": "30acd7740167b673497e4a386205326c9793f6c50905d734b6865eb25fc3e5eb",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暗砖墙楼梯；金发女生倚墙，另一人的腿占据前景。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.106",
+      "sha256": "c40d1a1ba72dc038412a6aeb2fe0c74b42bc380bb59448245a8e66ec0af0fa35",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "砖墙楼梯；金发女生和黑发男生接吻，手机放在台阶，前景另有一只手。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.107",
+      "sha256": "e5e9624d790c0dbabcb112f6ae47c3ca392b89477bd37eb17718df22a70645f9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生坐在水边，前景有人递出白毛巾。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.108",
+      "sha256": "b6e1cae81c15261fede9af245330e1b827df5691c2721c4d742d92f49d46ad9a",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；金发女生与深色外套男生接吻，与较早泳池吻戏构图相近。",
+      "visibleCharacterIds": [
+        "observed.blonde"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.109",
+      "sha256": "eec6239e49e71bb93248e005fa07809a48167ffc3572f75472f2df3a389e1fb7",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室；棕发女生躺在床上，前景是脚部，纸箱标记 Mia。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.110",
+      "sha256": "a1afad769c26b831246c6dd7a8bee9bb3b9abe0b3b174a9d457f19e6515b3ef0",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "电梯内；棕发女生和穿蓝帽衫男生搬着纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.111",
+      "sha256": "1302b8940f9c5e9a849d15b3764f9e3f1d1c29a47b0c6486a328eed7fd05c445",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖灯卧室床上；棕发女生与蓝衬衫男生拥吻，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.112",
+      "sha256": "bec559a9e5353cf20b2fcfe342a855931f9a539d7c1826ccc48e80187c1325c3",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光潮湿走廊；马尾女生回头，前景有带人物照片的证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.113",
+      "sha256": "9cc6100e6de6445b8ebecdcde7fec71ebd9ffca225b4ed9fde662ad97fb70687",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊；从后方看马尾女生和靠近她肩后的黑发男生，前景证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.114",
+      "sha256": "f06dc2f0a6fc811e537a19da9eae8a880c212077dbe333717f1b86b670009c2d",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "潮湿走廊门口；马尾女生与黑发男生接吻，前景挂着证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.115",
+      "sha256": "7c6f01c88ddbe2e3b41b1f0b9c811e8198609fd1a5217199c62e43d966a11126",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；大纸箱边缘胶带被扯起，前景伸手，旁有裙装人物的腿。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.116",
+      "sha256": "0a759214c27a61478be2429def46b5182fba3c5ccbb54063fa129c78df231de9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "明亮食堂；棕发女生在餐盘后开口说话，背景学生用餐。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.117",
+      "sha256": "efaa75511e4f846879bd1a96626dae0db0359daa48a185c83771d6fd43db9f72",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空走廊与储物柜；无清晰人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.118",
+      "sha256": "e034d7822b6ab44d7bb92dd48d6440863865208ec0054b7b0d2bb3a0003e616c",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "办公室；戴眼镜女性坐在照片旁，白衬衫黑裙，暖色台灯。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.119",
+      "sha256": "a64e0b8b423e07f4cdd28e933324d5da957cebe2c69ede0214335f4f89907a28",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间办公室；戴眼镜的深色长发女性坐桌后，白衬衫，桌上有照片；画面文字标注 Reina。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.120",
+      "sha256": "86d00f3edc15a0105956068dc28d91b56673330aa0e4c3398db3b0673ed3ef26",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "同类办公室；戴眼镜女性与黑发男性接吻，人物服装与上一画面相似。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.121",
+      "sha256": "19f02f92914934c64eb270456b0645fdbee39f01ee331b55154cf4df92655822",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间办公室门口；戴眼镜女性回头，走廊前景还有一名背对镜头的长发人物。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.122",
+      "sha256": "ea4c0364d88257434ef70fd069a2bd2014c3b3a70997f8b5422fbf975667a817",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间空图书馆；窗外蓝色夜光，阅览桌有一盏暖灯。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.123",
+      "sha256": "4d9d03422e12cc34377f52da463a6561e83f9ba84b3e5597ae1dffc930106619",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图书馆；短绿发女生坐桌旁与黑发男生相对，手机平放前景。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.124",
+      "sha256": "265af9dbbe69a0c31580c5a3e95f5be00954ebe0118007abcf1d83b264693269",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池边；黑紫长发女生穿深色泳装，向前景白毛巾伸手。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.125",
+      "sha256": "4d2563da71a3eae456909eeae3241644ae5fbeddad980c115dafd574f7595fe4",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "图书馆台灯下；棕发女生手搭在黑发男生手上，手机在旁。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.126",
+      "sha256": "1f7ccd390b981459964621f2ee80c4199a2217121483473da538c4ecd09fef08",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光洗衣房；黑发马尾女生穿白蓝上衣、深蓝裙，门边证卡有文字。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.127",
+      "sha256": "abacf60c6cef5faece461e7ae0ebbfceefd21b89c26a603421829a9913eef552",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "昏暗门口；短绿发女生回头，前景是金属门把手。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.128",
+      "sha256": "b4a014ae09a4031122ad71fe32e0e1906c941678d7f206f65afcbb55c8c7a8e2",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "泳池侧门；黑紫长发泳装女生在门边，门闩在前景。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.129",
+      "sha256": "159bec559319bfbc460d243154ce9b2981bbb928085156f1ad2e57544d504da9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "半开房门；棕发女生从门缝看向前景握门把手的人。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.130",
+      "sha256": "258deceed25c6ea95fa27fba9f9d999c899181e60c8eea8cd708c095504a14aa",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "洗衣房半开门；马尾女生从门缝看向门外，前景门把手。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.131",
+      "sha256": "3cb857bf5764e7403b52fb685ca7592d9400fe4be6d9670d58171539ba38cc73",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间客厅；短绿发女生坐沙发，桌上有手机，窗外夜色。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.132",
+      "sha256": "7b95c6cd8cfb45c3483dc29b5d9522098cb38c1bc635a110008611b35985aa55",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池；黑紫长发女生抱膝坐在池边。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.133",
+      "sha256": "3802764cd6e31252832c8503749fa19cd9c79c4ff49f0b81396ad90cb5965ba5",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间暖灯卧室；棕发女生坐床沿，纸箱与画面气泡可见 Mia 字样。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.134",
+      "sha256": "cb783d35829656a4d16d5245ca5483111561f00862ba91aa532cffa3b4e19d94",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间洗衣房；马尾女生坐桌边，滚筒机暖光，门边证卡。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.135",
+      "sha256": "e16e7bcbd1d59b75174ad6cf3ddf553c7d1ee0e7d0b75983e2acc345040a8689",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；前景手持手机聊天界面，远处有人离开；文字不可读。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.136",
+      "sha256": "90b68168af114c266de6fa475b29385b0e8c537feca2381ac7cfbb1a8d127a88",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天客厅；短绿发女生坐沙发拿游戏手柄。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.137",
+      "sha256": "906d956e7212902016a428e70e16dd48a2bf672f677af44cf9f0ae69e14df4c1",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光泳池；黑紫长发女生抱膝坐在池边，与夜间版本姿态相近。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.138",
+      "sha256": "81c1736b8a04e40a13bd26fcba6a4d18526d473f20a617defe47b561c40a2e9a",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光卧室；棕发女生坐床沿，旁有 Mia 标记纸箱。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.139",
+      "sha256": "5a832fbc4c4cb4b9c5fb7a8298f1ecada805982f6af9c3e56dd8984e182c1ed9",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天洗衣房；马尾女生坐桌边，背景机器与地面水渍，前景证卡空白。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.140",
+      "sha256": "9b225c1a972865b75cc93cceae57b7ffb61846eb26f2a41c8ca70791dea4cd5c",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；蓝衬衫男生与棕发女生面对另一个男生；竖版人物前后距离不同。 竖版采用沿走廊纵深的前后站位，不可与横版并排站位当作同一瞬间。",
+      "visibleCharacterIds": [
+        "mia",
+        "observed.blueshirt"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.141",
+      "sha256": "e4a6c0ea2433f44f4e0acea3fc85a0b53fb4ae2b8adbd16768f91a776db1814e",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；灰色短袖男生与深色长发女生并立，对面还有一个男生；竖版人物前后距离不同。 竖版采用沿走廊纵深的前后站位，不可与横版并排站位当作同一瞬间。",
+      "visibleCharacterIds": [
+        "observed.greyshirt",
+        "observed.longhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.142",
+      "sha256": "d3886254cc30e0d40d4313376c4bd493c0c2fdbe8190801af5f92466c890c585",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天走廊；高个深色外套男生面对前景另一名黑发男生。",
+      "visibleCharacterIds": [
+        "observed.coat"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.143",
+      "sha256": "b3601ca7c4462ea75cab7f1ec04d99ef5dc99bb54128a17da9d0500021024d16",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天樱花校园；绿发女生和黑发男生在 CAMPUS MEMORIES 相框后合照，前景有人拍摄。",
+      "visibleCharacterIds": [
+        "observed.greenhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.144",
+      "sha256": "2e55cb67d31b0408e6b3b5b7ba922072e7b7efa6fe0d18319ae1a8486bdab940",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "夜间泳池；黑发男生与黑紫长发女生穿泳装并肩牵手。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.145",
+      "sha256": "0b3989e88d6a2e2c20a23850fc5ef057b1ad8c44c967f79428d927b10481009c",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天人群外；棕发女生牵着黑发男生的手。",
+      "visibleCharacterIds": [
+        "mia"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Mia"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.042",
+          "asset.image.047",
+          "asset.image.061",
+          "asset.image.072",
+          "asset.image.077"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.146",
+      "sha256": "a08b0b60a9076076dfedfb67993f1cc0a76ccb85ad933e10dea9ba4ac07055e8",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "白天办公室；戴眼镜女性站门口与黑发男生交谈，桌有照片，画面文字标注 Reina。",
+      "visibleCharacterIds": [
+        "reina"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Reina"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.027",
+          "asset.image.057",
+          "asset.image.065"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.147",
+      "sha256": "25e0b28b8130eb14d62aecc7b034c08b02eead3b26e713bc1e295c150c547a20",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暖光门口；马尾女生穿白蓝裙装从半开门回头，挂绳证卡空白。",
+      "visibleCharacterIds": [
+        "rae"
+      ],
+      "identity": {
+        "status": "appearance-match",
+        "names": [
+          "Rae"
+        ],
+        "evidenceAssetKeys": [
+          "asset.image.060"
+        ],
+        "note": "具名场景为文字证据；其他场景仅以发型、服装与场景连续性作为助手推定，待人工确认。"
+      }
+    },
+    {
+      "assetKey": "asset.image.148",
+      "sha256": "6ce66482a76c4f53b7af0f5471e9674921ef48a502f4faf47c064dde40dcd434",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "雨天巷口；黑色长发女生戴黑色兜帽，身后巷子有远去人影。",
+      "visibleCharacterIds": [
+        "observed.darkhair"
+      ],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.149",
+      "sha256": "0e7574025509ed89dbb9ff376eb26c4ea3af1190ce83681e9f4d15188d555b03",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "日光空走廊；窗边木桌放着手机，无近景人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    },
+    {
+      "assetKey": "asset.image.150",
+      "sha256": "4996195177e9208698d06abbba0ada6e7915989e9c8402b83113fb3b7d99ec5b",
+      "observationStatus": "assistant-reviewed",
+      "reviewStatus": "pending",
+      "visible": "暮色校园道路空镜；粉紫天空与道路尽头亮光，没有近景人物。",
+      "visibleCharacterIds": [],
+      "identity": {
+        "status": "pending",
+        "names": [],
+        "evidenceAssetKeys": [],
+        "note": "仅记录可见外观，不依据文件名确认姓名；叙事中的“我”不代表已核定画内男性是 Kai。"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "landscapeId": "asset.image.017",
+      "portraitId": "asset.image.115",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.012",
+      "portraitId": "asset.image.088",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.061",
+      "portraitId": "asset.image.109",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.016",
+      "portraitId": "asset.image.110",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.072",
+      "portraitId": "asset.image.111",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.062",
+      "portraitId": "asset.image.104",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.069",
+      "portraitId": "asset.image.106",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.063",
+      "portraitId": "asset.image.107",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.070",
+      "portraitId": "asset.image.108",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.060",
+      "portraitId": "asset.image.112",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.075",
+      "portraitId": "asset.image.113",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.073",
+      "portraitId": "asset.image.114",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.023",
+      "portraitId": "asset.image.089",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.022",
+      "portraitId": "asset.image.090",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.011",
+      "portraitId": "asset.image.091",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.009",
+      "portraitId": "asset.image.102",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.010",
+      "portraitId": "asset.image.105",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.007",
+      "portraitId": "asset.image.094",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.005",
+      "portraitId": "asset.image.092",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.006",
+      "portraitId": "asset.image.093",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.008",
+      "portraitId": "asset.image.095",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.077",
+      "portraitId": "asset.image.098",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.079",
+      "portraitId": "asset.image.096",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.067",
+      "portraitId": "asset.image.097",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.076",
+      "portraitId": "asset.image.099",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.064",
+      "portraitId": "asset.image.100",
+      "reviewStatus": "pending",
+      "assessment": "action-mismatch",
+      "notes": "横图俯身、竖图站立；不作为同一动作的横竖切换，当前节点只展示完整横图。"
+    },
+    {
+      "landscapeId": "asset.image.014",
+      "portraitId": "asset.image.103",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.021",
+      "portraitId": "asset.image.101",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.024",
+      "portraitId": "asset.image.101",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.026",
+      "portraitId": "asset.image.116",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.025",
+      "portraitId": "asset.image.117",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.030",
+      "portraitId": "asset.image.118",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.029",
+      "portraitId": "asset.image.121",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.028",
+      "portraitId": "asset.image.120",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.027",
+      "portraitId": "asset.image.119",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.033",
+      "portraitId": "asset.image.125",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.032",
+      "portraitId": "asset.image.123",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.034",
+      "portraitId": "asset.image.124",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.035",
+      "portraitId": "asset.image.126",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.031",
+      "portraitId": "asset.image.122",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.037",
+      "portraitId": "asset.image.129",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.036",
+      "portraitId": "asset.image.127",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.038",
+      "portraitId": "asset.image.128",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.039",
+      "portraitId": "asset.image.130",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.042",
+      "portraitId": "asset.image.133",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.040",
+      "portraitId": "asset.image.131",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.041",
+      "portraitId": "asset.image.132",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.043",
+      "portraitId": "asset.image.134",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.044",
+      "portraitId": "asset.image.135",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.047",
+      "portraitId": "asset.image.138",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.045",
+      "portraitId": "asset.image.136",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.046",
+      "portraitId": "asset.image.137",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.048",
+      "portraitId": "asset.image.139",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.051",
+      "portraitId": "asset.image.140",
+      "reviewStatus": "pending",
+      "assessment": "composition-change",
+      "notes": "人物群与环境相近，但横版并排与竖版前后站位不同；对白避免左右、前后等空间指令，需人工确认使用。"
+    },
+    {
+      "landscapeId": "asset.image.050",
+      "portraitId": "asset.image.141",
+      "reviewStatus": "pending",
+      "assessment": "composition-change",
+      "notes": "人物群与环境相近，但横版并排与竖版前后站位不同；对白避免左右、前后等空间指令，需人工确认使用。"
+    },
+    {
+      "landscapeId": "asset.image.049",
+      "portraitId": "asset.image.142",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.055",
+      "portraitId": "asset.image.145",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.053",
+      "portraitId": "asset.image.143",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.054",
+      "portraitId": "asset.image.144",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.056",
+      "portraitId": "asset.image.147",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.059",
+      "portraitId": "asset.image.148",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.057",
+      "portraitId": "asset.image.146",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.052",
+      "portraitId": "asset.image.149",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    },
+    {
+      "landscapeId": "asset.image.058",
+      "portraitId": "asset.image.150",
+      "reviewStatus": "pending",
+      "assessment": "consistent",
+      "notes": "预览中主要人物外观、场景和动作相符；此为助手初筛，不是人工配对批准。"
+    }
+  ]
+}

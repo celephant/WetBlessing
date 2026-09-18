@@ -133,10 +133,10 @@ describe("private-interaction chrome contracts", () => {
     expect(css).toContain("--rose: #eaa2ae");
     expect(css).toContain("min-height: 52px");
     expect(css).toContain("background: #ff4b6b");
-    expect(css).toContain("rgba(18, 20, 28, 0.34)");
+    expect(css).toContain("rgba(18, 20, 28, 0.75)");
     expect(css).toContain("blur(var(--glass-blur, 32px))");
     expect(css).toContain("blur(var(--glass-blur-chip, 20px))");
-    expect(css).not.toContain("rgba(18, 20, 28, 0.75)");
+    expect(css).not.toContain("rgba(18, 20, 28, 0.34)");
     expect(css).not.toContain("rgba(25, 22, 32, 0.88)");
     expect(css).toContain("translateY(1px)");
     expect(css).toContain("scale(0.98)");

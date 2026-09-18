@@ -1,0 +1,201 @@
+{
+  "checkedAt": "2026-09-18T04:46:18.095Z",
+  "destination": "/Users/zezeng/Desktop/Saas/WetBlessing/交付资料",
+  "type": "delivery-package-integrity",
+  "status": "passed",
+  "assetAudit": {
+    "errors": [],
+    "warnings": [
+      "JPEG bytes retained at PNG path: media/ch02-portrait/C2-13-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch02-portrait/C2-14-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch02-portrait/C2-14A-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch02-portrait/C2-14K-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch02-portrait/C2-14L-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-22J-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-22L-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-22M-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-22R-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-23M-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-23V-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-23X-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24J-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24L-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24M-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24N-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24R-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24V-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24crash-portrait.png",
+      "JPEG bytes retained at PNG path: media/ch04-portrait/C4-24tail-portrait.png"
+    ]
+  },
+  "originals": {
+    "images": 150,
+    "fonts": 1,
+    "sha256": "all-matched"
+  },
+  "designCopies": "byte-identical-to-reviewed-deliverables",
+  "fileCountIncludingThisReport": 32,
+  "selfExclusion": "This report does not hash itself.",
+  "files": [
+    {
+      "path": "assets/manifest.snapshot.json",
+      "bytes": 91955,
+      "sha256": "1d5bb7ebe8f80189ef64d11e2428ee9dd4baade4da77b47a9187e2751b5b7a87"
+    },
+    {
+      "path": "assets/previews/badge-detail.jpg",
+      "bytes": 45118,
+      "sha256": "866a3414fcedc548a480c8f893581a5f5ed0408bb83112cf0429a9c542a41645"
+    },
+    {
+      "path": "assets/previews/index.json",
+      "bytes": 13560,
+      "sha256": "af5a02b5d6bc2ac74675bc3acde2918106fd9f28d0a762d6c1fc5d69048da888"
+    },
+    {
+      "path": "assets/previews/references.jpg",
+      "bytes": 121920,
+      "sha256": "ee0be7bc08b55ab9e4fbde7269f6a615c26cbf08762e9b626861f6f843bd1b2b"
+    },
+    {
+      "path": "assets/previews/scenes-01.jpg",
+      "bytes": 101997,
+      "sha256": "2a638bde73045b8bb1f5f08b55dc1a35520c82cf5ad0fe58d895eb703e715d9e"
+    },
+    {
+      "path": "assets/previews/scenes-07.jpg",
+      "bytes": 97912,
+      "sha256": "464e9e142c989039a4945cbf91a1655aca162146ade8dffefeebf4fc466fb73b"
+    },
+    {
+      "path": "assets/previews/scenes-13.jpg",
+      "bytes": 99192,
+      "sha256": "43a14600f1b5d7b0ac5f9bd7165f9ecfd891e44e41012d3304345ee96356f23b"
+    },
+    {
+      "path": "assets/previews/scenes-19.jpg",
+      "bytes": 103735,
+      "sha256": "3794efa1bd482bb50881d9fdb76e1e4f44a892b340fcdcfb51ea9afe26e63869"
+    },
+    {
+      "path": "assets/previews/scenes-25.jpg",
+      "bytes": 108582,
+      "sha256": "76359e0550f55c242229698f165d4ec2e2ae446e2338db50510ad00871ef65b1"
+    },
+    {
+      "path": "assets/previews/scenes-31.jpg",
+      "bytes": 86667,
+      "sha256": "9d7a634a1a35d2352aca2d6e4abf3de0656a47022d08bad23085e33c5df3cbee"
+    },
+    {
+      "path": "assets/previews/scenes-37.jpg",
+      "bytes": 113689,
+      "sha256": "6a030b7110b9b43b8cf3f34448435ba50330c6d267df613e83c5c8a0b6dd659f"
+    },
+    {
+      "path": "assets/previews/scenes-43.jpg",
+      "bytes": 126236,
+      "sha256": "4582aa1f0fd18bc2623961adea8e3a5953f6ca54dc25ff3fedf8ce74078648a4"
+    },
+    {
+      "path": "assets/previews/scenes-49.jpg",
+      "bytes": 122408,
+      "sha256": "95ff9e90249bc4fe496fe3e35fa6a6a62e37b3613f985e647f8b475440673c38"
+    },
+    {
+      "path": "assets/previews/scenes-55.jpg",
+      "bytes": 122855,
+      "sha256": "7ec0abfb2f08233286b7b67a06bac0d87e507270f13426900ed65995c3edac46"
+    },
+    {
+      "path": "assets/previews/scenes-61.jpg",
+      "bytes": 96605,
+      "sha256": "3ad6728046d90cf62a02b018ded8600193ce5f36ddf1779c811254df808fa0a7"
+    },
+    {
+      "path": "assets/previews/scenes-67.jpg",
+      "bytes": 87828,
+      "sha256": "b80aaacbd6f104121d780b1d169dfc3ec96894a91780cad721fc763cd2f26c35"
+    },
+    {
+      "path": "assets/previews/scenes-73.jpg",
+      "bytes": 85915,
+      "sha256": "8ccc49f86701210931a4fcb8d33b0d8ed090c69c381692916705d67ef4d49778"
+    },
+    {
+      "path": "assets/previews/scenes-79.jpg",
+      "bytes": 64434,
+      "sha256": "4bcaf2a3cd25493ff5980b6ca0d295bce293f3a664b231a2207a87f71117ad7b"
+    },
+    {
+      "path": "assets/visual-review.snapshot.json",
+      "bytes": 121177,
+      "sha256": "67cd9b54d308a1baf15bd5d6853ef7765b512508702e8187a4ed7de82d8df2e9"
+    },
+    {
+      "path": "checks/EXPERIENCE-REVIEW.md",
+      "bytes": 4147,
+      "sha256": "0026ba10a6cd614dbeba00473ebf06e797690017e0371c39ce26a2d4a12b6f18"
+    },
+    {
+      "path": "design/MANUSCRIPT.md",
+      "bytes": 84302,
+      "sha256": "a475c897d8d322eb1be43856f986f8c2ad5767f5c8158c74fdb3ac8d2817f7ba"
+    },
+    {
+      "path": "design/proposal.json",
+      "bytes": 215279,
+      "sha256": "97da78b4782226dae9c99a3e7838f2062d5189e4564b105b0beb15f6b5bf49dc"
+    },
+    {
+      "path": "design/validation.json",
+      "bytes": 1436,
+      "sha256": "5ef8e5eb86e5d257ca385c1d22e0e1831207b5a6242dbfaece056cecd1c45e75"
+    },
+    {
+      "path": "diagnostics/CODEX-ERROR-DIAGNOSIS.md",
+      "bytes": 5147,
+      "sha256": "15038bad8e4d7fbb45e366eac3c1c068ba461db90ffaa2c9d853136275f7b86c"
+    },
+    {
+      "path": "history/DIALOGUE-STYLE-blue-lamp.3.md",
+      "bytes": 3513,
+      "sha256": "8605756fe33f1f02f834684bb93d4d61d3b008fc6b01d292956617431ad3fedf"
+    },
+    {
+      "path": "history/STORY-REVIEW-blue-lamp.3.md",
+      "bytes": 9299,
+      "sha256": "2133ba5d1a15eb753d7228d786b87c7e1d515b32a32ee07c8f9152bf1cb35024"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3514,
+      "sha256": "b16fc114d7dc5129290ebe6841d9b793b36e9817b07871dd9c2b89cd951e433b"
+    },
+    {
+      "path": "reference/ASSET-RESET-PLAN.md",
+      "bytes": 2663,
+      "sha256": "c5b6624c8f1695431878243f52651a60d3c5980e52d50acd02172a42af740412"
+    },
+    {
+      "path": "reference/ENGINEERING-SPEC.md",
+      "bytes": 4679,
+      "sha256": "df8103991ebbf7e2645e6c89f8e0858e9928c954efaa480fa9e10a3c19c867e8"
+    },
+    {
+      "path": "reference/INTERACTION-CONTRACT.md",
+      "bytes": 1074,
+      "sha256": "297db7be2e261ed1ed72bcffe86e1246c235f1ae53801e95d61301e9f9f96936"
+    },
+    {
+      "path": "tools/authoring.mjs",
+      "bytes": 74872,
+      "sha256": "f85d763706ac206e1b6694eb9758c6fcb8ea2a396294cd47bd1e0013e71bf0a8"
+    }
+  ],
+  "limitations": [
+    "This is a document archive, not a new browser experience test.",
+    "npm run check and npm run build were not rerun for archiving.",
+    "Human visual review remains pending."
+  ]
+}
