@@ -48,7 +48,7 @@ export function PauseOverlay({
           data-pause-card=""
         >
           <p className="font-display text-[11px] uppercase tracking-[0.28em] text-paper/50">
-            Night Pass · 画面停住
+            明天见 · 画面停住
           </p>
           <p className="mt-2 font-ui text-sm text-mute">静帧还在。进度还在。</p>
 

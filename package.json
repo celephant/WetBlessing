@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
-    "test:choice-index": "vitest run tests/choice-index-paths.test.ts"
+    "check": "node scripts/compile-story.mjs && vitest run",
+    "test:choice-index": "vitest run tests/story-compile.test.ts"
   },
   "dependencies": {
     "next": "15.5.25",

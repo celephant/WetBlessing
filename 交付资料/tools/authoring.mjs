@@ -9,6 +9,9 @@ const fallbackProjectRoot = '/Users/zezeng/Desktop/Saas/WetBlessing';
 const projectRoot = fs.existsSync(path.join(parentRoot, 'content/story.json')) ? parentRoot : fallbackProjectRoot;
 const outputRoot = path.join(deliveryRoot, 'design');
 const source = JSON.parse(fs.readFileSync(path.join(projectRoot, 'content/story.json')));
+if (source.storyVersion === 'tomorrow.1' || source.documentType === 'runtime-story') {
+  throw new Error('authoring.mjs is not the runtime generator and must not patch tomorrow.1. Use scripts/convert-proposal.mjs and scripts/compile-story.mjs.');
+}
 const manifest = JSON.parse(fs.readFileSync(path.join(projectRoot, 'content/assets.manifest.json')));
 const review = JSON.parse(fs.readFileSync(path.join(projectRoot, 'content/assets.visual-review.json')));
 const beat = (speaker, text, thought = null) => ({ speaker, text, thought });

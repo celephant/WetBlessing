@@ -9,7 +9,6 @@ type PlayToolbarProps = {
   uiHidden: boolean;
   canHide: boolean;
   historyOpen: boolean;
-  passOn: boolean;
   routeTitle: string;
   onTitleHref: string;
   onTogglePause: () => void;
@@ -17,7 +16,6 @@ type PlayToolbarProps = {
   onToggleHistory: () => void;
   onToggleHide: () => void;
   onToggleMute: () => void;
-  onToggleDevPass: () => void;
 };
 
 export function PlayToolbar({
@@ -27,7 +25,6 @@ export function PlayToolbar({
   uiHidden,
   canHide,
   historyOpen,
-  passOn,
   routeTitle,
   onTitleHref,
   onTogglePause,
@@ -35,7 +32,6 @@ export function PlayToolbar({
   onToggleHistory,
   onToggleHide,
   onToggleMute,
-  onToggleDevPass,
 }: PlayToolbarProps) {
   if (uiHidden) return null;
 
@@ -49,12 +45,7 @@ export function PlayToolbar({
         <Link href={onTitleHref} className="btn-tool">
           标题
         </Link>
-        <button
-          type="button"
-          onClick={onTogglePause}
-          className="btn-tool"
-          data-pause-toggle=""
-        >
+        <button type="button" onClick={onTogglePause} className="btn-tool" data-pause-toggle="">
           {paused ? "继续" : "暂停"}
         </button>
         <button
@@ -81,11 +72,6 @@ export function PlayToolbar({
           className="btn-tool"
           data-hide-ui=""
           disabled={!canHide}
-          title={
-            canHide
-              ? "隐藏对白和工具，不推进剧情"
-              : "选择或购买确认时不能隐藏界面"
-          }
         >
           看图
         </button>
@@ -99,13 +85,6 @@ export function PlayToolbar({
           静音
         </button>
       </nav>
-      <button
-        type="button"
-        onClick={onToggleDevPass}
-        className="btn-tool btn-tool-dev"
-      >
-        DEV {passOn ? "PASS ON" : "PASS OFF"}
-      </button>
     </header>
   );
 }

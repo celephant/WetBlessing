@@ -70,14 +70,39 @@ body {
 .scene-still-fill {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.dialog-glass {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--glass-stroke, rgba(255, 255, 255, 0.14));
+  background: rgba(12, 14, 22, 0.4);
+  backdrop-filter: blur(22px) saturate(1.45);
+  -webkit-backdrop-filter: blur(22px) saturate(1.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.dialog-glass .dialog-dock {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 [data-title-idle] [data-title-still] picture,
 [data-title-idle] [data-title-still] img {
   width: 100%;
   height: 100%;
+}
+
+[data-title-idle] [data-title-still] picture {
+  position: absolute;
+  inset: 0;
+  display: block;
 }
 
 .choice-overlay {
@@ -93,16 +118,31 @@ body {
   overflow: hidden;
 }
 
-@media (orientation: portrait) {
-  .scene-art-pane[data-still-pair="paired"] .scene-still-fill,
-  [data-title-idle][data-still-pair="paired"] .scene-still-fill {
+.vn-chrome-bottom .choice-overlay {
+  position: relative;
+  inset: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  pointer-events: auto;
+}
+
+@media (orientation: portrait), (max-width: 767px) {
+  .scene-art-pane .scene-still-fill,
+  [data-title-idle] .scene-still-fill {
     object-fit: cover;
-    object-position: center center;
+    object-position: center 32%;
   }
-  .scene-art-pane:not([data-still-pair="paired"]) .scene-still-fill,
-  [data-title-idle]:not([data-still-pair="paired"]) .scene-still-fill {
-    object-fit: contain;
-    object-position: center center;
+
+  .choice-bark {
+    white-space: normal;
+  }
+
+  .btn-choice {
+    height: auto;
+    min-height: 48px;
   }
 }
 
@@ -210,17 +250,7 @@ body {
 }
 
 .dialog-dock {
-  background: linear-gradient(
-    180deg,
-    rgba(18, 20, 28, 0) 0%,
-    rgba(18, 20, 28, 0.1) 36%,
-    var(--glass-fill-dock, rgba(18, 20, 28, 0.26)) 100%
-  );
-  backdrop-filter: blur(var(--glass-blur, 32px)) saturate(var(--glass-saturate, 1.5));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 32px))
-    saturate(var(--glass-saturate, 1.5));
   color: var(--paper-warm, #f4eef5);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 .dialog-dock p {
   text-shadow: 0 1px 10px rgba(7, 8, 12, 0.58);

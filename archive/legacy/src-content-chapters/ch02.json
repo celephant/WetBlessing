@@ -1,0 +1,1049 @@
+{
+  "routeId": "route_kai_ch02",
+  "routeTitle": "Kai · 周一（食堂到办公室）",
+  "contentVersion": "0.5.1-ch02-office",
+  "project": "WetBlessing",
+  "meta": {
+    "choiceIndexHardCap": 10,
+    "firstSubNodeId": "n_ch02_wall",
+    "gateField": "chapter_start",
+    "status": "DEV_NOT_DEFAULT",
+    "neverDefault": true,
+    "via": "/play?content=ch02",
+    "artReady": [
+      "n_ch02_wall",
+      "n_ch02_open",
+      "n_s13_mia",
+      "n_s13_jade",
+      "n_s13_both",
+      "n_s13_mia_caught",
+      "n_s13_mia_partner",
+      "n_s13_after",
+      "n_s14_office",
+      "n_s14_silk",
+      "n_s14_lock",
+      "n_s14_wall",
+      "n_s14_abort",
+      "n_s14_kiss",
+      "n_ch02_settle",
+      "n_ch02_title",
+      "n_s13_empty",
+      "n_s13_other",
+      "n_s13_none",
+      "n_s14_ask_router",
+      "n_s14_ask_mia",
+      "n_s14_ask_other",
+      "n_s14_ask_none"
+    ],
+    "artPlaceholder": [],
+    "changelog": "Design-lock: cafeteria covers Mia / other / none; office print is afternoon faces; S14 reply is not a single locked night-other line. Paid chapter-start wall unchanged.",
+    "scaleLock": "全员 18+；Reina 29 讲师；黑丝只办公室；章前墙付费进；躲开亲吻是故事；禁生殖器；禁性交静帧",
+    "w1Hook": "接上 Ch01 公事邮件：办公时间。带学生证。周一见。"
+  },
+  "personas": {
+    "persona_kai_v1": {
+      "name": "Kai"
+    },
+    "persona_mia_v1": {
+      "name": "Mia"
+    },
+    "persona_jade_v1": {
+      "name": "Jade"
+    },
+    "persona_reina_v1": {
+      "name": "Reina"
+    },
+    "persona_hana_v1": {
+      "name": "Hana"
+    }
+  },
+  "stages": [
+    {
+      "stageId": "stage_ch02_office",
+      "stageTitle": "周一 · 食堂到办公室",
+      "order": 1,
+      "entryNodeId": "n_ch02_open",
+      "nodes": [
+        {
+          "nodeId": "n_ch02_wall",
+          "type": "dialogue",
+          "gate": "chapter_start",
+          "speaker": "narrator",
+          "text": "教員室的门开着。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "Ch02 章前墙：门开着的教員室；付费进去；S14 全亮不压黑",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "camera": "hold",
+          "transition": "dip",
+          "fx": "tension_hold",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "黑丝、开着的门、桌上那些脸。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_ch02_enter",
+              "text": "进去。带上门，她压着桌沿",
+              "next": "n_s14_office",
+              "delta": {},
+              "cta": "w2_office",
+              "gateChoice": "subscribe",
+              "requiresEntitlement": "w2_office",
+              "onLocked": "show_pass_chip"
+            },
+            {
+              "choiceId": "c_ch02_leave",
+              "text": "离开。今晚就到这里",
+              "next": "n_ch02_title",
+              "delta": {
+                "tension": 1
+              },
+              "gateChoice": "free"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_ch02_open",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "先得吃饭。食堂的灯比派对亮，也更不给人留面子。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂广角起：托盘沿近、灯亮、衣服穿好",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "hana"
+          ],
+          "advance": "n_s13_router",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "setFlags": {
+            "ch02_monday": true
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "窗口。水手围裙，工牌一晃。她把热汤往左边一推。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "hana",
+              "text": "「热的在左边。别堵道。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "她已经去接下一个人。托盘还烫。心跳当众漏了一下。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_router",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "playerVisible": false,
+          "text": "（食堂点名路由）",
+          "advanceByFlag": {
+            "catch_target==mia && went_with==jade": "n_s13_mia_caught",
+            "catch_target==jade && went_with==mia": "n_s13_mia_partner",
+            "catch_target==mia": "n_s13_jade",
+            "catch_target==jade": "n_s13_mia",
+            "went_with==mia": "n_s13_jade",
+            "went_with==jade": "n_s13_mia",
+            "catch_target==lina": "n_s13_other",
+            "catch_target==rae": "n_s13_other",
+            "went_with==lina": "n_s13_other",
+            "went_with==rae": "n_s13_other",
+            "default": "n_s13_none"
+          },
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ]
+        },
+        {
+          "nodeId": "n_s13_mia_caught",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘沿顶到你胸口。Mia 坐下，声音压着，不当众骂。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：跟走 Jade 后上楼哄了 Mia；画面仍是 Mia",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "none"
+          },
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。群里那张，我知道是下午。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「手拿开。合影位，你别再站。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「记下了。」她站起来公事还在口袋",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 1
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "none"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "none"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_mia_partner",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘沿顶到你胸口。Mia 坐下，问的是另一个人。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：跟走 Mia、付费哄了 Jade；画面仍是 Mia",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "mia"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "邻桌有人把筷子停住。她俯身，呼吸扫过盘沿。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。右边那张脸。谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 2
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "mia"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "mia"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_mia",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘还没放下。邻桌的勺子停了一拍。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：昨晚是其他人；仍用 Mia 脸；拼贴是下午，不写门口失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "mia"
+          },
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「别看托盘。看我。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。昨晚——不是这张下午的图。谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 2
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "mia"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "mia"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_jade",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘还没放下。邻桌的勺子停了一拍。Jade 从你身后坐下。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：跟走过 Mia；仍用 Mia 脸；Jade 只在身后；拼贴是下午，不写失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia",
+            "jade"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "mia"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "她俯身，呼吸扫过盘沿。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「别看托盘。看我。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。右边那张脸。谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "jade",
+              "text": "（身后）「下午那张。我在右边。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 2
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "mia"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "mia"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_both",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "一张桌子，两个人。托盘一响，邻桌安静半秒。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂双人点名；衣服穿好，公开羞红",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia",
+            "jade"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "both"
+          },
+          "lines": [
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。右边那张脸。谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "jade",
+              "text": "（身后）「下午那张。我在右边。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 1
+                  },
+                  "jade": {
+                    "affection": 1
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "both"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "both"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_other",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘对面空着。邻桌还在传下午那张电梯口。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：晚上是其他人，不是 Mia/Jade 门口失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "other"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "邻桌有人把杯子放下。拼贴是下午的两张脸。夜里跟走的那个人不在这张桌上。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。昨晚——不是这张下午的图。谁。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {
+                "stats": {
+                  "mia": {
+                    "affection": 1
+                  }
+                }
+              },
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "other"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "other"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_none",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘还没放下。邻桌的勺子停了一拍。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 食堂：无人跟走；仍用 Mia 脸；拼贴是下午，不写失约",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "mia"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "cafe_creditor": "none"
+          },
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "她俯身，呼吸扫过盘沿。拼贴证明不了夜里。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「别看托盘。看我。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "mia",
+              "text": "「邻桌听得见。群是下午。你夜里站在甲板中间。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s13_ok",
+              "text": "接招：「在看。」她问完就走门还开着",
+              "next": "n_s13_after",
+              "delta": {},
+              "setFlags": {
+                "s13_reply": "ok",
+                "cafe_creditor": "none"
+              }
+            },
+            {
+              "choiceId": "c_s13_dodge",
+              "text": "躲开：端盘走。那扇门还开着",
+              "next": "n_s13_empty",
+              "delta": {
+                "tension": 2
+              },
+              "setFlags": {
+                "s13_reply": "dodge",
+                "cafe_creditor": "none"
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_after",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "邻桌筷子又响起来。她已经站了，托盘没拿完。",
+          "assetId": "assets/scenes/ch02/S13.webp",
+          "artCue": "S13 收场：公开点名结束，公事还在口袋",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "advance": "n_ch02_wall",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "那封公事还在口袋里。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s13_empty",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "托盘放下。邻桌的勺子又响了。",
+          "assetId": "assets/scenes/ch02/S13-empty.webp",
+          "artCue": "C2-13E 躲开之后：空廊；灯管是白的",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ],
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "灯管是白的。那扇门还开着。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_ch02_wall",
+          "camera": "hold",
+          "transition": "fade"
+        },
+        {
+          "nodeId": "n_s14_office",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "教員室。打印的拼贴平摊在桌上——电梯口两张脸。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "S14 仰坐学生位：下午人脸在桌、门未锁、讲师口吻；黑丝桌沿占前 1/3",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "lines": [
+            {
+              "speaker": "reina",
+              "text": "「坐下。把门带上。——先不用锁。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "椅背离桌沿只有一掌。黑丝压着桌沿。她没请你喝水。",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "reina",
+              "text": "「桌上这些脸。这不是约会。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "advance": "n_s14_ask_router"
+        },
+        {
+          "nodeId": "n_s14_ask_router",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "playerVisible": false,
+          "text": "（办公室解释按昨晚事实）",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "hidden router: Mia / 其他人 / 无人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "advanceByFlag": {
+            "catch_target==mia": "n_s14_ask_mia",
+            "catch_target==jade": "n_s14_ask_other",
+            "catch_target==lina": "n_s14_ask_other",
+            "catch_target==rae": "n_s14_ask_other",
+            "went_with==mia": "n_s14_ask_mia",
+            "went_with==jade": "n_s14_ask_other",
+            "went_with==lina": "n_s14_ask_other",
+            "went_with==rae": "n_s14_ask_other",
+            "default": "n_s14_ask_none"
+          }
+        },
+        {
+          "nodeId": "n_s14_ask_mia",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「电梯口是 Mia。晚上也是。」她把腿压过桌沿",
+              "next": "n_s14_silk",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_ask_other",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「电梯口那张是下午。晚上是另一个人。」她把腿压过桌沿",
+              "next": "n_s14_silk",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_ask_none",
+          "type": "dialogue",
+          "speaker": "reina",
+          "text": "「解释。一句话。谁先谁后。」",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artStatus": "ready",
+          "artCue": "S14 解释句按 Catch/跟走事实，不写死晚上另一个人",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "warm_dust",
+          "choices": [
+            {
+              "choiceId": "c_s14_ok",
+              "text": "接招：「电梯口那张是下午。晚上我谁也没跟。」她把腿压过桌沿",
+              "next": "n_s14_silk",
+              "delta": {}
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_silk",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "高跟鞋在桌下交叠。黑丝压着桌沿，近到你没法把眼睛抬回去。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "S14 黑丝桌沿近大远小；表情仍是讲师；百叶缝有人影",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "advance": "n_s14_lock",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "lines": [
+            {
+              "speaker": "reina",
+              "text": "「看我。不是看腿。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "narrator",
+              "text": "声音仍是办公室的。百叶缝里有人影晃过。为什么使不上力。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_lock",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "锁舌进槽。外面那个人还没走远。黑丝压过桌沿的热还在。",
+          "assetId": "assets/scenes/ch02/S14-lock.webp",
+          "artCue": "C2-14L 锁门：百叶缝外有人；中止只从这里",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "afterimage",
+          "setFlags": {
+            "office_locked": true
+          },
+          "lines": [
+            {
+              "speaker": "reina",
+              "text": "「他们看见你进来了。……哈啊……」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "reina",
+              "text": "「现在没有第三个人。——别、先别站起来。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s14_kiss",
+              "text": "接招：站起来。按住她后腰吻上去",
+              "next": "n_s14_kiss",
+              "delta": {
+                "stats": {
+                  "reina": {
+                    "affection": 2,
+                    "desire": 3
+                  }
+                }
+              },
+              "setFlags": {
+                "reina_office_kiss": true
+              }
+            },
+            {
+              "choiceId": "c_s14_free",
+              "text": "躲开：「我还是学生。」她偏开嘴腿没收",
+              "next": "n_s14_abort",
+              "delta": {
+                "tension": 1
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_wall",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "拼贴还摊着。锁已经响了。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "S14 嘴对上之前：躲开是故事中止，不是第二SKU；静帧",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "tension_hold",
+          "lines": [
+            {
+              "speaker": "narrator",
+              "text": "下一句之前的沉默。",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ],
+          "choices": [
+            {
+              "choiceId": "c_s14_free",
+              "text": "「我先走。」她偏开呼吸还乱",
+              "next": "n_s14_abort",
+              "delta": {
+                "tension": 1
+              }
+            },
+            {
+              "choiceId": "c_s14_kiss",
+              "text": "凑近。按住她后腰吻上去",
+              "next": "n_s14_kiss",
+              "delta": {
+                "stats": {
+                  "reina": {
+                    "affection": 2,
+                    "desire": 3
+                  }
+                }
+              },
+              "setFlags": {
+                "reina_office_kiss": true
+              }
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_abort",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "她偏开。腿没收。呼吸还乱。",
+          "assetId": "assets/scenes/ch02/S14-abort.webp",
+          "artCue": "S14 免费中止：她偏开，仍是讲师；门将开",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "advance": "n_ch02_settle",
+          "camera": "hold",
+          "transition": "fade",
+          "fx": "vignette",
+          "lines": [
+            {
+              "speaker": "reina",
+              "text": "「我还是你的讲师。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "reina",
+              "text": "「照片你自己收。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_s14_kiss",
+          "type": "dialogue",
+          "speaker": "narrator",
+          "text": "嘴对上了。衬衫敞着，丝还在。齿关一软。水声很轻。腰自己迎上去。",
+          "assetId": "assets/scenes/ch02/S14-kiss.webp",
+          "artCue": "S14 付费：嘴对上，仍着衣，无生殖器；可阿黑颜",
+          "artStatus": "ready",
+          "characters": [
+            "kai",
+            "reina"
+          ],
+          "advance": "n_ch02_settle",
+          "camera": "hold",
+          "transition": "soft-zoom",
+          "fx": "warm-veil",
+          "lines": [
+            {
+              "speaker": "kai",
+              "text": "「说。现在是谁在要你。」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "reina",
+              "text": "「是……是你……哈啊……别停。♥」",
+              "camera": "hold",
+              "transition": "fade"
+            },
+            {
+              "speaker": "reina",
+              "text": "「出去。我还是你的讲师。」",
+              "camera": "hold",
+              "transition": "fade"
+            }
+          ]
+        },
+        {
+          "nodeId": "n_ch02_settle",
+          "type": "settle",
+          "speaker": "narrator",
+          "text": "办公室的灯没关。拼贴还在她桌上。",
+          "assetId": "assets/scenes/ch02/S14-abort.webp",
+          "artCue": "S12/S14 结算：灯还亮，人已停",
+          "artStatus": "ready",
+          "characters": [
+            "kai"
+          ]
+        },
+        {
+          "nodeId": "n_ch02_title",
+          "type": "settle",
+          "speaker": "narrator",
+          "text": "可回标题再进。邮件不会自己删掉。",
+          "assetId": "assets/scenes/ch02/S14.webp",
+          "artCue": "回标题",
+          "artStatus": "ready",
+          "characters": []
+        }
+      ]
+    }
+  ]
+}

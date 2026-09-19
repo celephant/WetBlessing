@@ -1,0 +1,19 @@
+{
+  "errorCode": "PAYWALL_EDGE_LOCK",
+  "http": 402,
+  "zh-CN": {
+    "title": "缝里是她。",
+    "body": "手已经在门把上。锁还横着。……里面还亮着——♡",
+    "primary": "一次性通行证 · $8.99",
+    "primaryOwned": "推门进去",
+    "secondary": "只解锁这一夜 · $2.99",
+    "tertiary": "回标题"
+  },
+  "behavior": {
+    "primaryAction": "checkout_sku:story_pass",
+    "primaryOwnedAction": "continue_paid_edge",
+    "secondaryAction": "checkout_sku:chapter_unlock|scope=w3_edge_night",
+    "tertiaryAction": "dismiss",
+    "tone": "缝是广告里面是货；主按钮推门进去；不提湿衣门缝克隆/尺度说明书/成人"
+  }
+}

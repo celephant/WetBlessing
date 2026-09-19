@@ -1,48 +1,15 @@
-import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
-import {
-  CH02_OFFICE_PATH,
-  CH03_NIGHT_PATH,
-  CH04_ENDINGS_PATH,
-  FOURWEEK_MINI_PATH,
-  FOURWEEK_WEEK_PATHS,
-  LANDING_FUNNEL_PATH,
-} from "./dev-packs";
-import type { ContentFile } from "./types";
-
-export function tryReadJsonFile<T>(relPath: string, root = process.cwd()): T | null {
-  const full = path.join(root, relPath);
-  if (!existsSync(full)) return null;
-  return JSON.parse(readFileSync(full, "utf8")) as T;
+export function tryReadFourweekMini(): null {
+  return null;
 }
-
-/** Official DEV fourweek bytes. Null when the fixture is not installed. */
-export function tryReadFourweekMini(root = process.cwd()): ContentFile | null {
-  return tryReadJsonFile<ContentFile>(FOURWEEK_MINI_PATH, root);
+export function tryReadCh02Office(): null {
+  return null;
 }
-
-/** DEV Ch02 office pack. Null when the fixture is not installed. */
-export function tryReadCh02Office(root = process.cwd()): ContentFile | null {
-  return tryReadJsonFile<ContentFile>(CH02_OFFICE_PATH, root);
+export function tryReadCh03Night(): null {
+  return null;
 }
-
-/** DEV Ch03 闭馆夜 pack. Null when the fixture is not installed. */
-export function tryReadCh03Night(root = process.cwd()): ContentFile | null {
-  return tryReadJsonFile<ContentFile>(CH03_NIGHT_PATH, root);
+export function tryReadCh04Endings(): null {
+  return null;
 }
-
-/** DEV Ch04 名分 pack. Null when the fixture is not installed. */
-export function tryReadCh04Endings(root = process.cwd()): ContentFile | null {
-  return tryReadJsonFile<ContentFile>(CH04_ENDINGS_PATH, root);
-}
-
-/** Pre-login funnel. Null when the fixture is not installed. */
-export function tryReadLandingFunnel(root = process.cwd()): ContentFile | null {
-  return tryReadJsonFile<ContentFile>(LANDING_FUNNEL_PATH, root);
-}
-
-export function listInstalledFourweekDrafts(root = process.cwd()): string[] {
-  return [FOURWEEK_MINI_PATH, ...FOURWEEK_WEEK_PATHS].filter((rel) =>
-    existsSync(path.join(root, rel)),
-  );
+export function tryReadLandingFunnel(): null {
+  return null;
 }

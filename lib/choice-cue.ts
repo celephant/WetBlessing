@@ -1,5 +1,5 @@
 import { splitChoiceFace } from "./choice-label";
-import type { Choice, ContentNode } from "./types";
+import type { Choice, ContentNode, StoryChoice } from "./types";
 
 /** Click-promise on the right of a Choice chip. Not a hint, summary, or caption. */
 export type CueMode = "voice" | "dissonance" | "sensory" | "bark";
@@ -55,11 +55,11 @@ export function spokenChipLine(choice: string, cue: string | null): string {
   return `${bark}，${cue}`;
 }
 
-export function choiceCueFace(choice: Choice | string): ChoiceCueFace {
+export function choiceCueFace(choice: Choice | StoryChoice | string): ChoiceCueFace {
   const packed = typeof choice === "string" ? choice : choice.text;
   const split = splitChoiceFace(packed);
   const mapped =
-    typeof choice === "object" && choice.hint && choice.hint.trim()
+    typeof choice === "object" && "hint" in choice && choice.hint && choice.hint.trim()
       ? choice.hint.trim()
       : split.hint;
   const cue = mapped || null;
@@ -218,11 +218,12 @@ export function validateRouteChoiceCues(
   for (const node of byId.values()) {
     for (const choice of node.choices ?? []) {
       const face = choiceCueFace(choice);
-      const next = byId.get(choice.next);
+      const nextId = choice.target;
+      const next = byId.get(nextId);
       const nextText = [next?.text, ...(next?.lines?.map((line) => line.text) ?? [])]
         .filter(Boolean)
         .join("\n");
-      const stage = inferIntensityStage(node, choice, next);
+      const stage = inferIntensityStage(node, { ...choice, choiceId: choice.id, next: choice.target }, next);
       for (const issue of validateChoiceCue({
         choice: face.choice,
         cue: face.cue,
@@ -231,9 +232,9 @@ export function validateRouteChoiceCues(
       })) {
         out.push({
           ...issue,
-          nodeId: node.nodeId,
-          choiceId: choice.choiceId,
-          message: `${node.nodeId}/${choice.choiceId}: ${issue.message} (${face.choice} › ${face.cue ?? "∅"})`,
+          nodeId: node.nodeId ?? node.id,
+          choiceId: choice.id,
+          message: `${node.nodeId ?? node.id}/${choice.id}: ${issue.message} (${face.choice} › ${face.cue ?? "∅"})`,
         });
       }
     }

@@ -2,42 +2,23 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { content } from "@/lib/content";
-import { loadEntitlements } from "@/lib/entitlement";
-import { readFunnelCompleted } from "@/lib/funnel";
-import {
-  clearRunProgress,
-  hasAnyRunSave,
-  readTitleResume,
-  type TitleResume,
-} from "@/lib/new-run";
-import {
-  orientedStill,
-  PORTRAIT_SOURCE_MEDIA,
-  TITLE_LANDSCAPE_ASSET_ID,
-} from "@/lib/orientation-stills";
+import { story } from "@/lib/content";
+import { orientedStill, PORTRAIT_SOURCE_MEDIA, TITLE_LANDSCAPE_ASSET_KEY } from "@/lib/orientation-stills";
 import { persistPlayerDevFlag } from "@/lib/player-dev";
+import { clearTomorrowSave, hasTomorrowSave, readStorySave } from "@/lib/save";
 
 export function TitleScreen() {
-  const [funnelDone, setFunnelDone] = useState(false);
+  const [canContinue, setCanContinue] = useState(false);
+  const [incompatible, setIncompatible] = useState<string | null>(null);
   const [canNewRun, setCanNewRun] = useState(false);
-  const [resume, setResume] = useState<TitleResume | null>(null);
   const [showDev, setShowDev] = useState(false);
-  const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_ID);
+  const titleStill = orientedStill(TITLE_LANDSCAPE_ASSET_KEY);
 
   useEffect(() => {
-    const funnel = readFunnelCompleted();
-    const entitlements = loadEntitlements();
-    const target = readTitleResume(funnel);
-    setFunnelDone(funnel);
-    setResume(target);
-    setCanNewRun(
-      hasAnyRunSave() ||
-        funnel ||
-        Boolean(entitlements.w1_continue) ||
-        Boolean(entitlements.story_pass) ||
-        Boolean(entitlements.story_pass_month),
-    );
+    const saved = readStorySave();
+    setCanContinue(saved.status === "ok");
+    setIncompatible(saved.status === "incompatible" ? saved.reason : null);
+    setCanNewRun(saved.status === "ok" || hasTomorrowSave());
     setShowDev(persistPlayerDevFlag(window.location.search, window.localStorage));
   }, []);
 
@@ -47,69 +28,62 @@ export function TitleScreen() {
       data-title-idle=""
       data-title-dev={showDev ? "on" : "off"}
       data-still-pair={titleStill.pair}
-      data-title-asset={TITLE_LANDSCAPE_ASSET_ID}
+      data-desktop-fit="contain"
+      data-mobile-fit="cover"
+      data-story-version={story.storyVersion}
+      data-title-asset={TITLE_LANDSCAPE_ASSET_KEY}
+      data-portrait-src={titleStill.portraitUrl ?? ""}
     >
       <div className="absolute inset-0" data-title-still="">
         <picture>
           {titleStill.portraitUrl ? (
-            <source
-              media={PORTRAIT_SOURCE_MEDIA}
-              srcSet={titleStill.portraitUrl}
-            />
+            <source media={PORTRAIT_SOURCE_MEDIA} srcSet={titleStill.portraitUrl} />
           ) : null}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={titleStill.landscapeUrl}
-            alt="WetBlessing"
-            className="scene-still-fill"
-          />
+          <img src={titleStill.landscapeUrl} alt={story.title} className="scene-still-fill" />
         </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh max-w-dialog flex-col justify-end px-6 pb-12 pt-16">
-        <h1 className="font-display text-5xl font-extrabold tracking-tight text-paper">
-          WetBlessing
-        </h1>
-        <p className="mt-3 font-ui text-base text-paper/80">
-          校园恋爱视觉小说 · {content.routeTitle}
-        </p>
+        <h1 className="font-display text-5xl font-extrabold tracking-tight text-paper">明天见</h1>
+        <p className="mt-3 font-ui text-base text-paper/80">{story.title}</p>
         <p className="mt-2 font-ui text-sm text-mute">
-          擦边非成人 · 大学角色 18+ · Kai / Mia / Jade / Rae / Lina / Vanessa / Reina
+          校园恋爱视觉小说 · tomorrow.1 · 成年大学生设定
         </p>
 
+        {incompatible ? (
+          <p className="mt-4 max-w-md font-ui text-sm leading-6 text-gold" data-save-incompatible="">
+            {incompatible}
+          </p>
+        ) : null}
+
         <div className="mt-8 flex flex-col gap-2">
-          {resume ? (
+          {canContinue ? (
             <Link
-              href={resume.href}
+              href="/play?resume=1"
               className="btn-face btn-primary choice-press"
               data-title-start="resume"
-              data-title-resume-pack={resume.pack}
             >
-              {resume.label}
+              继续
             </Link>
           ) : (
-            <Link
-              href="/play?content=funnel"
-              className="btn-face btn-primary choice-press relative"
-              data-title-start="funnel"
-            >
-              开始入学夜
-              <span
-                className="absolute right-3 rounded-full border border-white/20 bg-night/50 px-2 py-0.5 font-ui text-[11px] text-paper/80"
-                data-title-badge=""
-              >
-                约 3 分钟
-              </span>
+            <Link href="/play" className="btn-face btn-primary choice-press" data-title-start="new">
+              开始
             </Link>
           )}
-          {resume && !funnelDone ? (
+          {incompatible ? (
             <Link
-              href="/play?content=funnel"
-              className="btn-face btn-choice-ghost choice-press"
-              data-title-start="funnel"
+              href="/play"
+              className="btn-face btn-choice choice-press"
+              data-title-start="new-from-incompatible"
             >
-              开始入学夜
+              开始新的一局
+            </Link>
+          ) : null}
+          {canContinue ? (
+            <Link href="/play" className="btn-face btn-choice-ghost choice-press" data-title-start="fresh">
+              从开头阅读
             </Link>
           ) : null}
           {canNewRun ? (
@@ -117,8 +91,8 @@ export function TitleScreen() {
               type="button"
               data-title-start="new-run"
               onClick={() => {
-                clearRunProgress();
-                window.location.assign("/");
+                clearTomorrowSave();
+                window.location.assign("/play");
               }}
               className="btn-face btn-choice-ghost choice-press"
             >
@@ -128,46 +102,11 @@ export function TitleScreen() {
         </div>
 
         <p className="mt-6 font-ui text-[11px] leading-5 text-mute">
-          content {content.contentVersion}
+          story {story.storyVersion}
           {showDev ? (
             <>
               <br />
-              <Link
-                href="/play?content=fourweek"
-                className="text-gold/80 underline"
-                data-title-dev-jump="fourweek"
-              >
-                DEV fourweek
-              </Link>
-              {" · "}
-              <Link
-                href="/play?content=ch02"
-                className="text-gold/80 underline"
-                data-title-dev-jump="ch02"
-              >
-                DEV ch02 办公室
-              </Link>
-              {" · "}
-              <Link
-                href="/play?content=ch03"
-                className="text-gold/80 underline"
-                data-title-dev-jump="ch03"
-              >
-                DEV ch03 闭馆夜
-              </Link>
-              {" · "}
-              <Link
-                href="/play?content=ch04"
-                className="text-gold/80 underline"
-                data-title-dev-jump="ch04"
-              >
-                DEV ch04 名分
-              </Link>
-              <br />
-              {/* TODO(slice-1): Auth / account entitlements */}
-              {/* TODO(slice-1): Stripe Checkout for story_pass */}
-              {/* TODO(slice-1): Railway production deploy */}
-              Stripe / Auth / Railway 未接入 · 付费墙仅 DEV 假开通。
+              商业 / 登录 / 支付关闭 · 竖图自动替换关闭
             </>
           ) : null}
         </p>

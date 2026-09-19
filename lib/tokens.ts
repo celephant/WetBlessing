@@ -58,20 +58,19 @@ export function tokenRootCss(): string {
 
 export function speakerColor(speaker: string): string {
   const key = speaker.toLowerCase();
-  if (key === "mia") return tokens.colors.mia;
-  if (key === "jade") return tokens.colors.jade;
-  if (key === "vanessa") return tokens.colors.vanessa;
-  if (key === "rae") return tokens.colors.hot;
-  if (key === "lina") return tokens.colors.mint;
-  if (key === "reina") return tokens.colors.gold;
-  if (key === "kai") return tokens.colors.mint;
+  if (key.startsWith("mia")) return tokens.colors.mia;
+  if (key.startsWith("jade")) return tokens.colors.jade;
+  if (key.startsWith("vanessa")) return tokens.colors.vanessa;
+  if (key.startsWith("若伊") || key.startsWith("rae")) return tokens.colors.hot;
+  if (key.startsWith("丽娜") || key.startsWith("lina")) return tokens.colors.mint;
+  if (key.startsWith("玲奈") || key.startsWith("reina")) return tokens.colors.gold;
+  if (key.startsWith("kai")) return tokens.colors.mint;
   return tokens.colors.paper;
 }
 
 export function speakerLabel(speaker: string): string {
-  if (speaker === "narrator") return "";
-  if (!speaker) return "";
-  return speaker.charAt(0).toUpperCase() + speaker.slice(1);
+  if (!speaker || speaker === "narrator") return "旁白";
+  return speaker;
 }
 
 export function assetUrl(assetId?: string): string | null {

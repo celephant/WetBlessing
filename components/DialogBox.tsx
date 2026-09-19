@@ -80,11 +80,11 @@ export function DialogBox({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-full w-full flex-col justify-end text-left"
+      className="flex w-full flex-col text-left"
       aria-label={complete ? "Advance dialogue" : "Show full line"}
       data-dialog-complete={complete ? "on" : "off"}
     >
-      <div className="dialog-dock flex h-full flex-col justify-end px-5 py-4">
+      <div className="dialog-dock flex flex-col px-4 py-3.5">
         <div
           key={entranceKey}
           data-dialog-enter={entranceKey}
@@ -119,6 +119,14 @@ export function DialogBox({
               </span>
             ) : null}
           </p>
+          {complete && beat.thought ? (
+            <p
+              className="mt-2 font-ui text-[15px] leading-6 text-paper/70"
+              data-beat-thought=""
+            >
+              {beat.thought}
+            </p>
+          ) : null}
           {showCaret && complete && !hasChoices ? (
             <span
               className="advance-caret mt-2 block text-right font-display text-rose"

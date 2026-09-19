@@ -1,62 +1,97 @@
-import { assertDefaultLoad } from "./allowlist";
-import { assertChoiceIndexBudget } from "./choice-index";
-import { intimateBeatGaps } from "./feel-density";
-import type { CompiledRoute, ContentFile, ContentNode } from "./types";
-import raw from "../content/CONTENT-ch01-free-to-firstsub.json";
+import type { CompiledStory, ContentFile, CompiledRoute, StoryFile, StoryNode } from "./types";
+import rawStory from "../content/story.json";
 
-/** Canonical Ch01 (0.4.8-feel-hot, hotter-cast graph). Also linked at src/content/chapters/ch01.json. */
-export const DEFAULT_CH01_PATH = "content/CONTENT-ch01-free-to-firstsub.json";
-export const DEFAULT_CH01_VERSION = "0.4.8-feel-hot";
-export const DEFAULT_CH01_ROUTE_ID = "route_kai_ch01";
+export const STORY_SOURCE_PATH = "content/story.json";
+export const STORY_PUBLICATION_PATH = "public/assets/story.json";
+export const STORY_VERSION = "tomorrow.1";
 
-const rawDefault = raw as ContentFile;
-assertDefaultLoad(rawDefault, DEFAULT_CH01_PATH);
+export const story = rawStory as unknown as StoryFile;
 
-export const content = rawDefault;
-
-export type { CompiledRoute };
-
-export function compileRoute(
-  file: ContentFile = content,
-  options: { asDefault?: boolean; sourcePath?: string } = {},
-): CompiledRoute {
-  if (options.asDefault) {
-    assertDefaultLoad(file, options.sourcePath ?? DEFAULT_CH01_PATH);
-  }
-  const stage = file.stages[0];
-  if (!stage) {
-    throw new Error("Content file has no stages");
-  }
-  const nodes = new Map<string, ContentNode>();
-  for (const node of stage.nodes) {
-    if (nodes.has(node.nodeId)) {
-      throw new Error(`Duplicate nodeId: ${node.nodeId}`);
-    }
-    nodes.set(node.nodeId, node);
-  }
-  const compiled = {
-    content: file,
-    nodes,
-    entryNodeId: stage.entryNodeId,
-    firstSubNodeId: file.meta.firstSubNodeId,
-    choiceIndexHardCap: file.meta.choiceIndexHardCap,
-    gateField: file.meta.gateField,
+export function asContentNode(node: StoryNode) {
+  return {
+    ...node,
+    nodeId: node.id,
+    type: "dialogue" as const,
+    assetId: node.assetKey,
+    advance: node.next,
+    choices: node.choices.map((choice) => ({
+      ...choice,
+      choiceId: choice.id,
+      next: choice.target,
+    })),
   };
-  assertChoiceIndexBudget(compiled);
-  // Optional audit only — never fails compile or default load.
-  void intimateBeatGaps([...nodes.values()]);
-  return compiled;
 }
 
-export const route = compileRoute(content, {
-  asDefault: true,
-  sourcePath: DEFAULT_CH01_PATH,
-});
+export function compileStory(file: StoryFile = story): CompiledStory {
+  if (file.storyVersion !== STORY_VERSION) {
+    throw new Error(`Unsupported storyVersion ${file.storyVersion}`);
+  }
+  if (file.documentType !== "runtime-story") {
+    throw new Error(`Unsupported documentType ${file.documentType}`);
+  }
+  if (file.commercial?.enabled) {
+    throw new Error("Commercial fields must stay disabled");
+  }
+  const nodes = new Map<string, StoryNode>();
+  for (const node of file.nodes) {
+    if (nodes.has(node.id)) {
+      throw new Error(`Duplicate node id: ${node.id}`);
+    }
+    nodes.set(node.id, node);
+  }
+  if (!nodes.has(file.entry)) {
+    throw new Error(`Missing entry ${file.entry}`);
+  }
+  return {
+    story: file,
+    nodes,
+    entryNodeId: file.entry,
+    storyVersion: file.storyVersion,
+    assetManifestVersion: file.assetManifestVersion,
+  };
+}
 
-export function getNode(
-  nodeId: string,
-  compiled: CompiledRoute = route,
-): ContentNode {
+export const compiledStory = compileStory(story);
+
+function contentFileFromStory(file: StoryFile): ContentFile {
+  return {
+    routeId: "route_tomorrow_1",
+    routeTitle: file.title,
+    contentVersion: file.storyVersion,
+    project: "WetBlessing",
+    meta: {
+      choiceIndexHardCap: 99,
+      firstSubNodeId: "",
+      gateField: "",
+    },
+    personas: {},
+    stages: [
+      {
+        stageId: "stage.tomorrow",
+        stageTitle: file.title,
+        order: 1,
+        entryNodeId: file.entry,
+        nodes: file.nodes.map(asContentNode),
+      },
+    ],
+  };
+}
+
+export function compileRoute(file: StoryFile = story): CompiledRoute {
+  const compiled = compileStory(file);
+  return {
+    ...compiled,
+    content: contentFileFromStory(file),
+    firstSubNodeId: "",
+    choiceIndexHardCap: 99,
+    gateField: "",
+  };
+}
+
+export const route = compileRoute(story);
+export const content = route.content;
+
+export function getNode(nodeId: string, compiled: CompiledStory = compiledStory): StoryNode {
   const node = compiled.nodes.get(nodeId);
   if (!node) {
     throw new Error(`Unknown node: ${nodeId}`);
@@ -64,6 +99,8 @@ export function getNode(
   return node;
 }
 
-export function listNodes(compiled: CompiledRoute = route): ContentNode[] {
+export function listNodes(compiled: CompiledStory = compiledStory): StoryNode[] {
   return [...compiled.nodes.values()];
 }
+
+export { compiledStory as compiled };

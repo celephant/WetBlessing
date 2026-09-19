@@ -1,501 +1,175 @@
-import { countsTowardChoiceIndex } from "./choice-index";
-import { getNode, route, type CompiledRoute } from "./content";
-import {
-  emptyEntitlements,
-  mintFullEntitle,
-  mintScope,
-  normalizeEntitlements,
-  ownsStoryPass,
-  scopeFromSku,
-} from "./entitlement";
-import { flagMatches, matchFlagExpr } from "./flag-expr";
-import {
-  GATE_CHAPTER_START,
-  GATE_EDGE_LOCK,
-  GATE_FIRST_SUB,
-  isWallGate,
-  isStoryPassSku,
-  isWallSku,
-  normalizeWallGate,
-  SCOPE_W1_CONTINUE,
-  SCOPE_W2_OFFICE,
-  SCOPE_W3_EDGE_NIGHT,
-  SKU_CHAPTER_UNLOCK,
-  SKU_EDGE_LOCK,
-} from "./paywall-copy";
-import { SKU_STORY_PASS } from "./tokens";
-import {
-  CAST_STAT_KEYS,
-  type Beat,
-  type Choice,
-  type ContentNode,
-  type Delta,
-  type Entitlements,
-  type FlagValue,
-  type Flags,
-  type GameState,
-  type SelectChoiceResult,
-  type Stats,
-  type ViewModel,
+import { compiledStory, getNode } from "./content";
+import type {
+  CompiledStory,
+  FlagValue,
+  Flags,
+  GameState,
+  SelectChoiceResult,
+  StateCondition,
+  StoryBeat,
+  StoryNode,
+  ViewModel,
 } from "./types";
 
-export { flagMatches, matchFlagExpr } from "./flag-expr";
+export { STORY_VERSION } from "./content";
 
-const zeroPair = () => ({ affection: 0, desire: 0 });
+function conditionHolds(flags: Flags, condition: StateCondition): boolean {
+  return flags[condition.state] === condition.equals;
+}
 
-const emptyStats = (): Stats => ({
-  mia: zeroPair(),
-  jade: zeroPair(),
-  vanessa: zeroPair(),
-  rae: zeroPair(),
-  lina: zeroPair(),
-  reina: zeroPair(),
-  tension: 0,
-});
+export function initialFlags(compiled: CompiledStory = compiledStory): Flags {
+  const flags: Flags = {};
+  for (const [key, declaration] of Object.entries(compiled.story.stateDeclarations)) {
+    flags[key] = declaration.initial;
+  }
+  return flags;
+}
 
-export function createInitialState(
-  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
-): GameState {
+export function createInitialState(compiled: CompiledStory = compiledStory): GameState {
   return {
+    schemaVersion: compiled.story.schemaVersion,
+    storyVersion: compiled.storyVersion,
+    assetManifestVersion: compiled.assetManifestVersion,
     nodeId: "",
     beatIndex: 0,
-    choiceIndex: 0,
-    flags: {},
-    stats: emptyStats(),
-    entitlements: normalizeEntitlements(entitlements),
-    pendingChoiceId: null,
+    flags: initialFlags(compiled),
   };
 }
 
-export function startGame(
-  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
-  compiled: CompiledRoute = route,
-): GameState {
-  return enterNode(createInitialState(entitlements), compiled.entryNodeId, compiled);
-}
-
-export function getBeats(node: ContentNode): Beat[] {
-  const beats: Beat[] = [];
-  if (node.text) {
-    beats.push({ speaker: node.speaker ?? "narrator", text: node.text });
-  }
-  if (node.lines) {
-    beats.push(...node.lines);
-  }
-  if (beats.length === 0) {
-    beats.push({ speaker: "narrator", text: "" });
-  }
-  return beats;
-}
-
-export function resolveNext(node: ContentNode, flags: Flags): string | null {
-  if (node.advanceByFlag) {
-    for (const [expr, dest] of Object.entries(node.advanceByFlag)) {
-      if (matchFlagExpr(flags, expr)) {
-        return dest;
-      }
-    }
-    throw new Error(
-      `No advanceByFlag match on ${node.nodeId} (flags=${JSON.stringify(flags)})`,
-    );
-  }
-  return node.advance ?? null;
-}
-
-export function applyDelta(stats: Stats, delta?: Delta): Stats {
-  if (!delta) return stats;
-  const next: Stats = {
-    mia: { ...(stats.mia ?? zeroPair()) },
-    jade: { ...(stats.jade ?? zeroPair()) },
-    vanessa: { ...(stats.vanessa ?? zeroPair()) },
-    rae: { ...(stats.rae ?? zeroPair()) },
-    lina: { ...(stats.lina ?? zeroPair()) },
-    reina: { ...(stats.reina ?? zeroPair()) },
-    tension: (stats.tension ?? 0) + (delta.tension ?? 0),
-  };
-  if (delta.stats) {
-    for (const who of CAST_STAT_KEYS) {
-      const block = delta.stats[who];
-      if (!block) continue;
-      next[who] = {
-        affection: next[who].affection + (block.affection ?? 0),
-        desire: next[who].desire + (block.desire ?? 0),
-      };
-    }
-  }
-  return next;
-}
-
-export function applyFlags(
+export function applyEffects(
   flags: Flags,
-  patch?: Record<string, FlagValue>,
+  patch?: Record<string, FlagValue> | null,
 ): Flags {
-  if (!patch) return flags;
+  if (!patch || Object.keys(patch).length === 0) return flags;
   return { ...flags, ...patch };
 }
 
-export function isChoiceVisible(choice: Choice, flags: Flags): boolean {
-  const required = choice.requires?.flags;
-  if (!required) return true;
-  return Object.entries(required).every(([key, value]) =>
-    flagMatches(flags, key, value),
+export function assertRequirements(node: StoryNode, flags: Flags): void {
+  for (const condition of node.requirements) {
+    if (!conditionHolds(flags, condition)) {
+      throw new Error(
+        `Unmet requirement ${node.id}: ${condition.state}=${JSON.stringify(condition.equals)}`,
+      );
+    }
+  }
+}
+
+export function resolveBeats(node: StoryNode, flags: Flags): StoryBeat[] {
+  const beats = node.beats.map((beat) => ({ ...beat }));
+  const enabled = node.beatVariations.filter((variation) =>
+    conditionHolds(flags, variation.when),
   );
-}
-
-export function hasEntitlement(
-  state: GameState,
-  sku: string,
-  gate?: string | null,
-): boolean {
-  const e = state.entitlements;
-  const pass = ownsStoryPass(e);
-  const w1 = Boolean(e.w1_continue);
-  const w2 = Boolean(e.w2_office);
-  const w3 = Boolean(e.w3_edge_night || e.edge_lock);
-  const g = normalizeWallGate(gate);
-
-  if (pass) {
-    return (
-      isStoryPassSku(sku) ||
-      sku === SKU_CHAPTER_UNLOCK ||
-      sku === SKU_EDGE_LOCK ||
-      sku === SCOPE_W1_CONTINUE ||
-      sku === SCOPE_W2_OFFICE ||
-      sku === SCOPE_W3_EDGE_NIGHT
+  const used = new Set<number>();
+  for (const variation of enabled) {
+    if (used.has(variation.beatIndex)) {
+      throw new Error(`Ambiguous beat replacement ${node.id} @ ${variation.beatIndex}`);
+    }
+    if (variation.beatIndex < 0 || variation.beatIndex >= beats.length) {
+      throw new Error(`Variation index ${node.id} @ ${variation.beatIndex}`);
+    }
+    used.add(variation.beatIndex);
+    beats[variation.beatIndex] = { ...variation.beat };
+  }
+  if (node.endingResolver) {
+    const matches = node.endingResolver.variants.filter((variant) =>
+      conditionHolds(flags, variant.when),
     );
+    if (matches.length !== 1) {
+      throw new Error(node.endingResolver.default.message);
+    }
+    const variant = matches[0]!;
+    if (variant.beats.length !== beats.length) {
+      throw new Error(`Ending ${variant.id} must replace ${beats.length} beats`);
+    }
+    return variant.beats.map((beat) => ({ ...beat }));
   }
-
-  if (sku === SCOPE_W1_CONTINUE) return w1;
-  if (sku === SCOPE_W2_OFFICE) return w2;
-  if (sku === SCOPE_W3_EDGE_NIGHT || sku === SKU_EDGE_LOCK) return w3;
-
-  if (isStoryPassSku(sku)) {
-    // Ch01 Catch wall. w1_continue is that night only — not Ch02 / Ch03.
-    return g === GATE_FIRST_SUB && w1;
-  }
-
-  if (sku === SKU_CHAPTER_UNLOCK) {
-    if (g === GATE_FIRST_SUB) return w1;
-    if (g === GATE_CHAPTER_START) return w2;
-    if (g === GATE_EDGE_LOCK) return w3;
-    return false;
-  }
-
-  return false;
-}
-
-function isHiddenNode(node: ContentNode): boolean {
-  return node.playerVisible === false;
-}
-
-function assertFirstSubWall(
-  node: ContentNode,
-  choiceIndex: number,
-  compiled: CompiledRoute,
-): void {
-  if (
-    !isWallGate(node.gate) &&
-    node.gate !== compiled.gateField &&
-    node.nodeId !== compiled.firstSubNodeId
-  ) {
-    return;
-  }
-  if (choiceIndex > compiled.choiceIndexHardCap) {
-    throw new Error(
-      `first_sub wall exceeded: choiceIndex ${choiceIndex} > ${compiled.choiceIndexHardCap} at ${node.nodeId}`,
-    );
-  }
+  return beats;
 }
 
 export function enterNode(
   state: GameState,
   nodeId: string,
-  compiled: CompiledRoute = route,
+  compiled: CompiledStory = compiledStory,
 ): GameState {
-  let currentId = nodeId;
-  let flags = state.flags;
-  let hops = 0;
+  const node = getNode(nodeId, compiled);
+  assertRequirements(node, state.flags);
+  return {
+    ...state,
+    nodeId,
+    beatIndex: 0,
+  };
+}
 
-  while (hops++ < 24) {
-    const node = getNode(currentId, compiled);
-    flags = applyFlags(flags, node.setFlags);
-    assertFirstSubWall(node, state.choiceIndex, compiled);
-
-    if (isHiddenNode(node)) {
-      const nextId = resolveNext(node, flags);
-      if (!nextId) {
-        throw new Error(`Hidden node ${node.nodeId} has no next`);
-      }
-      currentId = nextId;
-      continue;
-    }
-
-    return {
-      ...state,
-      nodeId: currentId,
-      beatIndex: 0,
-      flags,
-    };
-  }
-
-  throw new Error(`Hidden-node skip overflow at ${nodeId}`);
+export function startGame(compiled: CompiledStory = compiledStory): GameState {
+  return enterNode(createInitialState(compiled), compiled.entryNodeId, compiled);
 }
 
 export function view(
   state: GameState,
-  compiled: CompiledRoute = route,
+  compiled: CompiledStory = compiledStory,
 ): ViewModel {
   const node = getNode(state.nodeId, compiled);
-  const beats = getBeats(node);
+  const beats = resolveBeats(node, state.flags);
   const clamped = Math.min(state.beatIndex, beats.length - 1);
   const isLastBeat = clamped >= beats.length - 1;
-  const choices =
-    isLastBeat && node.choices
-      ? node.choices.filter((choice) => isChoiceVisible(choice, state.flags))
-      : [];
-  const hasLinearNext = Boolean(node.advance || node.advanceByFlag);
+  const choices = isLastBeat ? node.choices : [];
   const canClickAdvance =
-    choices.length === 0 && (clamped < beats.length - 1 || hasLinearNext);
-
+    choices.length === 0 &&
+    (clamped < beats.length - 1 || Boolean(node.next) || Boolean(node.endingResolver));
   return {
     node,
     beat: beats[clamped]!,
     beats,
     isLastBeat,
     choices,
-    canClickAdvance,
-    isSettle: node.type === "settle",
-    isPaywall: isWallGate(node.gate) || node.gate === compiled.gateField,
+    canClickAdvance: Boolean(node.endingResolver) && isLastBeat ? false : canClickAdvance,
+    isEnding: Boolean(node.endingResolver),
+  };
+}
+
+function leaveNode(state: GameState, compiled: CompiledStory): GameState {
+  const node = getNode(state.nodeId, compiled);
+  return {
+    ...state,
+    flags: applyEffects(state.flags, node.onCompleteEffects),
   };
 }
 
 export function clickAdvance(
   state: GameState,
-  compiled: CompiledRoute = route,
+  compiled: CompiledStory = compiledStory,
 ): GameState {
   const current = view(state, compiled);
-  if (current.choices.length > 0 || current.isSettle) {
-    return state;
-  }
+  if (current.choices.length > 0) return state;
   if (!current.isLastBeat) {
     return { ...state, beatIndex: state.beatIndex + 1 };
   }
-  const nextId = resolveNext(current.node, state.flags);
-  if (!nextId) {
-    return state;
-  }
-  return enterNode(state, nextId, compiled);
+  if (current.isEnding || !current.node.next) return state;
+  const after = leaveNode(state, compiled);
+  return enterNode(after, current.node.next, compiled);
 }
 
 export function selectChoice(
   state: GameState,
   choiceId: string,
-  compiled: CompiledRoute = route,
+  compiled: CompiledStory = compiledStory,
 ): SelectChoiceResult {
-  const node = getNode(state.nodeId, compiled);
-  const choice = (node.choices ?? []).find((item) => item.choiceId === choiceId);
-  if (!choice || !isChoiceVisible(choice, state.flags)) {
+  const current = view(state, compiled);
+  const choice = current.choices.find((item) => item.id === choiceId);
+  if (!choice) {
     return { ok: false, reason: "invalid", message: `Choice not visible: ${choiceId}` };
   }
-
-  if (
-    choice.requiresEntitlement &&
-    !hasEntitlement(state, choice.requiresEntitlement, node.gate)
-  ) {
-    return {
-      ok: false,
-      reason: "locked",
-      sku: choice.requiresEntitlement,
-      choice,
-      state: { ...state, pendingChoiceId: choice.choiceId },
-    };
-  }
-
-  const nextState: GameState = {
-    ...state,
-    // ≥2-way branches and the first_sub wall count; continue / advance do not
-    choiceIndex: countsTowardChoiceIndex(node, compiled)
-      ? state.choiceIndex + 1
-      : state.choiceIndex,
-    flags: applyFlags(state.flags, choice.setFlags),
-    stats: applyDelta(state.stats, choice.delta),
-    pendingChoiceId: null,
+  const afterComplete = leaveNode(state, compiled);
+  const afterChoice: GameState = {
+    ...afterComplete,
+    flags: applyEffects(afterComplete.flags, choice.effects),
   };
-
-  return { ok: true, state: enterNode(nextState, choice.next, compiled) };
-}
-
-export function withEntitlement(
-  state: GameState,
-  sku: string,
-  granted: boolean,
-): GameState {
-  if (isStoryPassSku(sku) || sku === "full_entitle") {
-    return {
-      ...state,
-      entitlements: granted
-        ? mintFullEntitle(state.entitlements)
-        : emptyEntitlements(),
-    };
-  }
-  const scope = scopeFromSku(sku);
-  if (scope && granted) {
-    return { ...state, entitlements: mintScope(state.entitlements, scope) };
-  }
-  if (sku === SKU_CHAPTER_UNLOCK) {
-    // Unscoped leftover is not a season pass. Require a wall scope instead.
-    return state;
-  }
-  if (!isWallSku(sku)) return state;
-  return state;
-}
-
-/**
- * DEV fake-unlock then continue the locked in-dialogue line in place.
- * 开通后这一句立刻接上，不跳走.
- * Default mints the one-time pass (all scopes). Pass a chapter scope to buy-one.
- */
-export function unlockNext(
-  state: GameState,
-  choiceId?: string,
-  compiled: CompiledRoute = route,
-  sku: string = SKU_STORY_PASS,
-): SelectChoiceResult {
-  const id = choiceId ?? state.pendingChoiceId;
-  if (!id) {
-    return {
-      ok: false,
-      reason: "invalid",
-      message: "unlockNext: no pending story_pass choice",
-    };
-  }
-  const unlocked: GameState = {
-    ...withEntitlement(state, sku, true),
-    pendingChoiceId: null,
-  };
-  return selectChoice(unlocked, id, compiled);
-}
-
-/** DEV $2.99 fake-unlock of one chapter scope, then continue the locked line. */
-export function unlockScope(
-  state: GameState,
-  scope: string,
-  choiceId?: string,
-  compiled: CompiledRoute = route,
-): SelectChoiceResult {
-  return unlockNext(state, choiceId, compiled, scope);
-}
-
-/** @deprecated use unlockNext */
-export const unlockAndSelect = unlockNext;
-
-export type PathStep = {
-  nodeId: string;
-  choiceId?: string;
-  choiceIndex: number;
-};
-
-export type WalkOptions = {
-  stopAtFirstSub?: boolean;
-  assumeEntitled?: boolean;
-};
-
-/**
- * Exhaustive DFS of player-visible branches. Linear `advance` hops
- * do not increment choiceIndex. Hidden / advanceByFlag nodes are skipped
- * via enterNode.
- */
-export function walkAllPaths(
-  compiled: CompiledRoute = route,
-  options: WalkOptions = {},
-): PathStep[][] {
-  const stopAtFirstSub = options.stopAtFirstSub ?? true;
-  const assumeEntitled = options.assumeEntitled ?? true;
-  const paths: PathStep[][] = [];
-
-  const visit = (state: GameState, path: PathStep[]): void => {
-    const node = getNode(state.nodeId, compiled);
-    const here: PathStep = { nodeId: state.nodeId, choiceIndex: state.choiceIndex };
-
-    if (
-      stopAtFirstSub &&
-      (isWallGate(node.gate) ||
-        node.gate === compiled.gateField ||
-        node.nodeId === compiled.firstSubNodeId)
-    ) {
-      paths.push([...path, here]);
-      return;
-    }
-
-    if (node.type === "settle" || (!node.choices && !node.advance && !node.advanceByFlag)) {
-      paths.push([...path, here]);
-      return;
-    }
-
-    if (node.choices && node.choices.length > 0) {
-      const visible = node.choices.filter((choice) => isChoiceVisible(choice, state.flags));
-      for (const choice of visible) {
-        if (
-          choice.requiresEntitlement &&
-          !assumeEntitled &&
-          !hasEntitlement(state, choice.requiresEntitlement)
-        ) {
-          continue;
-        }
-        const entitled = choice.requiresEntitlement
-          ? withEntitlement(state, choice.requiresEntitlement, true)
-          : state;
-        const result = selectChoice(entitled, choice.choiceId, compiled);
-        if (!result.ok) continue;
-        visit(result.state, [...path, { ...here, choiceId: choice.choiceId }]);
-      }
-      return;
-    }
-
-    const advanced = clickAdvanceToNextNode(state, compiled);
-    visit(advanced, [...path, here]);
-  };
-
-  visit(startGame({ story_pass: assumeEntitled }, compiled), []);
-  return paths;
-}
-
-function clickAdvanceToNextNode(
-  state: GameState,
-  compiled: CompiledRoute,
-): GameState {
-  let current = state;
-  for (let i = 0; i < 32; i++) {
-    const before = current;
-    current = clickAdvance(current, compiled);
-    if (current.nodeId !== before.nodeId) return current;
-    if (current.beatIndex === before.beatIndex) return current;
-  }
-  return current;
-}
-
-export function pumpToPrompt(
-  state: GameState,
-  compiled: CompiledRoute = route,
-): GameState {
-  let current = state;
-  for (let i = 0; i < 32; i++) {
-    const snapshot = view(current, compiled);
-    if (snapshot.choices.length > 0 || snapshot.isSettle || !snapshot.canClickAdvance) {
-      return current;
-    }
-    const next = clickAdvance(current, compiled);
-    if (next.nodeId === current.nodeId && next.beatIndex === current.beatIndex) {
-      return current;
-    }
-    current = next;
-  }
-  return current;
+  return { ok: true, state: enterNode(afterChoice, choice.target, compiled) };
 }
 
 export function pumpBeats(
   state: GameState,
-  compiled: CompiledRoute = route,
+  compiled: CompiledStory = compiledStory,
 ): GameState {
   let current = state;
   for (let i = 0; i < 16; i++) {
@@ -510,25 +184,88 @@ export function pumpBeats(
   return current;
 }
 
+export function pumpToPrompt(
+  state: GameState,
+  compiled: CompiledStory = compiledStory,
+): GameState {
+  let current = state;
+  for (let i = 0; i < 128; i++) {
+    const snapshot = view(current, compiled);
+    if (snapshot.choices.length > 0 || snapshot.isEnding || !snapshot.canClickAdvance) {
+      return current;
+    }
+    const next = clickAdvance(current, compiled);
+    if (next.nodeId === current.nodeId && next.beatIndex === current.beatIndex) {
+      return current;
+    }
+    current = next;
+  }
+  return current;
+}
+
 export function playChoices(
   choiceIds: string[],
-  entitlements: Partial<Entitlements> | Entitlements = emptyEntitlements(),
-  compiled: CompiledRoute = route,
-  options: { pumpAfter?: boolean } = {},
+  compiled: CompiledStory = compiledStory,
 ): GameState {
-  let state = pumpToPrompt(startGame(entitlements, compiled), compiled);
+  let state = pumpToPrompt(startGame(compiled), compiled);
   for (const choiceId of choiceIds) {
     state = pumpToPrompt(state, compiled);
     const result = selectChoice(state, choiceId, compiled);
     if (!result.ok) {
-      throw new Error(
-        `playChoices failed at ${choiceId} on ${state.nodeId}: ${result.reason}`,
-      );
+      throw new Error(`playChoices failed at ${choiceId} on ${state.nodeId}: ${result.message}`);
     }
     state = result.state;
   }
-  if (options.pumpAfter === false) {
-    return pumpBeats(state, compiled);
-  }
   return pumpToPrompt(state, compiled);
+}
+
+export type PathResult = {
+  ending: string;
+  route: FlagValue;
+  nodeIds: string[];
+  beats: number;
+};
+
+export function walkAllPaths(compiled: CompiledStory = compiledStory): PathResult[] {
+  const results: PathResult[] = [];
+
+  const visit = (state: GameState, nodeIds: string[], beats: number): void => {
+    const node = getNode(state.nodeId, compiled);
+    const resolved = resolveBeats(node, state.flags);
+    const here = [...nodeIds, node.id];
+    const beatCount = beats + resolved.length;
+    const after = {
+      ...state,
+      flags: applyEffects(state.flags, node.onCompleteEffects),
+    };
+    if (node.endingResolver) {
+      const matches = node.endingResolver.variants.filter(
+        (variant) => after.flags[variant.when.state] === variant.when.equals,
+      );
+      if (matches.length !== 1) {
+        throw new Error(node.endingResolver.default.message);
+      }
+      results.push({
+        ending: matches[0]!.id,
+        route: after.flags["relationship.route"],
+        nodeIds: here,
+        beats: beatCount,
+      });
+      return;
+    }
+    if (node.choices.length > 0) {
+      for (const choice of node.choices) {
+        const nextFlags = applyEffects(after.flags, choice.effects);
+        visit(enterNode({ ...after, flags: nextFlags }, choice.target, compiled), here, beatCount);
+      }
+      return;
+    }
+    if (!node.next) {
+      throw new Error(`Node ${node.id} has no exit`);
+    }
+    visit(enterNode(after, node.next, compiled), here, beatCount);
+  };
+
+  visit(startGame(compiled), [], 0);
+  return results;
 }

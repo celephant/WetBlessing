@@ -1,134 +1,37 @@
-import climaxManifest from "../content/ART-climax-manifest.json";
-import { content } from "./content";
-import type { ContentFile } from "./types";
+import type { AssetManifest, AssetRecord } from "./types";
+import manifestJson from "../content/assets.manifest.json";
+import { story } from "./content";
 
-export const CLIMAX_ART_STATUS = climaxManifest.status;
+export const assetManifest = manifestJson as AssetManifest;
 
-const CH01_SCENE_DIR = "assets/scenes/ch01";
+const assetsById = new Map<string, AssetRecord>(
+  assetManifest.images.map((image) => [image.id, image]),
+);
 
-/** Scene webps that actually ship under public/. Player must never 404 these lookups. */
-export const SHIPPED_CH01_SCENE_WEBPS = [
-  "n_see_both",
-  "n_conflict",
-  "n_sms_auto",
-  "n_ch01_first_sub",
-  "n_pay_01_catch_b",
-  "n_pay_02_ot_a",
-  "n_pay_03_vanessa",
-  "n_mia_edge_1",
-  "n_open",
-  "n_jade_desk",
-  "n_dodge_corridor",
-  "n_pay_settle",
-  "n_title",
-  "n_free_soft_exit",
-  "ch01-s05-party",
-  "ch01-s06b-jade",
-  "ch01-catch-mia",
-  "ch01-catch-jade",
-  "ch01-catch-lina",
-  "ch01-catch-rae",
-] as const;
-
-const SHIPPED_STEMS = new Set<string>(SHIPPED_CH01_SCENE_WEBPS);
-
-export const DEFAULT_SCENE_FALLBACK = `${CH01_SCENE_DIR}/n_see_both.webp`;
-
-function scenePath(stem: string): string {
-  return `${CH01_SCENE_DIR}/${stem}.webp`;
-}
-
-function stripLeadingSlash(assetId: string): string {
-  return assetId.replace(/^\/+/, "");
-}
-
-function stemOf(assetId: string): string {
-  return stripLeadingSlash(assetId).split("/").pop()?.replace(/\.[^.]+$/, "") ?? "";
-}
-
-/**
- * Nearest existing Ch01 webp for a missing stem.
- * S12 corridor stills share n_pay_settle if a sibling file is absent.
- * Heat / climax paths resolve as themselves.
- */
-export function fallbackSceneStem(stem: string): string {
-  if (stem === "n_title" || stem === "n_free_soft_exit") {
-    return SHIPPED_STEMS.has("n_pay_settle") ? "n_pay_settle" : "n_see_both";
+export function getAsset(assetKey: string): AssetRecord {
+  const asset = assetsById.get(assetKey);
+  if (!asset) {
+    throw new Error(`Unknown asset key: ${assetKey}`);
   }
-  if (stem.startsWith("n_with_")) {
-    return stem.includes("jade") ? "n_conflict" : "n_mia_edge_1";
+  return asset;
+}
+
+export function resolveAssetPath(assetKey?: string | null): string {
+  if (!assetKey) {
+    throw new Error("Missing asset key");
   }
-  if (stem.startsWith("n_mia_edge_")) {
-    return "n_mia_edge_1";
-  }
-  return "n_see_both";
+  return getAsset(assetKey).path;
 }
 
-function isClimaxScenePath(assetId: string): boolean {
-  const rel = stripLeadingSlash(assetId);
-  return (
-    rel.includes("/scenes/w2/") ||
-    rel.includes("/scenes/w3/") ||
-    rel.includes("/scenes/w4/")
-  );
+export function resolveAssetUrl(assetKey?: string | null): string {
+  const rel = resolveAssetPath(assetKey);
+  return rel.startsWith("/") ? rel : `/${rel}`;
 }
 
-/** Heat stills (old n_heat_* plus bible plates S06a/S06b/S04/S06c/S11/S14) skip Ch01 stem fallback. */
-function isHeatScenePath(assetId: string): boolean {
-  return stripLeadingSlash(assetId).includes("/scenes/heat/");
+export function storyNodeAssetKey(nodeId: string): string {
+  const node = story.nodes.find((item) => item.id === nodeId);
+  if (!node) throw new Error(`Unknown node: ${nodeId}`);
+  return node.assetKey;
 }
 
-/** Ch02+ DEV chapter plates live under scenes/ch02|ch03|ch04 and must not remap to Ch01. */
-function isChapterScenePath(assetId: string): boolean {
-  const rel = stripLeadingSlash(assetId);
-  return (
-    rel.includes("/scenes/ch02/") ||
-    rel.includes("/scenes/ch03/") ||
-    rel.includes("/scenes/ch04/")
-  );
-}
-
-function isBlockedClimaxPath(assetId: string): boolean {
-  return isClimaxScenePath(assetId) && climaxManifest.status === "BLOCKED_BYTES";
-}
-
-/** Public-relative path (no leading slash), always a shipped webp. */
-export function resolveAssetPath(assetId?: string): string {
-  if (!assetId) return DEFAULT_SCENE_FALLBACK;
-  if (isBlockedClimaxPath(assetId)) {
-    return scenePath(fallbackSceneStem(stemOf(assetId)));
-  }
-  if (
-    isHeatScenePath(assetId) ||
-    isChapterScenePath(assetId) ||
-    (isClimaxScenePath(assetId) && climaxManifest.status !== "BLOCKED_BYTES")
-  ) {
-    return stripLeadingSlash(assetId);
-  }
-  const stem = stemOf(assetId);
-  if (stem && SHIPPED_STEMS.has(stem)) {
-    return scenePath(stem);
-  }
-  return scenePath(fallbackSceneStem(stem));
-}
-
-/** Browser URL with a leading `/assets/...` slash. Never null. */
-export function resolveAssetUrl(assetId?: string): string {
-  const path = resolveAssetPath(assetId);
-  return path.startsWith("/") ? path : `/${path}`;
-}
-
-/** Paid / reused CGs whose filename is not `${nodeId}.webp`. Look up `assetId`, never nodeId. */
-export function chapterAssetAliases(
-  file: ContentFile = content,
-): Record<string, string> {
-  const aliases: Record<string, string> = {};
-  for (const node of file.stages[0]?.nodes ?? []) {
-    if (!node.assetId) continue;
-    const base = node.assetId.split("/").pop()?.replace(/\.[^.]+$/, "");
-    if (base && base !== node.nodeId) {
-      aliases[node.nodeId] = node.assetId;
-    }
-  }
-  return aliases;
-}
+export const ENTRY_ASSET_KEY = story.nodes.find((node) => node.id === story.entry)?.assetKey ?? "";

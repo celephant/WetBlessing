@@ -3,8 +3,8 @@ import { tokenRootCss } from "@/lib/tokens";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "WetBlessing",
-  description: "Campus romance VN — suggestive, not adult. College 18+.",
+  title: "明天见",
+  description: "WetBlessing · 明天见 · campus romance visual novel",
 };
 
 export default function RootLayout({

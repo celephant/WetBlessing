@@ -1,88 +1,37 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChoiceList } from "@/components/ChoiceList";
 import { DialogBox } from "@/components/DialogBox";
-import { FunnelAuthDock } from "@/components/FunnelAuthDock";
-import { FunnelHud, funnelLookBeat } from "@/components/FunnelHud";
 import { HistoryDrawer } from "@/components/HistoryDrawer";
 import { PauseOverlay } from "@/components/PauseOverlay";
-import { PaywallOverlay } from "@/components/PaywallOverlay";
 import { PlayToolbar } from "@/components/PlayToolbar";
 import { SceneArt } from "@/components/SceneArt";
-import { choiceCueFace } from "@/lib/choice-cue";
-import { playerFacingChoiceText } from "@/lib/choice-label";
-import { route, type CompiledRoute } from "@/lib/content";
-import type { PlayPackId } from "@/lib/dev-packs";
-import {
-  clickAdvance,
-  hasEntitlement,
-  selectChoice,
-  startGame,
-  unlockNext,
-  unlockScope,
-  view,
-  withEntitlement,
-} from "@/lib/engine";
-import {
-  grantFullEntitleDev,
-  grantScopeDev,
-  isFullyEntitled,
-  loadEntitlements,
-  normalizeEntitlements,
-  revokeStoryPassDev,
-} from "@/lib/entitlement";
+import { compiledStory } from "@/lib/content";
+import { clickAdvance, selectChoice, startGame, view } from "@/lib/engine";
 import { INTERACTION, shouldSkipMotion } from "@/lib/interaction";
-import { scopeForGate } from "@/lib/paywall-copy";
 import {
   DEFAULT_PLAY_PREFS,
   loadPlayPrefs,
   savePlayPrefs,
   type PlayPrefs,
 } from "@/lib/play-prefs";
-import {
-  applySeasonCarry,
-  loadSeasonCarry,
-  saveSeasonCarry,
-  seasonContinueTarget,
-} from "@/lib/season-continue";
-import {
-  isFreePathFeel,
-  isNightGradeNode,
-  isPaywallWallNode,
-  presentationHooksForBeat,
-  TRANSITION_MS,
-} from "@/lib/scene-presentation";
+import { persistStorySave, readStorySave } from "@/lib/save";
 import { NIGHT_PASS_DIALOG_DOCK_CSS } from "@/lib/tokens";
-import type { Beat, Choice, GameState } from "@/lib/types";
-import {
-  isFunnelAuthNode,
-  isFunnelLookNode,
-  type FunnelZone,
-} from "@/lib/funnel";
-import { dismissPaywallToTitle, persistPackSave, readPackSave } from "@/lib/new-run";
+import type { Beat, CompiledStory, GameState } from "@/lib/types";
 
 export function VNPlayer({
   resume = false,
-  compiled = route,
-  packId = "default",
-  seasonContinue = false,
+  compiled = compiledStory,
 }: {
   resume?: boolean;
-  compiled?: CompiledRoute;
-  packId?: PlayPackId;
-  seasonContinue?: boolean;
+  compiled?: CompiledStory;
 }) {
   const [state, setState] = useState<GameState | null>(null);
-  const [locked, setLocked] = useState<Choice | null>(null);
-  const [afterPurchase, setAfterPurchase] = useState(false);
+  const [incompatible, setIncompatible] = useState<string | null>(null);
   const [paused, setPaused] = useState(false);
-  const [funnelLook, setFunnelLook] = useState<FunnelZone | null>(null);
   const [prefs, setPrefs] = useState<PlayPrefs>(DEFAULT_PLAY_PREFS);
   const [readyBeat, setReadyBeat] = useState("");
-  const [echo, setEcho] = useState<{ text: string } | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
   const [uiHidden, setUiHidden] = useState(false);
@@ -93,56 +42,31 @@ export function VNPlayer({
   const lastClickMs = useRef(0);
   const confirmTimer = useRef<number | null>(null);
   const trackedBeat = useRef("");
-  const router = useRouter();
-  const pack = compiled.content;
+  const dialogClickRef = useRef<() => void>(() => undefined);
+  const choiceRef = useRef<(choiceId: string) => void>(() => undefined);
 
   useEffect(() => {
     setPrefs(loadPlayPrefs());
   }, []);
 
   useEffect(() => {
-    const entitlements = loadEntitlements();
-    const saved = readPackSave(packId);
-    if (resume || (packId === "funnel" && saved)) {
-      if (saved) {
-        setState({
-          ...saved,
-          entitlements: normalizeEntitlements({
-            ...saved.entitlements,
-            ...entitlements,
-          }),
-          pendingChoiceId: saved.pendingChoiceId ?? null,
-        });
+    if (resume) {
+      const saved = readStorySave();
+      if (saved.status === "ok" && compiled.nodes.has(saved.state.nodeId)) {
+        setState(saved.state);
+        return;
+      }
+      if (saved.status === "incompatible") {
+        setIncompatible(saved.reason);
         return;
       }
     }
-    let started = startGame(entitlements, compiled);
-    if (seasonContinue) {
-      started = applySeasonCarry(started, loadSeasonCarry());
-    }
-    setState(started);
-  }, [resume, compiled, packId, seasonContinue]);
-
-  useEffect(() => {
-    if (!isFunnelLookNode(state?.nodeId ?? "")) {
-      setFunnelLook(null);
-    }
-  }, [state?.nodeId]);
-
-  useEffect(() => {
-    if (!afterPurchase) return;
-    const cut = window.setTimeout(
-      () => setAfterPurchase(false),
-      TRANSITION_MS["soft-zoom"],
-    );
-    return () => window.clearTimeout(cut);
-  }, [afterPurchase]);
+    setState(startGame(compiled));
+  }, [resume, compiled]);
 
   useEffect(() => {
     return () => {
-      if (confirmTimer.current !== null) {
-        window.clearTimeout(confirmTimer.current);
-      }
+      if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
     };
   }, []);
 
@@ -154,54 +78,82 @@ export function VNPlayer({
     trackedBeat.current = beatKey;
     setSelectedId(null);
     setConfirming(false);
-    if (state.beatIndex > 0) {
-      setEcho(null);
-    }
   }, [beatKey, state]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target as HTMLElement | null;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setPaused((value) => !value);
+        return;
+      }
+      if (!state || paused || uiHidden || confirming || incompatible) return;
+      const snapshot = view(state, compiled);
+      if (snapshot.choices.length > 0 && /^[1-9]$/.test(event.key)) {
+        const choice = snapshot.choices[Number(event.key) - 1];
+        if (choice) {
+          event.preventDefault();
+          choiceRef.current(choice.id);
+        }
+        return;
+      }
+      if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        dialogClickRef.current();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [state, paused, uiHidden, confirming, incompatible, compiled]);
+
+  if (incompatible) {
+    return (
+      <div className="flex min-h-dvh flex-col items-center justify-center bg-void px-6 text-center text-paper">
+        <p className="font-display text-xs uppercase tracking-[0.3em] text-mint">明天见</p>
+        <p className="mt-3 max-w-md font-ui text-[17px] leading-7" data-save-incompatible="">
+          {incompatible}
+        </p>
+        <button
+          type="button"
+          className="btn-face btn-primary mt-6"
+          data-start-new-run=""
+          onClick={() => {
+            setIncompatible(null);
+            setState(startGame(compiled));
+          }}
+        >
+          开始新的一局
+        </button>
+        <a href="/" className="mt-3 font-ui text-sm text-gold underline">
+          回到标题
+        </a>
+      </div>
+    );
+  }
 
   if (!state) {
     return <div className="h-dvh bg-void" />;
   }
 
-  if (!compiled.nodes.has(state.nodeId)) {
-    return <div className="h-dvh bg-void" data-pack-switch="" />;
-  }
-
   const snapshot = view(state, compiled);
-  const sceneHooks = presentationHooksForBeat(snapshot.node, state.beatIndex);
-  const lookBeat = isFunnelLookNode(state.nodeId) ? funnelLookBeat(funnelLook) : null;
-  const showFunnelChoices =
-    snapshot.choices.length > 0 &&
-    (!isFunnelLookNode(state.nodeId) || Boolean(funnelLook));
-  const authDock = isFunnelAuthNode(state.nodeId);
   const alreadyRead = seenBeats.current.has(beatKey);
   const lineReady = readyBeat === beatKey;
-  const showChoices = showFunnelChoices && lineReady;
-  const canHide =
-    !locked &&
-    !paused &&
-    !authDock &&
-    !showChoices &&
-    snapshot.choices.length === 0;
+  const showChoices = snapshot.choices.length > 0 && lineReady;
+  const canHide = !paused && !showChoices && snapshot.choices.length === 0;
 
   const commit = (next: GameState) => {
-    persistPackSave(next, packId);
+    persistStorySave(next);
     setState(next);
   };
 
-  const markClick = () => {
-    lastClickMs.current = performance.now();
-  };
-
-  const patchPrefs = (patch: Partial<PlayPrefs>) => {
-    setPrefs(savePlayPrefs(patch));
-  };
-
   const onDialogClick = () => {
-    if (paused || locked || confirming) return;
-    if (snapshot.choices.length > 0 || snapshot.isSettle) return;
-    markClick();
-    setEcho(null);
+    if (paused || confirming) return;
+    const current = view(state, compiled);
+    if (current.choices.length > 0) return;
+    lastClickMs.current = performance.now();
     seenBeats.current.add(beatKey);
     commit(clickAdvance(state, compiled));
   };
@@ -210,124 +162,40 @@ export function VNPlayer({
     const result = selectChoice(state, choiceId, compiled);
     setConfirming(false);
     setSelectedId(null);
-    if (result.ok) {
-      setLocked(null);
-      commit(result.state);
-      return;
-    }
-    if (result.reason === "locked") {
-      setEcho(null);
-      setLocked(result.choice);
-      commit(result.state);
-    }
+    if (result.ok) commit(result.state);
   };
 
   const onChoice = (choiceId: string) => {
     if (paused || confirming) return;
-    const choice = snapshot.choices.find((item) => item.choiceId === choiceId);
+    const current = view(state, compiled);
+    const choice = current.choices.find((item) => item.id === choiceId);
     if (!choice) return;
     const sinceLast = performance.now() - lastClickMs.current;
-    markClick();
     setSelectedId(choiceId);
     setConfirming(true);
-    const spoken = choiceCueFace(choice).choice || playerFacingChoiceText(choice.text);
-    setHistory((lines) => [
-      ...lines,
-      { speaker: "kai", text: spoken },
-    ]);
-    const skip = shouldSkipMotion(prefs.reduceMotion, sinceLast);
-    const lockedChoice = Boolean(
-      choice.requiresEntitlement &&
-        !hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate),
-    );
-    if (!lockedChoice) {
-      setEcho({ text: spoken });
-    }
-    const wait = skip
+    lastClickMs.current = performance.now();
+    const wait = shouldSkipMotion(prefs.reduceMotion, sinceLast)
       ? 0
-      : lockedChoice
-        ? INTERACTION.pressMs
-        : INTERACTION.pressMs + INTERACTION.othersFadeMs;
-    if (confirmTimer.current !== null) {
-      window.clearTimeout(confirmTimer.current);
-    }
+      : INTERACTION.pressMs + INTERACTION.othersFadeMs;
+    if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
     confirmTimer.current = window.setTimeout(() => {
       confirmTimer.current = null;
       finishChoice(choiceId);
     }, wait);
   };
 
-  const onDevUnlock = () => {
-    grantFullEntitleDev(state.entitlements);
-    const result = unlockNext(state, undefined, compiled);
-    if (result.ok) {
-      setLocked(null);
-      setAfterPurchase(true);
-      commit(result.state);
-    }
-  };
-
-  const onUnlockScope = () => {
-    const scope = scopeForGate(snapshot.node.gate);
-    grantScopeDev(scope, state.entitlements);
-    const result = unlockScope(state, scope, undefined, compiled);
-    if (result.ok) {
-      setLocked(null);
-      setAfterPurchase(true);
-      commit(result.state);
-    }
-  };
-
-  const toggleDevPass = () => {
-    const nextGranted = !isFullyEntitled(state.entitlements);
-    if (nextGranted) {
-      grantFullEntitleDev(state.entitlements);
-    } else {
-      revokeStoryPassDev(state.entitlements);
-    }
-    commit(withEntitlement(state, "full_entitle", nextGranted));
-  };
-
-  const passOn = isFullyEntitled(state.entitlements);
-  const w1On = passOn || Boolean(state.entitlements.w1_continue);
-  const w2On = passOn || Boolean(state.entitlements.w2_office);
-  const w3On =
-    passOn ||
-    Boolean(state.entitlements.w3_edge_night) ||
-    Boolean(state.entitlements.edge_lock);
-  const continueTo = seasonContinueTarget(
-    packId,
-    snapshot.node.nodeId,
-    state.entitlements,
-    state.flags,
-  );
-
-  const wallNode = isPaywallWallNode(
-    snapshot.node.nodeId,
-    snapshot.node.gate,
-  );
-  const nightGrade =
-    Boolean(locked) ||
-    snapshot.isPaywall ||
-    isNightGradeNode(snapshot.node.nodeId, snapshot.node.gate);
-  const freezePlate =
-    paused ||
-    snapshot.isSettle ||
-    snapshot.choices.length > 0 ||
-    Boolean(locked) ||
-    wallNode;
+  dialogClickRef.current = onDialogClick;
+  choiceRef.current = onChoice;
 
   const recordHistory = (complete: boolean) => {
     if (!complete) return;
     setReadyBeat(beatKey);
     seenBeats.current.add(beatKey);
-    const line = lookBeat ?? snapshot.beat;
+    const line = snapshot.beat;
     setLastSpeaker(line.speaker);
     setHistory((lines) => {
       const last = lines[lines.length - 1];
-      if (last && last.speaker === line.speaker && last.text === line.text) {
-        return lines;
-      }
+      if (last && last.speaker === line.speaker && last.text === line.text) return lines;
       return [...lines, line];
     });
   };
@@ -335,54 +203,21 @@ export function VNPlayer({
   return (
     <div
       className="vn-stage relative h-dvh w-full overflow-hidden bg-void text-paper"
-      data-wall-rhythm={
-        wallNode ? "dip-chips-gold-unlock" : afterPurchase ? "unlock-soft-zoom" : undefined
-      }
-      data-phone-glow={nightGrade ? "off" : undefined}
-      data-free-feel={
-        !nightGrade && isFreePathFeel(snapshot.node.nodeId, snapshot.node.gate)
-          ? "on"
-          : "off"
-      }
       data-paused={paused ? "on" : "off"}
       data-ui-hidden={uiHidden ? "on" : "off"}
-      data-muted={prefs.muted ? "on" : "off"}
-      data-reduce-motion={prefs.reduceMotion ? "on" : "off"}
-      data-full-entitle={passOn ? "on" : "off"}
-      data-play-pack={packId}
-      data-content-version={pack.contentVersion}
-      data-unlock-gates="first_sub,chapter_start,edge_lock"
-      data-entitle-first-sub={w1On ? "on" : "off"}
-      data-entitle-w1={w1On ? "on" : "off"}
-      data-entitle-w2={w2On ? "on" : "off"}
-      data-entitle-w3={w3On ? "on" : "off"}
-      data-entitle-edge-lock={w3On ? "on" : "off"}
+      data-story-version={compiled.storyVersion}
+      data-entry={compiled.entryNodeId}
+      data-commercial="off"
+      data-portrait-swap="off"
+      tabIndex={0}
     >
       <SceneArt
-        assetId={snapshot.node.assetId}
-        artCue={snapshot.node.artCue}
-        nodeText={`${snapshot.node.text ?? ""} ${snapshot.beat.text ?? ""}`}
-        nodeId={snapshot.node.nodeId}
+        assetKey={snapshot.node.assetKey}
+        title={snapshot.node.title}
+        nodeId={snapshot.node.id}
         beatKey={beatKey}
-        transition={sceneHooks.transition}
-        camera={sceneHooks.camera}
-        fx={sceneHooks.fx}
-        afterPurchase={afterPurchase}
-        forceNightGrade={nightGrade}
-        gate={snapshot.node.gate}
-        beforeChoices={snapshot.choices.length > 0}
-        frozen={freezePlate}
+        frozen={paused || snapshot.choices.length > 0}
       />
-
-      {packId === "funnel" ? (
-        <FunnelHud
-          nodeId={state.nodeId}
-          beatIndex={state.beatIndex}
-          flags={state.flags}
-          looked={funnelLook}
-          onLook={(zone) => setFunnelLook(zone)}
-        />
-      ) : null}
 
       <PlayToolbar
         paused={paused}
@@ -391,19 +226,17 @@ export function VNPlayer({
         uiHidden={uiHidden}
         canHide={canHide}
         historyOpen={historyOpen}
-        passOn={passOn}
-        routeTitle={pack.routeTitle}
+        routeTitle={compiled.story.title}
         onTitleHref="/"
         onTogglePause={() => setPaused((value) => !value)}
-        onToggleAuto={() => patchPrefs({ autoAdvance: !prefs.autoAdvance })}
+        onToggleAuto={() => patchPrefs(prefs, setPrefs)}
         onToggleHistory={() => setHistoryOpen((value) => !value)}
         onToggleHide={() => {
           if (!canHide) return;
           setHistoryOpen(false);
           setUiHidden(true);
         }}
-        onToggleMute={() => patchPrefs({ muted: !prefs.muted })}
-        onToggleDevPass={toggleDevPass}
+        onToggleMute={() => setPrefs(savePlayPrefs({ muted: !prefs.muted }))}
       />
 
       {uiHidden ? (
@@ -416,29 +249,20 @@ export function VNPlayer({
         />
       ) : null}
 
-      {paused || uiHidden ? null : snapshot.isSettle ? (
-        <SettleDock
-          text={snapshot.node.text}
-          continueTo={continueTo}
-          onCarry={() => saveSeasonCarry(state)}
-          reduceMotion={prefs.reduceMotion}
-          nodeId={snapshot.node.nodeId}
-        />
-      ) : (
-        <>
+      {paused || uiHidden ? null : (
+        <div
+          className="vn-chrome-bottom absolute inset-x-0 bottom-0 z-[5] flex flex-col justify-end gap-2 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pointer-events-none"
+          data-night-pass-dock="glass"
+          data-dialog-glass=""
+        >
           {showChoices ? (
             <div
-              className="choice-overlay z-[5] flex items-end justify-center overflow-hidden px-3"
+              className="choice-overlay pointer-events-auto relative flex max-h-[42vh] items-end justify-center overflow-hidden px-0"
               data-choice-overlay=""
             >
               <ChoiceList
-                key={snapshot.node.nodeId}
+                key={snapshot.node.id}
                 choices={snapshot.choices}
-                choiceEntitled={(choice) =>
-                  !choice.requiresEntitlement ||
-                  hasEntitlement(state, choice.requiresEntitlement, snapshot.node.gate)
-                }
-                entitled={passOn}
                 onSelect={onChoice}
                 selectedId={selectedId}
                 confirming={confirming}
@@ -447,45 +271,31 @@ export function VNPlayer({
             </div>
           ) : null}
           <div
-            className="absolute inset-x-0 bottom-0 z-[2]"
-            data-night-pass-dock="28"
-            style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
+            className="dialog-glass pointer-events-auto mx-auto w-full max-w-dialog"
+            style={{ maxHeight: NIGHT_PASS_DIALOG_DOCK_CSS }}
           >
-            {authDock ? (
-              <FunnelAuthDock caption={snapshot.beat.text} state={state} />
-            ) : (
-              <DialogBox
-                beat={lookBeat ?? snapshot.beat}
-                echo={echo}
-                showCaret={
-                  snapshot.canClickAdvance &&
-                  snapshot.choices.length === 0 &&
-                  !lookBeat
-                }
-                onAdvance={onDialogClick}
-                onRevealChange={recordHistory}
-                entranceKey={lookBeat ? `${beatKey}:${lookBeat.speaker}` : beatKey}
-                continueBeat={state.beatIndex > 0 || Boolean(lookBeat)}
-                textSpeed={prefs.textSpeed}
-                reduceMotion={prefs.reduceMotion}
-                alreadyRead={alreadyRead && prefs.skipReadOnly}
-                hasChoices={snapshot.choices.length > 0}
-                nameplateEnter={
-                  !lookBeat &&
-                  snapshot.beat.speaker !== lastSpeaker &&
-                  snapshot.beat.speaker !== "narrator"
-                }
-              />
-            )}
+            <DialogBox
+              beat={snapshot.beat}
+              showCaret={snapshot.canClickAdvance && snapshot.choices.length === 0}
+              onAdvance={onDialogClick}
+              onRevealChange={recordHistory}
+              entranceKey={beatKey}
+              continueBeat={state.beatIndex > 0}
+              textSpeed={prefs.textSpeed}
+              reduceMotion={prefs.reduceMotion}
+              alreadyRead={alreadyRead && prefs.skipReadOnly}
+              hasChoices={snapshot.choices.length > 0}
+              nameplateEnter={snapshot.beat.speaker !== lastSpeaker}
+            />
           </div>
-        </>
+        </div>
       )}
 
       {paused ? (
         <PauseOverlay
           onResume={() => setPaused(false)}
           prefs={prefs}
-          onPrefs={patchPrefs}
+          onPrefs={(patch) => setPrefs(savePlayPrefs(patch))}
         />
       ) : null}
 
@@ -495,39 +305,21 @@ export function VNPlayer({
         onClose={() => setHistoryOpen(false)}
       />
 
-      {locked ? (
-        <PaywallOverlay
-          choice={locked}
-          gate={snapshot.node.gate}
-          entitled={passOn}
-          onDevUnlock={onDevUnlock}
-          onUnlockScope={onUnlockScope}
-          onClose={() => {
-            const next = dismissPaywallToTitle(state);
-            persistPackSave(next, packId);
-            setState(next);
-            setLocked(null);
-            router.push("/");
-          }}
-        />
-      ) : null}
-
       <AutoAdvance
-        enabled={prefs.autoAdvance && !paused && !locked && !uiHidden && !confirming}
+        enabled={prefs.autoAdvance && !paused && !uiHidden && !confirming}
         ready={lineReady}
-        canAdvance={
-          snapshot.canClickAdvance &&
-          snapshot.choices.length === 0 &&
-          !snapshot.isSettle &&
-          !authDock
-        }
-        textLength={(lookBeat ?? snapshot.beat).text.length}
+        canAdvance={snapshot.canClickAdvance && snapshot.choices.length === 0}
+        textLength={snapshot.beat.text.length + (snapshot.beat.thought?.length ?? 0)}
         reduceMotion={prefs.reduceMotion}
         beatKey={beatKey}
         advance={onDialogClick}
       />
     </div>
   );
+}
+
+function patchPrefs(prefs: PlayPrefs, setPrefs: (next: PlayPrefs) => void) {
+  setPrefs(savePlayPrefs({ autoAdvance: !prefs.autoAdvance }));
 }
 
 function AutoAdvance({
@@ -556,62 +348,4 @@ function AutoAdvance({
     return () => window.clearTimeout(cut);
   }, [enabled, ready, canAdvance, textLength, reduceMotion, beatKey]);
   return null;
-}
-
-function SettleDock({
-  text,
-  continueTo,
-  onCarry,
-  reduceMotion,
-  nodeId,
-}: {
-  text?: string;
-  continueTo: { href: string; pack: string; label: string } | null;
-  onCarry: () => void;
-  reduceMotion: boolean;
-  nodeId: string;
-}) {
-  const [ready, setReady] = useState(reduceMotion);
-
-  useEffect(() => {
-    setReady(reduceMotion);
-    if (reduceMotion) return;
-    const cut = window.setTimeout(() => setReady(true), INTERACTION.settleActionsMs);
-    return () => window.clearTimeout(cut);
-  }, [nodeId, reduceMotion]);
-
-  return (
-    <div
-      className="absolute inset-x-0 bottom-0 z-[3] flex items-end"
-      data-settle-dock=""
-      style={{ height: NIGHT_PASS_DIALOG_DOCK_CSS }}
-    >
-      <div className="dialog-dock flex h-full w-full flex-col items-center justify-center px-5 text-center">
-        <p className="max-w-dialog font-ui text-[17px] leading-7 text-paper">{text}</p>
-        <div
-          className={`mt-4 flex w-full max-w-dialog flex-col items-center ${
-            ready ? "settle-actions-in" : "invisible"
-          }`}
-          data-settle-actions={ready ? "on" : "off"}
-        >
-          {continueTo ? (
-            <Link
-              href={continueTo.href}
-              onClick={onCarry}
-              className="btn-face btn-primary inline-flex px-6"
-              data-season-continue={continueTo.pack}
-            >
-              {continueTo.label}
-            </Link>
-          ) : null}
-          <Link
-            href="/"
-            className={`${continueTo ? "btn-face btn-choice mt-2" : "btn-face btn-primary mt-4"} inline-flex px-6`}
-          >
-            回到标题
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
 }

@@ -334,23 +334,10 @@ export function phoneGlowAllowed(options: {
  * then `lines[]`. Missing fields stay undefined so callers apply defaults.
  */
 export function presentationHooksForBeat(
-  node: ContentNode,
-  beatIndex: number,
+  _node: ContentNode,
+  _beatIndex: number,
 ): ScenePresentationHooks {
-  const inherited: ScenePresentationHooks = {
-    transition: node.transition,
-    camera: node.camera,
-    fx: node.fx,
-  };
-  const lineIndex = node.text ? beatIndex - 1 : beatIndex;
-  if (lineIndex < 0) return inherited;
-  const line = node.lines?.[lineIndex];
-  if (!line) return inherited;
-  return {
-    transition: line.transition ?? inherited.transition,
-    camera: line.camera ?? inherited.camera,
-    fx: line.fx ?? inherited.fx,
-  };
+  return { camera: "hold", fx: "none", transition: "fade" };
 }
 
 export function resolveScenePresentation(

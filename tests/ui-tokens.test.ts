@@ -2,9 +2,10 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { story } from "../lib/content";
 import { showsYuanGoldSweep } from "../lib/choice-variant";
 import { UI_TOKENS_SHA256, tokens } from "../lib/tokens";
-import type { Choice } from "../lib/types";
+import type { Choice, StoryChoice } from "../lib/types";
 
 const root = path.resolve(__dirname, "..");
 
@@ -47,28 +48,26 @@ describe("UI-tokens.json Night Pass v1.1.1", () => {
     expect(tokens.paywall.forbidAllChipsGold).toBe(true);
   });
 
-  it("sweeps gold once on yuan/pass only", () => {
-    const yuan: Choice = {
-      choiceId: "c_yuan",
-      text: "圆场那句",
-      next: "n_x",
-    };
-    const pass: Choice = {
-      choiceId: "c_sub",
-      text: "把圆场那句说出口",
-      next: "n_x",
-      gateChoice: "subscribe",
-      cta: "story_pass_month",
-      onLocked: "show_pass_chip",
-    };
-    const duo: Choice = {
-      choiceId: "c_busy",
-      text: "「忙。」",
-      next: "n_x",
-      gateChoice: "free",
-    };
-    expect(showsYuanGoldSweep(yuan)).toBe(true);
-    expect(showsYuanGoldSweep(pass)).toBe(true);
-    expect(showsYuanGoldSweep(duo)).toBe(false);
+  it("does not gold-sweep tomorrow.1 choices while commercial UI is off", () => {
+    const asChoice = (choice: StoryChoice): Choice => ({
+      ...choice,
+      choiceId: choice.id,
+      next: choice.target,
+    });
+    for (const node of story.nodes) {
+      for (const choice of node.choices) {
+        expect(showsYuanGoldSweep(asChoice(choice)), choice.id).toBe(false);
+      }
+    }
+    expect(
+      showsYuanGoldSweep(
+        asChoice({
+          id: "scene.opening.choice.choice.1",
+          text: "给 Jade 送毛巾，把她的邀约接到手上",
+          target: "scene.jade.towel",
+          effects: { "choice.firstVisit": "jade" },
+        }),
+      ),
+    ).toBe(false);
   });
 });
